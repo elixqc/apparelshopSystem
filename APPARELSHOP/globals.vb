@@ -5,4 +5,5 @@
     Public selectedSweatsColor As String = ""
     Public selectedShirtColor As String = ""
     Public selectedHoodieColor As String = ""
+    Public selectedSweatpantsColor As String = ""
 End Module

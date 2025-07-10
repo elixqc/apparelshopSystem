@@ -24,22 +24,30 @@ Partial Class apparelPage
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(apparelPage))
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
+        Me.Button19 = New System.Windows.Forms.Button()
+        Me.Button20 = New System.Windows.Forms.Button()
+        Me.Button21 = New System.Windows.Forms.Button()
+        Me.Button22 = New System.Windows.Forms.Button()
+        Me.Button23 = New System.Windows.Forms.Button()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Label12 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.Button14 = New System.Windows.Forms.Button()
+        Me.sweatpantQty = New System.Windows.Forms.TextBox()
+        Me.sweatpantSize = New System.Windows.Forms.ComboBox()
         Me.Button15 = New System.Windows.Forms.Button()
         Me.Button16 = New System.Windows.Forms.Button()
         Me.Button17 = New System.Windows.Forms.Button()
-        Me.Button18 = New System.Windows.Forms.Button()
+        Me.sweatpantAddToCart = New System.Windows.Forms.Button()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.hoodieQty = New System.Windows.Forms.TextBox()
@@ -52,7 +60,6 @@ Partial Class apparelPage
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.hoodiePic = New System.Windows.Forms.PictureBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.shirtQty = New System.Windows.Forms.TextBox()
@@ -65,7 +72,6 @@ Partial Class apparelPage
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.tshirtPic = New System.Windows.Forms.PictureBox()
         Me.sweatshirtPanel = New System.Windows.Forms.Panel()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.sweatshirtQty = New System.Windows.Forms.TextBox()
@@ -79,57 +85,27 @@ Partial Class apparelPage
         Me.Label2 = New System.Windows.Forms.Label()
         Me.sweatshirtStockTxt = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.sweatshirtPic = New System.Windows.Forms.PictureBox()
-        Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
-        Me.Button19 = New System.Windows.Forms.Button()
-        Me.Button20 = New System.Windows.Forms.Button()
-        Me.Button21 = New System.Windows.Forms.Button()
-        Me.Button22 = New System.Windows.Forms.Button()
-        Me.Button23 = New System.Windows.Forms.Button()
-        Me.Label17 = New System.Windows.Forms.Label()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.Label19 = New System.Windows.Forms.Label()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
+        Me.sweatpantsPic = New System.Windows.Forms.PictureBox()
+        Me.hoodiePic = New System.Windows.Forms.PictureBox()
+        Me.tshirtPic = New System.Windows.Forms.PictureBox()
+        Me.sweatshirtPic = New System.Windows.Forms.PictureBox()
+        Me.Panel4.SuspendLayout()
+        Me.Panel5.SuspendLayout()
+        Me.Panel3.SuspendLayout()
+        Me.Panel2.SuspendLayout()
+        Me.Panel1.SuspendLayout()
+        Me.sweatshirtPanel.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel4.SuspendLayout()
-        Me.Panel3.SuspendLayout()
-        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel2.SuspendLayout()
-        CType(Me.hoodiePic, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel1.SuspendLayout()
-        CType(Me.tshirtPic, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.sweatshirtPanel.SuspendLayout()
-        CType(Me.sweatshirtPic, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel5.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.sweatpantsPic, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.hoodiePic, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tshirtPic, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.sweatshirtPic, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'PictureBox2
-        '
-        Me.PictureBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
-        Me.PictureBox2.Location = New System.Drawing.Point(501, 12)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(369, 33)
-        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox2.TabIndex = 1
-        Me.PictureBox2.TabStop = False
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(1348, 12)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(48, 45)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 0
-        Me.PictureBox1.TabStop = False
         '
         'Panel4
         '
@@ -145,23 +121,165 @@ Partial Class apparelPage
         Me.Panel4.Size = New System.Drawing.Size(1416, 680)
         Me.Panel4.TabIndex = 6
         '
+        'Panel5
+        '
+        Me.Panel5.BackColor = System.Drawing.SystemColors.HighlightText
+        Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel5.Controls.Add(Me.Label16)
+        Me.Panel5.Controls.Add(Me.TextBox2)
+        Me.Panel5.Controls.Add(Me.ComboBox2)
+        Me.Panel5.Controls.Add(Me.Button19)
+        Me.Panel5.Controls.Add(Me.Button20)
+        Me.Panel5.Controls.Add(Me.Button21)
+        Me.Panel5.Controls.Add(Me.Button22)
+        Me.Panel5.Controls.Add(Me.Button23)
+        Me.Panel5.Controls.Add(Me.Label17)
+        Me.Panel5.Controls.Add(Me.Label18)
+        Me.Panel5.Controls.Add(Me.Label19)
+        Me.Panel5.Controls.Add(Me.PictureBox4)
+        Me.Panel5.Location = New System.Drawing.Point(29, 600)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(319, 479)
+        Me.Panel5.TabIndex = 10
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Font = New System.Drawing.Font("Microsoft Himalaya", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.Location = New System.Drawing.Point(277, 367)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(27, 16)
+        Me.Label16.TabIndex = 6
+        Me.Label16.Text = "Size"
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Font = New System.Drawing.Font("Microsoft Himalaya", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox2.ForeColor = System.Drawing.Color.Gray
+        Me.TextBox2.Location = New System.Drawing.Point(202, 389)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(100, 23)
+        Me.TextBox2.TabIndex = 5
+        Me.TextBox2.Text = "Quantity"
+        Me.TextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'ComboBox2
+        '
+        Me.ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ComboBox2.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox2.FormattingEnabled = True
+        Me.ComboBox2.Items.AddRange(New Object() {"S", "M", "L", "XL"})
+        Me.ComboBox2.Location = New System.Drawing.Point(180, 337)
+        Me.ComboBox2.Name = "ComboBox2"
+        Me.ComboBox2.Size = New System.Drawing.Size(121, 27)
+        Me.ComboBox2.TabIndex = 4
+        '
+        'Button19
+        '
+        Me.Button19.BackColor = System.Drawing.Color.Yellow
+        Me.Button19.FlatAppearance.BorderSize = 2
+        Me.Button19.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button19.Location = New System.Drawing.Point(102, 338)
+        Me.Button19.Name = "Button19"
+        Me.Button19.Size = New System.Drawing.Size(20, 20)
+        Me.Button19.TabIndex = 3
+        Me.Button19.UseVisualStyleBackColor = False
+        '
+        'Button20
+        '
+        Me.Button20.BackColor = System.Drawing.Color.Pink
+        Me.Button20.FlatAppearance.BorderSize = 2
+        Me.Button20.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button20.Location = New System.Drawing.Point(76, 338)
+        Me.Button20.Name = "Button20"
+        Me.Button20.Size = New System.Drawing.Size(20, 20)
+        Me.Button20.TabIndex = 3
+        Me.Button20.UseVisualStyleBackColor = False
+        '
+        'Button21
+        '
+        Me.Button21.BackColor = System.Drawing.Color.Blue
+        Me.Button21.FlatAppearance.BorderSize = 2
+        Me.Button21.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button21.Location = New System.Drawing.Point(50, 338)
+        Me.Button21.Name = "Button21"
+        Me.Button21.Size = New System.Drawing.Size(20, 20)
+        Me.Button21.TabIndex = 3
+        Me.Button21.UseVisualStyleBackColor = False
+        '
+        'Button22
+        '
+        Me.Button22.BackColor = System.Drawing.Color.Red
+        Me.Button22.FlatAppearance.BorderSize = 2
+        Me.Button22.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button22.Location = New System.Drawing.Point(24, 338)
+        Me.Button22.Name = "Button22"
+        Me.Button22.Size = New System.Drawing.Size(20, 20)
+        Me.Button22.TabIndex = 3
+        Me.Button22.UseVisualStyleBackColor = False
+        '
+        'Button23
+        '
+        Me.Button23.BackColor = System.Drawing.SystemColors.ControlText
+        Me.Button23.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button23.FlatAppearance.BorderSize = 0
+        Me.Button23.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button23.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button23.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.Button23.Location = New System.Drawing.Point(202, 418)
+        Me.Button23.Name = "Button23"
+        Me.Button23.Size = New System.Drawing.Size(99, 40)
+        Me.Button23.TabIndex = 2
+        Me.Button23.Text = "ADD TO CART"
+        Me.Button23.UseVisualStyleBackColor = False
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.Location = New System.Drawing.Point(11, 397)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(147, 21)
+        Me.Label17.TabIndex = 1
+        Me.Label17.Text = "Oversized Tshirt Unisex"
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label18.Location = New System.Drawing.Point(11, 418)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(42, 19)
+        Me.Label18.TabIndex = 1
+        Me.Label18.Text = "Stock:"
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label19.Location = New System.Drawing.Point(11, 439)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(51, 19)
+        Me.Label19.TabIndex = 1
+        Me.Label19.Text = "₱499.00"
+        '
         'Panel3
         '
         Me.Panel3.BackColor = System.Drawing.SystemColors.HighlightText
         Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Panel3.Controls.Add(Me.Label12)
-        Me.Panel3.Controls.Add(Me.TextBox1)
-        Me.Panel3.Controls.Add(Me.ComboBox1)
-        Me.Panel3.Controls.Add(Me.Button14)
+        Me.Panel3.Controls.Add(Me.sweatpantQty)
+        Me.Panel3.Controls.Add(Me.sweatpantSize)
         Me.Panel3.Controls.Add(Me.Button15)
         Me.Panel3.Controls.Add(Me.Button16)
         Me.Panel3.Controls.Add(Me.Button17)
-        Me.Panel3.Controls.Add(Me.Button18)
+        Me.Panel3.Controls.Add(Me.sweatpantAddToCart)
         Me.Panel3.Controls.Add(Me.Label13)
         Me.Panel3.Controls.Add(Me.Label14)
         Me.Panel3.Controls.Add(Me.Label15)
-        Me.Panel3.Controls.Add(Me.PictureBox3)
-        Me.Panel3.Location = New System.Drawing.Point(1068, 101)
+        Me.Panel3.Controls.Add(Me.sweatpantsPic)
+        Me.Panel3.Location = New System.Drawing.Point(1062, 101)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(319, 479)
         Me.Panel3.TabIndex = 9
@@ -176,43 +294,32 @@ Partial Class apparelPage
         Me.Label12.TabIndex = 6
         Me.Label12.Text = "Size"
         '
-        'TextBox1
+        'sweatpantQty
         '
-        Me.TextBox1.Font = New System.Drawing.Font("Microsoft Himalaya", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.ForeColor = System.Drawing.Color.Gray
-        Me.TextBox1.Location = New System.Drawing.Point(202, 389)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(100, 23)
-        Me.TextBox1.TabIndex = 5
-        Me.TextBox1.Text = "Quantity"
-        Me.TextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.sweatpantQty.Font = New System.Drawing.Font("Microsoft Himalaya", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.sweatpantQty.ForeColor = System.Drawing.Color.Gray
+        Me.sweatpantQty.Location = New System.Drawing.Point(202, 389)
+        Me.sweatpantQty.Name = "sweatpantQty"
+        Me.sweatpantQty.Size = New System.Drawing.Size(100, 23)
+        Me.sweatpantQty.TabIndex = 5
+        Me.sweatpantQty.Text = "Quantity"
+        Me.sweatpantQty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'ComboBox1
+        'sweatpantSize
         '
-        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ComboBox1.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"S", "M", "L", "XL"})
-        Me.ComboBox1.Location = New System.Drawing.Point(180, 337)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(121, 27)
-        Me.ComboBox1.TabIndex = 4
-        '
-        'Button14
-        '
-        Me.Button14.BackColor = System.Drawing.Color.Yellow
-        Me.Button14.FlatAppearance.BorderSize = 2
-        Me.Button14.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button14.Location = New System.Drawing.Point(102, 338)
-        Me.Button14.Name = "Button14"
-        Me.Button14.Size = New System.Drawing.Size(20, 20)
-        Me.Button14.TabIndex = 3
-        Me.Button14.UseVisualStyleBackColor = False
+        Me.sweatpantSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.sweatpantSize.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.sweatpantSize.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.sweatpantSize.FormattingEnabled = True
+        Me.sweatpantSize.Items.AddRange(New Object() {"S", "M", "L", "XL"})
+        Me.sweatpantSize.Location = New System.Drawing.Point(180, 337)
+        Me.sweatpantSize.Name = "sweatpantSize"
+        Me.sweatpantSize.Size = New System.Drawing.Size(121, 27)
+        Me.sweatpantSize.TabIndex = 4
         '
         'Button15
         '
-        Me.Button15.BackColor = System.Drawing.Color.Pink
+        Me.Button15.BackColor = System.Drawing.Color.Gray
         Me.Button15.FlatAppearance.BorderSize = 2
         Me.Button15.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button15.Location = New System.Drawing.Point(76, 338)
@@ -223,7 +330,7 @@ Partial Class apparelPage
         '
         'Button16
         '
-        Me.Button16.BackColor = System.Drawing.Color.Blue
+        Me.Button16.BackColor = System.Drawing.Color.White
         Me.Button16.FlatAppearance.BorderSize = 2
         Me.Button16.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button16.Location = New System.Drawing.Point(50, 338)
@@ -234,7 +341,7 @@ Partial Class apparelPage
         '
         'Button17
         '
-        Me.Button17.BackColor = System.Drawing.Color.Red
+        Me.Button17.BackColor = System.Drawing.Color.Black
         Me.Button17.FlatAppearance.BorderSize = 2
         Me.Button17.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button17.Location = New System.Drawing.Point(24, 338)
@@ -243,20 +350,20 @@ Partial Class apparelPage
         Me.Button17.TabIndex = 3
         Me.Button17.UseVisualStyleBackColor = False
         '
-        'Button18
+        'sweatpantAddToCart
         '
-        Me.Button18.BackColor = System.Drawing.SystemColors.ControlText
-        Me.Button18.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button18.FlatAppearance.BorderSize = 0
-        Me.Button18.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button18.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button18.ForeColor = System.Drawing.SystemColors.ButtonFace
-        Me.Button18.Location = New System.Drawing.Point(202, 418)
-        Me.Button18.Name = "Button18"
-        Me.Button18.Size = New System.Drawing.Size(99, 40)
-        Me.Button18.TabIndex = 2
-        Me.Button18.Text = "ADD TO CART"
-        Me.Button18.UseVisualStyleBackColor = False
+        Me.sweatpantAddToCart.BackColor = System.Drawing.SystemColors.ControlText
+        Me.sweatpantAddToCart.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.sweatpantAddToCart.FlatAppearance.BorderSize = 0
+        Me.sweatpantAddToCart.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.sweatpantAddToCart.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.sweatpantAddToCart.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.sweatpantAddToCart.Location = New System.Drawing.Point(202, 418)
+        Me.sweatpantAddToCart.Name = "sweatpantAddToCart"
+        Me.sweatpantAddToCart.Size = New System.Drawing.Size(99, 40)
+        Me.sweatpantAddToCart.TabIndex = 2
+        Me.sweatpantAddToCart.Text = "ADD TO CART"
+        Me.sweatpantAddToCart.UseVisualStyleBackColor = False
         '
         'Label13
         '
@@ -287,17 +394,6 @@ Partial Class apparelPage
         Me.Label15.Size = New System.Drawing.Size(51, 19)
         Me.Label15.TabIndex = 1
         Me.Label15.Text = "₱499.00"
-        '
-        'PictureBox3
-        '
-        Me.PictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PictureBox3.Image = Global.APPARELSHOP.My.Resources.Resources.blue_hoodie
-        Me.PictureBox3.Location = New System.Drawing.Point(33, 14)
-        Me.PictureBox3.Name = "PictureBox3"
-        Me.PictureBox3.Size = New System.Drawing.Size(254, 318)
-        Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox3.TabIndex = 0
-        Me.PictureBox3.TabStop = False
         '
         'Panel2
         '
@@ -446,17 +542,6 @@ Partial Class apparelPage
         Me.Label11.TabIndex = 1
         Me.Label11.Text = "₱499.00"
         '
-        'hoodiePic
-        '
-        Me.hoodiePic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.hoodiePic.Image = Global.APPARELSHOP.My.Resources.Resources.blue_hoodie
-        Me.hoodiePic.Location = New System.Drawing.Point(33, 14)
-        Me.hoodiePic.Name = "hoodiePic"
-        Me.hoodiePic.Size = New System.Drawing.Size(254, 318)
-        Me.hoodiePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.hoodiePic.TabIndex = 0
-        Me.hoodiePic.TabStop = False
-        '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.SystemColors.HighlightText
@@ -603,17 +688,6 @@ Partial Class apparelPage
         Me.Label7.Size = New System.Drawing.Size(51, 19)
         Me.Label7.TabIndex = 1
         Me.Label7.Text = "₱499.00"
-        '
-        'tshirtPic
-        '
-        Me.tshirtPic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tshirtPic.Image = Global.APPARELSHOP.My.Resources.Resources.white_shirt1
-        Me.tshirtPic.Location = New System.Drawing.Point(21, 14)
-        Me.tshirtPic.Name = "tshirtPic"
-        Me.tshirtPic.Size = New System.Drawing.Size(270, 318)
-        Me.tshirtPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.tshirtPic.TabIndex = 0
-        Me.tshirtPic.TabStop = False
         '
         'sweatshirtPanel
         '
@@ -776,159 +850,28 @@ Partial Class apparelPage
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "₱599.00"
         '
-        'sweatshirtPic
+        'PictureBox2
         '
-        Me.sweatshirtPic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.sweatshirtPic.Image = Global.APPARELSHOP.My.Resources.Resources.white_swsh
-        Me.sweatshirtPic.Location = New System.Drawing.Point(15, 14)
-        Me.sweatshirtPic.Name = "sweatshirtPic"
-        Me.sweatshirtPic.Size = New System.Drawing.Size(286, 318)
-        Me.sweatshirtPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.sweatshirtPic.TabIndex = 0
-        Me.sweatshirtPic.TabStop = False
+        Me.PictureBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
+        Me.PictureBox2.Location = New System.Drawing.Point(501, 12)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(369, 33)
+        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox2.TabIndex = 1
+        Me.PictureBox2.TabStop = False
         '
-        'Panel5
+        'PictureBox1
         '
-        Me.Panel5.BackColor = System.Drawing.SystemColors.HighlightText
-        Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel5.Controls.Add(Me.Label16)
-        Me.Panel5.Controls.Add(Me.TextBox2)
-        Me.Panel5.Controls.Add(Me.ComboBox2)
-        Me.Panel5.Controls.Add(Me.Button19)
-        Me.Panel5.Controls.Add(Me.Button20)
-        Me.Panel5.Controls.Add(Me.Button21)
-        Me.Panel5.Controls.Add(Me.Button22)
-        Me.Panel5.Controls.Add(Me.Button23)
-        Me.Panel5.Controls.Add(Me.Label17)
-        Me.Panel5.Controls.Add(Me.Label18)
-        Me.Panel5.Controls.Add(Me.Label19)
-        Me.Panel5.Controls.Add(Me.PictureBox4)
-        Me.Panel5.Location = New System.Drawing.Point(29, 600)
-        Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(319, 479)
-        Me.Panel5.TabIndex = 10
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Font = New System.Drawing.Font("Microsoft Himalaya", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(277, 367)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(27, 16)
-        Me.Label16.TabIndex = 6
-        Me.Label16.Text = "Size"
-        '
-        'TextBox2
-        '
-        Me.TextBox2.Font = New System.Drawing.Font("Microsoft Himalaya", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox2.ForeColor = System.Drawing.Color.Gray
-        Me.TextBox2.Location = New System.Drawing.Point(202, 389)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(100, 23)
-        Me.TextBox2.TabIndex = 5
-        Me.TextBox2.Text = "Quantity"
-        Me.TextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'ComboBox2
-        '
-        Me.ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ComboBox2.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Items.AddRange(New Object() {"S", "M", "L", "XL"})
-        Me.ComboBox2.Location = New System.Drawing.Point(180, 337)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(121, 27)
-        Me.ComboBox2.TabIndex = 4
-        '
-        'Button19
-        '
-        Me.Button19.BackColor = System.Drawing.Color.Yellow
-        Me.Button19.FlatAppearance.BorderSize = 2
-        Me.Button19.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button19.Location = New System.Drawing.Point(102, 338)
-        Me.Button19.Name = "Button19"
-        Me.Button19.Size = New System.Drawing.Size(20, 20)
-        Me.Button19.TabIndex = 3
-        Me.Button19.UseVisualStyleBackColor = False
-        '
-        'Button20
-        '
-        Me.Button20.BackColor = System.Drawing.Color.Pink
-        Me.Button20.FlatAppearance.BorderSize = 2
-        Me.Button20.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button20.Location = New System.Drawing.Point(76, 338)
-        Me.Button20.Name = "Button20"
-        Me.Button20.Size = New System.Drawing.Size(20, 20)
-        Me.Button20.TabIndex = 3
-        Me.Button20.UseVisualStyleBackColor = False
-        '
-        'Button21
-        '
-        Me.Button21.BackColor = System.Drawing.Color.Blue
-        Me.Button21.FlatAppearance.BorderSize = 2
-        Me.Button21.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button21.Location = New System.Drawing.Point(50, 338)
-        Me.Button21.Name = "Button21"
-        Me.Button21.Size = New System.Drawing.Size(20, 20)
-        Me.Button21.TabIndex = 3
-        Me.Button21.UseVisualStyleBackColor = False
-        '
-        'Button22
-        '
-        Me.Button22.BackColor = System.Drawing.Color.Red
-        Me.Button22.FlatAppearance.BorderSize = 2
-        Me.Button22.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button22.Location = New System.Drawing.Point(24, 338)
-        Me.Button22.Name = "Button22"
-        Me.Button22.Size = New System.Drawing.Size(20, 20)
-        Me.Button22.TabIndex = 3
-        Me.Button22.UseVisualStyleBackColor = False
-        '
-        'Button23
-        '
-        Me.Button23.BackColor = System.Drawing.SystemColors.ControlText
-        Me.Button23.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button23.FlatAppearance.BorderSize = 0
-        Me.Button23.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button23.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Button23.ForeColor = System.Drawing.SystemColors.ButtonFace
-        Me.Button23.Location = New System.Drawing.Point(202, 418)
-        Me.Button23.Name = "Button23"
-        Me.Button23.Size = New System.Drawing.Size(99, 40)
-        Me.Button23.TabIndex = 2
-        Me.Button23.Text = "ADD TO CART"
-        Me.Button23.UseVisualStyleBackColor = False
-        '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(11, 397)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(147, 21)
-        Me.Label17.TabIndex = 1
-        Me.Label17.Text = "Oversized Tshirt Unisex"
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.Location = New System.Drawing.Point(11, 418)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(42, 19)
-        Me.Label18.TabIndex = 1
-        Me.Label18.Text = "Stock:"
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label19.Location = New System.Drawing.Point(11, 439)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(51, 19)
-        Me.Label19.TabIndex = 1
-        Me.Label19.Text = "₱499.00"
+        Me.PictureBox1.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.Location = New System.Drawing.Point(1348, 12)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(48, 45)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 0
+        Me.PictureBox1.TabStop = False
         '
         'PictureBox4
         '
@@ -940,6 +883,50 @@ Partial Class apparelPage
         Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox4.TabIndex = 0
         Me.PictureBox4.TabStop = False
+        '
+        'sweatpantsPic
+        '
+        Me.sweatpantsPic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.sweatpantsPic.Image = Global.APPARELSHOP.My.Resources.Resources.black_Sweatpants
+        Me.sweatpantsPic.Location = New System.Drawing.Point(35, 44)
+        Me.sweatpantsPic.Name = "sweatpantsPic"
+        Me.sweatpantsPic.Size = New System.Drawing.Size(254, 262)
+        Me.sweatpantsPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.sweatpantsPic.TabIndex = 0
+        Me.sweatpantsPic.TabStop = False
+        '
+        'hoodiePic
+        '
+        Me.hoodiePic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.hoodiePic.Image = Global.APPARELSHOP.My.Resources.Resources.blue_hoodie
+        Me.hoodiePic.Location = New System.Drawing.Point(33, 14)
+        Me.hoodiePic.Name = "hoodiePic"
+        Me.hoodiePic.Size = New System.Drawing.Size(254, 318)
+        Me.hoodiePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.hoodiePic.TabIndex = 0
+        Me.hoodiePic.TabStop = False
+        '
+        'tshirtPic
+        '
+        Me.tshirtPic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.tshirtPic.Image = Global.APPARELSHOP.My.Resources.Resources.white_shirt1
+        Me.tshirtPic.Location = New System.Drawing.Point(21, 14)
+        Me.tshirtPic.Name = "tshirtPic"
+        Me.tshirtPic.Size = New System.Drawing.Size(270, 318)
+        Me.tshirtPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.tshirtPic.TabIndex = 0
+        Me.tshirtPic.TabStop = False
+        '
+        'sweatshirtPic
+        '
+        Me.sweatshirtPic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.sweatshirtPic.Image = Global.APPARELSHOP.My.Resources.Resources.white_swsh
+        Me.sweatshirtPic.Location = New System.Drawing.Point(15, 14)
+        Me.sweatshirtPic.Name = "sweatshirtPic"
+        Me.sweatshirtPic.Size = New System.Drawing.Size(286, 318)
+        Me.sweatshirtPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.sweatshirtPic.TabIndex = 0
+        Me.sweatshirtPic.TabStop = False
         '
         'apparelPage
         '
@@ -956,24 +943,24 @@ Partial Class apparelPage
         Me.Name = "apparelPage"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "apparelPage"
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel4.ResumeLayout(False)
-        Me.Panel3.ResumeLayout(False)
-        Me.Panel3.PerformLayout()
-        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel2.ResumeLayout(False)
-        Me.Panel2.PerformLayout()
-        CType(Me.hoodiePic, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
-        CType(Me.tshirtPic, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.sweatshirtPanel.ResumeLayout(False)
-        Me.sweatshirtPanel.PerformLayout()
-        CType(Me.sweatshirtPic, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
+        Me.Panel3.ResumeLayout(False)
+        Me.Panel3.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
+        Me.sweatshirtPanel.ResumeLayout(False)
+        Me.sweatshirtPanel.PerformLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.sweatpantsPic, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.hoodiePic, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tshirtPic, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.sweatshirtPic, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -997,17 +984,16 @@ Partial Class apparelPage
     Friend WithEvents PictureBox4 As PictureBox
     Friend WithEvents Panel3 As Panel
     Friend WithEvents Label12 As Label
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents ComboBox1 As ComboBox
-    Friend WithEvents Button14 As Button
+    Friend WithEvents sweatpantQty As TextBox
+    Friend WithEvents sweatpantSize As ComboBox
     Friend WithEvents Button15 As Button
     Friend WithEvents Button16 As Button
     Friend WithEvents Button17 As Button
-    Friend WithEvents Button18 As Button
+    Friend WithEvents sweatpantAddToCart As Button
     Friend WithEvents Label13 As Label
     Friend WithEvents Label14 As Label
     Friend WithEvents Label15 As Label
-    Friend WithEvents PictureBox3 As PictureBox
+    Friend WithEvents sweatpantsPic As PictureBox
     Friend WithEvents Panel2 As Panel
     Friend WithEvents Label8 As Label
     Friend WithEvents hoodieQty As TextBox

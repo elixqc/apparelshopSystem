@@ -245,5 +245,14 @@
   <ItemGroup>
     <None Include="Resources\white_shirt1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\black_Sweatpants.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gray_Sweatpants.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\white_sweatpants.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

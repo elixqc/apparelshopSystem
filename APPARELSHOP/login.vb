@@ -10,7 +10,7 @@ Public Class login
 
         'asterisk password
         password.UseSystemPasswordChar = True
-
+        passwordLogin.UseSystemPasswordChar = True
         'disabling autofocus on textbox when opening tabs
         For Each ctrl As Control In Me.Controls
             ctrl.TabStop = False

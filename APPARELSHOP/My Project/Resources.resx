@@ -211,4 +211,13 @@
   <data name="white_shirt1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\white_shirt1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="black_Sweatpants" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\black_Sweatpants.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="gray_Sweatpants" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gray_Sweatpants.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="white_sweatpants" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\white_sweatpants.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
