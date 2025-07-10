@@ -79,4 +79,7 @@ Public Class Form1
 
     End Sub
 
+    Private Sub WATCHESToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles WATCHESToolStripMenuItem.Click
+        appthemes.SmoothFadeIn(perfumePage)
+    End Sub
 End Class

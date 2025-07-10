@@ -23,6 +23,7 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
+        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.welcomeName = New System.Windows.Forms.Label()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
@@ -33,14 +34,25 @@ Partial Class Form1
         Me.WATCHESToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.JEWELRYToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SEASONALSPECIALToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
-        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.Color.Transparent
+        Me.Panel1.BackgroundImage = CType(resources.GetObject("Panel1.BackgroundImage"), System.Drawing.Image)
+        Me.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.Panel1.Controls.Add(Me.Panel2)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Location = New System.Drawing.Point(0, 0)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(1658, 897)
+        Me.Panel1.TabIndex = 0
         '
         'Panel2
         '
@@ -122,8 +134,8 @@ Partial Class Form1
         'WATCHESToolStripMenuItem
         '
         Me.WATCHESToolStripMenuItem.Name = "WATCHESToolStripMenuItem"
-        Me.WATCHESToolStripMenuItem.Size = New System.Drawing.Size(95, 21)
-        Me.WATCHESToolStripMenuItem.Text = "PERFUMERY"
+        Me.WATCHESToolStripMenuItem.Size = New System.Drawing.Size(78, 21)
+        Me.WATCHESToolStripMenuItem.Text = "PERFUME"
         '
         'JEWELRYToolStripMenuItem
         '
@@ -137,18 +149,6 @@ Partial Class Form1
         Me.SEASONALSPECIALToolStripMenuItem.Name = "SEASONALSPECIALToolStripMenuItem"
         Me.SEASONALSPECIALToolStripMenuItem.Size = New System.Drawing.Size(141, 21)
         Me.SEASONALSPECIALToolStripMenuItem.Text = "SEASONAL SPECIAL"
-        '
-        'Panel1
-        '
-        Me.Panel1.BackColor = System.Drawing.Color.Transparent
-        Me.Panel1.BackgroundImage = CType(resources.GetObject("Panel1.BackgroundImage"), System.Drawing.Image)
-        Me.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Panel1.Controls.Add(Me.Panel2)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel1.Location = New System.Drawing.Point(0, 0)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1658, 897)
-        Me.Panel1.TabIndex = 0
         '
         'Form1
         '
@@ -164,6 +164,7 @@ Partial Class Form1
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Form1"
+        Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
@@ -171,7 +172,6 @@ Partial Class Form1
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
-        Me.Panel1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub

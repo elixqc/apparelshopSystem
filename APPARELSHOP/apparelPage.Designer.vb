@@ -148,7 +148,7 @@ Partial Class apparelPage
         Me.Label16.Font = New System.Drawing.Font("Microsoft Himalaya", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label16.Location = New System.Drawing.Point(277, 367)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(27, 16)
+        Me.Label16.Size = New System.Drawing.Size(26, 16)
         Me.Label16.TabIndex = 6
         Me.Label16.Text = "Size"
         '
@@ -290,7 +290,7 @@ Partial Class apparelPage
         Me.Label12.Font = New System.Drawing.Font("Microsoft Himalaya", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label12.Location = New System.Drawing.Point(277, 367)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(27, 16)
+        Me.Label12.Size = New System.Drawing.Size(26, 16)
         Me.Label12.TabIndex = 6
         Me.Label12.Text = "Size"
         '
@@ -422,7 +422,7 @@ Partial Class apparelPage
         Me.Label8.Font = New System.Drawing.Font("Microsoft Himalaya", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label8.Location = New System.Drawing.Point(277, 367)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(27, 16)
+        Me.Label8.Size = New System.Drawing.Size(26, 16)
         Me.Label8.TabIndex = 6
         Me.Label8.Text = "Size"
         '
@@ -569,7 +569,7 @@ Partial Class apparelPage
         Me.Label4.Font = New System.Drawing.Font("Microsoft Himalaya", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.Location = New System.Drawing.Point(277, 367)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(27, 16)
+        Me.Label4.Size = New System.Drawing.Size(26, 16)
         Me.Label4.TabIndex = 6
         Me.Label4.Text = "Size"
         '
@@ -717,7 +717,7 @@ Partial Class apparelPage
         Me.Label3.Font = New System.Drawing.Font("Microsoft Himalaya", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(277, 367)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(27, 16)
+        Me.Label3.Size = New System.Drawing.Size(26, 16)
         Me.Label3.TabIndex = 6
         Me.Label3.Text = "Size"
         '

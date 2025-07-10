@@ -461,4 +461,12 @@ Public Class apparelPage
     Private Sub sweatshirtQty_Enter_1(sender As Object, e As EventArgs) Handles sweatshirtQty.Enter
         sweatshirtQty.Text = ""
     End Sub
+
+    Private Sub Panel4_Paint(sender As Object, e As PaintEventArgs) Handles Panel4.Paint
+
+    End Sub
+
+    Private Sub Panel3_Paint(sender As Object, e As PaintEventArgs) Handles Panel3.Paint
+
+    End Sub
 End Class
