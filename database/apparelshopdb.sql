@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 09, 2025 at 04:16 PM
+-- Generation Time: Jul 10, 2025 at 03:53 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,7 +41,19 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`cart_id`, `customer_id`, `product_id`, `quantity`, `date_added`, `size`) VALUES
-(2, 2, 100, 1, '2025-07-09 20:50:43', 'XL');
+(2, 2, 100, 1, '2025-07-09 20:50:43', 'XL'),
+(3, 2, 15, 1, '2025-07-10 08:45:22', 'L'),
+(6, 2, 19, 1, '2025-07-10 08:47:30', 'L'),
+(7, 2, 107, 1, '2025-07-10 08:49:26', 'L'),
+(11, 2, 115, 1, '2025-07-10 08:49:42', 'L'),
+(12, 2, 103, 1, '2025-07-10 08:49:45', 'L'),
+(13, 2, 111, 1, '2025-07-10 08:49:47', 'L'),
+(14, 2, 107, 1, '2025-07-10 08:49:50', 'L'),
+(16, 4, 92, 1, '2025-07-10 08:52:23', 'XL'),
+(17, 4, 100, 2, '2025-07-10 08:52:29', 'XL'),
+(18, 4, 108, 1, '2025-07-10 08:52:34', 'XL'),
+(19, 2, 120, 2, '2025-07-10 09:15:59', 'XL'),
+(20, 2, 128, 2, '2025-07-10 09:16:05', 'XL');
 
 -- --------------------------------------------------------
 
@@ -63,7 +75,7 @@ INSERT INTO `categories` (`category_id`, `category_name`) VALUES
 (2, 'Sweatshirts'),
 (3, 'Jeans'),
 (4, 'Jackets'),
-(5, 'Dresses'),
+(5, 'Pants'),
 (6, 'Shorts'),
 (7, 'Eau de Parfum'),
 (8, 'Eau de Toilette'),
@@ -94,7 +106,8 @@ CREATE TABLE `customers` (
 INSERT INTO `customers` (`customer_id`, `full_name`, `contact_number`, `address`, `email`, `password`) VALUES
 (1, 'nico barredo', '09392891165', '291 zamora st. brgy pinagsama taguig city', 'nico.barredo@tup.edu.ph', '7661f83e32e9b6467f2bb50619049fd8951c266665967ebb678a10d520a36de1'),
 (2, 'nico', '09392891165', '291', 'nico@gmail.com', 'b18aaa6c6b929b866051b69a785a6cdce5bdd564d41be247c7d5ef7c2e2e2271'),
-(3, 'joseph', '0939412331', 'taguig city', 'joseph@gmail.com', '7ee8118150e0ce023742beba6f10bf23aabbf0bc2c182f36fd1a6753cd21b4c6');
+(3, 'joseph', '0939412331', 'taguig city', 'joseph@gmail.com', '7ee8118150e0ce023742beba6f10bf23aabbf0bc2c182f36fd1a6753cd21b4c6'),
+(4, 'marcus aristain', '218394821', 'taguig city', 'marcus@gmail.com', 'd7ae9de750a5640adf6e724d72643767faa73bca2941781dae9d276ff2d4b4ca');
 
 -- --------------------------------------------------------
 
@@ -198,7 +211,19 @@ INSERT INTO `products` (`product_id`, `product_name`, `category_id`, `supplier_i
 (113, 'T-shirt - White - S', 1, 2, 'UrbanThreads', 'S', NULL, 499.00, 10),
 (114, 'T-shirt - White - M', 1, 2, 'UrbanThreads', 'M', NULL, 499.00, 10),
 (115, 'T-shirt - White - L', 1, 2, 'UrbanThreads', 'L', NULL, 499.00, 10),
-(116, 'T-shirt - White - XL', 1, 2, 'UrbanThreads', 'XL', NULL, 499.00, 10);
+(116, 'T-shirt - White - XL', 1, 2, 'UrbanThreads', 'XL', NULL, 499.00, 10),
+(117, 'Sweatpants - Black - S', 5, 1, 'Trendwear', 'S', NULL, 799.00, 10),
+(118, 'Sweatpants - Black - M', 5, 1, 'Trendwear', 'M', NULL, 799.00, 10),
+(119, 'Sweatpants - Black - L', 5, 1, 'Trendwear', 'L', NULL, 799.00, 10),
+(120, 'Sweatpants - Black - XL', 5, 1, 'Trendwear', 'XL', NULL, 799.00, 10),
+(121, 'Sweatpants - White - S', 5, 1, 'Trendwear', 'S', NULL, 799.00, 10),
+(122, 'Sweatpants - White - M', 5, 1, 'Trendwear', 'M', NULL, 799.00, 10),
+(123, 'Sweatpants - White - L', 5, 1, 'Trendwear', 'L', NULL, 799.00, 10),
+(124, 'Sweatpants - White - XL', 5, 1, 'Trendwear', 'XL', NULL, 799.00, 10),
+(125, 'Sweatpants - Gray - S', 5, 1, 'Trendwear', 'S', NULL, 799.00, 10),
+(126, 'Sweatpants - Gray - M', 5, 1, 'Trendwear', 'M', NULL, 799.00, 10),
+(127, 'Sweatpants - Gray - L', 5, 1, 'Trendwear', 'L', NULL, 799.00, 10),
+(128, 'Sweatpants - Gray - XL', 5, 1, 'Trendwear', 'XL', NULL, 799.00, 10);
 
 -- --------------------------------------------------------
 
@@ -363,7 +388,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -375,7 +400,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -393,7 +418,7 @@ ALTER TABLE `order_details`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
