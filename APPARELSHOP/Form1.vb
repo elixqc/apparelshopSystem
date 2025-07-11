@@ -12,6 +12,7 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         MenuStrip1.Renderer = appthemes.MenuRenderer
+        MenuStrip2.Renderer = appthemes.MenuRenderer
 
         GetType(Panel).InvokeMember("DoubleBuffered",
         Reflection.BindingFlags.SetProperty Or Reflection.BindingFlags.Instance Or Reflection.BindingFlags.NonPublic,
@@ -63,7 +64,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub MENToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles streetWearBtn.Click
+    Private Sub MENewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles streetWearBtn.Click
         appthemes.SmoothFadeIn(apparelPage)
     End Sub
 
@@ -80,6 +81,22 @@ Public Class Form1
     End Sub
 
     Private Sub WATCHESToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles WATCHESToolStripMenuItem.Click
+
+    End Sub
+
+    Private Sub MensToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MensToolStripMenuItem.Click
         appthemes.SmoothFadeIn(perfumePage)
+    End Sub
+
+    Private Sub ApparelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ApparelToolStripMenuItem.Click
+        appthemes.SmoothFadeIn(apparelPage)
+    End Sub
+
+    Private Sub MasculineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MasculineToolStripMenuItem.Click
+        appthemes.SmoothFadeIn(perfumePage)
+    End Sub
+
+    Private Sub FeminineToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles FeminineToolStripMenuItem1.Click
+        appthemes.SmoothFadeIn(PerfumePageFem)
     End Sub
 End Class

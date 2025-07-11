@@ -223,4 +223,34 @@
   <data name="dream" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dream.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Origin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Origin.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AfternoonVibe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AfternoonVibe.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Aura" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Aura.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CoeurDeRose" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CoeurDeRose.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dreamFinal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dreamFinal.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Linfinity" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Linfinity.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Lovespell" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Lovespell.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="originFinal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\originFinal.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PerfumeText" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PerfumeText.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Sunset" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sunset.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

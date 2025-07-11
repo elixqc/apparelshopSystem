@@ -22,7 +22,16 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.streetWearBtn = New System.Windows.Forms.ToolStripMenuItem()
+        Me.WATCHESToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MensToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FeminineToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.JEWELRYToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SEASONALSPECIALToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.welcomeName = New System.Windows.Forms.Label()
@@ -30,17 +39,66 @@ Partial Class Form1
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.streetWearBtn = New System.Windows.Forms.ToolStripMenuItem()
-        Me.WATCHESToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.JEWELRYToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SEASONALSPECIALToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
+        Me.ApparelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PerfumeruToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MasculineToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FeminineToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.MenuStrip1.SuspendLayout()
+        Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(61, 4)
+        '
+        'streetWearBtn
+        '
+        Me.streetWearBtn.Name = "streetWearBtn"
+        Me.streetWearBtn.Size = New System.Drawing.Size(103, 21)
+        Me.streetWearBtn.Text = "STREETWEAR"
+        '
+        'WATCHESToolStripMenuItem
+        '
+        Me.WATCHESToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.MensToolStripMenuItem, Me.FeminineToolStripMenuItem})
+        Me.WATCHESToolStripMenuItem.Name = "WATCHESToolStripMenuItem"
+        Me.WATCHESToolStripMenuItem.Size = New System.Drawing.Size(78, 21)
+        Me.WATCHESToolStripMenuItem.Text = "PERFUME"
+        '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        '
+        'MensToolStripMenuItem
+        '
+        Me.MensToolStripMenuItem.Name = "MensToolStripMenuItem"
+        Me.MensToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.MensToolStripMenuItem.Text = "Masculine"
+        '
+        'FeminineToolStripMenuItem
+        '
+        Me.FeminineToolStripMenuItem.Name = "FeminineToolStripMenuItem"
+        Me.FeminineToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.FeminineToolStripMenuItem.Text = "Feminine"
+        '
+        'JEWELRYToolStripMenuItem
+        '
+        Me.JEWELRYToolStripMenuItem.BackColor = System.Drawing.Color.Transparent
+        Me.JEWELRYToolStripMenuItem.Name = "JEWELRYToolStripMenuItem"
+        Me.JEWELRYToolStripMenuItem.Size = New System.Drawing.Size(69, 21)
+        Me.JEWELRYToolStripMenuItem.Text = "OTHERS"
+        '
+        'SEASONALSPECIALToolStripMenuItem
+        '
+        Me.SEASONALSPECIALToolStripMenuItem.Name = "SEASONALSPECIALToolStripMenuItem"
+        Me.SEASONALSPECIALToolStripMenuItem.Size = New System.Drawing.Size(141, 21)
+        Me.SEASONALSPECIALToolStripMenuItem.Text = "SEASONAL SPECIAL"
         '
         'Panel1
         '
@@ -51,13 +109,14 @@ Partial Class Form1
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1658, 897)
+        Me.Panel1.Size = New System.Drawing.Size(1709, 897)
         Me.Panel1.TabIndex = 0
         '
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.White
         Me.Panel2.Controls.Add(Me.welcomeName)
+        Me.Panel2.Controls.Add(Me.MenuStrip2)
         Me.Panel2.Controls.Add(Me.PictureBox4)
         Me.Panel2.Controls.Add(Me.PictureBox3)
         Me.Panel2.Controls.Add(Me.PictureBox1)
@@ -65,7 +124,7 @@ Partial Class Form1
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1658, 51)
+        Me.Panel2.Size = New System.Drawing.Size(1709, 51)
         Me.Panel2.TabIndex = 0
         '
         'welcomeName
@@ -95,7 +154,7 @@ Partial Class Form1
         Me.PictureBox3.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PictureBox3.Cursor = System.Windows.Forms.Cursors.Hand
         Me.PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), System.Drawing.Image)
-        Me.PictureBox3.Location = New System.Drawing.Point(1505, 15)
+        Me.PictureBox3.Location = New System.Drawing.Point(1493, 15)
         Me.PictureBox3.Name = "PictureBox3"
         Me.PictureBox3.Size = New System.Drawing.Size(25, 25)
         Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -118,44 +177,57 @@ Partial Class Form1
         Me.MenuStrip1.BackColor = System.Drawing.Color.Transparent
         Me.MenuStrip1.Dock = System.Windows.Forms.DockStyle.None
         Me.MenuStrip1.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.streetWearBtn, Me.WATCHESToolStripMenuItem, Me.JEWELRYToolStripMenuItem, Me.SEASONALSPECIALToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(309, 15)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(480, 25)
+        Me.MenuStrip1.Size = New System.Drawing.Size(748, 26)
         Me.MenuStrip1.TabIndex = 2
         Me.MenuStrip1.Text = "MenuStrip1"
         '
-        'streetWearBtn
+        'MenuStrip2
         '
-        Me.streetWearBtn.Name = "streetWearBtn"
-        Me.streetWearBtn.Size = New System.Drawing.Size(103, 21)
-        Me.streetWearBtn.Text = "STREETWEAR"
+        Me.MenuStrip2.AutoSize = False
+        Me.MenuStrip2.BackColor = System.Drawing.Color.Transparent
+        Me.MenuStrip2.Dock = System.Windows.Forms.DockStyle.None
+        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ApparelToolStripMenuItem, Me.PerfumeruToolStripMenuItem})
+        Me.MenuStrip2.Location = New System.Drawing.Point(309, 13)
+        Me.MenuStrip2.Name = "MenuStrip2"
+        Me.MenuStrip2.Size = New System.Drawing.Size(514, 28)
+        Me.MenuStrip2.TabIndex = 1
+        Me.MenuStrip2.Text = "MenuStrip2"
         '
-        'WATCHESToolStripMenuItem
+        'ApparelToolStripMenuItem
         '
-        Me.WATCHESToolStripMenuItem.Name = "WATCHESToolStripMenuItem"
-        Me.WATCHESToolStripMenuItem.Size = New System.Drawing.Size(78, 21)
-        Me.WATCHESToolStripMenuItem.Text = "PERFUME"
+        Me.ApparelToolStripMenuItem.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ApparelToolStripMenuItem.Name = "ApparelToolStripMenuItem"
+        Me.ApparelToolStripMenuItem.Size = New System.Drawing.Size(77, 24)
+        Me.ApparelToolStripMenuItem.Text = "APPAREL"
         '
-        'JEWELRYToolStripMenuItem
+        'PerfumeruToolStripMenuItem
         '
-        Me.JEWELRYToolStripMenuItem.BackColor = System.Drawing.Color.Transparent
-        Me.JEWELRYToolStripMenuItem.Name = "JEWELRYToolStripMenuItem"
-        Me.JEWELRYToolStripMenuItem.Size = New System.Drawing.Size(69, 21)
-        Me.JEWELRYToolStripMenuItem.Text = "OTHERS"
+        Me.PerfumeruToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MasculineToolStripMenuItem, Me.FeminineToolStripMenuItem1})
+        Me.PerfumeruToolStripMenuItem.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PerfumeruToolStripMenuItem.Name = "PerfumeruToolStripMenuItem"
+        Me.PerfumeruToolStripMenuItem.Size = New System.Drawing.Size(95, 24)
+        Me.PerfumeruToolStripMenuItem.Text = "PERFUMERY"
         '
-        'SEASONALSPECIALToolStripMenuItem
+        'MasculineToolStripMenuItem
         '
-        Me.SEASONALSPECIALToolStripMenuItem.Name = "SEASONALSPECIALToolStripMenuItem"
-        Me.SEASONALSPECIALToolStripMenuItem.Size = New System.Drawing.Size(141, 21)
-        Me.SEASONALSPECIALToolStripMenuItem.Text = "SEASONAL SPECIAL"
+        Me.MasculineToolStripMenuItem.Name = "MasculineToolStripMenuItem"
+        Me.MasculineToolStripMenuItem.Size = New System.Drawing.Size(180, 24)
+        Me.MasculineToolStripMenuItem.Text = "Masculine"
+        '
+        'FeminineToolStripMenuItem1
+        '
+        Me.FeminineToolStripMenuItem1.Name = "FeminineToolStripMenuItem1"
+        Me.FeminineToolStripMenuItem1.Size = New System.Drawing.Size(180, 24)
+        Me.FeminineToolStripMenuItem1.Text = "Feminine"
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
-        Me.ClientSize = New System.Drawing.Size(1675, 687)
+        Me.ClientSize = New System.Drawing.Size(1726, 687)
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MainMenuStrip = Me.MenuStrip1
@@ -170,8 +242,8 @@ Partial Class Form1
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
+        Me.MenuStrip2.ResumeLayout(False)
+        Me.MenuStrip2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -187,4 +259,13 @@ Partial Class Form1
     Friend WithEvents JEWELRYToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SEASONALSPECIALToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
+    Friend WithEvents MensToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents FeminineToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MenuStrip2 As MenuStrip
+    Friend WithEvents ApparelToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PerfumeruToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MasculineToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents FeminineToolStripMenuItem1 As ToolStripMenuItem
 End Class
