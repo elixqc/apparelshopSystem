@@ -25,6 +25,8 @@ Partial Class apparelPage
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(apparelPage))
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
@@ -47,7 +49,7 @@ Partial Class apparelPage
         Me.Button17 = New System.Windows.Forms.Button()
         Me.sweatpantAddToCart = New System.Windows.Forms.Button()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.Label14 = New System.Windows.Forms.Label()
+        Me.SweatpantStock = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.sweatpantsPic = New System.Windows.Forms.PictureBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
@@ -60,7 +62,7 @@ Partial Class apparelPage
         Me.Button13 = New System.Windows.Forms.Button()
         Me.hoodieAddToCart = New System.Windows.Forms.Button()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.Label10 = New System.Windows.Forms.Label()
+        Me.hoodieStock = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.hoodiePic = New System.Windows.Forms.PictureBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -73,7 +75,7 @@ Partial Class apparelPage
         Me.Button10 = New System.Windows.Forms.Button()
         Me.tshirtAddtocart = New System.Windows.Forms.Button()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
+        Me.shirtStock = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.tshirtPic = New System.Windows.Forms.PictureBox()
         Me.sweatshirtPanel = New System.Windows.Forms.Panel()
@@ -84,16 +86,17 @@ Partial Class apparelPage
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button4 = New System.Windows.Forms.Button()
         Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.sweatWhite = New System.Windows.Forms.Button()
         Me.sweatshirtAddToCart = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.sweatshirtStockTxt = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.sweatshirtPic = New System.Windows.Forms.PictureBox()
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.BackgroundWorker2 = New System.ComponentModel.BackgroundWorker()
         Me.Panel4.SuspendLayout()
+        Me.Panel6.SuspendLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel3.SuspendLayout()
@@ -104,9 +107,7 @@ Partial Class apparelPage
         CType(Me.tshirtPic, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.sweatshirtPanel.SuspendLayout()
         CType(Me.sweatshirtPic, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel6.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel4
@@ -123,6 +124,27 @@ Partial Class apparelPage
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(1416, 680)
         Me.Panel4.TabIndex = 6
+        '
+        'Panel6
+        '
+        Me.Panel6.Controls.Add(Me.PictureBox2)
+        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel6.Location = New System.Drawing.Point(0, 0)
+        Me.Panel6.Name = "Panel6"
+        Me.Panel6.Size = New System.Drawing.Size(1399, 57)
+        Me.Panel6.TabIndex = 11
+        '
+        'PictureBox2
+        '
+        Me.PictureBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
+        Me.PictureBox2.Location = New System.Drawing.Point(506, 12)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(369, 33)
+        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox2.TabIndex = 1
+        Me.PictureBox2.TabStop = False
         '
         'Panel5
         '
@@ -290,7 +312,7 @@ Partial Class apparelPage
         Me.Panel3.Controls.Add(Me.Button17)
         Me.Panel3.Controls.Add(Me.sweatpantAddToCart)
         Me.Panel3.Controls.Add(Me.Label13)
-        Me.Panel3.Controls.Add(Me.Label14)
+        Me.Panel3.Controls.Add(Me.SweatpantStock)
         Me.Panel3.Controls.Add(Me.Label15)
         Me.Panel3.Controls.Add(Me.sweatpantsPic)
         Me.Panel3.Location = New System.Drawing.Point(1062, 101)
@@ -389,15 +411,15 @@ Partial Class apparelPage
         Me.Label13.TabIndex = 1
         Me.Label13.Text = "Oversized Tshirt Unisex"
         '
-        'Label14
+        'SweatpantStock
         '
-        Me.Label14.AutoSize = True
-        Me.Label14.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(11, 418)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(42, 19)
-        Me.Label14.TabIndex = 1
-        Me.Label14.Text = "Stock:"
+        Me.SweatpantStock.AutoSize = True
+        Me.SweatpantStock.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SweatpantStock.Location = New System.Drawing.Point(11, 418)
+        Me.SweatpantStock.Name = "SweatpantStock"
+        Me.SweatpantStock.Size = New System.Drawing.Size(42, 19)
+        Me.SweatpantStock.TabIndex = 1
+        Me.SweatpantStock.Text = "Stock:"
         '
         'Label15
         '
@@ -433,7 +455,7 @@ Partial Class apparelPage
         Me.Panel2.Controls.Add(Me.Button13)
         Me.Panel2.Controls.Add(Me.hoodieAddToCart)
         Me.Panel2.Controls.Add(Me.Label9)
-        Me.Panel2.Controls.Add(Me.Label10)
+        Me.Panel2.Controls.Add(Me.hoodieStock)
         Me.Panel2.Controls.Add(Me.Label11)
         Me.Panel2.Controls.Add(Me.hoodiePic)
         Me.Panel2.Location = New System.Drawing.Point(715, 101)
@@ -547,15 +569,15 @@ Partial Class apparelPage
         Me.Label9.TabIndex = 1
         Me.Label9.Text = "Oversized Tshirt Unisex"
         '
-        'Label10
+        'hoodieStock
         '
-        Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(11, 418)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(42, 19)
-        Me.Label10.TabIndex = 1
-        Me.Label10.Text = "Stock:"
+        Me.hoodieStock.AutoSize = True
+        Me.hoodieStock.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.hoodieStock.Location = New System.Drawing.Point(11, 418)
+        Me.hoodieStock.Name = "hoodieStock"
+        Me.hoodieStock.Size = New System.Drawing.Size(42, 19)
+        Me.hoodieStock.TabIndex = 1
+        Me.hoodieStock.Text = "Stock:"
         '
         'Label11
         '
@@ -591,7 +613,7 @@ Partial Class apparelPage
         Me.Panel1.Controls.Add(Me.Button10)
         Me.Panel1.Controls.Add(Me.tshirtAddtocart)
         Me.Panel1.Controls.Add(Me.Label5)
-        Me.Panel1.Controls.Add(Me.Label6)
+        Me.Panel1.Controls.Add(Me.shirtStock)
         Me.Panel1.Controls.Add(Me.Label7)
         Me.Panel1.Controls.Add(Me.tshirtPic)
         Me.Panel1.Location = New System.Drawing.Point(370, 101)
@@ -705,15 +727,15 @@ Partial Class apparelPage
         Me.Label5.TabIndex = 1
         Me.Label5.Text = "Oversized Tshirt Unisex"
         '
-        'Label6
+        'shirtStock
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(11, 418)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(42, 19)
-        Me.Label6.TabIndex = 1
-        Me.Label6.Text = "Stock:"
+        Me.shirtStock.AutoSize = True
+        Me.shirtStock.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.shirtStock.Location = New System.Drawing.Point(11, 418)
+        Me.shirtStock.Name = "shirtStock"
+        Me.shirtStock.Size = New System.Drawing.Size(42, 19)
+        Me.shirtStock.TabIndex = 1
+        Me.shirtStock.Text = "Stock:"
         '
         'Label7
         '
@@ -747,7 +769,7 @@ Partial Class apparelPage
         Me.sweatshirtPanel.Controls.Add(Me.Button5)
         Me.sweatshirtPanel.Controls.Add(Me.Button4)
         Me.sweatshirtPanel.Controls.Add(Me.Button3)
-        Me.sweatshirtPanel.Controls.Add(Me.Button2)
+        Me.sweatshirtPanel.Controls.Add(Me.sweatWhite)
         Me.sweatshirtPanel.Controls.Add(Me.sweatshirtAddToCart)
         Me.sweatshirtPanel.Controls.Add(Me.Label2)
         Me.sweatshirtPanel.Controls.Add(Me.sweatshirtStockTxt)
@@ -840,17 +862,17 @@ Partial Class apparelPage
         Me.Button3.TabIndex = 3
         Me.Button3.UseVisualStyleBackColor = False
         '
-        'Button2
+        'sweatWhite
         '
-        Me.Button2.BackColor = System.Drawing.Color.White
-        Me.Button2.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button2.FlatAppearance.BorderSize = 2
-        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button2.Location = New System.Drawing.Point(24, 338)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(20, 20)
-        Me.Button2.TabIndex = 3
-        Me.Button2.UseVisualStyleBackColor = False
+        Me.sweatWhite.BackColor = System.Drawing.Color.White
+        Me.sweatWhite.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.sweatWhite.FlatAppearance.BorderSize = 2
+        Me.sweatWhite.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.sweatWhite.Location = New System.Drawing.Point(24, 338)
+        Me.sweatWhite.Name = "sweatWhite"
+        Me.sweatWhite.Size = New System.Drawing.Size(20, 20)
+        Me.sweatWhite.TabIndex = 3
+        Me.sweatWhite.UseVisualStyleBackColor = False
         '
         'sweatshirtAddToCart
         '
@@ -908,18 +930,6 @@ Partial Class apparelPage
         Me.sweatshirtPic.TabIndex = 0
         Me.sweatshirtPic.TabStop = False
         '
-        'PictureBox2
-        '
-        Me.PictureBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
-        Me.PictureBox2.Location = New System.Drawing.Point(506, 12)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(369, 33)
-        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox2.TabIndex = 1
-        Me.PictureBox2.TabStop = False
-        '
         'PictureBox1
         '
         Me.PictureBox1.Cursor = System.Windows.Forms.Cursors.Hand
@@ -930,15 +940,6 @@ Partial Class apparelPage
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
-        '
-        'Panel6
-        '
-        Me.Panel6.Controls.Add(Me.PictureBox2)
-        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel6.Location = New System.Drawing.Point(0, 0)
-        Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1399, 57)
-        Me.Panel6.TabIndex = 11
         '
         'apparelPage
         '
@@ -955,6 +956,8 @@ Partial Class apparelPage
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "apparelPage"
         Me.Panel4.ResumeLayout(False)
+        Me.Panel6.ResumeLayout(False)
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
@@ -970,9 +973,7 @@ Partial Class apparelPage
         Me.sweatshirtPanel.ResumeLayout(False)
         Me.sweatshirtPanel.PerformLayout()
         CType(Me.sweatshirtPic, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel6.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -1003,7 +1004,7 @@ Partial Class apparelPage
     Friend WithEvents Button17 As Button
     Friend WithEvents sweatpantAddToCart As Button
     Friend WithEvents Label13 As Label
-    Friend WithEvents Label14 As Label
+    Friend WithEvents SweatpantStock As Label
     Friend WithEvents Label15 As Label
     Friend WithEvents sweatpantsPic As PictureBox
     Friend WithEvents Panel2 As Panel
@@ -1016,7 +1017,7 @@ Partial Class apparelPage
     Friend WithEvents Button13 As Button
     Friend WithEvents hoodieAddToCart As Button
     Friend WithEvents Label9 As Label
-    Friend WithEvents Label10 As Label
+    Friend WithEvents hoodieStock As Label
     Friend WithEvents Label11 As Label
     Friend WithEvents hoodiePic As PictureBox
     Friend WithEvents Panel1 As Panel
@@ -1029,7 +1030,7 @@ Partial Class apparelPage
     Friend WithEvents Button10 As Button
     Friend WithEvents tshirtAddtocart As Button
     Friend WithEvents Label5 As Label
-    Friend WithEvents Label6 As Label
+    Friend WithEvents shirtStock As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents tshirtPic As PictureBox
     Friend WithEvents sweatshirtPanel As Panel
@@ -1040,11 +1041,12 @@ Partial Class apparelPage
     Friend WithEvents Button5 As Button
     Friend WithEvents Button4 As Button
     Friend WithEvents Button3 As Button
-    Friend WithEvents Button2 As Button
+    Friend WithEvents sweatWhite As Button
     Friend WithEvents sweatshirtAddToCart As Button
     Friend WithEvents Label2 As Label
     Friend WithEvents sweatshirtStockTxt As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents sweatshirtPic As PictureBox
     Friend WithEvents Panel6 As Panel
+    Friend WithEvents BackgroundWorker2 As System.ComponentModel.BackgroundWorker
 End Class

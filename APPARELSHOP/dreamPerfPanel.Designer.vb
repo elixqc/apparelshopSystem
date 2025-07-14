@@ -23,7 +23,7 @@ Partial Class AddtoCartPanel
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(AddtoCartPanel))
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.fragInfo = New System.Windows.Forms.Label()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.Button23 = New System.Windows.Forms.Button()
         Me.PictureBox5 = New System.Windows.Forms.PictureBox()
@@ -32,16 +32,15 @@ Partial Class AddtoCartPanel
         CType(Me.perfumePic, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'Label2
+        'fragInfo
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.BackColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(342, 47)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(282, 380)
-        Me.Label2.TabIndex = 3
-        Me.Label2.Text = resources.GetString("Label2.Text")
+        Me.fragInfo.BackColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.fragInfo.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.fragInfo.Location = New System.Drawing.Point(342, 47)
+        Me.fragInfo.Name = "fragInfo"
+        Me.fragInfo.Size = New System.Drawing.Size(282, 380)
+        Me.fragInfo.TabIndex = 3
+        Me.fragInfo.Text = resources.GetString("fragInfo.Text")
         '
         'TextBox2
         '
@@ -83,7 +82,7 @@ Partial Class AddtoCartPanel
         '
         Me.perfumePic.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.perfumePic.Image = Global.APPARELSHOP.My.Resources.Resources.dreamFinal
-        Me.perfumePic.Location = New System.Drawing.Point(3, 47)
+        Me.perfumePic.Location = New System.Drawing.Point(3, 45)
         Me.perfumePic.Name = "perfumePic"
         Me.perfumePic.Size = New System.Drawing.Size(333, 399)
         Me.perfumePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -100,7 +99,7 @@ Partial Class AddtoCartPanel
         Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.Button23)
         Me.Controls.Add(Me.perfumePic)
-        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.fragInfo)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "AddtoCartPanel"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -112,7 +111,7 @@ Partial Class AddtoCartPanel
 
     End Sub
 
-    Friend WithEvents Label2 As Label
+    Friend WithEvents fragInfo As Label
     Friend WithEvents perfumePic As PictureBox
     Friend WithEvents PictureBox5 As PictureBox
     Friend WithEvents TextBox2 As TextBox

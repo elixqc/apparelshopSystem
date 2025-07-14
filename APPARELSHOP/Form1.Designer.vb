@@ -35,21 +35,21 @@ Partial Class Form1
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.welcomeName = New System.Windows.Forms.Label()
-        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ApparelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PerfumeruToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MasculineToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FeminineToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        Me.MenuStrip2.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
         'ContextMenuStrip1
@@ -73,18 +73,18 @@ Partial Class Form1
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(128, 22)
         '
         'MensToolStripMenuItem
         '
         Me.MensToolStripMenuItem.Name = "MensToolStripMenuItem"
-        Me.MensToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.MensToolStripMenuItem.Size = New System.Drawing.Size(128, 22)
         Me.MensToolStripMenuItem.Text = "Masculine"
         '
         'FeminineToolStripMenuItem
         '
         Me.FeminineToolStripMenuItem.Name = "FeminineToolStripMenuItem"
-        Me.FeminineToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.FeminineToolStripMenuItem.Size = New System.Drawing.Size(128, 22)
         Me.FeminineToolStripMenuItem.Text = "Feminine"
         '
         'JEWELRYToolStripMenuItem
@@ -138,6 +138,45 @@ Partial Class Form1
         Me.welcomeName.Text = "Label1"
         Me.welcomeName.Visible = False
         '
+        'MenuStrip2
+        '
+        Me.MenuStrip2.AutoSize = False
+        Me.MenuStrip2.BackColor = System.Drawing.Color.Transparent
+        Me.MenuStrip2.Dock = System.Windows.Forms.DockStyle.None
+        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ApparelToolStripMenuItem, Me.PerfumeruToolStripMenuItem})
+        Me.MenuStrip2.Location = New System.Drawing.Point(309, 13)
+        Me.MenuStrip2.Name = "MenuStrip2"
+        Me.MenuStrip2.Size = New System.Drawing.Size(514, 28)
+        Me.MenuStrip2.TabIndex = 1
+        Me.MenuStrip2.Text = "MenuStrip2"
+        '
+        'ApparelToolStripMenuItem
+        '
+        Me.ApparelToolStripMenuItem.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ApparelToolStripMenuItem.Name = "ApparelToolStripMenuItem"
+        Me.ApparelToolStripMenuItem.Size = New System.Drawing.Size(77, 24)
+        Me.ApparelToolStripMenuItem.Text = "APPAREL"
+        '
+        'PerfumeruToolStripMenuItem
+        '
+        Me.PerfumeruToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MasculineToolStripMenuItem, Me.FeminineToolStripMenuItem1})
+        Me.PerfumeruToolStripMenuItem.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PerfumeruToolStripMenuItem.Name = "PerfumeruToolStripMenuItem"
+        Me.PerfumeruToolStripMenuItem.Size = New System.Drawing.Size(95, 24)
+        Me.PerfumeruToolStripMenuItem.Text = "PERFUMERY"
+        '
+        'MasculineToolStripMenuItem
+        '
+        Me.MasculineToolStripMenuItem.Name = "MasculineToolStripMenuItem"
+        Me.MasculineToolStripMenuItem.Size = New System.Drawing.Size(131, 24)
+        Me.MasculineToolStripMenuItem.Text = "Masculine"
+        '
+        'FeminineToolStripMenuItem1
+        '
+        Me.FeminineToolStripMenuItem1.Name = "FeminineToolStripMenuItem1"
+        Me.FeminineToolStripMenuItem1.Size = New System.Drawing.Size(131, 24)
+        Me.FeminineToolStripMenuItem1.Text = "Feminine"
+        '
         'PictureBox4
         '
         Me.PictureBox4.Cursor = System.Windows.Forms.Cursors.Hand
@@ -183,45 +222,6 @@ Partial Class Form1
         Me.MenuStrip1.TabIndex = 2
         Me.MenuStrip1.Text = "MenuStrip1"
         '
-        'MenuStrip2
-        '
-        Me.MenuStrip2.AutoSize = False
-        Me.MenuStrip2.BackColor = System.Drawing.Color.Transparent
-        Me.MenuStrip2.Dock = System.Windows.Forms.DockStyle.None
-        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ApparelToolStripMenuItem, Me.PerfumeruToolStripMenuItem})
-        Me.MenuStrip2.Location = New System.Drawing.Point(309, 13)
-        Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Size = New System.Drawing.Size(514, 28)
-        Me.MenuStrip2.TabIndex = 1
-        Me.MenuStrip2.Text = "MenuStrip2"
-        '
-        'ApparelToolStripMenuItem
-        '
-        Me.ApparelToolStripMenuItem.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ApparelToolStripMenuItem.Name = "ApparelToolStripMenuItem"
-        Me.ApparelToolStripMenuItem.Size = New System.Drawing.Size(77, 24)
-        Me.ApparelToolStripMenuItem.Text = "APPAREL"
-        '
-        'PerfumeruToolStripMenuItem
-        '
-        Me.PerfumeruToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MasculineToolStripMenuItem, Me.FeminineToolStripMenuItem1})
-        Me.PerfumeruToolStripMenuItem.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PerfumeruToolStripMenuItem.Name = "PerfumeruToolStripMenuItem"
-        Me.PerfumeruToolStripMenuItem.Size = New System.Drawing.Size(95, 24)
-        Me.PerfumeruToolStripMenuItem.Text = "PERFUMERY"
-        '
-        'MasculineToolStripMenuItem
-        '
-        Me.MasculineToolStripMenuItem.Name = "MasculineToolStripMenuItem"
-        Me.MasculineToolStripMenuItem.Size = New System.Drawing.Size(180, 24)
-        Me.MasculineToolStripMenuItem.Text = "Masculine"
-        '
-        'FeminineToolStripMenuItem1
-        '
-        Me.FeminineToolStripMenuItem1.Name = "FeminineToolStripMenuItem1"
-        Me.FeminineToolStripMenuItem1.Size = New System.Drawing.Size(180, 24)
-        Me.FeminineToolStripMenuItem1.Text = "Feminine"
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -239,11 +239,11 @@ Partial Class Form1
         Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        Me.MenuStrip2.ResumeLayout(False)
+        Me.MenuStrip2.PerformLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.MenuStrip2.ResumeLayout(False)
-        Me.MenuStrip2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub

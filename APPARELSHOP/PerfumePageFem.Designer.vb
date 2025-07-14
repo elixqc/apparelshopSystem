@@ -22,10 +22,10 @@ Partial Class PerfumePageFem
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.PictureBox6 = New System.Windows.Forms.PictureBox()
-        Me.PictureBox5 = New System.Windows.Forms.PictureBox()
-        Me.infinityPic = New System.Windows.Forms.PictureBox()
-        Me.DreamPic = New System.Windows.Forms.PictureBox()
+        Me.AfternoonvibePic = New System.Windows.Forms.PictureBox()
+        Me.coeurPic = New System.Windows.Forms.PictureBox()
+        Me.SunsetPic = New System.Windows.Forms.PictureBox()
+        Me.LovespellPic = New System.Windows.Forms.PictureBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -34,59 +34,61 @@ Partial Class PerfumePageFem
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
-        CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.infinityPic, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DreamPic, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        CType(Me.AfternoonvibePic, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.coeurPic, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SunsetPic, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.LovespellPic, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'PictureBox6
+        'AfternoonvibePic
         '
-        Me.PictureBox6.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox6.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PictureBox6.Image = Global.APPARELSHOP.My.Resources.Resources.AfternoonVibe
-        Me.PictureBox6.Location = New System.Drawing.Point(993, 70)
-        Me.PictureBox6.Name = "PictureBox6"
-        Me.PictureBox6.Size = New System.Drawing.Size(323, 396)
-        Me.PictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox6.TabIndex = 18
-        Me.PictureBox6.TabStop = False
+        Me.AfternoonvibePic.BackColor = System.Drawing.Color.Transparent
+        Me.AfternoonvibePic.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.AfternoonvibePic.Image = Global.APPARELSHOP.My.Resources.Resources.AfternoonVibe
+        Me.AfternoonvibePic.Location = New System.Drawing.Point(993, 70)
+        Me.AfternoonvibePic.Name = "AfternoonvibePic"
+        Me.AfternoonvibePic.Size = New System.Drawing.Size(323, 396)
+        Me.AfternoonvibePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.AfternoonvibePic.TabIndex = 18
+        Me.AfternoonvibePic.TabStop = False
         '
-        'PictureBox5
+        'coeurPic
         '
-        Me.PictureBox5.BackColor = System.Drawing.Color.Transparent
-        Me.PictureBox5.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.PictureBox5.Image = Global.APPARELSHOP.My.Resources.Resources.CoeurDeRose
-        Me.PictureBox5.Location = New System.Drawing.Point(664, 70)
-        Me.PictureBox5.Name = "PictureBox5"
-        Me.PictureBox5.Size = New System.Drawing.Size(323, 396)
-        Me.PictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox5.TabIndex = 19
-        Me.PictureBox5.TabStop = False
+        Me.coeurPic.BackColor = System.Drawing.Color.Transparent
+        Me.coeurPic.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.coeurPic.Image = Global.APPARELSHOP.My.Resources.Resources.CoeurDeRose
+        Me.coeurPic.Location = New System.Drawing.Point(664, 70)
+        Me.coeurPic.Name = "coeurPic"
+        Me.coeurPic.Size = New System.Drawing.Size(323, 396)
+        Me.coeurPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.coeurPic.TabIndex = 19
+        Me.coeurPic.TabStop = False
         '
-        'infinityPic
+        'SunsetPic
         '
-        Me.infinityPic.BackColor = System.Drawing.Color.Transparent
-        Me.infinityPic.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.infinityPic.Image = Global.APPARELSHOP.My.Resources.Resources.Sunset
-        Me.infinityPic.Location = New System.Drawing.Point(335, 70)
-        Me.infinityPic.Name = "infinityPic"
-        Me.infinityPic.Size = New System.Drawing.Size(323, 396)
-        Me.infinityPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.infinityPic.TabIndex = 20
-        Me.infinityPic.TabStop = False
+        Me.SunsetPic.BackColor = System.Drawing.Color.Transparent
+        Me.SunsetPic.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.SunsetPic.Image = Global.APPARELSHOP.My.Resources.Resources.Sunset
+        Me.SunsetPic.Location = New System.Drawing.Point(335, 70)
+        Me.SunsetPic.Name = "SunsetPic"
+        Me.SunsetPic.Size = New System.Drawing.Size(323, 396)
+        Me.SunsetPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.SunsetPic.TabIndex = 20
+        Me.SunsetPic.TabStop = False
         '
-        'DreamPic
+        'LovespellPic
         '
-        Me.DreamPic.BackColor = System.Drawing.Color.Transparent
-        Me.DreamPic.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.DreamPic.Image = Global.APPARELSHOP.My.Resources.Resources.Lovespell
-        Me.DreamPic.Location = New System.Drawing.Point(6, 70)
-        Me.DreamPic.Name = "DreamPic"
-        Me.DreamPic.Size = New System.Drawing.Size(323, 396)
-        Me.DreamPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.DreamPic.TabIndex = 21
-        Me.DreamPic.TabStop = False
+        Me.LovespellPic.BackColor = System.Drawing.Color.Transparent
+        Me.LovespellPic.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.LovespellPic.Image = Global.APPARELSHOP.My.Resources.Resources.Lovespell
+        Me.LovespellPic.Location = New System.Drawing.Point(6, 70)
+        Me.LovespellPic.Name = "LovespellPic"
+        Me.LovespellPic.Size = New System.Drawing.Size(323, 396)
+        Me.LovespellPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.LovespellPic.TabIndex = 21
+        Me.LovespellPic.TabStop = False
         '
         'Label19
         '
@@ -168,12 +170,23 @@ Partial Class PerfumePageFem
         Me.Label6.TabIndex = 24
         Me.Label6.Text = "₱1499.00"
         '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = Global.APPARELSHOP.My.Resources.Resources.xbuttfinal
+        Me.PictureBox1.Location = New System.Drawing.Point(1276, 12)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(33, 32)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 26
+        Me.PictureBox1.TabStop = False
+        '
         'PerfumePageFem
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(1321, 583)
+        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label1)
@@ -182,26 +195,27 @@ Partial Class PerfumePageFem
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label19)
         Me.Controls.Add(Me.Label17)
-        Me.Controls.Add(Me.PictureBox6)
-        Me.Controls.Add(Me.PictureBox5)
-        Me.Controls.Add(Me.infinityPic)
-        Me.Controls.Add(Me.DreamPic)
+        Me.Controls.Add(Me.AfternoonvibePic)
+        Me.Controls.Add(Me.coeurPic)
+        Me.Controls.Add(Me.SunsetPic)
+        Me.Controls.Add(Me.LovespellPic)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "PerfumePageFem"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "PerfumePageFem"
-        CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PictureBox5, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.infinityPic, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DreamPic, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.AfternoonvibePic, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.coeurPic, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.SunsetPic, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.LovespellPic, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents PictureBox6 As PictureBox
-    Friend WithEvents PictureBox5 As PictureBox
-    Friend WithEvents infinityPic As PictureBox
-    Friend WithEvents DreamPic As PictureBox
+    Friend WithEvents AfternoonvibePic As PictureBox
+    Friend WithEvents coeurPic As PictureBox
+    Friend WithEvents SunsetPic As PictureBox
+    Friend WithEvents LovespellPic As PictureBox
     Friend WithEvents Label19 As Label
     Friend WithEvents Label17 As Label
     Friend WithEvents Label1 As Label
@@ -210,4 +224,5 @@ Partial Class PerfumePageFem
     Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents Label6 As Label
+    Friend WithEvents PictureBox1 As PictureBox
 End Class

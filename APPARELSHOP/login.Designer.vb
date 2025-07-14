@@ -77,7 +77,7 @@ Partial Class login
         Me.signIn_panel.Controls.Add(Me.Label2)
         Me.signIn_panel.Controls.Add(Me.passwordLogin)
         Me.signIn_panel.Controls.Add(Me.emailLogin)
-        Me.signIn_panel.Location = New System.Drawing.Point(51, 142)
+        Me.signIn_panel.Location = New System.Drawing.Point(51, 130)
         Me.signIn_panel.Name = "signIn_panel"
         Me.signIn_panel.Size = New System.Drawing.Size(344, 358)
         Me.signIn_panel.TabIndex = 1
@@ -87,7 +87,7 @@ Partial Class login
         Me.signInBtn.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(51, Byte), Integer))
         Me.signInBtn.Cursor = System.Windows.Forms.Cursors.Hand
         Me.signInBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.signInBtn.Font = New System.Drawing.Font("Yu Gothic", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.signInBtn.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.signInBtn.ForeColor = System.Drawing.SystemColors.ButtonFace
         Me.signInBtn.Location = New System.Drawing.Point(31, 281)
         Me.signInBtn.Name = "signInBtn"
@@ -259,7 +259,7 @@ Partial Class login
         '
         Me.createAccountBtn.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(51, Byte), Integer))
         Me.createAccountBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.createAccountBtn.Font = New System.Drawing.Font("Yu Gothic", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.createAccountBtn.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.createAccountBtn.ForeColor = System.Drawing.SystemColors.ButtonFace
         Me.createAccountBtn.Location = New System.Drawing.Point(90, 419)
         Me.createAccountBtn.Name = "createAccountBtn"

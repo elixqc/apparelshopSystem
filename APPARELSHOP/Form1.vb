@@ -89,14 +89,31 @@ Public Class Form1
     End Sub
 
     Private Sub ApparelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ApparelToolStripMenuItem.Click
-        appthemes.SmoothFadeIn(apparelPage)
+
+        If apparelPage.Visible Then
+
+            apparelPage.BringToFront()
+        Else
+            appthemes.SmoothFadeIn(apparelPage)
+        End If
+
     End Sub
 
     Private Sub MasculineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MasculineToolStripMenuItem.Click
-        appthemes.SmoothFadeIn(perfumePage)
+
+        If perfumePage.Visible Then
+            perfumePage.BringToFront()
+        Else
+            appthemes.SmoothFadeIn(perfumePage)
+        End If
     End Sub
 
     Private Sub FeminineToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles FeminineToolStripMenuItem1.Click
-        appthemes.SmoothFadeIn(PerfumePageFem)
+
+        If PerfumePageFem.Visible Then
+            PerfumePageFem.BringToFront()
+        Else
+            appthemes.SmoothFadeIn(PerfumePageFem)
+        End If
     End Sub
 End Class
