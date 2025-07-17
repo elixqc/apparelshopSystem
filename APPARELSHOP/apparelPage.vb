@@ -100,33 +100,8 @@ Public Class apparelPage
 
         MessageBox.Show(productName)
 
-        Try
-
-            conn.Open()
-            Dim getProductCmd As New MySqlCommand("SELECT product_id FROM products WHERE product_name = @pname", conn)
-            getProductCmd.Parameters.AddWithValue("@pname", productName)
-
-            Dim productIdObj As Object = getProductCmd.ExecuteScalar()
-            Dim productId As Integer = CInt(productIdObj)
-
-            Dim cartCmd As New MySqlCommand("
-                                        INSERT INTO cart (customer_id, product_id, quantity, date_added, size)
-                                        VALUES (@cid, @pid, @qty, NOW(), @size)
-                                        ON DUPLICATE KEY UPDATE quantity = quantity + @qty, date_added = NOW()", conn)
-
-            cartCmd.Parameters.AddWithValue("@cid", loggedInUserID)
-            cartCmd.Parameters.AddWithValue("@pid", productId)
-            cartCmd.Parameters.AddWithValue("@qty", quantity)
-            cartCmd.Parameters.AddWithValue("@size", selectedSize)
-            cartCmd.ExecuteNonQuery()
-
-            MessageBox.Show("Product added to cart!")
-
-        Catch ex As Exception
-            MessageBox.Show("Error: " & ex.Message)
-        Finally
-            conn.Close()
-        End Try
+        ' Call function
+        AddToCart(productName, quantity, selectedSize)
 
 
 
@@ -224,34 +199,10 @@ Public Class apparelPage
 
         MessageBox.Show(productName)
 
-        Try
+        ' Call function
+        AddToCart(productName, quantity, selectedSize)
 
-            conn.Open()
-            Dim getProductCmd As New MySqlCommand("SELECT product_id FROM products WHERE product_name = @pname", conn)
 
-            getProductCmd.Parameters.AddWithValue("@pname", productName)
-
-            Dim productIdObj As Object = getProductCmd.ExecuteScalar()
-            Dim productId As Integer = CInt(productIdObj)
-
-            Dim cartCmd As New MySqlCommand("
-                                        INSERT INTO cart (customer_id, product_id, quantity, date_added, size)
-                                        VALUES (@cid, @pid, @qty, NOW(), @size)
-                                        ON DUPLICATE KEY UPDATE quantity = quantity + @qty, date_added = NOW()", conn)
-
-            cartCmd.Parameters.AddWithValue("@cid", loggedInUserID)
-            cartCmd.Parameters.AddWithValue("@pid", productId)
-            cartCmd.Parameters.AddWithValue("@qty", quantity)
-            cartCmd.Parameters.AddWithValue("@size", selectedSize)
-            cartCmd.ExecuteNonQuery()
-
-            MessageBox.Show("Product added to cart!")
-
-        Catch ex As Exception
-            MessageBox.Show("Error: " & ex.Message)
-        Finally
-            conn.Close()
-        End Try
     End Sub
 
     Private Sub Button13_Click(sender As Object, e As EventArgs)
@@ -315,34 +266,9 @@ Public Class apparelPage
 
         MessageBox.Show(productName)
 
-        Try
+        ' Call function
+        AddToCart(productName, quantity, selectedSize)
 
-            conn.Open()
-            Dim getProductCmd As New MySqlCommand("SELECT product_id FROM products WHERE product_name = @pname", conn)
-
-            getProductCmd.Parameters.AddWithValue("@pname", productName)
-
-            Dim productIdObj As Object = getProductCmd.ExecuteScalar()
-            Dim productId As Integer = CInt(productIdObj)
-
-            Dim cartCmd As New MySqlCommand("
-                                        INSERT INTO cart (customer_id, product_id, quantity, date_added, size)
-                                        VALUES (@cid, @pid, @qty, NOW(), @size)
-                                        ON DUPLICATE KEY UPDATE quantity = quantity + @qty, date_added = NOW()", conn)
-
-            cartCmd.Parameters.AddWithValue("@cid", loggedInUserID)
-            cartCmd.Parameters.AddWithValue("@pid", productId)
-            cartCmd.Parameters.AddWithValue("@qty", quantity)
-            cartCmd.Parameters.AddWithValue("@size", selectedSize)
-            cartCmd.ExecuteNonQuery()
-
-            MessageBox.Show("Product added to cart!")
-
-        Catch ex As Exception
-            MessageBox.Show("Error: " & ex.Message)
-        Finally
-            conn.Close()
-        End Try
 
     End Sub
 
@@ -537,34 +463,8 @@ Public Class apparelPage
 
         MessageBox.Show(productName)
 
-        Try
-
-            conn.Open()
-            Dim getProductCmd As New MySqlCommand("SELECT product_id FROM products WHERE product_name = @pname", conn)
-
-            getProductCmd.Parameters.AddWithValue("@pname", productName)
-
-            Dim productIdObj As Object = getProductCmd.ExecuteScalar()
-            Dim productId As Integer = CInt(productIdObj)
-
-            Dim cartCmd As New MySqlCommand("
-                                        INSERT INTO cart (customer_id, product_id, quantity, date_added, size)
-                                        VALUES (@cid, @pid, @qty, NOW(), @size)
-                                        ON DUPLICATE KEY UPDATE quantity = quantity + @qty, date_added = NOW()", conn)
-
-            cartCmd.Parameters.AddWithValue("@cid", loggedInUserID)
-            cartCmd.Parameters.AddWithValue("@pid", productId)
-            cartCmd.Parameters.AddWithValue("@qty", quantity)
-            cartCmd.Parameters.AddWithValue("@size", selectedSize)
-            cartCmd.ExecuteNonQuery()
-
-            MessageBox.Show("Product added to cart!")
-
-        Catch ex As Exception
-            MessageBox.Show("Error: " & ex.Message)
-        Finally
-            conn.Close()
-        End Try
+        ' Call function
+        AddToCart(productName, quantity, selectedSize)
 
     End Sub
 

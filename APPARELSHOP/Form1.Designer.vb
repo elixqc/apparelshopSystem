@@ -44,6 +44,7 @@ Partial Class Form1
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.TestingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.MenuStrip2.SuspendLayout()
@@ -143,7 +144,7 @@ Partial Class Form1
         Me.MenuStrip2.AutoSize = False
         Me.MenuStrip2.BackColor = System.Drawing.Color.Transparent
         Me.MenuStrip2.Dock = System.Windows.Forms.DockStyle.None
-        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ApparelToolStripMenuItem, Me.PerfumeruToolStripMenuItem})
+        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ApparelToolStripMenuItem, Me.PerfumeruToolStripMenuItem, Me.TestingToolStripMenuItem})
         Me.MenuStrip2.Location = New System.Drawing.Point(309, 13)
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Size = New System.Drawing.Size(514, 28)
@@ -168,13 +169,13 @@ Partial Class Form1
         'MasculineToolStripMenuItem
         '
         Me.MasculineToolStripMenuItem.Name = "MasculineToolStripMenuItem"
-        Me.MasculineToolStripMenuItem.Size = New System.Drawing.Size(131, 24)
+        Me.MasculineToolStripMenuItem.Size = New System.Drawing.Size(180, 24)
         Me.MasculineToolStripMenuItem.Text = "Masculine"
         '
         'FeminineToolStripMenuItem1
         '
         Me.FeminineToolStripMenuItem1.Name = "FeminineToolStripMenuItem1"
-        Me.FeminineToolStripMenuItem1.Size = New System.Drawing.Size(131, 24)
+        Me.FeminineToolStripMenuItem1.Size = New System.Drawing.Size(180, 24)
         Me.FeminineToolStripMenuItem1.Text = "Feminine"
         '
         'PictureBox4
@@ -222,6 +223,12 @@ Partial Class Form1
         Me.MenuStrip1.TabIndex = 2
         Me.MenuStrip1.Text = "MenuStrip1"
         '
+        'TestingToolStripMenuItem
+        '
+        Me.TestingToolStripMenuItem.Name = "TestingToolStripMenuItem"
+        Me.TestingToolStripMenuItem.Size = New System.Drawing.Size(55, 24)
+        Me.TestingToolStripMenuItem.Text = "testing"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -268,4 +275,5 @@ Partial Class Form1
     Friend WithEvents PerfumeruToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MasculineToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents FeminineToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents TestingToolStripMenuItem As ToolStripMenuItem
 End Class

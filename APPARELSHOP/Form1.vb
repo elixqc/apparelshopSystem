@@ -116,4 +116,8 @@ Public Class Form1
             appthemes.SmoothFadeIn(PerfumePageFem)
         End If
     End Sub
+
+    Private Sub TestingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TestingToolStripMenuItem.Click
+        appthemes.SmoothFadeIn(apparelPageSample)
+    End Sub
 End Class
