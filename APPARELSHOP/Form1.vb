@@ -74,7 +74,7 @@ Public Class Form1
         If loggedInUserID = 0 Then
             MsgBox("Please Login First")
         Else
-            appthemes.SmoothFadeIn(cart)
+            appthemes.SmoothFadeIn(newCart)
         End If
 
 
@@ -89,32 +89,22 @@ Public Class Form1
     End Sub
 
     Private Sub ApparelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ApparelToolStripMenuItem.Click
-
-        If apparelPage.Visible Then
-
-            apparelPage.BringToFront()
-        Else
-            appthemes.SmoothFadeIn(apparelPage)
+        If apparelPageSample.Visible Then
+            apparelPageSample.Close()
         End If
+        appthemes.SmoothFadeIn(apparelPageSample)
+
 
     End Sub
 
     Private Sub MasculineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MasculineToolStripMenuItem.Click
 
-        If perfumePage.Visible Then
-            perfumePage.BringToFront()
-        Else
-            appthemes.SmoothFadeIn(perfumePage)
-        End If
+
     End Sub
 
     Private Sub FeminineToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles FeminineToolStripMenuItem1.Click
 
-        If PerfumePageFem.Visible Then
-            PerfumePageFem.BringToFront()
-        Else
-            appthemes.SmoothFadeIn(PerfumePageFem)
-        End If
+
     End Sub
 
     Private Sub TestingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TestingToolStripMenuItem.Click

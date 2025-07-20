@@ -303,6 +303,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property minusbutton() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("minusbutton", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property Origin() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Origin", resourceCulture)
@@ -346,6 +356,16 @@ Namespace My.Resources
         Friend ReadOnly Property pink_swsh() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("pink_swsh", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property plusbutton() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("plusbutton", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

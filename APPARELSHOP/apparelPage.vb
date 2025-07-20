@@ -24,9 +24,7 @@ Public Class apparelPage
         sweatpantQty.Text = "Quantity"
 
         'show total stocks for each product
-        ShowStockTotal("Sweatshirt", sweatshirtStockTxt)
-        ShowStockTotal("T-shirt", shirtStock)
-        ShowStockTotal("overSizedHoodie", hoodieStock)
+
 
 
         ' You can also set placeholder text or reset inputs here
@@ -75,33 +73,6 @@ Public Class apparelPage
     Private Sub sweatshirtAddToCart_Click(sender As Object, e As EventArgs) Handles sweatshirtAddToCart.Click
 
 
-        Dim selectedSize As String = sweatshirtSize.SelectedItem?.ToString()
-        Dim quantity As Integer = 0
-
-        'check if customers r alr logged in
-        If loggedInUserID = 0 Then
-            MsgBox("Please Login First")
-            Exit Sub
-        End If
-        'check size
-        If String.IsNullOrEmpty(selectedSize) Then
-            MessageBox.Show("Please select a size.")
-            Exit Sub
-        End If
-        'check if quantity is valid (numbers)
-        If Not Integer.TryParse(sweatshirtQty.Text, quantity) OrElse quantity <= 0 Then
-            MessageBox.Show("Please enter a valid quantity.")
-            Exit Sub
-        Else
-            quantity = sweatshirtQty.Text
-        End If
-        'declare product name
-        Dim productName As String = $"Sweatshirt - {selectedSweatsColor} - {sweatshirtSize.SelectedItem}"
-
-        MessageBox.Show(productName)
-
-        ' Call function
-        AddToCart(productName, quantity, selectedSize)
 
 
 
@@ -174,33 +145,7 @@ Public Class apparelPage
 
     Private Sub tshirtAddtocart_Click_1(sender As Object, e As EventArgs) Handles tshirtAddtocart.Click
 
-        Dim selectedSize As String = shirtSize.SelectedItem?.ToString()
-        Dim quantity As Integer = 0
 
-        'check if customers r alr logged in
-        If loggedInUserID = 0 Then
-            MsgBox("Please Login First")
-            Exit Sub
-        End If
-        'check size
-        If String.IsNullOrEmpty(selectedSize) Then
-            MessageBox.Show("Please select a size.")
-            Exit Sub
-        End If
-        'check if quantity is valid (numbers)
-        If Not Integer.TryParse(shirtQty.Text, quantity) OrElse quantity <= 0 Then
-            MessageBox.Show("Please enter a valid quantity.")
-            Exit Sub
-        Else
-            quantity = shirtQty.Text
-        End If
-        'declare product name
-        Dim productName As String = $"T-shirt - {selectedShirtColor} - {shirtSize.SelectedItem}"
-
-        MessageBox.Show(productName)
-
-        ' Call function
-        AddToCart(productName, quantity, selectedSize)
 
 
     End Sub
@@ -241,57 +186,19 @@ Public Class apparelPage
 
     Private Sub hoodieAddToCart_Click_1(sender As Object, e As EventArgs) Handles hoodieAddToCart.Click
 
-        Dim selectedSize As String = hoodieSize.SelectedItem?.ToString()
-        Dim quantity As Integer = 0
 
-        'check if customers r alr logged in
-        If loggedInUserID = 0 Then
-            MsgBox("Please Login First")
-            Exit Sub
-        End If
-        'check size
-        If String.IsNullOrEmpty(selectedSize) Then
-            MessageBox.Show("Please select a size.")
-            Exit Sub
-        End If
-        'check if quantity is valid (numbers)
-        If Not Integer.TryParse(hoodieQty.Text, quantity) OrElse quantity <= 0 Then
-            MessageBox.Show("Please enter a valid quantity.")
-            Exit Sub
-        Else
-            quantity = hoodieQty.Text
-        End If
-        'declare product name
-        Dim productName As String = $"overSizedHoodie - {selectedHoodieColor} - {hoodieSize.SelectedItem}"
-
-        MessageBox.Show(productName)
-
-        ' Call function
-        AddToCart(productName, quantity, selectedSize)
 
 
     End Sub
 
     Private Sub Button3_Click_1(sender As Object, e As EventArgs) Handles Button3.Click
-        sweatshirtPic.Image = My.Resources.gray_swsh
-        selectedSweatsColor = "Gray"
 
-        If sweatshirtSize.SelectedItem Is Nothing Then
-            Dim productPrefix As String = $"Sweatshirt - {selectedSweatsColor}"
-            ShowStockSpecificColor(productPrefix, sweatshirtStockTxt)
-        End If
 
     End Sub
 
     Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles sweatWhite.Click
 
-        selectedSweatsColor = "White"
-        sweatshirtPic.Image = My.Resources.white_swsh
 
-        If sweatshirtSize.SelectedItem Is Nothing Then
-            Dim productPrefix As String = $"Sweatshirt - {selectedSweatsColor}"
-            ShowStockSpecificColor(productPrefix, sweatshirtStockTxt)
-        End If
 
 
 
@@ -302,122 +209,50 @@ Public Class apparelPage
     End Sub
 
     Private Sub Button4_Click_1(sender As Object, e As EventArgs) Handles Button4.Click
-        sweatshirtPic.Image = My.Resources.black_swsh
-        selectedSweatsColor = "Black"
 
-        If sweatshirtSize.SelectedItem Is Nothing Then
-            Dim productPrefix As String = $"Sweatshirt - {selectedSweatsColor}"
-            ShowStockSpecificColor(productPrefix, sweatshirtStockTxt)
-        End If
 
     End Sub
 
     Private Sub Button5_Click_1(sender As Object, e As EventArgs) Handles Button5.Click
-        sweatshirtPic.Image = My.Resources.pink_swsh
-        selectedSweatsColor = "Pink"
 
-        If sweatshirtSize.SelectedItem Is Nothing Then
-            Dim productPrefix As String = $"Sweatshirt - {selectedSweatsColor}"
-            ShowStockSpecificColor(productPrefix, sweatshirtStockTxt)
-        End If
 
     End Sub
 
     Private Sub Button6_Click_1(sender As Object, e As EventArgs) Handles Button6.Click
-        sweatshirtPic.Image = My.Resources.yellow_swsh
-        selectedSweatsColor = "Yellow"
 
-        If sweatshirtSize.SelectedItem Is Nothing Then
-            Dim productPrefix As String = $"Sweatshirt - {selectedSweatsColor}"
-            ShowStockSpecificColor(productPrefix, sweatshirtStockTxt)
-        End If
 
     End Sub
 
     Private Sub Button10_Click_1(sender As Object, e As EventArgs) Handles Button10.Click
-        tshirtPic.Image = My.Resources.white_shirt1
-        selectedShirtColor = "White"
 
-        If shirtSize.SelectedItem Is Nothing Then
-            Dim productPrefix As String = $"T-Shirt - {selectedShirtColor}"
-            ShowStockSpecificColor(productPrefix, shirtStock)
-        End If
 
     End Sub
 
     Private Sub Button9_Click_1(sender As Object, e As EventArgs) Handles Button9.Click
-        tshirtPic.Image = My.Resources.blue_shirt1
-        selectedShirtColor = "Blue"
 
-        If shirtSize.SelectedItem Is Nothing Then
-            Dim productPrefix As String = $"T-Shirt - {selectedShirtColor}"
-            ShowStockSpecificColor(productPrefix, shirtStock)
-        End If
 
     End Sub
 
     Private Sub Button8_Click_1(sender As Object, e As EventArgs) Handles Button8.Click
-        tshirtPic.Image = My.Resources.brown_shirt1
-        selectedShirtColor = "Brown"
 
-        If shirtSize.SelectedItem Is Nothing Then
-            Dim productPrefix As String = $"T-Shirt - {selectedShirtColor}"
-            ShowStockSpecificColor(productPrefix, shirtStock)
-        End If
 
     End Sub
 
     Private Sub Button7_Click_1(sender As Object, e As EventArgs) Handles Button7.Click
-        tshirtPic.Image = My.Resources.green_shirt1
-        selectedShirtColor = "Green"
 
-        If shirtSize.SelectedItem Is Nothing Then
-            Dim productPrefix As String = $"T-Shirt - {selectedShirtColor}"
-            ShowStockSpecificColor(productPrefix, shirtStock)
-        End If
 
     End Sub
 
-    Private Sub Button13_Click_1(sender As Object, e As EventArgs) Handles Button13.Click
-        hoodiePic.Image = My.Resources.red_hoodie1
-        selectedHoodieColor = "Red"
 
-        If hoodieSize.SelectedItem Is Nothing Then
-            Dim productPrefix As String = $"oversizedHoodie - {selectedHoodieColor}"
-            ShowStockSpecificColor(productPrefix, hoodieStock)
-        End If
-    End Sub
 
-    Private Sub Button12_Click_1(sender As Object, e As EventArgs) Handles Button12.Click
-        hoodiePic.Image = My.Resources.blue_hoodie
-        selectedHoodieColor = "Blue"
-
-        If hoodieSize.SelectedItem Is Nothing Then
-            Dim productPrefix As String = $"oversizedHoodie - {selectedHoodieColor}"
-            ShowStockSpecificColor(productPrefix, hoodieStock)
-        End If
-
-    End Sub
 
     Private Sub Button11_Click_1(sender As Object, e As EventArgs) Handles Button11.Click
-        hoodiePic.Image = My.Resources.pink_hoodie
-        selectedHoodieColor = "Pink"
 
-        If hoodieSize.SelectedItem Is Nothing Then
-            Dim productPrefix As String = $"oversizedHoodie - {selectedHoodieColor}"
-            ShowStockSpecificColor(productPrefix, hoodieStock)
-        End If
 
     End Sub
 
     Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles Button1.Click
-        hoodiePic.Image = My.Resources.yellow_hoodie
-        selectedHoodieColor = "Yellow"
 
-        If hoodieSize.SelectedItem Is Nothing Then
-            Dim productPrefix As String = $"oversizedHoodie - {selectedHoodieColor}"
-            ShowStockSpecificColor(productPrefix, hoodieStock)
-        End If
 
     End Sub
 
@@ -438,33 +273,7 @@ Public Class apparelPage
 
     Private Sub sweatpantAddToCart_Click(sender As Object, e As EventArgs) Handles sweatpantAddToCart.Click
 
-        Dim selectedSize As String = sweatpantSize.SelectedItem?.ToString()
-        Dim quantity As Integer = 0
 
-        'check if customers r alr logged in
-        If loggedInUserID = 0 Then
-            MsgBox("Please Login First")
-            Exit Sub
-        End If
-        'check size
-        If String.IsNullOrEmpty(selectedSize) Then
-            MessageBox.Show("Please select a size.")
-            Exit Sub
-        End If
-        'check if quantity is valid (numbers)
-        If Not Integer.TryParse(sweatpantQty.Text, quantity) OrElse quantity <= 0 Then
-            MessageBox.Show("Please enter a valid quantity.")
-            Exit Sub
-        Else
-            quantity = sweatpantQty.Text
-        End If
-        'declare product name
-        Dim productName As String = $"Sweatpants - {selectedSweatpantsColor} - {sweatpantSize.SelectedItem}"
-
-        MessageBox.Show(productName)
-
-        ' Call function
-        AddToCart(productName, quantity, selectedSize)
 
     End Sub
 

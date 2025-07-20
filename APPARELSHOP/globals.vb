@@ -18,65 +18,59 @@ Module globals
     Public selectedSweatpantsColor As String = ""
     Dim selectedColor As String = ""
 
-    Public Sub ShowStock(productName As String, stockLabel As Label)
+    Public Class CartItem
+        Public Property ProductID As Integer
+        Public Property Name As String
+        Public Property Size As String
+        Public Property Color As String
+        Public Property Brand As String
+        Public Property Quantity As Integer
+        Public Property ImagePath As String
+    End Class
+
+
+
+    Public Sub UpdateCartQuantity(customerID As Integer, productID As Integer, size As String, newQuantity As Integer)
         Try
-            conn.Open()
-            Dim cmd As New MySqlCommand("SELECT stock_quantity FROM products WHERE product_name = @pname", conn)
-            cmd.Parameters.AddWithValue("@pname", productName)
+            Using conn As New MySqlConnection("server=localhost;userid=root;password=;database=apparelshopdb")
+                conn.Open()
+                Dim query As String = "UPDATE cart SET quantity = @qty WHERE customer_id = @custID AND product_id = @prodID AND size = @size"
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@qty", newQuantity)
+                    cmd.Parameters.AddWithValue("@custID", customerID)
+                    cmd.Parameters.AddWithValue("@prodID", productID) ' ← this must be an Integer
+                    cmd.Parameters.AddWithValue("@size", size)
 
-            Dim stockObj As Object = cmd.ExecuteScalar()
-
-            If stockObj IsNot Nothing Then
-                stockLabel.Text = "Stock: " & stockObj.ToString()
-            Else
-                stockLabel.Text = "Stock: N/A"
-            End If
+                    cmd.ExecuteNonQuery()
+                End Using
+            End Using
         Catch ex As Exception
-            MessageBox.Show("Error fetching stock: " & ex.Message)
+            MessageBox.Show("Error updating quantity: " & ex.Message)
+        End Try
+    End Sub
+
+    Public Sub DeleteFromCart(customerID As Integer, productID As Integer, size As String)
+        Try
+
+            conn.Open()
+            Dim query As String = "DELETE FROM cart WHERE customer_id = @customerID AND product_id = @productID AND size = @size"
+            Dim cmd As New MySqlCommand(query, conn)
+
+            cmd.Parameters.AddWithValue("@customerID", customerID)
+            cmd.Parameters.AddWithValue("@productID", productID)
+            cmd.Parameters.AddWithValue("@size", size)
+
+            cmd.ExecuteNonQuery()
+        Catch ex As Exception
+            MessageBox.Show("Error deleting from cart: " & ex.Message)
         Finally
             conn.Close()
         End Try
     End Sub
 
-    Public Sub ShowStockSpecificColor(productPrefix As String, stockLabel As Label)
-        Try
-            conn.Open()
-            Dim cmd As New MySqlCommand("SELECT SUM(stock_quantity) FROM products WHERE product_name LIKE @pname", conn)
-            cmd.Parameters.AddWithValue("@pname", productPrefix & " - %") ' Match all sizes
 
-            Dim totalStockObj As Object = cmd.ExecuteScalar()
 
-            If totalStockObj IsNot Nothing AndAlso Not IsDBNull(totalStockObj) Then
-                stockLabel.Text = "Stock: " & totalStockObj.ToString()
-            Else
-                stockLabel.Text = "Stock: 0"
-            End If
-        Catch ex As Exception
-            MessageBox.Show("Error fetching stock: " & ex.Message)
-        Finally
-            conn.Close()
-        End Try
-    End Sub
 
-    Public Sub ShowStockTotal(productType As String, stockLabel As Label)
-        Try
-            conn.Open()
-            Dim cmd As New MySqlCommand("SELECT SUM(stock_quantity) FROM products WHERE product_name LIKE @pname", conn)
-            cmd.Parameters.AddWithValue("@pname", productType & "%") ' No dash, so it matches all colors/sizes
-
-            Dim totalStockObj As Object = cmd.ExecuteScalar()
-
-            If totalStockObj IsNot Nothing AndAlso Not IsDBNull(totalStockObj) Then
-                stockLabel.Text = "Stock: " & totalStockObj.ToString()
-            Else
-                stockLabel.Text = "Stock: 0"
-            End If
-        Catch ex As Exception
-            MessageBox.Show("Error fetching stock: " & ex.Message)
-        Finally
-            conn.Close()
-        End Try
-    End Sub
 
     'ADD TO CART FUNCTIONNNN
     Public Sub AddToCart(productName As String, quantity As Integer, selectedSize As String)
@@ -131,6 +125,13 @@ Module globals
         .Margin = New Padding(15, 15, 15, 15)'left top right bottom
     }
 
+        Dim productData As New Dictionary(Of String, Object)
+        productData("SelectedColor") = Nothing
+        productData("SelectedSize") = Nothing
+        productData("Quantity") = 0
+        panel.Tag = productData ' Attach data to the panel
+
+
         Dim productImage As New PictureBox With {
         .SizeMode = PictureBoxSizeMode.StretchImage,
         .Width = 286,
@@ -146,10 +147,10 @@ Module globals
         Dim firstPriceCaptured As Boolean = False
 
 
-        ' Connect to DB
+        ' Connecting to database
         Try
             conn.Open()
-            Dim cmd As New MySqlCommand("SELECT product_name, size, image_path, price, stock_quantity FROM products WHERE product_name LIKE @type", conn)
+            Dim cmd As New MySqlCommand("SELECT product_name, size, color, image_path, price, stock_quantity FROM products WHERE product_name LIKE @type", conn)
 
             cmd.Parameters.AddWithValue("@type", productType & "%")
             Dim reader = cmd.ExecuteReader()
@@ -158,6 +159,7 @@ Module globals
                 Dim fullName As String = reader("product_name").ToString()
                 Dim size As String = reader("size").ToString()
                 Dim imagePath As String = reader("image_path").ToString()
+                Dim color As String = reader("color").ToString()
                 totalStock += Convert.ToInt32(reader("stock_quantity"))
                 If Not firstPriceCaptured Then
                     priceValue = Convert.ToDecimal(reader("price"))
@@ -167,16 +169,8 @@ Module globals
 
                 sizes.Add(size)
 
-                Dim lastDash1 = fullName.LastIndexOf("-")
-                Dim lastDash2 = If(lastDash1 > 0, fullName.LastIndexOf("-", lastDash1 - 1), -1)
-
-                If lastDash2 >= 0 AndAlso lastDash1 > lastDash2 Then
-                    Dim color = fullName.Substring(lastDash2 + 1, lastDash1 - lastDash2 - 1).Trim()
-                    If Not colorImageMap.ContainsKey(color) Then
-                        colorImageMap.Add(color, imagePath)
-                    End If
-                Else
-                    MessageBox.Show("Skipping color parse: " & fullName)
+                If Not colorImageMap.ContainsKey(color) Then
+                    colorImageMap.Add(color, imagePath)
                 End If
 
             End While
@@ -206,7 +200,7 @@ Module globals
 
 
         ' Extract base name (without size and color)
-        Dim baseName As String = productType.Trim()
+        Dim baseName As String = "Prestige " & productType.Trim()
 
         ' Product Name Label
         Dim nameLabel As New Label With {
@@ -238,19 +232,6 @@ Module globals
         }
         panel.Controls.Add(priceLabel)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         ' Color Buttons
         Dim xOffset As Integer = 10
         For Each colorName In colorImageMap.Keys
@@ -271,13 +252,17 @@ Module globals
 
             AddHandler clrBtn.Click, Sub(senderBtn, eBtn)
                                          Dim clickedColor = DirectCast(senderBtn, Button).Tag.ToString()
+
                                          If colorImageMap.ContainsKey(clickedColor) Then
                                              Dim imgPath = Path.Combine(Application.StartupPath, colorImageMap(clickedColor))
                                              If File.Exists(imgPath) Then
                                                  productImage.Image = Image.FromFile(imgPath)
                                              End If
                                          End If
-                                         selectedColor = clickedColor ' ← Save the selected color here
+
+                                         ' Update the selected color in the panel's Tag
+                                         Dim data = DirectCast(panel.Tag, Dictionary(Of String, Object))
+                                         data("SelectedColor") = clickedColor
                                      End Sub
 
             panel.Controls.Add(clrBtn)
@@ -296,9 +281,6 @@ Module globals
         sizeCombo.Items.Insert(0, "Select Size")
         sizeCombo.SelectedIndex = 0
         sizeCombo.Items.AddRange(sizes.ToArray())
-
-
-
 
         panel.Controls.Add(sizeCombo)
 
@@ -352,30 +334,23 @@ Module globals
                                                MessageBox.Show("Enter valid quantity")
                                                Return
                                            End If
-                                           If String.IsNullOrEmpty(selectedSize) Then
+
+                                           If String.IsNullOrEmpty(selectedSize) OrElse selectedSize = "Select Size" Then
                                                MessageBox.Show("Select a size")
                                                Return
                                            End If
-                                           If loggedInUserID = 0 Then
-                                               MsgBox("Please Login First")
+
+                                           ' Get selected color from panel
+                                           Dim data = DirectCast(panel.Tag, Dictionary(Of String, Object))
+                                           Dim selectedColor = TryCast(data("SelectedColor"), String)
+
+                                           If String.IsNullOrEmpty(selectedColor) Then
+                                               MessageBox.Show("Please select a color.")
                                                Return
                                            End If
 
-
-
-
-
-
-
-
-
                                            Dim fullProductName = $"{productType} - {selectedColor} - {selectedSize}"
-
                                            AddToCart(fullProductName, qty, selectedSize)
-
-                                           MsgBox("product quantity:" & qty)
-                                           MsgBox("size: " & selectedSize)
-                                           MsgBox(fullProductName)
 
 
                                        End Sub
@@ -416,6 +391,176 @@ Module globals
 
         Return types.ToList()
     End Function
+
+
+    Public Sub CreateCartItemPanel(productID As Integer, productName As String, size As String, color As String, brand As String, quantity As Integer, imagePath As String, container As FlowLayoutPanel, newCartForm As newCart)
+
+        Dim panel As New Panel With {
+        .Width = 471,
+        .Height = 165,
+        .BorderStyle = BorderStyle.FixedSingle
+    }
+
+        ' Brand label
+        Dim brandLabel As New Label With {
+        .Text = brand.ToLower(),
+        .Font = New Font("Microsoft Sans Serif", 9, FontStyle.Bold),
+        .AutoSize = True,
+        .Location = New Point(4, 3)
+    }
+        panel.Controls.Add(brandLabel)
+
+        ' Product Image
+        Dim productImage As New PictureBox With {
+        .Size = New Size(120, 120),
+        .SizeMode = PictureBoxSizeMode.StretchImage,
+        .Location = New Point(19, 30)
+    }
+        If File.Exists(imagePath) Then
+            productImage.Image = Image.FromFile(imagePath)
+        End If
+        panel.Controls.Add(productImage)
+
+        ' Product Name Label
+        Dim nameLabel As New Label With {
+        .Text = productName,
+        .Font = New Font("Microsoft Sans Serif", 10),
+        .Location = New Point(147, 36),
+        .AutoSize = True
+    }
+        panel.Controls.Add(nameLabel)
+
+        ' Size Label
+        Dim sizeLabel As New Label With {
+        .Text = "Size: " & size,
+        .Font = New Font("Microsoft Sans Serif", 9),
+        .Location = New Point(147, 57),
+        .AutoSize = True
+    }
+        panel.Controls.Add(sizeLabel)
+
+        ' Color Label
+        Dim colorLabel As New Label With {
+        .Text = "Color: " & color,
+        .Font = New Font("Microsoft Sans Serif", 9),
+        .Location = New Point(147, 76),
+        .AutoSize = True
+    }
+        panel.Controls.Add(colorLabel)
+
+        ' Quantity Label
+        Dim qtyLabel As New Label With {
+        .Text = quantity.ToString(),
+        .Font = New Font("Microsoft Sans Serif", 10),
+        .Location = New Point(408, 114),
+        .AutoSize = True
+    }
+        panel.Controls.Add(qtyLabel)
+
+        ' Decrease Quantity Button
+        Dim minusBtn As New Button With {
+        .Text = "-",
+        .Width = 25,
+        .Height = 25,
+        .Location = New Point(374, 114)
+    }
+        AddHandler minusBtn.Click, Sub()
+                                       If quantity > 1 Then
+                                           quantity -= 1
+                                           qtyLabel.Text = quantity.ToString()
+
+                                           ' 🔄 Update in database
+                                           UpdateCartQuantity(loggedInUserID, productID, size, quantity)
+
+                                       ElseIf quantity = 1 Then
+                                           ' ❌ Delete from cart in database
+                                           DeleteFromCart(loggedInUserID, productID, size)
+                                           newCartForm.CartPanel.Controls.Clear()
+                                           newCartForm.LoadCartItems()
+
+
+                                       End If
+                                   End Sub
+        panel.Controls.Add(minusBtn)
+
+        ' Increase Quantity Button
+        Dim plusBtn As New Button With {
+        .Text = "+",
+        .Width = 25,
+        .Height = 25,
+        .Location = New Point(443, 114)
+    }
+        AddHandler plusBtn.Click, Sub()
+                                      quantity += 1
+                                      qtyLabel.Text = quantity.ToString()
+
+                                      ' 🔄 Update in database
+                                      UpdateCartQuantity(loggedInUserID, productID, size, quantity)
+
+                                  End Sub
+        panel.Controls.Add(plusBtn)
+
+        ' Checkout Selection Radio Button
+        Dim selectRadio As New RadioButton With {
+        .Location = New Point(19, 84),
+        .Width = 20,
+        .Height = 20
+    }
+        panel.Controls.Add(selectRadio)
+
+        container.Controls.Add(panel)
+    End Sub
+
+    Public Function GetCartItems(customerID As Integer) As List(Of CartItem)
+        Dim cartItems As New List(Of CartItem)()
+
+        Dim query As String = "
+        SELECT 
+            c.product_id,
+            p.product_name,
+            p.color,
+            b.brand_name,
+            c.size,
+            c.quantity,
+            p.image_path
+        FROM cart c
+        INNER JOIN products p ON c.product_id = p.product_id
+        INNER JOIN brands b ON p.brand_id = b.brand_id
+        WHERE c.customer_id = @custID
+
+    "
+
+        Try
+            Using conn As New MySqlConnection("server=localhost;userid=root;password=;database=apparelshopdb")
+                conn.Open()
+
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@custID", customerID)
+
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            Dim item As New CartItem With {
+                                .ProductID = Convert.ToInt32(reader("product_id")),
+                                .Name = reader("product_name").ToString(),
+                                .Color = reader("color").ToString(),
+                                .Brand = reader("brand_name").ToString(),
+                                .Size = reader("size").ToString(),
+                                .Quantity = Convert.ToInt32(reader("quantity")),
+                                .ImagePath = reader("image_path").ToString()
+                            }
+
+                            cartItems.Add(item)
+                        End While
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error fetching cart items: " & ex.Message)
+        End Try
+
+        Return cartItems
+    End Function
+
 
 
 
