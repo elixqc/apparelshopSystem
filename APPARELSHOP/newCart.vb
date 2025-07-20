@@ -1,7 +1,9 @@
 ﻿Imports MySql.Data.MySqlClient
 Imports System.IO
 Imports System.Drawing
+
 Public Class newCart
+
 
     Public Sub LoadCartItems()
         CartPanel.Controls.Clear() ' Clear old items if any
@@ -45,6 +47,7 @@ Public Class newCart
     End Sub
 
     Private Sub newCart_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         CartPanel.Controls.Clear()
         LoadCartItems()
     End Sub

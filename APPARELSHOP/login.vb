@@ -139,11 +139,13 @@ Public Class login
             If reader.Read() Then
                 ' Admin login successful
                 loggedInUserID = reader.GetInt32("user_id")
-                loggedInUserFullName = reader.GetString("username")
+                adminUserLogin = reader.GetString("username")
                 Dim firstName As String = loggedInUserFullName.Split(" "c)(0)
                 reader.Close()
 
                 MsgBox("Admin login successful!")
+
+                Form1.adminPage.Visible = True
 
                 Form1.Show()
                 Form1.welcomeName.Text = "Welcome Admin, " & firstName

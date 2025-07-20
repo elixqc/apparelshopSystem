@@ -10,6 +10,7 @@ Module globals
 
 
     Public loggedInUserID As Integer = 0
+    Public adminUserLogin As String = ""
     Public loggedInUserEmail As String = ""
     Public loggedInUserFullName As String = ""
     Public selectedSweatsColor As String = ""

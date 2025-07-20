@@ -34,7 +34,7 @@ Partial Class newCart
         Me.CartPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.CartPanel.Location = New System.Drawing.Point(0, 0)
         Me.CartPanel.Name = "CartPanel"
-        Me.CartPanel.Size = New System.Drawing.Size(478, 598)
+        Me.CartPanel.Size = New System.Drawing.Size(487, 598)
         Me.CartPanel.TabIndex = 0
         '
         'Button1
@@ -50,7 +50,7 @@ Partial Class newCart
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(478, 598)
+        Me.ClientSize = New System.Drawing.Size(487, 598)
         Me.Controls.Add(Me.CartPanel)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "newCart"

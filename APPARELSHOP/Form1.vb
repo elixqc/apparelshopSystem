@@ -45,6 +45,7 @@ Public Class Form1
                 loggedInUserEmail = ""
                 loggedInUserFullName = ""
 
+                adminPage.Visible = False
                 ' Optional: Hide welcome label
                 welcomeName.Visible = False
 
