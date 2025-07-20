@@ -111,4 +111,8 @@ Public Class Form1
     Private Sub TestingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TestingToolStripMenuItem.Click
         appthemes.SmoothFadeIn(apparelPageSample)
     End Sub
+
+    Private Sub adminPage_Click(sender As Object, e As EventArgs) Handles adminPage.Click
+        appthemes.SmoothFadeIn(AdminFormPage)
+    End Sub
 End Class

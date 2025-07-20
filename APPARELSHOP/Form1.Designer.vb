@@ -41,11 +41,11 @@ Partial Class Form1
         Me.MasculineToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FeminineToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.TestingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.adminPage = New System.Windows.Forms.ToolStripMenuItem()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.adminPage = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.MenuStrip2.SuspendLayout()
@@ -170,13 +170,13 @@ Partial Class Form1
         'MasculineToolStripMenuItem
         '
         Me.MasculineToolStripMenuItem.Name = "MasculineToolStripMenuItem"
-        Me.MasculineToolStripMenuItem.Size = New System.Drawing.Size(180, 24)
+        Me.MasculineToolStripMenuItem.Size = New System.Drawing.Size(131, 24)
         Me.MasculineToolStripMenuItem.Text = "Masculine"
         '
         'FeminineToolStripMenuItem1
         '
         Me.FeminineToolStripMenuItem1.Name = "FeminineToolStripMenuItem1"
-        Me.FeminineToolStripMenuItem1.Size = New System.Drawing.Size(180, 24)
+        Me.FeminineToolStripMenuItem1.Size = New System.Drawing.Size(131, 24)
         Me.FeminineToolStripMenuItem1.Text = "Feminine"
         '
         'TestingToolStripMenuItem
@@ -185,6 +185,13 @@ Partial Class Form1
         Me.TestingToolStripMenuItem.Name = "TestingToolStripMenuItem"
         Me.TestingToolStripMenuItem.Size = New System.Drawing.Size(56, 24)
         Me.TestingToolStripMenuItem.Text = "testing"
+        '
+        'adminPage
+        '
+        Me.adminPage.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.adminPage.Name = "adminPage"
+        Me.adminPage.Size = New System.Drawing.Size(98, 24)
+        Me.adminPage.Text = "ADMIN PAGE"
         '
         'PictureBox4
         '
@@ -230,14 +237,6 @@ Partial Class Form1
         Me.MenuStrip1.Size = New System.Drawing.Size(748, 26)
         Me.MenuStrip1.TabIndex = 2
         Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'adminPage
-        '
-        Me.adminPage.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.adminPage.Name = "adminPage"
-        Me.adminPage.Size = New System.Drawing.Size(98, 24)
-        Me.adminPage.Text = "ADMIN PAGE"
-        Me.adminPage.Visible = False
         '
         'Form1
         '

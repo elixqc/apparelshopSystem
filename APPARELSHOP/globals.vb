@@ -6,8 +6,7 @@ Imports System.Drawing
 
 Module globals
 
-    Dim conn As New MySqlConnection("server=localhost;userid=root;password=;database=apparelshopdb")
-
+    Public ReadOnly connectionString As String = "server=localhost;userid=root;password=;database=apparelshopdb"
 
     Public loggedInUserID As Integer = 0
     Public adminUserLogin As String = ""
@@ -17,8 +16,9 @@ Module globals
     Public selectedShirtColor As String = ""
     Public selectedHoodieColor As String = ""
     Public selectedSweatpantsColor As String = ""
-    Dim selectedColor As String = ""
-
+    Public selectedShirtSize As String = ""
+    Public selectedFilePath As String = ""
+    Public imagePathForDb As String = ""
     Public Class CartItem
         Public Property ProductID As Integer
         Public Property Name As String
@@ -29,70 +29,63 @@ Module globals
         Public Property ImagePath As String
     End Class
 
-
-
     Public Sub UpdateCartQuantity(customerID As Integer, productID As Integer, size As String, newQuantity As Integer)
         Try
-            Using conn As New MySqlConnection("server=localhost;userid=root;password=;database=apparelshopdb")
+            Using conn As New MySqlConnection(connectionString)
                 conn.Open()
                 Dim query As String = "UPDATE cart SET quantity = @qty WHERE customer_id = @custID AND product_id = @prodID AND size = @size"
                 Using cmd As New MySqlCommand(query, conn)
                     cmd.Parameters.AddWithValue("@qty", newQuantity)
                     cmd.Parameters.AddWithValue("@custID", customerID)
-                    cmd.Parameters.AddWithValue("@prodID", productID) ' ← this must be an Integer
+                    cmd.Parameters.AddWithValue("@prodID", productID)
                     cmd.Parameters.AddWithValue("@size", size)
-
                     cmd.ExecuteNonQuery()
                 End Using
             End Using
         Catch ex As Exception
-            MessageBox.Show("Error updating quantity: " & ex.Message)
+            MessageBox.Show("Could not update cart quantity. Please try again.")
+            ' Optionally log ex.Message for diagnostics
         End Try
     End Sub
 
     Public Sub DeleteFromCart(customerID As Integer, productID As Integer, size As String)
         Try
-
-            conn.Open()
-            Dim query As String = "DELETE FROM cart WHERE customer_id = @customerID AND product_id = @productID AND size = @size"
-            Dim cmd As New MySqlCommand(query, conn)
-
-            cmd.Parameters.AddWithValue("@customerID", customerID)
-            cmd.Parameters.AddWithValue("@productID", productID)
-            cmd.Parameters.AddWithValue("@size", size)
-
-            cmd.ExecuteNonQuery()
+            Using conn As New MySqlConnection(connectionString)
+                conn.Open()
+                Dim query As String = "DELETE FROM cart WHERE customer_id = @customerID AND product_id = @productID AND size = @size"
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@customerID", customerID)
+                    cmd.Parameters.AddWithValue("@productID", productID)
+                    cmd.Parameters.AddWithValue("@size", size)
+                    cmd.ExecuteNonQuery()
+                End Using
+            End Using
         Catch ex As Exception
-            MessageBox.Show("Error deleting from cart: " & ex.Message)
-        Finally
-            conn.Close()
+            MessageBox.Show("Could not delete item from cart. Please try again.")
         End Try
     End Sub
-
-
-
-
 
     'ADD TO CART FUNCTIONNNN
     Public Sub AddToCart(productName As String, quantity As Integer, selectedSize As String)
         Try
-            conn.Open()
+            Using conn As New MySqlConnection(connectionString)
+                conn.Open()
 
-            ' Get product_id
-            Dim getProductCmd As New MySqlCommand("SELECT product_id FROM products WHERE product_name = @pname", conn)
-            getProductCmd.Parameters.AddWithValue("@pname", productName)
+                ' Get product_id
+                Dim getProductCmd As New MySqlCommand("SELECT product_id FROM products WHERE product_name = @pname", conn)
+                getProductCmd.Parameters.AddWithValue("@pname", productName)
 
-            Dim productIdObj As Object = getProductCmd.ExecuteScalar()
+                Dim productIdObj As Object = getProductCmd.ExecuteScalar()
 
-            If productIdObj Is Nothing Then
-                MessageBox.Show("Product not found.")
-                Exit Sub
-            End If
+                If productIdObj Is Nothing Then
+                    MessageBox.Show("Product not found.")
+                    Exit Sub
+                End If
 
-            Dim productId As Integer = CInt(productIdObj)
+                Dim productId As Integer = CInt(productIdObj)
 
-            ' Insert or update cart using composite PK (customer_id + product_id)
-            Dim cartCmd As New MySqlCommand("
+                ' Insert or update cart using composite PK (customer_id + product_id)
+                Dim cartCmd As New MySqlCommand("
             INSERT INTO cart (customer_id, product_id, quantity, date_added, size)
             VALUES (@cid, @pid, @qty, NOW(), @size)
             ON DUPLICATE KEY UPDATE 
@@ -100,19 +93,18 @@ Module globals
                 date_added = NOW(),
                 size = @size;", conn)
 
-            cartCmd.Parameters.AddWithValue("@cid", loggedInUserID)
-            cartCmd.Parameters.AddWithValue("@pid", productId)
-            cartCmd.Parameters.AddWithValue("@qty", quantity)
-            cartCmd.Parameters.AddWithValue("@size", selectedSize)
+                cartCmd.Parameters.AddWithValue("@cid", loggedInUserID)
+                cartCmd.Parameters.AddWithValue("@pid", productId)
+                cartCmd.Parameters.AddWithValue("@qty", quantity)
+                cartCmd.Parameters.AddWithValue("@size", selectedSize)
 
-            cartCmd.ExecuteNonQuery()
+                cartCmd.ExecuteNonQuery()
 
-            MessageBox.Show("Product added to cart!")
+                MessageBox.Show("Product added to cart!")
 
+            End Using
         Catch ex As Exception
             MessageBox.Show("Error: " & ex.Message)
-        Finally
-            conn.Close()
         End Try
     End Sub
 
@@ -150,38 +142,37 @@ Module globals
 
         ' Connecting to database
         Try
-            conn.Open()
-            Dim cmd As New MySqlCommand("SELECT product_name, size, color, image_path, price, stock_quantity FROM products WHERE product_name LIKE @type", conn)
+            Using conn As New MySqlConnection(connectionString)
+                conn.Open()
+                Dim cmd As New MySqlCommand("SELECT product_name, size, color, image_path, price, stock_quantity FROM products WHERE product_name LIKE @type", conn)
 
-            cmd.Parameters.AddWithValue("@type", productType & "%")
-            Dim reader = cmd.ExecuteReader()
+                cmd.Parameters.AddWithValue("@type", productType & "%")
+                Dim reader = cmd.ExecuteReader()
 
-            While reader.Read()
-                Dim fullName As String = reader("product_name").ToString()
-                Dim size As String = reader("size").ToString()
-                Dim imagePath As String = reader("image_path").ToString()
-                Dim color As String = reader("color").ToString()
-                totalStock += Convert.ToInt32(reader("stock_quantity"))
-                If Not firstPriceCaptured Then
-                    priceValue = Convert.ToDecimal(reader("price"))
-                    firstPriceCaptured = True
-                End If
+                While reader.Read()
+                    Dim fullName As String = reader("product_name").ToString()
+                    Dim size As String = reader("size").ToString()
+                    Dim imagePath As String = reader("image_path").ToString()
+                    Dim color As String = reader("color").ToString()
+                    totalStock += Convert.ToInt32(reader("stock_quantity"))
+                    If Not firstPriceCaptured Then
+                        priceValue = Convert.ToDecimal(reader("price"))
+                        firstPriceCaptured = True
+                    End If
 
 
-                sizes.Add(size)
+                    sizes.Add(size)
 
-                If Not colorImageMap.ContainsKey(color) Then
-                    colorImageMap.Add(color, imagePath)
-                End If
+                    If Not colorImageMap.ContainsKey(color) Then
+                        colorImageMap.Add(color, imagePath)
+                    End If
 
-            End While
-            reader.Close()
-
+                End While
+                reader.Close()
+            End Using
         Catch ex As Exception
             MessageBox.Show("DB Error: " & ex.Message)
             Exit Sub
-        Finally
-            conn.Close()
         End Try
 
         ' Default image
@@ -364,30 +355,30 @@ Module globals
         Dim types As New HashSet(Of String)
 
         Try
-            conn.Open()
-            Dim cmd As New MySqlCommand("SELECT DISTINCT product_name FROM products", conn)
-            Dim reader = cmd.ExecuteReader()
+            Using conn As New MySqlConnection(connectionString)
+                conn.Open()
+                Dim cmd As New MySqlCommand("SELECT DISTINCT product_name FROM products", conn)
+                Dim reader = cmd.ExecuteReader()
 
-            While reader.Read()
-                Dim fullName As String = reader("product_name").ToString()
+                While reader.Read()
+                    Dim fullName As String = reader("product_name").ToString()
 
-                Dim lastDash1 = fullName.LastIndexOf("-")
-                Dim lastDash2 = If(lastDash1 > 0, fullName.LastIndexOf("-", lastDash1 - 1), -1)
+                    Dim lastDash1 = fullName.LastIndexOf("-")
+                    Dim lastDash2 = If(lastDash1 > 0, fullName.LastIndexOf("-", lastDash1 - 1), -1)
 
-                If lastDash2 >= 0 Then
-                    Dim baseType As String = fullName.Substring(0, lastDash2).Trim()
-                    types.Add(baseType)
-                Else
-                    MessageBox.Show("Skipping (bad format): " & fullName)
-                End If
+                    If lastDash2 >= 0 Then
+                        Dim baseType As String = fullName.Substring(0, lastDash2).Trim()
+                        types.Add(baseType)
+                    Else
+                        MessageBox.Show("Skipping (bad format): " & fullName)
+                    End If
 
-            End While
+                End While
 
-            reader.Close()
+                reader.Close()
+            End Using
         Catch ex As Exception
             MessageBox.Show("Error fetching product types: " & ex.Message)
-        Finally
-            conn.Close()
         End Try
 
         Return types.ToList()
