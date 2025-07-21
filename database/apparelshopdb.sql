@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 20, 2025 at 06:59 AM
+-- Generation Time: Jul 20, 2025 at 03:51 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -61,7 +61,11 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`customer_id`, `product_id`, `quantity`, `size`, `date_added`) VALUES
-(2, 100, 5, 'XL', '2025-07-20 12:15:36');
+(2, 84, 4, 'XL', '2025-07-20 19:37:48'),
+(2, 100, 10, 'XL', '2025-07-20 20:27:05'),
+(2, 111, 3, 'L', '2025-07-20 19:37:36'),
+(2, 116, 2, 'XL', '2025-07-20 20:25:30'),
+(2, 136, 1, 'XL', '2025-07-20 19:37:41');
 
 -- --------------------------------------------------------
 
@@ -157,7 +161,6 @@ CREATE TABLE `products` (
   `category_id` int(11) DEFAULT NULL,
   `supplier_id` int(11) DEFAULT NULL,
   `size` varchar(20) DEFAULT NULL,
-  `fragrance_type` varchar(50) DEFAULT NULL,
   `price` decimal(10,2) NOT NULL,
   `stock_quantity` int(11) NOT NULL DEFAULT 0,
   `image_path` varchar(255) DEFAULT NULL,
@@ -168,71 +171,71 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `supplier_id`, `size`, `fragrance_type`, `price`, `stock_quantity`, `image_path`, `brand_id`) VALUES
-(1, 'Sweatshirt - Black - S', 'Black', 2, 1, 'S', NULL, 599.00, 10, 'images/black_swsh.png', 1),
-(2, 'Sweatshirt - Black - M', 'Black', 2, 1, 'M', NULL, 599.00, 10, 'images/black_swsh.png', 1),
-(3, 'Sweatshirt - Black - L', 'Black', 2, 1, 'L', NULL, 599.00, 10, 'images/black_swsh.png', 1),
-(4, 'Sweatshirt - Black - XL', 'Black', 2, 1, 'XL', NULL, 599.00, 10, 'images/black_swsh.png', 1),
-(5, 'Sweatshirt - White - S', 'White', 2, 1, 'S', NULL, 599.00, 10, 'images/white_swsh.png', 1),
-(6, 'Sweatshirt - White - M', 'White', 2, 1, 'M', NULL, 599.00, 10, 'images/white_swsh.png', 1),
-(7, 'Sweatshirt - White - L', 'White', 2, 1, 'L', NULL, 599.00, 10, 'images/white_swsh.png', 1),
-(8, 'Sweatshirt - White - XL', 'White', 2, 1, 'XL', NULL, 599.00, 10, 'images/white_swsh.png', 1),
-(9, 'Sweatshirt - Gray - S', 'Gray', 1, 1, 'S', NULL, 599.00, 10, 'images/gray_swsh.png', 1),
-(10, 'Sweatshirt - Gray - M', 'Gray', 1, 1, 'M', NULL, 599.00, 10, 'images/gray_swsh.png', 1),
-(11, 'Sweatshirt - Gray - L', 'Gray', 1, 1, 'L', NULL, 599.00, 10, 'images/gray_swsh.png', 1),
-(12, 'Sweatshirt - Gray - XL', 'Gray', 1, 1, 'XL', NULL, 599.00, 10, 'images/gray_swsh.png', 1),
-(13, 'Sweatshirt - Yellow - S', 'Yellow', 2, 1, 'S', NULL, 599.00, 10, 'images/yellow_swsh.png', 1),
-(14, 'Sweatshirt - Yellow - M', 'Yellow', 2, 1, 'M', NULL, 599.00, 10, 'images/yellow_swsh.png', 1),
-(15, 'Sweatshirt - Yellow - L', 'Yellow', 2, 1, 'L', NULL, 599.00, 10, 'images/yellow_swsh.png', 1),
-(16, 'Sweatshirt - Yellow - XL', 'Yellow', 2, 1, 'XL', NULL, 599.00, 10, 'images/yellow_swsh.png', 1),
-(17, 'Sweatshirt - Pink - S', 'Pink', 2, 1, 'S', NULL, 599.00, 10, 'images/pink_swsh.png', 1),
-(18, 'Sweatshirt - Pink - M', 'Pink', 2, 1, 'M', NULL, 599.00, 10, 'images/pink_swsh.png', 1),
-(19, 'Sweatshirt - Pink - L', 'Pink', 2, 1, 'L', NULL, 599.00, 10, 'images/pink_swsh.png', 1),
-(20, 'Sweatshirt - Pink - XL', 'Pink', 2, 1, 'XL', NULL, 599.00, 10, 'images/pink_swsh.png', 1),
-(81, 'overSizedHoodie - Red - S', 'Red', 4, 3, 'S', NULL, 999.00, 10, 'images/red_hoodie.png', 2),
-(82, 'overSizedHoodie - Red - M', 'Red', 4, 3, 'M', NULL, 999.00, 10, 'images/red_hoodie.png', 2),
-(83, 'overSizedHoodie - Red - L', 'Red', 4, 3, 'L', NULL, 999.00, 10, 'images/red_hoodie.png', 2),
-(84, 'overSizedHoodie - Red - XL', 'Red', 4, 3, 'XL', NULL, 999.00, 10, 'images/red_hoodie.png', 2),
-(85, 'overSizedHoodie - Blue - S', 'Blue', 4, 3, 'S', NULL, 999.00, 10, 'images/blue_hoodie.png', 2),
-(86, 'overSizedHoodie - Blue - M', 'Blue', 4, 3, 'M', NULL, 999.00, 10, 'images/blue_hoodie.png', 2),
-(87, 'overSizedHoodie - Blue - L', 'Blue', 4, 3, 'L', NULL, 999.00, 10, 'images/blue_hoodie.png', 2),
-(88, 'overSizedHoodie - Blue - XL', 'Blue', 4, 3, 'XL', NULL, 999.00, 10, 'images/blue_hoodie.png', 2),
-(89, 'overSizedHoodie - Pink - S', 'Pink', 4, 3, 'S', NULL, 999.00, 10, 'images/pink_hoodie.png', 2),
-(90, 'overSizedHoodie - Pink - M', 'Pink', 4, 3, 'M', NULL, 999.00, 10, 'images/pink_hoodie.png', 2),
-(91, 'overSizedHoodie - Pink - L', 'Pink', 4, 3, 'L', NULL, 999.00, 10, 'images/pink_hoodie.png', 2),
-(92, 'overSizedHoodie - Pink - XL', 'Pink', 4, 3, 'XL', NULL, 999.00, 10, 'images/pink_hoodie.png', 2),
-(97, 'overSizedHoodie - Yellow - S', 'Yellow', 4, 3, 'S', NULL, 999.00, 10, 'images/yellow_hoodie.png', 2),
-(98, 'overSizedHoodie - Yellow - M', 'Yellow', 4, 3, 'M', NULL, 999.00, 10, 'images/yellow_hoodie.png', 2),
-(99, 'overSizedHoodie - Yellow - L', 'Yellow', 4, 3, 'L', NULL, 999.00, 10, 'images/yellow_hoodie.png', 2),
-(100, 'overSizedHoodie - Yellow - XL', 'Yellow', 4, 3, 'XL', NULL, 999.00, 10, 'images/yellow_hoodie.png', 2),
-(101, 'T-shirt - Blue - S', 'Blue', 1, 2, 'S', NULL, 499.00, 10, 'images/blue_shirt1.png', 3),
-(102, 'T-shirt - Blue - M', 'Blue', 1, 2, 'M', NULL, 499.00, 10, 'images/blue_shirt1.png', 3),
-(103, 'T-shirt - Blue - L', 'Blue', 1, 2, 'L', NULL, 499.00, 10, 'images/blue_shirt1.png', 3),
-(104, 'T-shirt - Blue - XL', 'Blue', 1, 2, 'XL', NULL, 499.00, 10, 'images/blue_shirt1.png', 3),
-(105, 'T-shirt - Green - S', 'Green', 1, 2, 'S', NULL, 499.00, 10, 'images/green_shirt1.png', 3),
-(106, 'T-shirt - Green - M', 'Green', 1, 2, 'M', NULL, 499.00, 10, 'images/green_shirt1.png', 3),
-(107, 'T-shirt - Green - L', 'Green', 1, 2, 'L', NULL, 499.00, 10, 'images/green_shirt1.png', 3),
-(108, 'T-shirt - Green - XL', 'Green', 1, 2, 'XL', NULL, 499.00, 10, 'images/green_shirt1.png', 3),
-(109, 'T-shirt - Brown - S', 'Brown', 4, 2, 'S', NULL, 499.00, 10, 'images/brown_shirt1.png', 3),
-(110, 'T-shirt - Brown - M', 'Brown', 4, 2, 'M', NULL, 499.00, 10, 'images/brown_shirt1.png', 3),
-(111, 'T-shirt - Brown - L', 'Brown', 4, 2, 'L', NULL, 499.00, 10, 'images/brown_shirt1.png', 3),
-(112, 'T-shirt - Brown - XL', 'Brown', 4, 2, 'XL', NULL, 499.00, 10, 'images/brown_shirt1.png', 3),
-(113, 'T-shirt - White - S', 'White', 1, 2, 'S', NULL, 499.00, 10, 'images/white_shirt1.png', 3),
-(114, 'T-shirt - White - M', 'White', 1, 2, 'M', NULL, 499.00, 10, 'images/white_shirt1.png', 3),
-(115, 'T-shirt - White - L', 'White', 1, 2, 'L', NULL, 499.00, 10, 'images/white_shirt1.png', 3),
-(116, 'T-shirt - White - XL', 'White', 1, 2, 'XL', NULL, 499.00, 10, 'images/white_shirt1.png', 3),
-(129, 'Sweatpants - Gray - S', 'Gray', 2, 1, 'S', NULL, 599.00, 10, 'images/gray_Sweatpants.png', 1),
-(130, 'Sweatpants - Gray - M', 'Gray', 2, 1, 'M', NULL, 599.00, 10, 'images/gray_Sweatpants.png', 1),
-(131, 'Sweatpants - Gray - L', 'Gray', 2, 1, 'L', NULL, 599.00, 10, 'images/gray_Sweatpants.png', 1),
-(132, 'Sweatpants - Gray - XL', 'Gray', 2, 1, 'XL', NULL, 599.00, 10, 'images/gray_Sweatpants.png', 1),
-(133, 'Sweatpants - White - S', 'White', 2, 1, 'S', NULL, 599.00, 10, 'images/white_sweatpants.png', 1),
-(134, 'Sweatpants - White - M', 'White', 2, 1, 'M', NULL, 599.00, 10, 'images/white_sweatpants.png', 1),
-(135, 'Sweatpants - White - L', 'White', 2, 1, 'L', NULL, 599.00, 10, 'images/white_sweatpants.png', 1),
-(136, 'Sweatpants - White - XL', 'White', 2, 1, 'XL', NULL, 599.00, 10, 'images/white_sweatpants.png', 1),
-(137, 'Sweatpants - Black - S', 'Black', 2, 1, 'S', NULL, 599.00, 10, 'images/black_Sweatpants.png', 1),
-(138, 'Sweatpants - Black - M', 'Black', 2, 1, 'M', NULL, 599.00, 10, 'images/black_Sweatpants.png', 1),
-(139, 'Sweatpants - Black - L', 'Black', 2, 1, 'L', NULL, 599.00, 10, 'images/black_Sweatpants.png', 1),
-(140, 'Sweatpants - Black - XL', 'Black', 2, 1, 'XL', NULL, 599.00, 10, 'images/black_Sweatpants.png', 1);
+INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `supplier_id`, `size`, `price`, `stock_quantity`, `image_path`, `brand_id`) VALUES
+(1, 'Sweatshirt - Black - S', 'Black', 2, 1, 'S', 599.00, 15, 'images/black_swsh.png', 1),
+(2, 'Sweatshirt - Black - M', 'Black', 2, 1, 'M', 599.00, 10, 'images/black_swsh.png', 1),
+(3, 'Sweatshirt - Black - L', 'Black', 2, 1, 'L', 599.00, 10, 'images/black_swsh.png', 1),
+(4, 'Sweatshirt - Black - XL', 'Black', 2, 1, 'XL', 599.00, 10, 'images/black_swsh.png', 1),
+(5, 'Sweatshirt - White - S', 'White', 2, 1, 'S', 599.00, 10, 'images/white_swsh.png', 1),
+(6, 'Sweatshirt - White - M', 'White', 2, 1, 'M', 599.00, 10, 'images/white_swsh.png', 1),
+(7, 'Sweatshirt - White - L', 'White', 2, 1, 'L', 599.00, 10, 'images/white_swsh.png', 1),
+(8, 'Sweatshirt - White - XL', 'White', 2, 1, 'XL', 599.00, 10, 'images/white_swsh.png', 1),
+(9, 'Sweatshirt - Gray - S', 'Gray', 1, 1, 'S', 599.00, 10, 'images/gray_swsh.png', 1),
+(10, 'Sweatshirt - Gray - M', 'Gray', 1, 1, 'M', 599.00, 10, 'images/gray_swsh.png', 1),
+(11, 'Sweatshirt - Gray - L', 'Gray', 1, 1, 'L', 599.00, 10, 'images/gray_swsh.png', 1),
+(12, 'Sweatshirt - Gray - XL', 'Gray', 1, 1, 'XL', 599.00, 10, 'images/gray_swsh.png', 1),
+(13, 'Sweatshirt - Yellow - S', 'Yellow', 2, 1, 'S', 599.00, 10, 'images/yellow_swsh.png', 1),
+(14, 'Sweatshirt - Yellow - M', 'Yellow', 2, 1, 'M', 599.00, 10, 'images/yellow_swsh.png', 1),
+(15, 'Sweatshirt - Yellow - L', 'Yellow', 2, 1, 'L', 599.00, 10, 'images/yellow_swsh.png', 1),
+(16, 'Sweatshirt - Yellow - XL', 'Yellow', 2, 1, 'XL', 599.00, 10, 'images/yellow_swsh.png', 1),
+(17, 'Sweatshirt - Pink - S', 'Pink', 2, 1, 'S', 599.00, 10, 'images/pink_swsh.png', 1),
+(18, 'Sweatshirt - Pink - M', 'Pink', 2, 1, 'M', 599.00, 10, 'images/pink_swsh.png', 1),
+(19, 'Sweatshirt - Pink - L', 'Pink', 2, 1, 'L', 599.00, 10, 'images/pink_swsh.png', 1),
+(20, 'Sweatshirt - Pink - XL', 'Pink', 2, 1, 'XL', 599.00, 10, 'images/pink_swsh.png', 1),
+(81, 'overSizedHoodie - Red - S', 'Red', 4, 3, 'S', 999.00, 20, 'images/red_hoodie.png', 2),
+(82, 'overSizedHoodie - Red - M', 'Red', 4, 3, 'M', 999.00, 10, 'images/red_hoodie.png', 2),
+(83, 'overSizedHoodie - Red - L', 'Red', 4, 3, 'L', 999.00, 10, 'images/red_hoodie.png', 2),
+(84, 'overSizedHoodie - Red - XL', 'Red', 4, 3, 'XL', 999.00, 10, 'images/red_hoodie.png', 2),
+(85, 'overSizedHoodie - Blue - S', 'Blue', 4, 3, 'S', 999.00, 10, 'images/blue_hoodie.png', 2),
+(86, 'overSizedHoodie - Blue - M', 'Blue', 4, 3, 'M', 999.00, 10, 'images/blue_hoodie.png', 2),
+(87, 'overSizedHoodie - Blue - L', 'Blue', 4, 3, 'L', 999.00, 10, 'images/blue_hoodie.png', 2),
+(88, 'overSizedHoodie - Blue - XL', 'Blue', 4, 3, 'XL', 999.00, 10, 'images/blue_hoodie.png', 2),
+(89, 'overSizedHoodie - Pink - S', 'Pink', 4, 3, 'S', 999.00, 10, 'images/pink_hoodie.png', 2),
+(90, 'overSizedHoodie - Pink - M', 'Pink', 4, 3, 'M', 999.00, 10, 'images/pink_hoodie.png', 2),
+(91, 'overSizedHoodie - Pink - L', 'Pink', 4, 3, 'L', 999.00, 10, 'images/pink_hoodie.png', 2),
+(92, 'overSizedHoodie - Pink - XL', 'Pink', 4, 3, 'XL', 999.00, 10, 'images/pink_hoodie.png', 2),
+(97, 'overSizedHoodie - Yellow - S', 'Yellow', 4, 3, 'S', 999.00, 10, 'images/yellow_hoodie.png', 2),
+(98, 'overSizedHoodie - Yellow - M', 'Yellow', 4, 3, 'M', 999.00, 10, 'images/yellow_hoodie.png', 2),
+(99, 'overSizedHoodie - Yellow - L', 'Yellow', 4, 3, 'L', 999.00, 10, 'images/yellow_hoodie.png', 2),
+(100, 'overSizedHoodie - Yellow - XL', 'Yellow', 4, 3, 'XL', 999.00, 10, 'images/yellow_hoodie.png', 2),
+(101, 'T-shirt - Blue - S', 'Blue', 1, 2, 'S', 499.00, 10, 'images/blue_shirt1.png', 3),
+(102, 'T-shirt - Blue - M', 'Blue', 1, 2, 'M', 499.00, 10, 'images/blue_shirt1.png', 3),
+(103, 'T-shirt - Blue - L', 'Blue', 1, 2, 'L', 499.00, 10, 'images/blue_shirt1.png', 3),
+(104, 'T-shirt - Blue - XL', 'Blue', 1, 2, 'XL', 499.00, 10, 'images/blue_shirt1.png', 3),
+(105, 'T-shirt - Green - S', 'Green', 1, 2, 'S', 499.00, 10, 'images/green_shirt1.png', 3),
+(106, 'T-shirt - Green - M', 'Green', 1, 2, 'M', 499.00, 10, 'images/green_shirt1.png', 3),
+(107, 'T-shirt - Green - L', 'Green', 1, 2, 'L', 499.00, 10, 'images/green_shirt1.png', 3),
+(108, 'T-shirt - Green - XL', 'Green', 1, 2, 'XL', 499.00, 10, 'images/green_shirt1.png', 3),
+(109, 'T-shirt - Brown - S', 'Brown', 4, 2, 'S', 499.00, 10, 'images/brown_shirt1.png', 3),
+(110, 'T-shirt - Brown - M', 'Brown', 4, 2, 'M', 499.00, 10, 'images/brown_shirt1.png', 3),
+(111, 'T-shirt - Brown - L', 'Brown', 4, 2, 'L', 499.00, 10, 'images/brown_shirt1.png', 3),
+(112, 'T-shirt - Brown - XL', 'Brown', 4, 2, 'XL', 499.00, 10, 'images/brown_shirt1.png', 3),
+(113, 'T-shirt - White - S', 'White', 1, 2, 'S', 499.00, 10, 'images/white_shirt1.png', 3),
+(114, 'T-shirt - White - M', 'White', 1, 2, 'M', 499.00, 10, 'images/white_shirt1.png', 3),
+(115, 'T-shirt - White - L', 'White', 1, 2, 'L', 499.00, 10, 'images/white_shirt1.png', 3),
+(116, 'T-shirt - White - XL', 'White', 1, 2, 'XL', 499.00, 10, 'images/white_shirt1.png', 3),
+(129, 'Sweatpants - Gray - S', 'Gray', 2, 1, 'S', 599.00, 10, 'images/gray_Sweatpants.png', 1),
+(130, 'Sweatpants - Gray - M', 'Gray', 2, 1, 'M', 599.00, 10, 'images/gray_Sweatpants.png', 1),
+(131, 'Sweatpants - Gray - L', 'Gray', 2, 1, 'L', 599.00, 10, 'images/gray_Sweatpants.png', 1),
+(132, 'Sweatpants - Gray - XL', 'Gray', 2, 1, 'XL', 599.00, 10, 'images/gray_Sweatpants.png', 1),
+(133, 'Sweatpants - White - S', 'White', 2, 1, 'S', 599.00, 10, 'images/white_sweatpants.png', 1),
+(134, 'Sweatpants - White - M', 'White', 2, 1, 'M', 599.00, 10, 'images/white_sweatpants.png', 1),
+(135, 'Sweatpants - White - L', 'White', 2, 1, 'L', 599.00, 10, 'images/white_sweatpants.png', 1),
+(136, 'Sweatpants - White - XL', 'White', 2, 1, 'XL', 599.00, 10, 'images/white_sweatpants.png', 1),
+(137, 'Sweatpants - Black - S', 'Black', 2, 1, 'S', 599.00, 10, 'images/black_Sweatpants.png', 1),
+(138, 'Sweatpants - Black - M', 'Black', 2, 1, 'M', 599.00, 10, 'images/black_Sweatpants.png', 1),
+(139, 'Sweatpants - Black - L', 'Black', 2, 1, 'L', 599.00, 10, 'images/black_Sweatpants.png', 1),
+(140, 'Sweatpants - Black - XL', 'Black', 2, 1, 'XL', 599.00, 10, 'images/black_Sweatpants.png', 1);
 
 -- --------------------------------------------------------
 
@@ -434,7 +437,7 @@ ALTER TABLE `order_details`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
