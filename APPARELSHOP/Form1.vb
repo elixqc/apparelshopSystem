@@ -113,6 +113,12 @@ Public Class Form1
     End Sub
 
     Private Sub adminPage_Click(sender As Object, e As EventArgs) Handles adminPage.Click
-        appthemes.SmoothFadeIn(AdminFormPage)
+
+        If AdminFormPage.Visible Then
+            AdminFormPage.BringToFront()
+        Else
+            appthemes.SmoothFadeIn(AdminFormPage)
+        End If
+
     End Sub
 End Class

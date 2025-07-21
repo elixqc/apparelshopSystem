@@ -26,6 +26,9 @@ Partial Class AdminFormPage
         Me.btnUpload = New System.Windows.Forms.Button()
         Me.FileUploadButton = New System.Windows.Forms.Button()
         Me.SupplierLists = New System.Windows.Forms.ComboBox()
+        Me.sizeTxt = New System.Windows.Forms.ComboBox()
+        Me.brandTxt = New System.Windows.Forms.ComboBox()
+        Me.ComboBox3 = New System.Windows.Forms.ComboBox()
         Me.CategoryLists = New System.Windows.Forms.ComboBox()
         Me.QuantityList = New System.Windows.Forms.TextBox()
         Me.PriceTxt = New System.Windows.Forms.TextBox()
@@ -37,16 +40,18 @@ Partial Class AdminFormPage
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
-        Me.ComboBox3 = New System.Windows.Forms.ComboBox()
-        Me.Label9 = New System.Windows.Forms.Label()
         Me.FileSystemWatcher1 = New System.IO.FileSystemWatcher()
-        Me.brandTxt = New System.Windows.Forms.ComboBox()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.sizeTxt = New System.Windows.Forms.ComboBox()
+        Me.supplierPriceTxt = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.remarksTxt = New System.Windows.Forms.TextBox()
+        Me.Label13 = New System.Windows.Forms.Label()
         Me.addProductPanel.SuspendLayout()
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -54,6 +59,9 @@ Partial Class AdminFormPage
         'addProductPanel
         '
         Me.addProductPanel.BackColor = System.Drawing.SystemColors.ScrollBar
+        Me.addProductPanel.Controls.Add(Me.remarksTxt)
+        Me.addProductPanel.Controls.Add(Me.Label11)
+        Me.addProductPanel.Controls.Add(Me.supplierPriceTxt)
         Me.addProductPanel.Controls.Add(Me.btnUpload)
         Me.addProductPanel.Controls.Add(Me.FileUploadButton)
         Me.addProductPanel.Controls.Add(Me.SupplierLists)
@@ -65,7 +73,9 @@ Partial Class AdminFormPage
         Me.addProductPanel.Controls.Add(Me.PriceTxt)
         Me.addProductPanel.Controls.Add(Me.ColorTxt)
         Me.addProductPanel.Controls.Add(Me.productNameTxt)
+        Me.addProductPanel.Controls.Add(Me.Label13)
         Me.addProductPanel.Controls.Add(Me.Label8)
+        Me.addProductPanel.Controls.Add(Me.Label12)
         Me.addProductPanel.Controls.Add(Me.Label7)
         Me.addProductPanel.Controls.Add(Me.Label6)
         Me.addProductPanel.Controls.Add(Me.Label4)
@@ -93,7 +103,7 @@ Partial Class AdminFormPage
         'FileUploadButton
         '
         Me.FileUploadButton.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FileUploadButton.Location = New System.Drawing.Point(914, 36)
+        Me.FileUploadButton.Location = New System.Drawing.Point(782, 36)
         Me.FileUploadButton.Name = "FileUploadButton"
         Me.FileUploadButton.Size = New System.Drawing.Size(128, 26)
         Me.FileUploadButton.TabIndex = 3
@@ -110,6 +120,39 @@ Partial Class AdminFormPage
         Me.SupplierLists.Size = New System.Drawing.Size(142, 27)
         Me.SupplierLists.TabIndex = 2
         '
+        'sizeTxt
+        '
+        Me.sizeTxt.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.sizeTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.sizeTxt.FormattingEnabled = True
+        Me.sizeTxt.Items.AddRange(New Object() {"S", "M", "L", "XL", "XXL"})
+        Me.sizeTxt.Location = New System.Drawing.Point(291, 117)
+        Me.sizeTxt.Name = "sizeTxt"
+        Me.sizeTxt.Size = New System.Drawing.Size(142, 27)
+        Me.sizeTxt.TabIndex = 2
+        '
+        'brandTxt
+        '
+        Me.brandTxt.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.brandTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.brandTxt.FormattingEnabled = True
+        Me.brandTxt.Items.AddRange(New Object() {"APPAREL", "PERFUME"})
+        Me.brandTxt.Location = New System.Drawing.Point(154, 119)
+        Me.brandTxt.Name = "brandTxt"
+        Me.brandTxt.Size = New System.Drawing.Size(115, 27)
+        Me.brandTxt.TabIndex = 2
+        '
+        'ComboBox3
+        '
+        Me.ComboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox3.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ComboBox3.FormattingEnabled = True
+        Me.ComboBox3.Items.AddRange(New Object() {"APPAREL", "PERFUME"})
+        Me.ComboBox3.Location = New System.Drawing.Point(16, 119)
+        Me.ComboBox3.Name = "ComboBox3"
+        Me.ComboBox3.Size = New System.Drawing.Size(115, 27)
+        Me.ComboBox3.TabIndex = 2
+        '
         'CategoryLists
         '
         Me.CategoryLists.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -123,7 +166,7 @@ Partial Class AdminFormPage
         'QuantityList
         '
         Me.QuantityList.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.QuantityList.Location = New System.Drawing.Point(771, 36)
+        Me.QuantityList.Location = New System.Drawing.Point(455, 117)
         Me.QuantityList.Name = "QuantityList"
         Me.QuantityList.Size = New System.Drawing.Size(115, 26)
         Me.QuantityList.TabIndex = 1
@@ -155,70 +198,90 @@ Partial Class AdminFormPage
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(910, 65)
+        Me.Label8.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(778, 65)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(140, 42)
+        Me.Label8.Size = New System.Drawing.Size(123, 38)
         Me.Label8.TabIndex = 0
         Me.Label8.Text = "UPLOAD PRODUCT " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "PICTURE"
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(767, 65)
+        Me.Label7.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Location = New System.Drawing.Point(451, 148)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(83, 21)
+        Me.Label7.Size = New System.Drawing.Size(72, 19)
         Me.Label7.TabIndex = 0
         Me.Label7.Text = "QUANTITY"
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(619, 65)
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Location = New System.Drawing.Point(622, 62)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(109, 21)
+        Me.Label6.Size = New System.Drawing.Size(100, 57)
         Me.Label6.TabIndex = 0
-        Me.Label6.Text = "PRICE (IN PHP)"
+        Me.Label6.Text = "SELLING PRICE" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "PER PIECE" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "(IN PHP)"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label4.Location = New System.Drawing.Point(451, 65)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(76, 21)
+        Me.Label4.Size = New System.Drawing.Size(67, 19)
         Me.Label4.TabIndex = 0
         Me.Label4.Text = "SUPPLIER"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.Location = New System.Drawing.Point(287, 65)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(86, 21)
+        Me.Label3.Size = New System.Drawing.Size(76, 19)
         Me.Label3.TabIndex = 0
         Me.Label3.Text = "CATEGORY"
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.Location = New System.Drawing.Point(150, 65)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(57, 21)
+        Me.Label5.Size = New System.Drawing.Size(51, 19)
         Me.Label5.TabIndex = 0
         Me.Label5.Text = "COLOR"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Location = New System.Drawing.Point(150, 149)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(52, 19)
+        Me.Label10.TabIndex = 0
+        Me.Label10.Text = "BRAND"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(12, 149)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(100, 19)
+        Me.Label9.TabIndex = 0
+        Me.Label9.Text = "PRODUCT TYPE"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(13, 65)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(121, 21)
+        Me.Label2.Size = New System.Drawing.Size(105, 19)
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "PRODUCT NAME"
         '
@@ -239,63 +302,56 @@ Partial Class AdminFormPage
         '
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         '
-        'ComboBox3
-        '
-        Me.ComboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox3.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ComboBox3.FormattingEnabled = True
-        Me.ComboBox3.Items.AddRange(New Object() {"APPAREL", "PERFUME"})
-        Me.ComboBox3.Location = New System.Drawing.Point(16, 89)
-        Me.ComboBox3.Name = "ComboBox3"
-        Me.ComboBox3.Size = New System.Drawing.Size(115, 27)
-        Me.ComboBox3.TabIndex = 2
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(12, 119)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(115, 21)
-        Me.Label9.TabIndex = 0
-        Me.Label9.Text = "PRODUCT TYPE"
-        '
         'FileSystemWatcher1
         '
         Me.FileSystemWatcher1.EnableRaisingEvents = True
         Me.FileSystemWatcher1.SynchronizingObject = Me
         '
-        'brandTxt
+        'supplierPriceTxt
         '
-        Me.brandTxt.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.brandTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.brandTxt.FormattingEnabled = True
-        Me.brandTxt.Items.AddRange(New Object() {"APPAREL", "PERFUME"})
-        Me.brandTxt.Location = New System.Drawing.Point(154, 89)
-        Me.brandTxt.Name = "brandTxt"
-        Me.brandTxt.Size = New System.Drawing.Size(115, 27)
-        Me.brandTxt.TabIndex = 2
+        Me.supplierPriceTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.supplierPriceTxt.Location = New System.Drawing.Point(623, 120)
+        Me.supplierPriceTxt.Name = "supplierPriceTxt"
+        Me.supplierPriceTxt.Size = New System.Drawing.Size(115, 26)
+        Me.supplierPriceTxt.TabIndex = 5
         '
-        'Label10
+        'Label11
         '
-        Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(150, 119)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(58, 21)
-        Me.Label10.TabIndex = 0
-        Me.Label10.Text = "BRAND"
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.Location = New System.Drawing.Point(619, 149)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(105, 38)
+        Me.Label11.TabIndex = 6
+        Me.Label11.Text = "SUPPLIER PRICE" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "PER PIECE" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
-        'sizeTxt
+        'Label12
         '
-        Me.sizeTxt.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.sizeTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.sizeTxt.FormattingEnabled = True
-        Me.sizeTxt.Items.AddRange(New Object() {"S", "M", "L", "XL", "XXL"})
-        Me.sizeTxt.Location = New System.Drawing.Point(291, 89)
-        Me.sizeTxt.Name = "sizeTxt"
-        Me.sizeTxt.Size = New System.Drawing.Size(142, 27)
-        Me.sizeTxt.TabIndex = 2
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.Location = New System.Drawing.Point(287, 149)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(36, 19)
+        Me.Label12.TabIndex = 0
+        Me.Label12.Text = "SIZE"
+        '
+        'remarksTxt
+        '
+        Me.remarksTxt.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.remarksTxt.Location = New System.Drawing.Point(940, 32)
+        Me.remarksTxt.Name = "remarksTxt"
+        Me.remarksTxt.Size = New System.Drawing.Size(340, 29)
+        Me.remarksTxt.TabIndex = 7
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.Location = New System.Drawing.Point(936, 65)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(68, 19)
+        Me.Label13.TabIndex = 0
+        Me.Label13.Text = "REMARKS"
         '
         'AdminFormPage
         '
@@ -339,4 +395,9 @@ Partial Class AdminFormPage
     Friend WithEvents brandTxt As ComboBox
     Friend WithEvents Label10 As Label
     Friend WithEvents sizeTxt As ComboBox
+    Friend WithEvents Label11 As Label
+    Friend WithEvents supplierPriceTxt As TextBox
+    Friend WithEvents Label12 As Label
+    Friend WithEvents remarksTxt As TextBox
+    Friend WithEvents Label13 As Label
 End Class

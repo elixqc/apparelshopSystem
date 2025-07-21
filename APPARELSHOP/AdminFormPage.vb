@@ -94,15 +94,20 @@ Public Class AdminFormPage
             If catObj IsNot Nothing Then categoryId = Convert.ToInt32(catObj)
         End Using
 
-        ' Get selected supplier_id
+        ' Get selected supplier_id for update
         Dim supplierId As Integer = -1
-        Using conn As New MySqlConnection(connectionString)
-            conn.Open()
-            Dim supCmd As New MySqlCommand("SELECT supplier_id FROM suppliers WHERE supplier_name = @name", conn)
+        Using conn2 As New MySqlConnection(connectionString)
+            conn2.Open()
+            Dim supCmd As New MySqlCommand("SELECT supplier_id FROM suppliers WHERE supplier_name = @name", conn2)
             supCmd.Parameters.AddWithValue("@name", SupplierLists.SelectedItem?.ToString())
             Dim supObj = supCmd.ExecuteScalar()
             If supObj IsNot Nothing Then supplierId = Convert.ToInt32(supObj)
         End Using
+
+        If supplierId = -1 Then
+            MessageBox.Show("Please select a valid supplier.")
+            Return
+        End If
 
         ' Get selected brand_id
         Dim brandId As Integer = -1
@@ -160,6 +165,28 @@ Public Class AdminFormPage
                 updateCmd.Parameters.AddWithValue("@price", priceValue)
                 updateCmd.Parameters.AddWithValue("@qty", newStock)
                 updateCmd.Parameters.AddWithValue("@pid", existingProductId)
+
+
+
+
+                ' Insert into supply_logs
+                Dim supplierPrice As Decimal = 0
+                Decimal.TryParse(supplierPriceTxt.Text.Trim(), supplierPrice)
+                Dim remarks As String = remarksTxt.Text.Trim()
+                Dim logCmd As New MySqlCommand("
+    INSERT INTO supply_logs (product_id, supplier_id, quantity_added, remarks, supplier_price)
+    VALUES (@pid, @sid, @qty, @remarks, @sprice)
+", conn)
+                logCmd.Parameters.AddWithValue("@pid", existingProductId)
+                logCmd.Parameters.AddWithValue("@sid", supplierId)
+                logCmd.Parameters.AddWithValue("@qty", quantityValue)
+                logCmd.Parameters.AddWithValue("@remarks", remarks)
+                logCmd.Parameters.AddWithValue("@sprice", supplierPrice)
+                logCmd.ExecuteNonQuery()
+
+
+
+
                 updateCmd.ExecuteNonQuery()
                 MessageBox.Show("Product updated successfully!")
             End Using
@@ -199,8 +226,27 @@ Public Class AdminFormPage
                 insertCmd.Parameters.AddWithValue("@price", priceValue)
                 insertCmd.Parameters.AddWithValue("@qty", quantityValue)
                 insertCmd.Parameters.AddWithValue("@imgpath", imagePathForDb)
-                insertCmd.ExecuteNonQuery()
-                MessageBox.Show("Product added successfully!")
+                Dim newProductId As Integer = Convert.ToInt32(insertCmd.ExecuteScalar())
+
+
+
+
+                ' Insert into supply_logs
+                Dim supplierPrice As Decimal = 0
+                Decimal.TryParse(supplierPriceTxt.Text.Trim(), supplierPrice)
+                Dim remarks As String = remarksTxt.Text.Trim()
+                Dim logCmd As New MySqlCommand("
+            INSERT INTO supply_logs (product_id, supplier_id, quantity_added, remarks, supplier_price)
+            VALUES (@pid, @sid, @qty, @remarks, @sprice)
+                 ", conn)
+                logCmd.Parameters.AddWithValue("@pid", newProductId)
+                logCmd.Parameters.AddWithValue("@sid", supplierId)
+                logCmd.Parameters.AddWithValue("@qty", quantityValue)
+                logCmd.Parameters.AddWithValue("@remarks", remarks)
+                logCmd.Parameters.AddWithValue("@sprice", supplierPrice)
+                logCmd.ExecuteNonQuery()
+
+                MessageBox.Show("Product added and supply log recorded successfully!")
             End Using
         Catch ex As Exception
             MessageBox.Show("Error adding product: " & ex.Message)
@@ -219,95 +265,5 @@ Public Class AdminFormPage
         LoadBrands()
     End Sub
 
-    Private Sub addProductPanel_Paint(sender As Object, e As PaintEventArgs) Handles addProductPanel.Paint
 
-    End Sub
-
-    Private Sub brandTxt_SelectedIndexChanged(sender As Object, e As EventArgs) Handles brandTxt.SelectedIndexChanged
-
-    End Sub
-
-    Private Sub SupplierLists_SelectedIndexChanged(sender As Object, e As EventArgs) Handles SupplierLists.SelectedIndexChanged
-
-    End Sub
-
-    Private Sub CategoryLists_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CategoryLists.SelectedIndexChanged
-
-    End Sub
-
-    Private Sub QuantityList_TextChanged(sender As Object, e As EventArgs) Handles QuantityList.TextChanged
-
-    End Sub
-
-    Private Sub PriceTxt_TextChanged(sender As Object, e As EventArgs) Handles PriceTxt.TextChanged
-
-    End Sub
-
-    Private Sub ColorTxt_TextChanged(sender As Object, e As EventArgs) Handles ColorTxt.TextChanged
-
-    End Sub
-
-    Private Sub Label8_Click(sender As Object, e As EventArgs) Handles Label8.Click
-
-    End Sub
-
-    Private Sub Label7_Click(sender As Object, e As EventArgs) Handles Label7.Click
-
-    End Sub
-
-    Private Sub Label6_Click(sender As Object, e As EventArgs) Handles Label6.Click
-
-    End Sub
-
-    Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
-
-    End Sub
-
-    Private Sub Label3_Click(sender As Object, e As EventArgs) Handles Label3.Click
-
-    End Sub
-
-    Private Sub Label5_Click(sender As Object, e As EventArgs) Handles Label5.Click
-
-    End Sub
-
-    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
-
-    End Sub
-
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
-
-    End Sub
-
-    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
-
-    End Sub
-
-    Private Sub OpenFileDialog1_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles OpenFileDialog1.FileOk
-
-    End Sub
-
-    Private Sub ComboBox3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox3.SelectedIndexChanged
-
-    End Sub
-
-    Private Sub Label9_Click(sender As Object, e As EventArgs) Handles Label9.Click
-
-    End Sub
-
-    Private Sub FileSystemWatcher1_Changed(sender As Object, e As IO.FileSystemEventArgs) Handles FileSystemWatcher1.Changed
-
-    End Sub
-
-    Private Sub productNameTxt_TextChanged(sender As Object, e As EventArgs) Handles productNameTxt.TextChanged
-
-    End Sub
-
-    Private Sub Label10_Click(sender As Object, e As EventArgs) Handles Label10.Click
-
-    End Sub
-
-    Private Sub sizeTxt_SelectedIndexChanged(sender As Object, e As EventArgs) Handles sizeTxt.SelectedIndexChanged
-
-    End Sub
 End Class
