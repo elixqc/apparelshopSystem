@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 22, 2025 at 05:16 AM
+-- Generation Time: Jul 22, 2025 at 06:07 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -127,8 +127,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `customer_id`, `order_date`, `order_status`) VALUES
-(1, 2, '2025-07-22 11:09:16', 'Pending'),
-(2, 2, '2025-07-22 11:14:47', 'Pending');
+(1, 2, '2025-07-22 12:03:41', 'Pending');
 
 -- --------------------------------------------------------
 
@@ -149,12 +148,8 @@ CREATE TABLE `order_details` (
 --
 
 INSERT INTO `order_details` (`order_detail_id`, `order_id`, `product_id`, `quantity`, `unit_price`) VALUES
-(1, 1, 4, 1, 599.00),
-(2, 1, 17, 1, 599.00),
-(3, 1, 34, 1, 599.00),
-(4, 1, 49, 1, 999.00),
-(5, 2, 17, 2, 599.00),
-(6, 2, 32, 1, 599.00);
+(1, 1, 16, 2, 599.00),
+(2, 1, 33, 1, 599.00);
 
 -- --------------------------------------------------------
 
@@ -415,13 +410,13 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `products`
