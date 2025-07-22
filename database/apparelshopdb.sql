@@ -1,3 +1,4 @@
+
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
@@ -6,7 +7,8 @@
 -- Generation Time: Jul 22, 2025 at 06:07 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
-
+create database apparelshopdb;
+use apparelshopdb;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -41,6 +43,7 @@ INSERT INTO `brands` (`brand_id`, `brand_name`, `supplier_id`) VALUES
 (1, 'TrendWear', 1),
 (2, 'Metrostyle', 3),
 (3, 'UrbanThreads', 2);
+
 
 -- --------------------------------------------------------
 
@@ -239,7 +242,23 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (62, 'Sweatpants - Black - m', 'black', 3, 1, 'M', 799.00, 10, 'images\\black_Sweatpants.png', 1),
 (63, 'Sweatpants - Black - l', 'black', 3, 1, 'L', 799.00, 10, 'images\\black_Sweatpants.png', 1),
 (64, 'Sweatpants - Black - xl', 'black', 3, 1, 'XL', 799.00, 10, 'images\\black_Sweatpants.png', 1);
-
+INSERT INTO products (product_id, product_name, color, category_id, supplier_id, size, price, stock_quantity, image_path, brand_id) VALUES
+(65, 'Love Spell', 'Pink', 7, 4, NULL, 1499.00, 10, 'images\\Lovespell.jpg', NULL),
+(66, 'Sun Set', 'Yellow', 7, 5, NULL, 1499.00, 10, 'images\\Sunset.jpg', NULL),
+(67, 'Coeur De Rose', 'Peach', 7, 4, NULL, 1499.00, 10, 'images\\CoeurDeRose.jpg', NULL),
+(68, 'Afternoon Vibe', 'Blue', 7, 4, NULL, 1499.00, 10, 'images\\AfternoonVibe.jpg', NULL),
+(69, 'Dream', 'Light Blue', 7, 6, NULL, 1499.00, 10, 'images\\dreamFinal.jpg', NULL),
+(70, 'L''infinity', 'Cream', 7, 6, NULL, 1999.00, 10, 'images\\Linfinity.jpg', NULL),
+(71, 'Origin', 'Dark Brown', 7, 6, NULL, 1799.00, 10, 'images\\Origin.jpg', NULL),
+(72, 'Pacific Aura', 'Teal', 7, 6, NULL, 1299.00, 10, 'images\\Aura.jpg', NULL),
+(73, 'Love Spell EDT', 'Pink', 8, 4, NULL, 1199.00, 10, 'images\\Lovespell.jpg', NULL),
+(74, 'Sun Set EDT', 'Yellow', 8, 5, NULL, 1199.00, 10, 'images\\Sunset.jpg', NULL),
+(75, 'Coeur De Rose EDT', 'Peach', 8, 4, NULL, 1199.00, 10, 'images\\CoeurDeRose.jpg', NULL),
+(76, 'Afternoon Vibe EDT', 'Blue', 8, 4, NULL, 1199.00, 10, 'images\\AfternoonVibe.jpg', NULL),
+(77, 'Dream EDT', 'Light Blue', 8, 6, NULL, 1199.00, 10, 'images\\dreamFinal.jpg', NULL),
+(78, 'L''infinity EDT', 'Cream', 8, 6, NULL, 1599.00, 10, 'images\\Linfinity.jpg', NULL),
+(79, 'Origin EDT', 'Dark Brown', 8, 6, NULL, 1399.00, 10, 'images\\Origin.jpg', NULL),
+(80, 'Pacific Aura EDT', 'Teal', 8, 6, NULL, 999.00, 10, 'images\\Aura.jpg', NULL);
 -- --------------------------------------------------------
 
 --
