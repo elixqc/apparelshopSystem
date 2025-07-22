@@ -66,7 +66,7 @@ Partial Class apparelPageSample
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "apparelPageSample"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "apparelPageSample"
+        Me.Text = "APPARELS"
         Me.Flowproductpanel.ResumeLayout(False)
         Me.ResumeLayout(False)
 

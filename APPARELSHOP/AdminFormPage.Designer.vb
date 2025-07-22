@@ -23,6 +23,9 @@ Partial Class AdminFormPage
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.addProductPanel = New System.Windows.Forms.Panel()
+        Me.remarksTxt = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.supplierPriceTxt = New System.Windows.Forms.TextBox()
         Me.btnUpload = New System.Windows.Forms.Button()
         Me.FileUploadButton = New System.Windows.Forms.Button()
         Me.SupplierLists = New System.Windows.Forms.ComboBox()
@@ -34,7 +37,9 @@ Partial Class AdminFormPage
         Me.PriceTxt = New System.Windows.Forms.TextBox()
         Me.ColorTxt = New System.Windows.Forms.TextBox()
         Me.productNameTxt = New System.Windows.Forms.TextBox()
+        Me.Label13 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -47,11 +52,6 @@ Partial Class AdminFormPage
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FileSystemWatcher1 = New System.IO.FileSystemWatcher()
-        Me.supplierPriceTxt = New System.Windows.Forms.TextBox()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.remarksTxt = New System.Windows.Forms.TextBox()
-        Me.Label13 = New System.Windows.Forms.Label()
         Me.addProductPanel.SuspendLayout()
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -89,6 +89,32 @@ Partial Class AdminFormPage
         Me.addProductPanel.Name = "addProductPanel"
         Me.addProductPanel.Size = New System.Drawing.Size(1311, 234)
         Me.addProductPanel.TabIndex = 0
+        '
+        'remarksTxt
+        '
+        Me.remarksTxt.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.remarksTxt.Location = New System.Drawing.Point(940, 32)
+        Me.remarksTxt.Name = "remarksTxt"
+        Me.remarksTxt.Size = New System.Drawing.Size(340, 29)
+        Me.remarksTxt.TabIndex = 7
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.Location = New System.Drawing.Point(619, 149)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(105, 38)
+        Me.Label11.TabIndex = 6
+        Me.Label11.Text = "SUPPLIER PRICE" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "PER PIECE" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        '
+        'supplierPriceTxt
+        '
+        Me.supplierPriceTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.supplierPriceTxt.Location = New System.Drawing.Point(623, 120)
+        Me.supplierPriceTxt.Name = "supplierPriceTxt"
+        Me.supplierPriceTxt.Size = New System.Drawing.Size(115, 26)
+        Me.supplierPriceTxt.TabIndex = 5
         '
         'btnUpload
         '
@@ -195,6 +221,16 @@ Partial Class AdminFormPage
         Me.productNameTxt.Size = New System.Drawing.Size(115, 26)
         Me.productNameTxt.TabIndex = 1
         '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.Location = New System.Drawing.Point(936, 65)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(68, 19)
+        Me.Label13.TabIndex = 0
+        Me.Label13.Text = "REMARKS"
+        '
         'Label8
         '
         Me.Label8.AutoSize = True
@@ -204,6 +240,16 @@ Partial Class AdminFormPage
         Me.Label8.Size = New System.Drawing.Size(123, 38)
         Me.Label8.TabIndex = 0
         Me.Label8.Text = "UPLOAD PRODUCT " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "PICTURE"
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.Location = New System.Drawing.Point(287, 149)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(36, 19)
+        Me.Label12.TabIndex = 0
+        Me.Label12.Text = "SIZE"
         '
         'Label7
         '
@@ -295,9 +341,6 @@ Partial Class AdminFormPage
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "ADD PRODUCTS"
         '
-        'BackgroundWorker1
-        '
-        '
         'OpenFileDialog1
         '
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
@@ -306,52 +349,6 @@ Partial Class AdminFormPage
         '
         Me.FileSystemWatcher1.EnableRaisingEvents = True
         Me.FileSystemWatcher1.SynchronizingObject = Me
-        '
-        'supplierPriceTxt
-        '
-        Me.supplierPriceTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.supplierPriceTxt.Location = New System.Drawing.Point(623, 120)
-        Me.supplierPriceTxt.Name = "supplierPriceTxt"
-        Me.supplierPriceTxt.Size = New System.Drawing.Size(115, 26)
-        Me.supplierPriceTxt.TabIndex = 5
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(619, 149)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(105, 38)
-        Me.Label11.TabIndex = 6
-        Me.Label11.Text = "SUPPLIER PRICE" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "PER PIECE" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(287, 149)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(36, 19)
-        Me.Label12.TabIndex = 0
-        Me.Label12.Text = "SIZE"
-        '
-        'remarksTxt
-        '
-        Me.remarksTxt.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.remarksTxt.Location = New System.Drawing.Point(940, 32)
-        Me.remarksTxt.Name = "remarksTxt"
-        Me.remarksTxt.Size = New System.Drawing.Size(340, 29)
-        Me.remarksTxt.TabIndex = 7
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(936, 65)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(68, 19)
-        Me.Label13.TabIndex = 0
-        Me.Label13.Text = "REMARKS"
         '
         'AdminFormPage
         '
@@ -362,7 +359,7 @@ Partial Class AdminFormPage
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "AdminFormPage"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "AdminFormPage"
+        Me.Text = "ADMIN PAGE"
         Me.addProductPanel.ResumeLayout(False)
         Me.addProductPanel.PerformLayout()
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).EndInit()

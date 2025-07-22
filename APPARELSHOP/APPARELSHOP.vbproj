@@ -106,6 +106,12 @@
     <Compile Include="cart.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="customerProfile.Designer.vb">
+      <DependentUpon>customerProfile.vb</DependentUpon>
+    </Compile>
+    <Compile Include="customerProfile.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="dreamPerfPanel.Designer.vb">
       <DependentUpon>dreamPerfPanel.vb</DependentUpon>
     </Compile>
@@ -179,6 +185,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="cart.resx">
       <DependentUpon>cart.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="customerProfile.resx">
+      <DependentUpon>customerProfile.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="dreamPerfPanel.resx">
       <DependentUpon>dreamPerfPanel.vb</DependentUpon>
