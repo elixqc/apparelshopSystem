@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 21, 2025 at 10:31 AM
+-- Generation Time: Jul 22, 2025 at 05:16 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -55,14 +55,6 @@ CREATE TABLE `cart` (
   `size` varchar(10) DEFAULT NULL,
   `date_added` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`customer_id`, `product_id`, `quantity`, `size`, `date_added`) VALUES
-(2, 21, 2, 'S', '2025-07-21 15:42:15'),
-(2, 64, 1, 'XL', '2025-07-21 15:55:26');
 
 -- --------------------------------------------------------
 
@@ -130,6 +122,14 @@ CREATE TABLE `orders` (
   `order_status` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `customer_id`, `order_date`, `order_status`) VALUES
+(1, 2, '2025-07-22 11:09:16', 'Pending'),
+(2, 2, '2025-07-22 11:14:47', 'Pending');
+
 -- --------------------------------------------------------
 
 --
@@ -141,9 +141,20 @@ CREATE TABLE `order_details` (
   `order_id` int(11) DEFAULT NULL,
   `product_id` int(11) DEFAULT NULL,
   `quantity` int(11) NOT NULL,
-  `unit_price` decimal(10,2) NOT NULL,
-  `subtotal` decimal(10,2) NOT NULL
+  `unit_price` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_details`
+--
+
+INSERT INTO `order_details` (`order_detail_id`, `order_id`, `product_id`, `quantity`, `unit_price`) VALUES
+(1, 1, 4, 1, 599.00),
+(2, 1, 17, 1, 599.00),
+(3, 1, 34, 1, 599.00),
+(4, 1, 49, 1, 999.00),
+(5, 2, 17, 2, 599.00),
+(6, 2, 32, 1, 599.00);
 
 -- --------------------------------------------------------
 
@@ -169,7 +180,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `supplier_id`, `size`, `price`, `stock_quantity`, `image_path`, `brand_id`) VALUES
-(1, 'Sweatshirt - Black - s', 'black', 2, 1, 'S', 0.00, 50, 'images\\black_swsh.png', 1),
+(1, 'Sweatshirt - Black - s', 'black', 2, 1, 'S', 599.00, 50, 'images\\black_swsh.png', 1),
 (2, 'Sweatshirt - Black - m', 'black', 2, 1, 'M', 599.00, 10, 'images\\black_swsh.png', 1),
 (3, 'Sweatshirt - Black - l', 'black', 2, 1, 'L', 599.00, 10, 'images\\black_swsh.png', 1),
 (4, 'Sweatshirt - Black - xl', 'black', 2, 1, 'XL', 599.00, 10, 'images\\black_swsh.png', 1),
@@ -281,7 +292,8 @@ CREATE TABLE `supply_logs` (
 --
 
 INSERT INTO `supply_logs` (`supply_id`, `product_id`, `supplier_id`, `quantity_added`, `supply_date`, `remarks`, `supplier_price`) VALUES
-(2, 1, 1, 10, '2025-07-21 16:27:08', 'added sweatshirt small black 10pcs', 10.00);
+(2, 1, 1, 10, '2025-07-21 16:27:08', 'added sweatshirt small black 10pcs', 10.00),
+(3, 1, 1, 0, '2025-07-21 21:18:14', '', 499.00);
 
 -- --------------------------------------------------------
 
@@ -403,13 +415,13 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -427,7 +439,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `supply_logs`
 --
 ALTER TABLE `supply_logs`
-  MODIFY `supply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `supply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
