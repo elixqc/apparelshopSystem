@@ -1,8 +1,40 @@
-﻿Imports MySql.Data.MySqlClient
+﻿Imports System.Drawing
 Imports System.IO
-Imports System.Drawing
+Imports APPARELSHOP.globals
+Imports MySql.Data.MySqlClient
 
 Public Class newCart
+
+
+    Public Sub UpdateSubtotalLabel(cartPanel As FlowLayoutPanel)
+        Dim subtotal As Decimal = 0
+
+        For Each ctrl As Control In cartPanel.Controls
+            If TypeOf ctrl Is Panel Then
+                Dim panel As Panel = DirectCast(ctrl, Panel)
+                Dim qtyLabel = panel.Controls.OfType(Of Label)().FirstOrDefault(Function(l) l.Name = "qtyLabel")
+                Dim priceLabel = panel.Controls.OfType(Of Label)().FirstOrDefault(Function(l) l.Name = "priceLabel")
+
+                If qtyLabel IsNot Nothing AndAlso priceLabel IsNot Nothing Then
+                    Dim qty As Integer = 0
+                    Dim price As Decimal = 0
+
+                    Integer.TryParse(qtyLabel.Text, qty)
+                    Decimal.TryParse(priceLabel.Tag.ToString(), price)
+
+                    subtotal += qty * price
+                End If
+            End If
+        Next
+
+        ' Now find the subtotalLabel inside cartPanel using the helper
+        Dim subtotalLbl = TryCast(FindControlByName(cartPanel, "subtotalLabel"), Label)
+        If subtotalLbl IsNot Nothing Then
+            subtotalLbl.Text = "Subtotal: ₱" & subtotal.ToString("F2")
+        End If
+    End Sub
+
+
 
 
     Public Sub LoadCartItems()
@@ -37,7 +69,8 @@ Public Class newCart
 
         Dim subtotal As Decimal = 0D
         For Each item In cartItems
-            CreateCartItemPanel(item.ProductID, item.Name, item.Size, item.Color, item.Brand, item.Quantity, item.ImagePath, CartPanel, Me)
+            CreateCartItemPanel(item.ProductID, item.Name, item.Size, item.Color, item.Brand, item.Quantity, item.ImagePath, item.Price, CartPanel, Me)
+
             ' Get price for each item
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
@@ -50,14 +83,17 @@ Public Class newCart
 
         ' --- Subtotal Label ---
         Dim subtotalLabel As New Label With {
-        .Text = "Subtotal: ₱" & subtotal.ToString("F2"),
+        .Name = "subtotalLabel", ' IMPORTANT!
+        .Text = "Subtotal: ₱0.00",
         .Font = New Font("Microsoft Himalaya", 15, FontStyle.Bold),
         .AutoSize = True,
         .ForeColor = Color.Black,
         .Margin = New Padding(10)
     }
+
         subtotalLabel.Location = New Point((Me.ClientSize.Width - subtotalLabel.PreferredWidth) \ 2, Me.ClientSize.Height - 120)
         CartPanel.Controls.Add(subtotalLabel)
+
 
         ' --- Add Checkout Button at the bottom ---
         Dim checkoutBtn As New Button With {
@@ -122,6 +158,8 @@ Public Class newCart
                                       End Sub
 
         CartPanel.Controls.Add(checkoutBtn)
+        UpdateSubtotalLabel(CartPanel)
+
     End Sub
     Private Sub CartPanel_Paint(sender As Object, e As PaintEventArgs) Handles CartPanel.Paint
 

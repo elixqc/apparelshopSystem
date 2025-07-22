@@ -8,7 +8,7 @@
         FlowLayoutPanel1.Controls.Clear()
 
         ' Load perfumes from supplier 6 (male perfumes)
-        Dim malePerfumes = globals.GetPerfumeTypesBySupplier(6)
+        Dim malePerfumes = globals.GetMalePerfumeTypes()
 
         For Each perfumeName In malePerfumes
             globals.CreatePerfumePanel(perfumeName, FlowLayoutPanel1)

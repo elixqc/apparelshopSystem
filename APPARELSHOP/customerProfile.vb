@@ -22,6 +22,7 @@ Public Class customerProfile
             SELECT 
                 od.order_id,
                 p.product_name,
+                o.order_date,
                 p.image_path,
                 od.quantity,
                 o.order_status
@@ -88,6 +89,30 @@ Public Class customerProfile
                             }
                             panel.Controls.Add(statusLabel)
 
+                            Dim orderDateTime As DateTime = Convert.ToDateTime(reader("order_date"))
+
+                            ' Date Label
+                            Dim dateLabel As New Label With {
+                            .Text = "Ordered on: " & orderDateTime.ToString("MMMM dd, yyyy"),
+                            .Font = New Font("Microsoft Sans Serif", 9, FontStyle.Italic),
+                            .ForeColor = Color.Gray,
+                            .Location = New Point(147, 99),
+                            .AutoSize = True
+                            }
+                            panel.Controls.Add(dateLabel)
+
+                            ' Time Label
+                            Dim timeLabel As New Label With {
+                            .Text = "at " & orderDateTime.ToString("hh:mm tt"), ' e.g., 03:45 PM
+                            .Font = New Font("Microsoft Sans Serif", 9, FontStyle.Italic),
+                            .ForeColor = Color.Gray,
+                            .Location = New Point(147, 117),
+                            .AutoSize = True
+                            }
+                            panel.Controls.Add(timeLabel)
+
+
+
                             container.Controls.Add(panel)
                         End While
                     End Using
@@ -96,5 +121,9 @@ Public Class customerProfile
         Catch ex As Exception
             MessageBox.Show("Error loading orders: " & ex.Message)
         End Try
+    End Sub
+
+    Private Sub toRecieveMenuStrip_Click(sender As Object, e As EventArgs) Handles toRecieveMenuStrip.Click
+        LoadCustomerOrders(FlowLayoutPanel1, loggedInUserID)
     End Sub
 End Class

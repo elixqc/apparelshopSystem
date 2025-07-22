@@ -23,11 +23,11 @@ Partial Class customerProfile
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.toRecieveMenuStrip = New System.Windows.Forms.ToolStripMenuItem()
         Me.COMPLETEDToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.Panel1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -38,10 +38,19 @@ Partial Class customerProfile
         Me.Panel1.Controls.Add(Me.FlowLayoutPanel1)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.MenuStrip1)
-        Me.Panel1.Location = New System.Drawing.Point(721, 12)
+        Me.Panel1.Location = New System.Drawing.Point(708, 12)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(369, 536)
+        Me.Panel1.Size = New System.Drawing.Size(382, 536)
         Me.Panel1.TabIndex = 0
+        '
+        'FlowLayoutPanel1
+        '
+        Me.FlowLayoutPanel1.AutoScroll = True
+        Me.FlowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(7, 73)
+        Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(370, 453)
+        Me.FlowLayoutPanel1.TabIndex = 0
         '
         'Label1
         '
@@ -61,7 +70,7 @@ Partial Class customerProfile
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.toRecieveMenuStrip, Me.COMPLETEDToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(33, 37)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(285, 29)
+        Me.MenuStrip1.Size = New System.Drawing.Size(405, 29)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -76,15 +85,6 @@ Partial Class customerProfile
         Me.COMPLETEDToolStripMenuItem.Name = "COMPLETEDToolStripMenuItem"
         Me.COMPLETEDToolStripMenuItem.Size = New System.Drawing.Size(156, 25)
         Me.COMPLETEDToolStripMenuItem.Text = "            COMPLETED"
-        '
-        'FlowLayoutPanel1
-        '
-        Me.FlowLayoutPanel1.AutoScroll = True
-        Me.FlowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(9, 73)
-        Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(354, 453)
-        Me.FlowLayoutPanel1.TabIndex = 0
         '
         'customerProfile
         '

@@ -26,13 +26,32 @@ Module globals
         Public Property Brand As String
         Public Property Quantity As Integer
         Public Property ImagePath As String
+        Public Property Price As Decimal ' 👈 Added Price
     End Class
+
     Public Function GetFemalePerfumeTypes() As List(Of String)
         Return GetPerfumeTypesByBrandIDs(New List(Of Integer) From {4, 5})
     End Function
-    Public Function GetMalePerfumeTypes() As List(Of String)
-        Return GetPerfumeTypesByBrandIDs(New List(Of Integer) From {6})
-    End Function
+
+
+
+    Public Function FindControlByName(parent As Control, name As String) As Control
+            For Each ctrl As Control In parent.Controls
+                If ctrl.Name = name Then
+                    Return ctrl
+                ElseIf ctrl.HasChildren Then
+                    Dim found = FindControlByName(ctrl, name)
+                    If found IsNot Nothing Then Return found
+                End If
+            Next
+            Return Nothing
+        End Function
+
+
+
+
+
+
 
     ' Shared function used internally
     Private Function GetPerfumeTypesByBrandIDs(brandIDs As List(Of Integer)) As List(Of String)
@@ -243,6 +262,10 @@ Module globals
                                                Dim variantData = DirectCast(perfumeVariants(selectedVariant), Dictionary(Of String, Object))
                                                Dim fullProductName = variantData("FullName").ToString()
                                                AddToPerfumeCart(fullProductName, qty)
+                                               MessageBox.Show("Selected: " & selectedVariant & vbCrLf &
+                "FullName: " & fullProductName & vbCrLf &
+                "Qty: " & qty.ToString())
+
                                            End If
                                        End Sub
 
@@ -260,6 +283,12 @@ Module globals
                 getProductCmd.Parameters.AddWithValue("@pname", productName)
 
                 Dim productIdObj As Object = getProductCmd.ExecuteScalar()
+
+                If loggedInUserID <= 0 Then
+                    MessageBox.Show("Please log in before adding to cart.")
+                    Exit Sub
+                End If
+
 
                 If productIdObj Is Nothing Then
                     MessageBox.Show("Product not found.")
@@ -337,6 +366,11 @@ Module globals
                 getProductCmd.Parameters.AddWithValue("@pname", productName)
 
                 Dim productIdObj As Object = getProductCmd.ExecuteScalar()
+
+                If loggedInUserID <= 0 Then
+                    MessageBox.Show("Please log in before adding to cart.")
+                    Exit Sub
+                End If
 
                 If productIdObj Is Nothing Then
                     MessageBox.Show("Product not found.")
@@ -638,7 +672,8 @@ Module globals
     End Function
 
 
-    Public Sub CreateCartItemPanel(productID As Integer, productName As String, size As String, color As String, brand As String, quantity As Integer, imagePath As String, container As FlowLayoutPanel, newCartForm As newCart)
+    Public Sub CreateCartItemPanel(productID As Integer, productName As String, size As String, color As String, brand As String, quantity As Integer, imagePath As String, price As Decimal, container As FlowLayoutPanel, newCartForm As newCart)
+
 
         Dim panel As New Panel With {
         .Width = 471,
@@ -695,13 +730,27 @@ Module globals
     }
         panel.Controls.Add(colorLabel)
 
+        ' Price Label (right after color)
+        Dim priceLabel As New Label With {
+        .Name = "priceLabel", ' ← Required for UpdateSubtotalLabel
+        .Text = "Price: ₱" & price.ToString("F2"),
+        .Tag = price,         ' ← Store the raw decimal price here
+        .Location = New Point(147, 95),
+        .Font = New Font("Segoe UI", 9),
+        .AutoSize = True
+    }
+        panel.Controls.Add(priceLabel)
+
+
         ' Quantity Label
         Dim qtyLabel As New Label With {
+        .Name = "qtyLabel", ' ← Add this
         .Text = quantity.ToString(),
         .Font = New Font("Microsoft Sans Serif", 10),
         .Location = New Point(408, 114),
         .AutoSize = True
     }
+
         panel.Controls.Add(qtyLabel)
 
         ' Decrease Quantity Button
@@ -715,6 +764,8 @@ Module globals
                                        If quantity > 1 Then
                                            quantity -= 1
                                            qtyLabel.Text = quantity.ToString()
+
+                                           newCartForm.UpdateSubtotalLabel(container) ' container = CartPanel
 
                                            ' 🔄 Update in database
                                            UpdateCartQuantity(loggedInUserID, productID, size, quantity)
@@ -740,6 +791,10 @@ Module globals
         AddHandler plusBtn.Click, Sub()
                                       quantity += 1
                                       qtyLabel.Text = quantity.ToString()
+                                      Debug.WriteLine("Qty: " & quantity & " | Price: " & price)
+
+                                      newCartForm.UpdateSubtotalLabel(container) ' container = CartPanel
+
 
                                       ' 🔄 Update in database
                                       UpdateCartQuantity(loggedInUserID, productID, size, quantity)
@@ -762,19 +817,19 @@ Module globals
         Dim cartItems As New List(Of CartItem)()
 
         Dim query As String = "
-        SELECT 
-            c.product_id,
-            p.product_name,
-            p.color,
-            COALESCE(b.brand_name, 'Unknown') as brand_name,
-            c.size,
-            c.quantity,
-            p.image_path
-        FROM cart c
-        INNER JOIN products p ON c.product_id = p.product_id
-        LEFT JOIN brands b ON p.brand_id = b.brand_id
-        WHERE c.customer_id = @custID
-
+    SELECT 
+        c.product_id,
+        p.product_name,
+        p.color,
+        COALESCE(b.brand_name, 'Unknown') AS brand_name,
+        c.size,
+        c.quantity,
+        p.image_path,
+        p.price
+    FROM cart c
+    INNER JOIN products p ON c.product_id = p.product_id
+    LEFT JOIN brands b ON p.brand_id = b.brand_id
+    WHERE c.customer_id = @custID
     "
 
         Try
@@ -787,14 +842,15 @@ Module globals
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         While reader.Read()
                             Dim item As New CartItem With {
-                                .ProductID = Convert.ToInt32(reader("product_id")),
-                                .Name = reader("product_name").ToString(),
-                                .Color = reader("color").ToString(),
-                                .Brand = reader("brand_name").ToString(),
-                                .Size = If(reader("size") Is DBNull.Value, "", reader("size").ToString()),
-                                .Quantity = Convert.ToInt32(reader("quantity")),
-                                .ImagePath = reader("image_path").ToString()
-                            }
+                            .ProductID = Convert.ToInt32(reader("product_id")),
+                            .Name = reader("product_name").ToString(),
+                            .Color = reader("color").ToString(),
+                            .Brand = reader("brand_name").ToString(),
+                            .Size = If(reader("size") Is DBNull.Value, "", reader("size").ToString()),
+                            .Quantity = Convert.ToInt32(reader("quantity")),
+                            .ImagePath = reader("image_path").ToString(),
+                            .Price = Convert.ToDecimal(reader("price")) ' 👈 Assign price
+                        }
 
                             cartItems.Add(item)
                         End While
@@ -807,6 +863,7 @@ Module globals
 
         Return cartItems
     End Function
+
     ' Get perfumes by category for gender-based filtering
     Public Function GetPerfumeTypesBySupplier(supplierId As Integer) As List(Of String)
         Dim types As New HashSet(Of String)
@@ -837,4 +894,39 @@ Module globals
 
         Return types.ToList()
     End Function
+
+    Public Function GetMalePerfumeTypes() As List(Of String)
+        Dim types As New HashSet(Of String)
+
+        Try
+            Using conn As New MySqlConnection(connectionString)
+                conn.Open()
+                Dim cmd As New MySqlCommand("
+                SELECT DISTINCT product_name 
+                FROM products 
+                WHERE gender = 'Male' 
+                  AND category_id IN (7, 8, 9, 10, 11, 12)
+            ", conn)
+
+                Dim reader As MySqlDataReader = cmd.ExecuteReader()
+
+                While reader.Read()
+                    Dim fullName As String = reader("product_name").ToString()
+                    ' Remove trailing " EDT" if present
+                    If fullName.EndsWith(" EDT") Then
+                        types.Add(fullName.Substring(0, fullName.Length - 4))
+                    Else
+                        types.Add(fullName)
+                    End If
+                End While
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error fetching male perfume types: " & ex.Message)
+        End Try
+
+        Return types.ToList()
+    End Function
+
+
+
 End Module

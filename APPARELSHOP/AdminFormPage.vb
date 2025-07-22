@@ -212,11 +212,11 @@ Public Class AdminFormPage
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
                 Dim insertCmd As New MySqlCommand("
-                INSERT INTO products 
-                (product_name, color, size, category_id, supplier_id, brand_id, price, stock_quantity, image_path)
-                VALUES
-                (@pname, @color, @size, @catid, @supid, @brid, @price, @qty, @imgpath)
-            ", conn)
+    INSERT INTO products 
+    (product_name, color, size, category_id, supplier_id, brand_id, price, stock_quantity, image_path, gender)
+    VALUES
+    (@pname, @color, @size, @catid, @supid, @brid, @price, @qty, @imgpath, @gender)
+", conn)
                 insertCmd.Parameters.AddWithValue("@pname", productNameForDb)
                 insertCmd.Parameters.AddWithValue("@color", ColorTxt.Text.Trim())
                 insertCmd.Parameters.AddWithValue("@size", sizeTxt.Text.Trim())
@@ -226,7 +226,10 @@ Public Class AdminFormPage
                 insertCmd.Parameters.AddWithValue("@price", priceValue)
                 insertCmd.Parameters.AddWithValue("@qty", quantityValue)
                 insertCmd.Parameters.AddWithValue("@imgpath", imagePathForDb)
+                insertCmd.Parameters.AddWithValue("@gender", genderTxt.SelectedItem?.ToString())
                 Dim newProductId As Integer = Convert.ToInt32(insertCmd.ExecuteScalar())
+
+
 
 
 
