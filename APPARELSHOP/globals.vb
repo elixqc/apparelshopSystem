@@ -2,8 +2,6 @@
 Imports System.IO
 Imports System.Drawing
 
-
-
 Module globals
 
     Public ReadOnly connectionString As String = "server=localhost;userid=root;password=;database=apparelshopdb"
@@ -19,6 +17,7 @@ Module globals
     Public selectedShirtSize As String = ""
     Public selectedFilePath As String = ""
     Public imagePathForDb As String = ""
+
     Public Class CartItem
         Public Property ProductID As Integer
         Public Property Name As String
@@ -28,23 +27,285 @@ Module globals
         Public Property Quantity As Integer
         Public Property ImagePath As String
     End Class
+    Public Function GetFemalePerfumeTypes() As List(Of String)
+        Return GetPerfumeTypesByBrandIDs(New List(Of Integer) From {4, 5})
+    End Function
+    Public Function GetMalePerfumeTypes() As List(Of String)
+        Return GetPerfumeTypesByBrandIDs(New List(Of Integer) From {6})
+    End Function
 
+    ' Shared function used internally
+    Private Function GetPerfumeTypesByBrandIDs(brandIDs As List(Of Integer)) As List(Of String)
+        Dim types As New HashSet(Of String)
+
+        Try
+            Using conn As New MySqlConnection(connectionString)
+                conn.Open()
+
+                ' Build comma-separated IN clause
+                Dim inClause As String = String.Join(",", brandIDs)
+
+                ' Only use category_id 7 and 8 (EDP and EDT)
+                Dim query As String = $"SELECT DISTINCT product_name FROM products WHERE category_id IN (7,8) AND brand_id IN ({inClause})"
+                Using cmd As New MySqlCommand(query, conn)
+                    Dim reader = cmd.ExecuteReader()
+
+                    While reader.Read()
+                        Dim fullName As String = reader("product_name").ToString()
+
+                        ' Strip " EDT" suffix if present
+                        If fullName.EndsWith(" EDT") Then
+                            types.Add(fullName.Substring(0, fullName.Length - 4))
+                        Else
+                            types.Add(fullName)
+                        End If
+                    End While
+
+                    reader.Close()
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error fetching perfume types by brand: " & ex.Message)
+        End Try
+
+        Return types.ToList()
+    End Function
+
+
+    Public Sub CreatePerfumePanel(productName As String, container As FlowLayoutPanel)
+        Dim panel As New Panel With {
+            .Width = 318,
+            .Height = 420,
+            .BorderStyle = BorderStyle.FixedSingle,
+            .Margin = New Padding(15, 15, 15, 15)
+        }
+
+        Dim productData As New Dictionary(Of String, Object)
+        productData("SelectedVariant") = Nothing
+        productData("Quantity") = 0
+        panel.Tag = productData
+
+        Dim productImage As New PictureBox With {
+            .SizeMode = PictureBoxSizeMode.StretchImage,
+            .Width = 286,
+            .Height = 280,
+            .Top = 15,
+            .Left = 14
+        }
+
+        Dim perfumeVariants As New Dictionary(Of String, Object)()
+        Dim totalStock As Integer = 0
+        Dim firstImageSet As Boolean = False
+
+        ' Get perfume variants (both EDP and EDT versions)
+        Try
+            Using conn As New MySqlConnection(connectionString)
+                conn.Open()
+                Dim cmd As New MySqlCommand("SELECT product_name, color, image_path, price, stock_quantity, category_id FROM products WHERE product_name = @name OR product_name = @nameEDT", conn)
+                cmd.Parameters.AddWithValue("@name", productName)
+                cmd.Parameters.AddWithValue("@nameEDT", productName & " EDT")
+                Dim reader = cmd.ExecuteReader()
+
+                While reader.Read()
+                    Dim fullName As String = reader("product_name").ToString()
+                    Dim color As String = reader("color").ToString()
+                    Dim imagePath As String = reader("image_path").ToString()
+                    Dim price As Decimal = Convert.ToDecimal(reader("price"))
+                    Dim stock As Integer = Convert.ToInt32(reader("stock_quantity"))
+                    Dim categoryId As Integer = Convert.ToInt32(reader("category_id"))
+
+                    totalStock += stock
+
+                    Dim variantType As String = If(fullName.EndsWith(" EDT"), "EDT", "EDP")
+                    Dim variantKey As String = $"{variantType} - ₱{price:F2}"
+
+                    perfumeVariants(variantKey) = New Dictionary(Of String, Object) From {
+                        {"FullName", fullName},
+                        {"Color", color},
+                        {"ImagePath", imagePath},
+                        {"Price", price},
+                        {"Stock", stock}
+                    }
+
+                    ' Set default image
+                    If Not firstImageSet Then
+                        Dim defaultImagePath = Path.Combine(Application.StartupPath, imagePath)
+                        If File.Exists(defaultImagePath) Then
+                            productImage.Image = Image.FromFile(defaultImagePath)
+                        End If
+                        firstImageSet = True
+                    End If
+                End While
+                reader.Close()
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("DB Error: " & ex.Message)
+            Exit Sub
+        End Try
+
+        panel.Controls.Add(productImage)
+
+        ' Product Name Label
+        Dim nameLabel As New Label With {
+            .Text = productName,
+            .Font = New Font("Microsoft Himalaya", 16, FontStyle.Bold),
+            .AutoSize = True,
+            .Left = 11,
+            .Top = 305
+        }
+        panel.Controls.Add(nameLabel)
+
+        ' Stock Label
+        Dim stockLabel As New Label With {
+            .Text = "Stock: " & totalStock.ToString(),
+            .Font = New Font("Microsoft Himalaya", 14),
+            .AutoSize = True,
+            .Left = 11,
+            .Top = 325
+        }
+        panel.Controls.Add(stockLabel)
+
+        ' Variant ComboBox (EDP/EDT)
+        Dim variantCombo As New ComboBox With {
+            .Top = 345,
+            .Left = 11,
+            .Width = 150,
+            .Height = 27,
+            .Font = New Font("Microsoft Himalaya", 12),
+            .DropDownStyle = ComboBoxStyle.DropDownList
+        }
+        variantCombo.Items.Insert(0, "Select Type")
+        variantCombo.SelectedIndex = 0
+
+        For Each variantKey In perfumeVariants.Keys
+            variantCombo.Items.Add(variantKey)
+        Next
+
+        ' Handle variant selection change
+        AddHandler variantCombo.SelectedIndexChanged, Sub(sender, e)
+                                                          If variantCombo.SelectedIndex > 0 Then
+                                                              Dim selectedVariant = variantCombo.SelectedItem.ToString()
+                                                              If perfumeVariants.ContainsKey(selectedVariant) Then
+                                                                  Dim variantData = DirectCast(perfumeVariants(selectedVariant), Dictionary(Of String, Object))
+                                                                  Dim imgPath = Path.Combine(Application.StartupPath, variantData("ImagePath").ToString())
+                                                                  If File.Exists(imgPath) Then
+                                                                      productImage.Image = Image.FromFile(imgPath)
+                                                                  End If
+
+                                                                  ' Update selected variant in panel data
+                                                                  Dim data = DirectCast(panel.Tag, Dictionary(Of String, Object))
+                                                                  data("SelectedVariant") = selectedVariant
+                                                              End If
+                                                          End If
+                                                      End Sub
+
+        panel.Controls.Add(variantCombo)
+
+        ' Quantity TextBox
+        Dim qtyBox As New TextBox With {
+            .Top = 345,
+            .Left = 170,
+            .Width = 60,
+            .Height = 23,
+            .TextAlign = HorizontalAlignment.Center,
+            .Text = "1"
+        }
+        panel.Controls.Add(qtyBox)
+
+        ' Add to Cart Button
+        Dim addToCartBtn As New Button With {
+            .Text = "ADD TO CART",
+            .Font = New Font("Microsoft Himalaya", 12),
+            .ForeColor = Color.White,
+            .BackColor = Color.DarkSlateBlue,
+            .Top = 380,
+            .Left = 11,
+            .Width = 280,
+            .Height = 30
+        }
+
+        AddHandler addToCartBtn.Click, Sub(senderBtn, eBtn)
+                                           Dim qty As Integer = 0
+                                           If Not Integer.TryParse(qtyBox.Text, qty) OrElse qty <= 0 Then
+                                               MessageBox.Show("Enter valid quantity")
+                                               Return
+                                           End If
+
+                                           Dim data = DirectCast(panel.Tag, Dictionary(Of String, Object))
+                                           Dim selectedVariant = TryCast(data("SelectedVariant"), String)
+
+                                           If String.IsNullOrEmpty(selectedVariant) OrElse variantCombo.SelectedIndex = 0 Then
+                                               MessageBox.Show("Please select a perfume type.")
+                                               Return
+                                           End If
+
+                                           If perfumeVariants.ContainsKey(selectedVariant) Then
+                                               Dim variantData = DirectCast(perfumeVariants(selectedVariant), Dictionary(Of String, Object))
+                                               Dim fullProductName = variantData("FullName").ToString()
+                                               AddToPerfumeCart(fullProductName, qty)
+                                           End If
+                                       End Sub
+
+        panel.Controls.Add(addToCartBtn)
+        container.Controls.Add(panel)
+    End Sub
+
+    Public Sub AddToPerfumeCart(productName As String, quantity As Integer)
+        Try
+            Using conn As New MySqlConnection(connectionString)
+                conn.Open()
+
+                ' Get product_id
+                Dim getProductCmd As New MySqlCommand("SELECT product_id FROM products WHERE product_name = @pname", conn)
+                getProductCmd.Parameters.AddWithValue("@pname", productName)
+
+                Dim productIdObj As Object = getProductCmd.ExecuteScalar()
+
+                If productIdObj Is Nothing Then
+                    MessageBox.Show("Product not found.")
+                    Exit Sub
+                End If
+
+                Dim productId As Integer = CInt(productIdObj)
+
+                ' Insert or update cart (perfumes don't have sizes, so size is NULL)
+                Dim cartCmd As New MySqlCommand("
+                    INSERT INTO cart (customer_id, product_id, quantity, date_added, size)
+                    VALUES (@cid, @pid, @qty, NOW(), NULL)
+                    ON DUPLICATE KEY UPDATE 
+                        quantity = quantity + @qty, 
+                        date_added = NOW();", conn)
+
+                cartCmd.Parameters.AddWithValue("@cid", loggedInUserID)
+                cartCmd.Parameters.AddWithValue("@pid", productId)
+                cartCmd.Parameters.AddWithValue("@qty", quantity)
+
+                cartCmd.ExecuteNonQuery()
+
+                MessageBox.Show("Perfume added to cart!")
+
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message)
+        End Try
+    End Sub
+
+    ' ORIGINAL APPAREL FUNCTIONS (keeping existing functionality)
     Public Sub UpdateCartQuantity(customerID As Integer, productID As Integer, size As String, newQuantity As Integer)
         Try
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
-                Dim query As String = "UPDATE cart SET quantity = @qty WHERE customer_id = @custID AND product_id = @prodID AND size = @size"
+                Dim query As String = "UPDATE cart SET quantity = @qty WHERE customer_id = @custID AND product_id = @prodID AND (size = @size OR (size IS NULL AND @size IS NULL))"
                 Using cmd As New MySqlCommand(query, conn)
                     cmd.Parameters.AddWithValue("@qty", newQuantity)
                     cmd.Parameters.AddWithValue("@custID", customerID)
                     cmd.Parameters.AddWithValue("@prodID", productID)
-                    cmd.Parameters.AddWithValue("@size", size)
+                    cmd.Parameters.AddWithValue("@size", If(String.IsNullOrEmpty(size), DBNull.Value, size))
                     cmd.ExecuteNonQuery()
                 End Using
             End Using
         Catch ex As Exception
             MessageBox.Show("Could not update cart quantity. Please try again.")
-            ' Optionally log ex.Message for diagnostics
         End Try
     End Sub
 
@@ -52,11 +313,11 @@ Module globals
         Try
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
-                Dim query As String = "DELETE FROM cart WHERE customer_id = @customerID AND product_id = @productID AND size = @size"
+                Dim query As String = "DELETE FROM cart WHERE customer_id = @customerID AND product_id = @productID AND (size = @size OR (size IS NULL AND @size IS NULL))"
                 Using cmd As New MySqlCommand(query, conn)
                     cmd.Parameters.AddWithValue("@customerID", customerID)
                     cmd.Parameters.AddWithValue("@productID", productID)
-                    cmd.Parameters.AddWithValue("@size", size)
+                    cmd.Parameters.AddWithValue("@size", If(String.IsNullOrEmpty(size), DBNull.Value, size))
                     cmd.ExecuteNonQuery()
                 End Using
             End Using
@@ -65,7 +326,7 @@ Module globals
         End Try
     End Sub
 
-    'ADD TO CART FUNCTIONNNN
+    'ADD TO CART FUNCTION (original for apparel)
     Public Sub AddToCart(productName As String, quantity As Integer, selectedSize As String)
         Try
             Using conn As New MySqlConnection(connectionString)
@@ -108,9 +369,8 @@ Module globals
         End Try
     End Sub
 
-
-
     Public Sub CreateProductPanel(productType As String, container As FlowLayoutPanel)
+
         Dim panel As New Panel With {
         .Width = 318,
         .Height = 479,
@@ -183,13 +443,6 @@ Module globals
             End If
         End If
         panel.Controls.Add(productImage)
-
-
-
-
-
-
-
 
         ' Extract base name (without size and color)
         Dim baseName As String = "Prestige " & productType.Trim()
@@ -357,7 +610,7 @@ Module globals
         Try
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
-                Dim cmd As New MySqlCommand("SELECT DISTINCT product_name FROM products", conn)
+                Dim cmd As New MySqlCommand("SELECT DISTINCT product_name FROM products WHERE category_id NOT IN (7,8,9,10,11,12)", conn)
                 Dim reader = cmd.ExecuteReader()
 
                 While reader.Read()
@@ -422,20 +675,22 @@ Module globals
     }
         panel.Controls.Add(nameLabel)
 
-        ' Size Label
-        Dim sizeLabel As New Label With {
-        .Text = "Size: " & size,
-        .Font = New Font("Microsoft Sans Serif", 9),
-        .Location = New Point(147, 57),
-        .AutoSize = True
-    }
-        panel.Controls.Add(sizeLabel)
+        ' Size Label (only show if size exists - perfumes don't have sizes)
+        If Not String.IsNullOrEmpty(size) Then
+            Dim sizeLabel As New Label With {
+                .Text = "Size: " & size,
+                .Font = New Font("Microsoft Sans Serif", 9),
+                .Location = New Point(147, 57),
+                .AutoSize = True
+            }
+            panel.Controls.Add(sizeLabel)
+        End If
 
         ' Color Label
         Dim colorLabel As New Label With {
         .Text = "Color: " & color,
         .Font = New Font("Microsoft Sans Serif", 9),
-        .Location = New Point(147, 76),
+        .Location = New Point(147, If(String.IsNullOrEmpty(size), 57, 76)),
         .AutoSize = True
     }
         panel.Controls.Add(colorLabel)
@@ -511,13 +766,13 @@ Module globals
             c.product_id,
             p.product_name,
             p.color,
-            b.brand_name,
+            COALESCE(b.brand_name, 'Unknown') as brand_name,
             c.size,
             c.quantity,
             p.image_path
         FROM cart c
         INNER JOIN products p ON c.product_id = p.product_id
-        INNER JOIN brands b ON p.brand_id = b.brand_id
+        LEFT JOIN brands b ON p.brand_id = b.brand_id
         WHERE c.customer_id = @custID
 
     "
@@ -536,7 +791,7 @@ Module globals
                                 .Name = reader("product_name").ToString(),
                                 .Color = reader("color").ToString(),
                                 .Brand = reader("brand_name").ToString(),
-                                .Size = reader("size").ToString(),
+                                .Size = If(reader("size") Is DBNull.Value, "", reader("size").ToString()),
                                 .Quantity = Convert.ToInt32(reader("quantity")),
                                 .ImagePath = reader("image_path").ToString()
                             }
@@ -552,15 +807,34 @@ Module globals
 
         Return cartItems
     End Function
+    ' Get perfumes by category for gender-based filtering
+    Public Function GetPerfumeTypesBySupplier(supplierId As Integer) As List(Of String)
+        Dim types As New HashSet(Of String)
 
+        Try
+            Using conn As New MySqlConnection(connectionString)
+                conn.Open()
+                Dim cmd As New MySqlCommand("
+                SELECT DISTINCT product_name 
+                FROM products 
+                WHERE category_id IN (7,8,9,10,11,12) AND supplier_id = @sid", conn)
 
+                cmd.Parameters.AddWithValue("@sid", supplierId)
+                Dim reader = cmd.ExecuteReader()
 
+                While reader.Read()
+                    Dim fullName As String = reader("product_name").ToString()
+                    If fullName.EndsWith(" EDT") Then
+                        types.Add(fullName.Substring(0, fullName.Length - 4))
+                    Else
+                        types.Add(fullName)
+                    End If
+                End While
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error fetching perfume types: " & ex.Message)
+        End Try
 
-
-
-
-
-
-
-
+        Return types.ToList()
+    End Function
 End Module

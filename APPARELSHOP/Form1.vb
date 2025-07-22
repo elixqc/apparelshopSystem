@@ -100,14 +100,18 @@ Public Class Form1
 
     Private Sub MasculineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MasculineToolStripMenuItem.Click
 
-
+        If apparelPageSample.Visible Then
+            apparelPageSample.Close()
+        End If
+        appthemes.SmoothFadeIn(perfumepageMale)
     End Sub
 
     Private Sub FeminineToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles FeminineToolStripMenuItem1.Click
-
-
+        If apparelPageSample.Visible Then
+            apparelPageSample.Close()
+        End If
+        appthemes.SmoothFadeIn(perfumepageFemale)
     End Sub
-
     Private Sub TestingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TestingToolStripMenuItem.Click
         appthemes.SmoothFadeIn(customerProfile)
     End Sub
@@ -119,6 +123,10 @@ Public Class Form1
         Else
             appthemes.SmoothFadeIn(AdminFormPage)
         End If
+
+    End Sub
+
+    Private Sub PerfumeruToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PerfumeruToolStripMenuItem.Click
 
     End Sub
 End Class

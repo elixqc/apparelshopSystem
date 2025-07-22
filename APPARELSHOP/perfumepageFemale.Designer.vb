@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class perfumepageFm
+Partial Class perfumepageFemale
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,17 +22,29 @@ Partial Class perfumepageFm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.SuspendLayout()
         '
-        'perfumepageFm
+        'FlowLayoutPanel1
+        '
+        Me.FlowLayoutPanel1.AutoScroll = True
+        Me.FlowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(800, 450)
+        Me.FlowLayoutPanel1.TabIndex = 0
+        '
+        'perfumepageFemale
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1305, 544)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.Name = "perfumepageFm"
-        Me.Text = "perfumepageFm"
+        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.FlowLayoutPanel1)
+        Me.Name = "perfumepageFemale"
+        Me.Text = "perfumepageFemale"
         Me.ResumeLayout(False)
 
     End Sub
+
+    Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
 End Class

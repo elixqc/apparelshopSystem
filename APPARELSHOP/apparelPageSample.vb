@@ -23,4 +23,8 @@ Public Class apparelPageSample
         Flowproductpanel.Controls.Clear()
         LoadAllProductPanels()
     End Sub
+
+    Private Sub btnLoadProducts_Click(sender As Object, e As EventArgs) Handles btnLoadProducts.Click
+
+    End Sub
 End Class
