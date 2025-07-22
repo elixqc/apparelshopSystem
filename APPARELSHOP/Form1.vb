@@ -109,7 +109,7 @@ Public Class Form1
     End Sub
 
     Private Sub TestingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TestingToolStripMenuItem.Click
-        appthemes.SmoothFadeIn(apparelPageSample)
+        appthemes.SmoothFadeIn(customerProfile)
     End Sub
 
     Private Sub adminPage_Click(sender As Object, e As EventArgs) Handles adminPage.Click
