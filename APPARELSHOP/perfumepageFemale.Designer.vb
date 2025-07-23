@@ -31,15 +31,16 @@ Partial Class perfumepageFemale
         Me.FlowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(1525, 603)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(1502, 529)
         Me.FlowLayoutPanel1.TabIndex = 0
         '
         'perfumepageFemale
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1525, 603)
+        Me.ClientSize = New System.Drawing.Size(1502, 529)
         Me.Controls.Add(Me.FlowLayoutPanel1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "perfumepageFemale"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "perfumepageFemale"

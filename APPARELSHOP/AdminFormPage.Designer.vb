@@ -61,6 +61,17 @@ Partial Class AdminFormPage
         Me.statusDropdown = New System.Windows.Forms.ComboBox()
         Me.btnUpdateStatus = New System.Windows.Forms.Button()
         Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.lblTotalProductsSold = New System.Windows.Forms.Label()
+        Me.lblTotalStoreIncome = New System.Windows.Forms.Label()
+        Me.dtpStartDate = New System.Windows.Forms.DateTimePicker()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.dtpEndDate = New System.Windows.Forms.DateTimePicker()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.lblResult = New System.Windows.Forms.Label()
+        Me.lblTotalStoreProfit = New System.Windows.Forms.Label()
         Me.addProductPanel.SuspendLayout()
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -142,13 +153,15 @@ Partial Class AdminFormPage
         '
         'btnUpload
         '
+        Me.btnUpload.BackColor = System.Drawing.Color.ForestGreen
         Me.btnUpload.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnUpload.ForeColor = System.Drawing.Color.White
         Me.btnUpload.Location = New System.Drawing.Point(1187, 181)
         Me.btnUpload.Name = "btnUpload"
         Me.btnUpload.Size = New System.Drawing.Size(104, 23)
         Me.btnUpload.TabIndex = 4
         Me.btnUpload.Text = "ADD ITEM"
-        Me.btnUpload.UseVisualStyleBackColor = True
+        Me.btnUpload.UseVisualStyleBackColor = False
         '
         'FileUploadButton
         '
@@ -432,13 +445,15 @@ Partial Class AdminFormPage
         '
         'btnUpdateStatus
         '
+        Me.btnUpdateStatus.BackColor = System.Drawing.Color.ForestGreen
         Me.btnUpdateStatus.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnUpdateStatus.ForeColor = System.Drawing.Color.White
         Me.btnUpdateStatus.Location = New System.Drawing.Point(657, 388)
         Me.btnUpdateStatus.Name = "btnUpdateStatus"
         Me.btnUpdateStatus.Size = New System.Drawing.Size(159, 33)
         Me.btnUpdateStatus.TabIndex = 5
         Me.btnUpdateStatus.Text = "UPDATE STATUS"
-        Me.btnUpdateStatus.UseVisualStyleBackColor = True
+        Me.btnUpdateStatus.UseVisualStyleBackColor = False
         '
         'Label17
         '
@@ -451,14 +466,131 @@ Partial Class AdminFormPage
         Me.Label17.TabIndex = 6
         Me.Label17.Text = "status"
         '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Font = New System.Drawing.Font("Microsoft Himalaya", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label18.Location = New System.Drawing.Point(8, 9)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(141, 24)
+        Me.Label18.TabIndex = 2
+        Me.Label18.Text = "STORE INCOME"
+        '
+        'lblTotalProductsSold
+        '
+        Me.lblTotalProductsSold.AutoSize = True
+        Me.lblTotalProductsSold.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotalProductsSold.Location = New System.Drawing.Point(9, 36)
+        Me.lblTotalProductsSold.Name = "lblTotalProductsSold"
+        Me.lblTotalProductsSold.Size = New System.Drawing.Size(127, 21)
+        Me.lblTotalProductsSold.TabIndex = 2
+        Me.lblTotalProductsSold.Text = "Total Products Sold:"
+        '
+        'lblTotalStoreIncome
+        '
+        Me.lblTotalStoreIncome.AutoSize = True
+        Me.lblTotalStoreIncome.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotalStoreIncome.Location = New System.Drawing.Point(8, 86)
+        Me.lblTotalStoreIncome.Name = "lblTotalStoreIncome"
+        Me.lblTotalStoreIncome.Size = New System.Drawing.Size(124, 21)
+        Me.lblTotalStoreIncome.TabIndex = 2
+        Me.lblTotalStoreIncome.Text = "Total Store Income:"
+        '
+        'dtpStartDate
+        '
+        Me.dtpStartDate.Location = New System.Drawing.Point(48, 206)
+        Me.dtpStartDate.Name = "dtpStartDate"
+        Me.dtpStartDate.Size = New System.Drawing.Size(200, 20)
+        Me.dtpStartDate.TabIndex = 7
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label19.Location = New System.Drawing.Point(12, 165)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(281, 21)
+        Me.Label19.TabIndex = 2
+        Me.Label19.Text = "Select a date range to view shop income:"
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label20.Location = New System.Drawing.Point(94, 186)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(109, 21)
+        Me.Label20.TabIndex = 2
+        Me.Label20.Text = "Select Start Date:"
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label21.Location = New System.Drawing.Point(94, 229)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(105, 21)
+        Me.Label21.TabIndex = 2
+        Me.Label21.Text = "Select End Date:"
+        '
+        'dtpEndDate
+        '
+        Me.dtpEndDate.Location = New System.Drawing.Point(48, 248)
+        Me.dtpEndDate.Name = "dtpEndDate"
+        Me.dtpEndDate.Size = New System.Drawing.Size(200, 20)
+        Me.dtpEndDate.TabIndex = 8
+        '
+        'Button1
+        '
+        Me.Button1.BackColor = System.Drawing.Color.ForestGreen
+        Me.Button1.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button1.ForeColor = System.Drawing.Color.White
+        Me.Button1.Location = New System.Drawing.Point(48, 277)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(200, 39)
+        Me.Button1.TabIndex = 9
+        Me.Button1.Text = "Calculate"
+        Me.Button1.UseVisualStyleBackColor = False
+        '
+        'lblResult
+        '
+        Me.lblResult.AutoSize = True
+        Me.lblResult.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblResult.Location = New System.Drawing.Point(12, 331)
+        Me.lblResult.Name = "lblResult"
+        Me.lblResult.Size = New System.Drawing.Size(69, 21)
+        Me.lblResult.TabIndex = 2
+        Me.lblResult.Text = "lblResult"
+        '
+        'lblTotalStoreProfit
+        '
+        Me.lblTotalStoreProfit.AutoSize = True
+        Me.lblTotalStoreProfit.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotalStoreProfit.Location = New System.Drawing.Point(8, 61)
+        Me.lblTotalStoreProfit.Name = "lblTotalStoreProfit"
+        Me.lblTotalStoreProfit.Size = New System.Drawing.Size(115, 21)
+        Me.lblTotalStoreProfit.TabIndex = 2
+        Me.lblTotalStoreProfit.Text = "Total Store Profit:"
+        '
         'AdminFormPage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1335, 673)
+        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.dtpEndDate)
+        Me.Controls.Add(Me.dtpStartDate)
         Me.Controls.Add(Me.btnUpdateStatus)
         Me.Controls.Add(Me.statusDropdown)
         Me.Controls.Add(Me.DataGridView2)
+        Me.Controls.Add(Me.lblTotalStoreIncome)
+        Me.Controls.Add(Me.lblTotalProductsSold)
+        Me.Controls.Add(Me.Label21)
+        Me.Controls.Add(Me.Label20)
+        Me.Controls.Add(Me.Label19)
+        Me.Controls.Add(Me.lblResult)
+        Me.Controls.Add(Me.lblTotalStoreProfit)
+        Me.Controls.Add(Me.Label18)
         Me.Controls.Add(Me.Label16)
         Me.Controls.Add(Me.Label15)
         Me.Controls.Add(Me.DataGridView1)
@@ -517,4 +649,15 @@ Partial Class AdminFormPage
     Friend WithEvents statusDropdown As ComboBox
     Friend WithEvents btnUpdateStatus As Button
     Friend WithEvents Label17 As Label
+    Friend WithEvents dtpStartDate As DateTimePicker
+    Friend WithEvents lblTotalStoreIncome As Label
+    Friend WithEvents lblTotalProductsSold As Label
+    Friend WithEvents Label20 As Label
+    Friend WithEvents Label19 As Label
+    Friend WithEvents Label18 As Label
+    Friend WithEvents dtpEndDate As DateTimePicker
+    Friend WithEvents Label21 As Label
+    Friend WithEvents Button1 As Button
+    Friend WithEvents lblResult As Label
+    Friend WithEvents lblTotalStoreProfit As Label
 End Class

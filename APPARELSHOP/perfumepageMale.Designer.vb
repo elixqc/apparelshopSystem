@@ -33,7 +33,7 @@ Partial Class perfumepageMale
         Me.FlowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(0, 0)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(1403, 489)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(1502, 529)
         Me.FlowLayoutPanel1.TabIndex = 0
         '
         'FileSystemWatcher1
@@ -45,8 +45,9 @@ Partial Class perfumepageMale
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1403, 489)
+        Me.ClientSize = New System.Drawing.Size(1502, 529)
         Me.Controls.Add(Me.FlowLayoutPanel1)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "perfumepageMale"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "perfumepageMale"

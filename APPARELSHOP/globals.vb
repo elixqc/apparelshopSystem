@@ -39,16 +39,16 @@ Module globals
 
 
     Public Function FindControlByName(parent As Control, name As String) As Control
-            For Each ctrl As Control In parent.Controls
-                If ctrl.Name = name Then
-                    Return ctrl
-                ElseIf ctrl.HasChildren Then
-                    Dim found = FindControlByName(ctrl, name)
-                    If found IsNot Nothing Then Return found
-                End If
-            Next
-            Return Nothing
-        End Function
+        For Each ctrl As Control In parent.Controls
+            If ctrl.Name = name Then
+                Return ctrl
+            ElseIf ctrl.HasChildren Then
+                Dim found = FindControlByName(ctrl, name)
+                If found IsNot Nothing Then Return found
+            End If
+        Next
+        Return Nothing
+    End Function
 
 
 
@@ -923,7 +923,7 @@ Module globals
         AddHandler addToCartBtn.Click, Sub(senderBtn, eBtn)
                                            Dim qty As Integer = 0
                                            If Not Integer.TryParse(qtyBox.Text, qty) OrElse qty <= 0 Then
-                                               MessageBox.Show("Enter valid quantity")
+                                               MessageBox.Show("Enter a valid quantity.")
                                                Return
                                            End If
 
@@ -938,12 +938,20 @@ Module globals
                                            If perfumeVariants.ContainsKey(selectedVariant) Then
                                                Dim variantData = DirectCast(perfumeVariants(selectedVariant), Dictionary(Of String, Object))
                                                Dim fullProductName = variantData("FullName").ToString()
+                                               Dim availableStock As Integer = Convert.ToInt32(variantData("Stock"))
+
+                                               If qty > availableStock Then
+                                                   MessageBox.Show("Only " & availableStock & " item(s) left in stock for this variant.")
+                                                   Return
+                                               End If
+
+                                               ' Proceed to add to cart
                                                AddToPerfumeCart(fullProductName, qty)
                                                MessageBox.Show("Selected: " & selectedVariant & vbCrLf &
-                "FullName: " & fullProductName & vbCrLf &
-                "Qty: " & qty.ToString())
-
+                                                               "FullName: " & fullProductName & vbCrLf &
+                                                               "Qty: " & qty.ToString())
                                            End If
+
                                        End Sub
 
         panel.Controls.Add(addToCartBtn)

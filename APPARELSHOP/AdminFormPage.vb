@@ -1,9 +1,52 @@
 ﻿Imports System.IO
 Imports MySql.Data.MySqlClient
+Imports Mysqlx.XDevAPI.Relational
 
 Public Class AdminFormPage
     Public Property PendingUploadFilePath As String
     Dim selectedOrderId As Integer = -1
+    Dim conn As New MySqlConnection("server=localhost;userid=root;password=;database=apparelshopdb")
+
+    Private Sub LoadTotalIncomeAndProductsSold()
+        Dim totalIncome As Decimal = 0D
+        Dim totalProductsSold As Integer = 0
+        Dim totalProfit As Decimal = 0D
+        Dim conn As New MySqlConnection("server=localhost;userid=root;password=;database=apparelshopdb")
+
+        Try
+            conn.Open()
+            Dim cmd As New MySqlCommand("
+            SELECT od.quantity, od.unit_price, sl.supplier_price
+            FROM orders o
+            INNER JOIN order_details od ON o.order_id = od.order_id
+            INNER JOIN products p ON od.product_id = p.product_id
+            LEFT JOIN supply_logs sl ON p.product_id = sl.product_id
+            WHERE o.order_status = 'Completed'", conn)
+
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+            While reader.Read()
+                Dim qty As Integer = Convert.ToInt32(reader("quantity"))
+                Dim price As Decimal = Convert.ToDecimal(reader("unit_price"))
+                Dim supplierPrice As Decimal = If(IsDBNull(reader("supplier_price")), 0D, Convert.ToDecimal(reader("supplier_price")))
+
+                totalProductsSold += qty
+                totalIncome += qty * price
+                totalProfit += qty * (price - supplierPrice)
+            End While
+            reader.Close()
+
+            lblTotalProductsSold.Text = "Total Products Sold: " & totalProductsSold.ToString()
+            lblTotalStoreIncome.Text = "Total Store Income: ₱" & totalIncome.ToString("N2")
+            lblTotalStoreProfit.Text = "Total Store Profit: ₱" & totalProfit.ToString("N2")
+
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message)
+        Finally
+            conn.Close()
+        End Try
+    End Sub
+
+
 
 
     Public Sub LoadCustomerOrdersToGrid()
@@ -385,6 +428,7 @@ Public Class AdminFormPage
         LoadSuppliers()
         LoadBrands()
         LoadCustomerOrdersToGrid()
+        LoadTotalIncomeAndProductsSold()
     End Sub
 
     Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
@@ -424,23 +468,67 @@ Public Class AdminFormPage
         Try
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
-                Dim cmd As New MySqlCommand("
-                    UPDATE orders 
-                    SET order_status = @status, 
-                        date_recieved = CASE WHEN @status = 'Completed' THEN NOW() ELSE date_recieved END 
-                    WHERE order_id = @oid", conn)
 
-                cmd.Parameters.AddWithValue("@status", newStatus)
-                cmd.Parameters.AddWithValue("@oid", selectedOrderId)
-                cmd.ExecuteNonQuery()
+                ' Begin transaction
+                Dim transaction As MySqlTransaction = conn.BeginTransaction()
+
+                ' Update order status
+                Dim updateCmd As New MySqlCommand("
+                UPDATE orders 
+                SET order_status = @status, 
+                    date_received = CASE WHEN @status = 'Completed' THEN NOW() ELSE date_received END 
+                WHERE order_id = @oid", conn, transaction)
+
+                updateCmd.Parameters.AddWithValue("@status", newStatus)
+                updateCmd.Parameters.AddWithValue("@oid", selectedOrderId)
+                updateCmd.ExecuteNonQuery()
+
+                ' If Completed, deduct stocks
+                If newStatus = "Completed" Then
+                    ' Get order details (product_id and quantity)
+                    Dim getDetailsCmd As New MySqlCommand("
+                    SELECT product_id, quantity 
+                    FROM order_details 
+                    WHERE order_id = @oid", conn, transaction)
+                    getDetailsCmd.Parameters.AddWithValue("@oid", selectedOrderId)
+
+                    Using reader As MySqlDataReader = getDetailsCmd.ExecuteReader()
+                        Dim items As New List(Of Tuple(Of Integer, Integer)) ' product_id, quantity
+
+                        While reader.Read()
+                            items.Add(New Tuple(Of Integer, Integer)(
+                            Convert.ToInt32(reader("product_id")),
+                            Convert.ToInt32(reader("quantity"))
+                        ))
+                        End While
+                        reader.Close()
+
+                        ' Deduct stock for each product
+                        For Each item In items
+                            Dim updateStockCmd As New MySqlCommand("
+                            UPDATE products 
+                            SET stock_quantity = stock_quantity - @qty 
+                            WHERE product_id = @pid", conn, transaction)
+
+                            updateStockCmd.Parameters.AddWithValue("@qty", item.Item2)
+                            updateStockCmd.Parameters.AddWithValue("@pid", item.Item1)
+                            updateStockCmd.ExecuteNonQuery()
+                        Next
+                    End Using
+                End If
+
+                transaction.Commit()
+
             End Using
 
             MessageBox.Show("Order status updated.")
             LoadCustomerOrdersToGrid()
+
         Catch ex As Exception
             MessageBox.Show("Error updating status: " & ex.Message)
         End Try
     End Sub
+
     Private Sub ComboBox3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox3.SelectedIndexChanged
         Dim selectedType As String = ComboBox3.SelectedItem?.ToString()
 
@@ -462,6 +550,64 @@ Public Class AdminFormPage
 
 
     Private Sub brandTxt_SelectedIndexChanged(sender As Object, e As EventArgs) Handles brandTxt.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub DateTimePicker1_ValueChanged(sender As Object, e As EventArgs) Handles dtpStartDate.ValueChanged
+
+    End Sub
+
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim startDate As Date = dtpStartDate.Value.Date
+        Dim endDate As Date = dtpEndDate.Value.Date
+
+        Dim incomeRange As Decimal = 0
+        Dim profitRange As Decimal = 0
+        Dim totalProductsSold As Integer = 0
+
+        Try
+            Using conn As New MySqlConnection(connectionString)
+                conn.Open()
+                Dim query As String = "
+                SELECT od.quantity, p.price, sl.supplier_price
+                FROM orders o
+                JOIN order_details od ON o.order_id = od.order_id
+                JOIN products p ON od.product_id = p.product_id
+                LEFT JOIN supply_logs sl ON p.product_id = sl.product_id
+                WHERE o.order_status = 'Completed'
+                AND o.order_date BETWEEN @start AND @end
+            "
+
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@start", startDate)
+                    cmd.Parameters.AddWithValue("@end", endDate)
+
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            Dim qty = Convert.ToInt32(reader("quantity"))
+                            Dim sellPrice = Convert.ToDecimal(reader("price"))
+                            Dim supplierPrice = If(IsDBNull(reader("supplier_price")), 0, Convert.ToDecimal(reader("supplier_price")))
+
+                            incomeRange += qty * sellPrice
+                            profitRange += qty * (sellPrice - supplierPrice)
+                            totalProductsSold += qty
+                        End While
+                    End Using
+                End Using
+            End Using
+
+            lblResult.Text = "Result:" & vbCrLf &
+                             "Products Sold: " & totalProductsSold.ToString() & vbCrLf &
+                             "Income: ₱" & incomeRange.ToString("N2") & vbCrLf &
+                             "Profit: ₱" & profitRange.ToString("N2") & vbCrLf &
+                             "From " & startDate.ToShortDateString() & " to " & endDate.ToShortDateString()
+        Catch ex As Exception
+            MessageBox.Show("Error calculating: " & ex.Message)
+        End Try
+
+    End Sub
+
+    Private Sub Label22_Click(sender As Object, e As EventArgs) Handles lblTotalStoreProfit.Click
 
     End Sub
 End Class

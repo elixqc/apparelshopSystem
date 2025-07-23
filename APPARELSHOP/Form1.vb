@@ -37,20 +37,7 @@ Public Class Form1
     Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
 
         If loggedInUserID <> 0 Then
-            Dim result As DialogResult = MessageBox.Show("You are already logged in as " & loggedInUserFullName & ". Do you want to log out?", "Logout Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-
-            If result = DialogResult.Yes Then
-                ' Reset login session variables
-                loggedInUserID = 0
-                loggedInUserEmail = ""
-                loggedInUserFullName = ""
-
-                adminPage.Visible = False
-                ' Optional: Hide welcome label
-                welcomeName.Visible = False
-
-                MsgBox("You have been logged out.")
-            End If
+            appthemes.SmoothFadeIn(customerProfile)
         Else
             appthemes.SmoothFadeIn(login)
         End If
@@ -113,7 +100,7 @@ Public Class Form1
         appthemes.SmoothFadeIn(perfumepageFemale)
     End Sub
     Private Sub TestingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TestingToolStripMenuItem.Click
-        appthemes.SmoothFadeIn(customerProfile)
+
     End Sub
 
     Private Sub adminPage_Click(sender As Object, e As EventArgs) Handles adminPage.Click
