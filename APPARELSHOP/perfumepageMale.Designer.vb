@@ -48,6 +48,7 @@ Partial Class perfumepageMale
         Me.ClientSize = New System.Drawing.Size(1403, 489)
         Me.Controls.Add(Me.FlowLayoutPanel1)
         Me.Name = "perfumepageMale"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "perfumepageMale"
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

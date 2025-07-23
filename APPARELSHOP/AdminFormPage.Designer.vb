@@ -23,6 +23,7 @@ Partial Class AdminFormPage
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.addProductPanel = New System.Windows.Forms.Panel()
+        Me.genderTxt = New System.Windows.Forms.ComboBox()
         Me.remarksTxt = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.supplierPriceTxt = New System.Windows.Forms.TextBox()
@@ -37,6 +38,7 @@ Partial Class AdminFormPage
         Me.PriceTxt = New System.Windows.Forms.TextBox()
         Me.ColorTxt = New System.Windows.Forms.TextBox()
         Me.productNameTxt = New System.Windows.Forms.TextBox()
+        Me.Label14 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
@@ -52,10 +54,17 @@ Partial Class AdminFormPage
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.FileSystemWatcher1 = New System.IO.FileSystemWatcher()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.genderTxt = New System.Windows.Forms.ComboBox()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.DataGridView2 = New System.Windows.Forms.DataGridView()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.statusDropdown = New System.Windows.Forms.ComboBox()
+        Me.btnUpdateStatus = New System.Windows.Forms.Button()
+        Me.Label17 = New System.Windows.Forms.Label()
         Me.addProductPanel.SuspendLayout()
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'addProductPanel
@@ -89,10 +98,21 @@ Partial Class AdminFormPage
         Me.addProductPanel.Controls.Add(Me.Label9)
         Me.addProductPanel.Controls.Add(Me.Label2)
         Me.addProductPanel.Controls.Add(Me.Label1)
-        Me.addProductPanel.Location = New System.Drawing.Point(12, 427)
+        Me.addProductPanel.Location = New System.Drawing.Point(12, 449)
         Me.addProductPanel.Name = "addProductPanel"
-        Me.addProductPanel.Size = New System.Drawing.Size(1311, 234)
+        Me.addProductPanel.Size = New System.Drawing.Size(1311, 212)
         Me.addProductPanel.TabIndex = 0
+        '
+        'genderTxt
+        '
+        Me.genderTxt.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.genderTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.genderTxt.FormattingEnabled = True
+        Me.genderTxt.Items.AddRange(New Object() {"Male", "Female", "Unisex"})
+        Me.genderTxt.Location = New System.Drawing.Point(775, 34)
+        Me.genderTxt.Name = "genderTxt"
+        Me.genderTxt.Size = New System.Drawing.Size(121, 27)
+        Me.genderTxt.TabIndex = 8
         '
         'remarksTxt
         '
@@ -123,7 +143,7 @@ Partial Class AdminFormPage
         'btnUpload
         '
         Me.btnUpload.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnUpload.Location = New System.Drawing.Point(1185, 186)
+        Me.btnUpload.Location = New System.Drawing.Point(1187, 181)
         Me.btnUpload.Name = "btnUpload"
         Me.btnUpload.Size = New System.Drawing.Size(104, 23)
         Me.btnUpload.TabIndex = 4
@@ -224,6 +244,16 @@ Partial Class AdminFormPage
         Me.productNameTxt.Name = "productNameTxt"
         Me.productNameTxt.Size = New System.Drawing.Size(115, 26)
         Me.productNameTxt.TabIndex = 1
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.Location = New System.Drawing.Point(771, 67)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(99, 19)
+        Me.Label14.TabIndex = 0
+        Me.Label14.Text = "DESIGNED FOR"
         '
         'Label13
         '
@@ -354,33 +384,86 @@ Partial Class AdminFormPage
         Me.FileSystemWatcher1.EnableRaisingEvents = True
         Me.FileSystemWatcher1.SynchronizingObject = Me
         '
-        'Label14
+        'DataGridView1
         '
-        Me.Label14.AutoSize = True
-        Me.Label14.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(771, 67)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(99, 19)
-        Me.Label14.TabIndex = 0
-        Me.Label14.Text = "DESIGNED FOR"
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Location = New System.Drawing.Point(839, 33)
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.Size = New System.Drawing.Size(484, 388)
+        Me.DataGridView1.TabIndex = 1
         '
-        'genderTxt
+        'Label15
         '
-        Me.genderTxt.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.genderTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.genderTxt.FormattingEnabled = True
-        Me.genderTxt.Items.AddRange(New Object() {"Male", "Female", "Unisex"})
-        Me.genderTxt.Location = New System.Drawing.Point(775, 34)
-        Me.genderTxt.Name = "genderTxt"
-        Me.genderTxt.Size = New System.Drawing.Size(121, 27)
-        Me.genderTxt.TabIndex = 8
+        Me.Label15.AutoSize = True
+        Me.Label15.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Location = New System.Drawing.Point(835, 9)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(83, 21)
+        Me.Label15.TabIndex = 2
+        Me.Label15.Text = "PRODUCTS"
+        '
+        'DataGridView2
+        '
+        Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView2.Location = New System.Drawing.Point(323, 33)
+        Me.DataGridView2.Name = "DataGridView2"
+        Me.DataGridView2.Size = New System.Drawing.Size(493, 349)
+        Me.DataGridView2.TabIndex = 3
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.Location = New System.Drawing.Point(319, 9)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(65, 21)
+        Me.Label16.TabIndex = 2
+        Me.Label16.Text = "ORDERS"
+        '
+        'statusDropdown
+        '
+        Me.statusDropdown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.statusDropdown.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.statusDropdown.FormattingEnabled = True
+        Me.statusDropdown.Location = New System.Drawing.Point(466, 388)
+        Me.statusDropdown.Name = "statusDropdown"
+        Me.statusDropdown.Size = New System.Drawing.Size(166, 29)
+        Me.statusDropdown.TabIndex = 4
+        '
+        'btnUpdateStatus
+        '
+        Me.btnUpdateStatus.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnUpdateStatus.Location = New System.Drawing.Point(657, 388)
+        Me.btnUpdateStatus.Name = "btnUpdateStatus"
+        Me.btnUpdateStatus.Size = New System.Drawing.Size(159, 33)
+        Me.btnUpdateStatus.TabIndex = 5
+        Me.btnUpdateStatus.Text = "UPDATE STATUS"
+        Me.btnUpdateStatus.UseVisualStyleBackColor = True
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Label17.Location = New System.Drawing.Point(464, 415)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(39, 19)
+        Me.Label17.TabIndex = 6
+        Me.Label17.Text = "status"
         '
         'AdminFormPage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1335, 673)
+        Me.Controls.Add(Me.btnUpdateStatus)
+        Me.Controls.Add(Me.statusDropdown)
+        Me.Controls.Add(Me.DataGridView2)
+        Me.Controls.Add(Me.Label16)
+        Me.Controls.Add(Me.Label15)
+        Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.addProductPanel)
+        Me.Controls.Add(Me.Label17)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "AdminFormPage"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -388,7 +471,10 @@ Partial Class AdminFormPage
         Me.addProductPanel.ResumeLayout(False)
         Me.addProductPanel.PerformLayout()
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -424,4 +510,11 @@ Partial Class AdminFormPage
     Friend WithEvents Label13 As Label
     Friend WithEvents Label14 As Label
     Friend WithEvents genderTxt As ComboBox
+    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents Label15 As Label
+    Friend WithEvents DataGridView2 As DataGridView
+    Friend WithEvents Label16 As Label
+    Friend WithEvents statusDropdown As ComboBox
+    Friend WithEvents btnUpdateStatus As Button
+    Friend WithEvents Label17 As Label
 End Class

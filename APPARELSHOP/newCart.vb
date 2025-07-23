@@ -120,12 +120,31 @@ Public Class newCart
 
                                           ' 1. Insert new order
                                           Dim orderId As Integer = -1
-                                          Using conn As New MySqlConnection(connectionString)
-                                              conn.Open()
-                                              Dim orderCmd As New MySqlCommand("INSERT INTO orders (customer_id, order_date, order_status) VALUES (@cid, NOW(), 'Pending'); SELECT LAST_INSERT_ID();", conn)
-                                              orderCmd.Parameters.AddWithValue("@cid", loggedInUserID)
-                                              orderId = Convert.ToInt32(orderCmd.ExecuteScalar())
+                                          Dim deliveryAddress As String = ""
+
+                                          ' Get delivery address from customer profile
+                                          Using conn1 As New MySqlConnection(connectionString)
+                                              conn1.Open()
+                                              Dim getAddressCmd As New MySqlCommand("SELECT address FROM customers WHERE customer_id = @cid", conn1)
+                                              getAddressCmd.Parameters.AddWithValue("@cid", loggedInUserID)
+                                              Dim addrResult = getAddressCmd.ExecuteScalar()
+                                              If addrResult IsNot Nothing Then
+                                                  deliveryAddress = addrResult.ToString()
+                                              End If
                                           End Using
+
+                                          ' Insert order including delivery address
+                                          Using conn2 As New MySqlConnection(connectionString)
+                                              conn2.Open()
+                                              Dim insertOrderCmd As New MySqlCommand("
+                                                        INSERT INTO orders (customer_id, order_date, order_status, delivery_address)
+                                                        VALUES (@cid, NOW(), 'Pending', @address);
+                                                        SELECT LAST_INSERT_ID();", conn2)
+                                              insertOrderCmd.Parameters.AddWithValue("@cid", loggedInUserID)
+                                              insertOrderCmd.Parameters.AddWithValue("@address", deliveryAddress)
+                                              orderId = Convert.ToInt32(insertOrderCmd.ExecuteScalar())
+                                          End Using
+
 
                                           ' 2. Insert order details
                                           Using conn As New MySqlConnection(connectionString)
@@ -161,9 +180,6 @@ Public Class newCart
         UpdateSubtotalLabel(CartPanel)
 
     End Sub
-    Private Sub CartPanel_Paint(sender As Object, e As PaintEventArgs) Handles CartPanel.Paint
-
-    End Sub
 
     Private Sub newCart_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -171,7 +187,7 @@ Public Class newCart
         LoadCartItems()
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub CartPanel_Paint(sender As Object, e As PaintEventArgs) Handles CartPanel.Paint
 
     End Sub
 End Class
