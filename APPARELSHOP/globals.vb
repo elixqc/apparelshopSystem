@@ -30,9 +30,12 @@ Module globals
     End Class
 
     Public Function GetFemalePerfumeTypes() As List(Of String)
-        Return GetPerfumeTypesByBrandIDs(New List(Of Integer) From {4, 5})
+        Return GetPerfumeTypesByGender("Female")
     End Function
 
+    Public Function GetMalePerfumeTypes() As List(Of String)
+        Return GetPerfumeTypesByGender("Male")
+    End Function
 
 
     Public Function FindControlByName(parent As Control, name As String) As Control
@@ -51,29 +54,31 @@ Module globals
 
 
 
-
-
     ' Shared function used internally
-    Private Function GetPerfumeTypesByBrandIDs(brandIDs As List(Of Integer)) As List(Of String)
+    Private Function GetPerfumeTypesByGender(gender As String) As List(Of String)
         Dim types As New HashSet(Of String)
 
         Try
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
 
-                ' Build comma-separated IN clause
-                Dim inClause As String = String.Join(",", brandIDs)
-
                 ' Only use category_id 7 and 8 (EDP and EDT)
-                Dim query As String = $"SELECT DISTINCT product_name FROM products WHERE category_id IN (7,8) AND brand_id IN ({inClause})"
+                Dim query As String = "
+                SELECT DISTINCT product_name 
+                FROM products 
+                WHERE category_id IN (7, 8) 
+                  AND gender = @gender"
+
                 Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@gender", gender)
+
                     Dim reader = cmd.ExecuteReader()
 
                     While reader.Read()
                         Dim fullName As String = reader("product_name").ToString()
 
-                        ' Strip " EDT" suffix if present
-                        If fullName.EndsWith(" EDT") Then
+                        ' Strip " EDP"/" EDT" suffix if present
+                        If fullName.EndsWith(" EDT") Or fullName.EndsWith(" EDP") Then
                             types.Add(fullName.Substring(0, fullName.Length - 4))
                         Else
                             types.Add(fullName)
@@ -84,7 +89,7 @@ Module globals
                 End Using
             End Using
         Catch ex As Exception
-            MessageBox.Show("Error fetching perfume types by brand: " & ex.Message)
+            MessageBox.Show("Error fetching perfume types by gender: " & ex.Message)
         End Try
 
         Return types.ToList()
@@ -742,44 +747,17 @@ Module globals
         Return cartItems
     End Function
 
-    ' Get perfumes by category for gender-based filtering
-    Public Function GetPerfumeTypesBySupplier(supplierId As Integer) As List(Of String)
-        Dim types As New HashSet(Of String)
 
-        Try
-            Using conn As New MySqlConnection(connectionString)
-                conn.Open()
-                Dim cmd As New MySqlCommand("
-                SELECT DISTINCT product_name 
-                FROM products 
-                WHERE category_id IN (7,8,9,10,11,12) AND supplier_id = @sid", conn)
 
-                cmd.Parameters.AddWithValue("@sid", supplierId)
-                Dim reader = cmd.ExecuteReader()
-
-                While reader.Read()
-                    Dim fullName As String = reader("product_name").ToString()
-                    If fullName.EndsWith(" EDT") Then
-                        types.Add(fullName.Substring(0, fullName.Length - 4))
-                    Else
-                        types.Add(fullName)
-                    End If
-                End While
-            End Using
-        Catch ex As Exception
-            MessageBox.Show("Error fetching perfume types: " & ex.Message)
-        End Try
-
-        Return types.ToList()
-    End Function
     ' ' Function to create a perfume panel
-    Public Sub CreatePerfumePanel(productName As String, container As FlowLayoutPanel)
+    Public Sub CreatePerfumePanel(productName As String, container As FlowLayoutPanel, gender As String)
+
         Dim panel As New Panel With {
-            .Width = 318,
-            .Height = 420,
+            .Width = 340,
+            .Height = 520,
             .BorderStyle = BorderStyle.FixedSingle,
             .Margin = New Padding(15, 15, 15, 15)
-        }
+}
 
         Dim productData As New Dictionary(Of String, Object)
         productData("SelectedVariant") = Nothing
@@ -787,12 +765,12 @@ Module globals
         panel.Tag = productData
 
         Dim productImage As New PictureBox With {
-            .SizeMode = PictureBoxSizeMode.StretchImage,
-            .Width = 286,
-            .Height = 280,
-            .Top = 15,
-            .Left = 14
-        }
+    .SizeMode = PictureBoxSizeMode.StretchImage,
+    .Width = 286,
+    .Height = 350,
+    .Top = 20,
+    .Left = 20
+}
 
         Dim perfumeVariants As New Dictionary(Of String, Object)()
         Dim totalStock As Integer = 0
@@ -802,42 +780,59 @@ Module globals
         Try
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
-                Dim cmd As New MySqlCommand("SELECT product_name, color, image_path, price, stock_quantity, category_id FROM products WHERE product_name = @name OR product_name = @nameEDT", conn)
-                cmd.Parameters.AddWithValue("@name", productName)
+                Dim cmd As New MySqlCommand("
+    SELECT product_name, color, image_path, price, stock_quantity, category_id 
+    FROM products 
+    WHERE product_name IN (@nameEDP, @nameEDT)
+      AND gender = @gender
+", conn)
+
+                cmd.Parameters.AddWithValue("@gender", gender)
+
+                cmd.Parameters.AddWithValue("@nameEDP", productName & " EDP")
                 cmd.Parameters.AddWithValue("@nameEDT", productName & " EDT")
-                Dim reader = cmd.ExecuteReader()
 
-                While reader.Read()
-                    Dim fullName As String = reader("product_name").ToString()
-                    Dim color As String = reader("color").ToString()
-                    Dim imagePath As String = reader("image_path").ToString()
-                    Dim price As Decimal = Convert.ToDecimal(reader("price"))
-                    Dim stock As Integer = Convert.ToInt32(reader("stock_quantity"))
-                    Dim categoryId As Integer = Convert.ToInt32(reader("category_id"))
+                Using reader = cmd.ExecuteReader()
+                    Dim foundAny As Boolean = False
 
-                    totalStock += stock
+                    While reader.Read()
+                        foundAny = True
 
-                    Dim variantType As String = If(fullName.EndsWith(" EDT"), "EDT", "EDP")
-                    Dim variantKey As String = $"{variantType} - ₱{price:F2}"
+                        Dim fullName As String = If(IsDBNull(reader("product_name")), "", reader("product_name").ToString())
+                        Dim color As String = If(IsDBNull(reader("color")), "", reader("color").ToString())
+                        Dim imagePath As String = If(IsDBNull(reader("image_path")), "", reader("image_path").ToString())
+                        Dim price As Decimal = If(IsDBNull(reader("price")), 0D, Convert.ToDecimal(reader("price")))
+                        Dim stock As Integer = If(IsDBNull(reader("stock_quantity")), 0, Convert.ToInt32(reader("stock_quantity")))
 
-                    perfumeVariants(variantKey) = New Dictionary(Of String, Object) From {
-                        {"FullName", fullName},
-                        {"Color", color},
-                        {"ImagePath", imagePath},
-                        {"Price", price},
-                        {"Stock", stock}
-                    }
 
-                    ' Set default image
-                    If Not firstImageSet Then
-                        Dim defaultImagePath = Path.Combine(Application.StartupPath, imagePath)
-                        If File.Exists(defaultImagePath) Then
-                            productImage.Image = Image.FromFile(defaultImagePath)
+                        totalStock += stock
+
+                        Dim variantType As String = If(fullName.EndsWith(" EDT"), "EDT", "EDP")
+                        Dim variantKey As String = $"{variantType} - ₱{price:F2}"
+
+                        perfumeVariants(variantKey) = New Dictionary(Of String, Object) From {
+                    {"FullName", fullName},
+                    {"Color", color},
+                    {"ImagePath", imagePath},
+                    {"Price", price},
+                    {"Stock", stock}
+                }
+
+                        ' Set default image
+                        If Not firstImageSet Then
+                            Dim defaultImagePath = Path.Combine(Application.StartupPath, imagePath)
+                            If File.Exists(defaultImagePath) Then
+                                productImage.Image = Image.FromFile(defaultImagePath)
+                            End If
+                            firstImageSet = True
                         End If
-                        firstImageSet = True
+                    End While
+
+                    If Not foundAny Then
+                        MessageBox.Show("No variants found for perfume: " & productName)
+                        Exit Sub
                     End If
-                End While
-                reader.Close()
+                End Using
             End Using
         Catch ex As Exception
             MessageBox.Show("DB Error: " & ex.Message)
@@ -852,7 +847,7 @@ Module globals
             .Font = New Font("Microsoft Himalaya", 16, FontStyle.Bold),
             .AutoSize = True,
             .Left = 11,
-            .Top = 305
+            .Top = productImage.Bottom + 5
         }
         panel.Controls.Add(nameLabel)
 
@@ -862,13 +857,13 @@ Module globals
             .Font = New Font("Microsoft Himalaya", 14),
             .AutoSize = True,
             .Left = 11,
-            .Top = 325
+            .Top = 405
         }
         panel.Controls.Add(stockLabel)
 
         ' Variant ComboBox (EDP/EDT)
         Dim variantCombo As New ComboBox With {
-            .Top = 345,
+            .Top = 430,
             .Left = 11,
             .Width = 150,
             .Height = 27,
@@ -904,8 +899,8 @@ Module globals
 
         ' Quantity TextBox
         Dim qtyBox As New TextBox With {
-            .Top = 345,
-            .Left = 170,
+            .Top = productImage.Bottom + 5,
+            .Left = 250,
             .Width = 60,
             .Height = 23,
             .TextAlign = HorizontalAlignment.Center,
@@ -919,8 +914,8 @@ Module globals
             .Font = New Font("Microsoft Himalaya", 12),
             .ForeColor = Color.White,
             .BackColor = Color.DarkSlateBlue,
-            .Top = 380,
-            .Left = 11,
+            .Top = 475,
+            .Left = 30,
             .Width = 280,
             .Height = 30
         }

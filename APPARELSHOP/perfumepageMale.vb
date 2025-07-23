@@ -11,18 +11,17 @@ Public Class perfumepageMale
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
                 Dim cmd As New MySqlCommand("
-                SELECT DISTINCT product_name 
-                FROM products 
-                WHERE gender = 'Male' 
-                  AND category_id IN (7, 8, 9, 10, 11, 12)
-            ", conn)
+                    SELECT DISTINCT product_name 
+                    FROM products 
+                    WHERE gender = 'Male' 
+                      AND category_id IN (7, 8, 9, 10, 11, 12)", conn)
 
                 Dim reader As MySqlDataReader = cmd.ExecuteReader()
 
                 While reader.Read()
                     Dim fullName As String = reader("product_name").ToString()
-                    ' Remove trailing " EDT" if present
-                    If fullName.EndsWith(" EDT") Or fullName.EndsWith(" EDP") Then
+
+                    If fullName.EndsWith(" EDT") OrElse fullName.EndsWith(" EDP") Then
                         types.Add(fullName.Substring(0, fullName.Length - 4))
                     Else
                         types.Add(fullName)
@@ -36,8 +35,6 @@ Public Class perfumepageMale
         Return types.ToList()
     End Function
 
-
-
     Private Sub perfumepageMale_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadMalePerfumes()
     End Sub
@@ -45,11 +42,11 @@ Public Class perfumepageMale
     Private Sub LoadMalePerfumes()
         FlowLayoutPanel1.Controls.Clear()
 
-        ' Load perfumes from supplier 6 (male perfumes)
-        Dim malePerfumes = GetMalePerfumeTypes()
+        Dim malePerfumes = globals.GetMalePerfumeTypes()
+
 
         For Each perfumeName In malePerfumes
-            CreatePerfumePanel(perfumeName, FlowLayoutPanel1)
+            globals.CreatePerfumePanel(perfumeName, FlowLayoutPanel1, "Male")
         Next
     End Sub
 

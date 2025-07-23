@@ -170,13 +170,13 @@ Partial Class Form1
         'MasculineToolStripMenuItem
         '
         Me.MasculineToolStripMenuItem.Name = "MasculineToolStripMenuItem"
-        Me.MasculineToolStripMenuItem.Size = New System.Drawing.Size(180, 24)
+        Me.MasculineToolStripMenuItem.Size = New System.Drawing.Size(131, 24)
         Me.MasculineToolStripMenuItem.Text = "Masculine"
         '
         'FeminineToolStripMenuItem1
         '
         Me.FeminineToolStripMenuItem1.Name = "FeminineToolStripMenuItem1"
-        Me.FeminineToolStripMenuItem1.Size = New System.Drawing.Size(180, 24)
+        Me.FeminineToolStripMenuItem1.Size = New System.Drawing.Size(131, 24)
         Me.FeminineToolStripMenuItem1.Text = "Feminine"
         '
         'TestingToolStripMenuItem

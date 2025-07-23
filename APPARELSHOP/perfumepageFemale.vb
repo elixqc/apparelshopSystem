@@ -42,13 +42,19 @@ Public Class perfumepageFemale
     Private Sub LoadFemalePerfumes()
         FlowLayoutPanel1.Controls.Clear()
 
-        ' Load perfumes from supplier 4 and 5 (female perfumes)
         Dim FemalePerfumes = GetFemalePerfumeTypes()
 
+        If FemalePerfumes.Count = 0 Then
+            MessageBox.Show("No female perfumes found. Check DB for gender='Female' and category_id in (7–12).")
+        End If
+
         For Each perfumeName In FemalePerfumes
-            globals.CreatePerfumePanel(perfumeName, FlowLayoutPanel1)
+
+            globals.CreatePerfumePanel(perfumeName, FlowLayoutPanel1, "Female")
         Next
     End Sub
 
+    Private Sub FlowLayoutPanel1_Paint(sender As Object, e As PaintEventArgs) Handles FlowLayoutPanel1.Paint
 
+    End Sub
 End Class

@@ -132,6 +132,7 @@ Public Class AdminFormPage
     End Sub
 
 
+
     Private Sub LoadCategories()
         CategoryLists.Items.Clear()
         Try
@@ -196,55 +197,65 @@ Public Class AdminFormPage
         End If
     End Sub
 
+
     Private Sub btnUpload_Click(sender As Object, e As EventArgs) Handles btnUpload.Click
-        ' --- Step 1: Validate Required Fields ---
+        ' --- Step 1: Get Category ID ---
+        Dim categoryId As Integer = GetId("SELECT category_id FROM categories WHERE category_name = @name", CategoryLists.SelectedItem?.ToString())
+        Dim isPerfume As Boolean = (categoryId >= 6 AndAlso categoryId <= 12)
+
+        ' --- Step 2: Validate Required Fields ---
         If String.IsNullOrWhiteSpace(productNameTxt.Text) OrElse
-           String.IsNullOrWhiteSpace(ColorTxt.Text) OrElse
-           String.IsNullOrWhiteSpace(sizeTxt.Text) OrElse
            String.IsNullOrWhiteSpace(PriceTxt.Text) OrElse
-           String.IsNullOrWhiteSpace(QuantityList.Text) Then
+           String.IsNullOrWhiteSpace(QuantityList.Text) OrElse
+           (Not isPerfume AndAlso (String.IsNullOrWhiteSpace(ColorTxt.Text) OrElse String.IsNullOrWhiteSpace(sizeTxt.Text))) Then
             MessageBox.Show("Please fill in all required fields.")
             Return
         End If
 
-        ' --- Step 2: Format Inputs ---
+        ' --- Step 3: Format Inputs ---
         Dim rawName As String = productNameTxt.Text.Trim()
         Dim rawColor As String = ColorTxt.Text.Trim()
         Dim rawSize As String = sizeTxt.Text.Trim()
         Dim formattedName As String = Char.ToUpper(rawName(0)) & rawName.Substring(1).ToLower()
-        Dim formattedColor As String = Char.ToUpper(rawColor(0)) & rawColor.Substring(1).ToLower()
-        Dim formattedSize As String = rawSize.ToLower()
+        Dim formattedColor As String = If(rawColor.Length > 0, Char.ToUpper(rawColor(0)) & rawColor.Substring(1).ToLower(), "")
+        Dim formattedSize As String = If(rawSize.Length > 0, rawSize.ToLower(), "")
 
-        ' --- Step 3: Get Category ID ---
-        Dim categoryId As Integer = GetId("SELECT category_id FROM categories WHERE category_name = @name", CategoryLists.SelectedItem?.ToString())
-        If categoryId = -1 Then
-            MessageBox.Show("Invalid category selected.")
-            Return
+        Dim categorySelected As String = CategoryLists.SelectedItem?.ToString()?.ToLower()
+        MessageBox.Show("Selected category: " & categorySelected) ' <-- For debugging
+
+        Dim suffix As String = ""
+
+        If isPerfume AndAlso Not String.IsNullOrWhiteSpace(categorySelected) Then
+            If categorySelected.Contains("parfum") Then
+                suffix = " EDP"
+            ElseIf categorySelected.Contains("toilette") Then
+                suffix = " EDT"
+            End If
         End If
 
-        ' --- Step 4: Determine if product is perfume ---
-        Dim isPerfume As Boolean = (categoryId >= 6 AndAlso categoryId <= 12)
-        Dim productNameForDb As String = If(isPerfume, rawName, $"{formattedName} - {formattedColor} - {formattedSize}")
+        Dim productNameForDb As String = If(isPerfume, rawName & suffix, $"{formattedName} - {formattedColor} - {formattedSize}")
 
-        ' --- Step 5: Get Other IDs ---
+
+
+        ' --- Step 4: Get Other IDs ---
         Dim supplierId As Integer = GetId("SELECT supplier_id FROM suppliers WHERE supplier_name = @name", SupplierLists.SelectedItem?.ToString())
         Dim brandId As Integer = GetId("SELECT brand_id FROM brands WHERE brand_name = @name", brandTxt.SelectedItem?.ToString())
-        If supplierId = -1 OrElse brandId = -1 Then
+        If supplierId = -1 OrElse (Not isPerfume AndAlso brandId = -1) Then
             MessageBox.Show("Please select valid supplier and brand.")
             Return
         End If
 
-        ' --- Step 6: Parse Price & Quantity ---
+        ' --- Step 5: Parse Price & Quantity ---
         Dim priceValue As Decimal
         Dim quantityValue As Integer
         Decimal.TryParse(PriceTxt.Text.Trim(), priceValue)
         Integer.TryParse(QuantityList.Text.Trim(), quantityValue)
 
-        ' --- Step 7: Check for Existing Product ---
+        ' --- Step 6: Check for Existing Product ---
         Dim productId As Integer = GetId("SELECT product_id FROM products WHERE product_name = @pname", productNameForDb)
         Dim isUpdate As Boolean = (productId <> -1)
 
-        ' --- Step 8: File Check (only required for new product) ---
+        ' --- Step 7: File Check (only required for new product) ---
         If Not isUpdate Then
             If String.IsNullOrEmpty(selectedFilePath) OrElse Not File.Exists(selectedFilePath) Then
                 MessageBox.Show("No file selected or file does not exist.")
@@ -253,7 +264,7 @@ Public Class AdminFormPage
             imagePathForDb = SaveImageToPath(selectedFilePath)
         End If
 
-        ' --- Step 9: Perform Insert or Update ---
+        ' --- Step 8: Perform Insert or Update ---
         Try
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
@@ -274,15 +285,16 @@ Public Class AdminFormPage
                     ' INSERT new product
                     Dim insertCmd As New MySqlCommand("INSERT INTO products (product_name, color, size, category_id, supplier_id, brand_id, price, stock_quantity, image_path, gender) VALUES (@pname, @color, @size, @catid, @supid, @brid, @price, @qty, @imgpath, @gender); SELECT LAST_INSERT_ID();", conn)
                     insertCmd.Parameters.AddWithValue("@pname", productNameForDb)
-                    insertCmd.Parameters.AddWithValue("@color", ColorTxt.Text.Trim())
-                    insertCmd.Parameters.AddWithValue("@size", sizeTxt.Text.Trim())
+                    insertCmd.Parameters.AddWithValue("@color", If(isPerfume, DBNull.Value, ColorTxt.Text.Trim()))
+                    insertCmd.Parameters.AddWithValue("@size", If(isPerfume, DBNull.Value, sizeTxt.Text.Trim()))
                     insertCmd.Parameters.AddWithValue("@catid", categoryId)
                     insertCmd.Parameters.AddWithValue("@supid", supplierId)
-                    insertCmd.Parameters.AddWithValue("@brid", brandId)
+                    insertCmd.Parameters.AddWithValue("@brid", If(isPerfume, DBNull.Value, brandId))
                     insertCmd.Parameters.AddWithValue("@price", priceValue)
                     insertCmd.Parameters.AddWithValue("@qty", quantityValue)
                     insertCmd.Parameters.AddWithValue("@imgpath", imagePathForDb)
-                    insertCmd.Parameters.AddWithValue("@gender", genderTxt.SelectedItem?.ToString())
+                    Dim genderValue As Object = If(String.IsNullOrWhiteSpace(genderTxt.Text), DBNull.Value, genderTxt.SelectedItem.ToString())
+                    insertCmd.Parameters.AddWithValue("@gender", genderValue)
                     productId = Convert.ToInt32(insertCmd.ExecuteScalar())
                     LoadProductsToGrid()
                     MessageBox.Show("Product added successfully!")
@@ -307,6 +319,9 @@ Public Class AdminFormPage
 
         selectedFilePath = ""
     End Sub
+
+
+
     '' Helper function to get ID from database based on query and value
     Public Function GetId(query As String, value As String) As Integer
         If String.IsNullOrWhiteSpace(value) Then Return -1
@@ -343,8 +358,20 @@ Public Class AdminFormPage
     Private Function SaveImageToPath(filePath As String) As String
         Dim folder As String = Path.Combine(Application.StartupPath, "images")
         If Not Directory.Exists(folder) Then Directory.CreateDirectory(folder)
+
         Dim destPath As String = Path.Combine(folder, Path.GetFileName(filePath))
-        File.Copy(filePath, destPath, True)
+
+        ' ✅ Prevent copying file onto itself
+        If Not filePath.Equals(destPath, StringComparison.OrdinalIgnoreCase) Then
+            ' Try to copy safely
+            Try
+                File.Copy(filePath, destPath, True)
+            Catch ex As IOException
+                MessageBox.Show("Error copying image file: " & ex.Message)
+                Return ""
+            End Try
+        End If
+
         Return "images\" & Path.GetFileName(filePath)
     End Function
 
@@ -414,7 +441,27 @@ Public Class AdminFormPage
             MessageBox.Show("Error updating status: " & ex.Message)
         End Try
     End Sub
+    Private Sub ComboBox3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox3.SelectedIndexChanged
+        Dim selectedType As String = ComboBox3.SelectedItem?.ToString()
+
+        If selectedType = "PERFUME" Then
+            ' Disable fields not needed for perfumes
+
+            sizeTxt.Enabled = False
+            brandTxt.Enabled = False
+
+            ColorTxt.Text = ""
+            sizeTxt.Text = ""
+            brandTxt.SelectedIndex = -1
+        Else
+            ' Enable for apparel or other products
+            sizeTxt.Enabled = True
+            brandTxt.Enabled = True
+        End If
+    End Sub
 
 
+    Private Sub brandTxt_SelectedIndexChanged(sender As Object, e As EventArgs) Handles brandTxt.SelectedIndexChanged
 
+    End Sub
 End Class
