@@ -244,24 +244,8 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (64, 'Sweatpants - Black - s', 'black', 3, 1, 'S', 799.00, 10, 'images\\black_Sweatpants.png', 'Unisex', 1),
 (65, 'Sweatpants - Gray - s', 'gray', 3, 1, 'S', 799.00, 10, 'images\\gray_Sweatpants.png', 'Unisex', 1),
 (66, 'Sweatpants - Gray - m', 'gray', 3, 1, 'M', 799.00, 10, 'images\\gray_Sweatpants.png', 'Unisex', 1),
-(67, 'Sweatpants - Gray - l', 'gray', 3, 1, 'L', 799.00, 10, 'images\\gray_Sweatpants.png', 'Unisex', 1),
-(68, 'Sweatpants - Gray - xl', 'gray', 3, 1, 'XL', 799.00, 10, 'images\\gray_Sweatpants.png', 'Unisex', 1),
-(69, 'Love Spell', 'Pink', 7, 4, NULL, 1499.00, 10, 'images\\Lovespell.jpg', 'Female', NULL),
-(70, 'Sun Set', 'Yellow', 7, 5, NULL, 1499.00, 10, 'images\\Sunset.jpg', 'Female', NULL),
-(71, 'Coeur De Rose', 'Peach', 7, 4, NULL, 1499.00, 10, 'images\\CoeurDeRose.jpg', 'Female', NULL),
-(72, 'Afternoon Vibe', 'Blue', 7, 4, NULL, 1499.00, 10, 'images\\AfternoonVibe.jpg', 'Female', NULL),
-(73, 'Dream', 'Light Blue', 7, 6, NULL, 1499.00, 10, 'images\\dreamFinal.jpg', 'Male', NULL),
-(74, 'L\'infinity', 'Cream', 7, 6, NULL, 1999.00, 10, 'images\\Linfinity.jpg', 'Male', NULL),
-(75, 'Origin', 'Dark Brown', 7, 6, NULL, 1799.00, 10, 'images\\Origin.jpg', 'Male', NULL),
-(76, 'Pacific Aura', 'Teal', 7, 6, NULL, 1299.00, 10, 'images\\Aura.jpg', 'Male', NULL),
-(77, 'Love Spell EDT', 'Pink', 8, 4, NULL, 1199.00, 10, 'images\\Lovespell.jpg', 'Female', NULL),
-(78, 'Sun Set EDT', 'Yellow', 8, 5, NULL, 1199.00, 10, 'images\\Sunset.jpg', 'Female', NULL),
-(79, 'Coeur De Rose EDT', 'Peach', 8, 4, NULL, 1199.00, 10, 'images\\CoeurDeRose.jpg', 'Female', NULL),
-(80, 'Afternoon Vibe EDT', 'Blue', 8, 4, NULL, 1199.00, 10, 'images\\AfternoonVibe.jpg', 'Female', NULL),
-(81, 'Dream EDT', 'Light Blue', 8, 6, NULL, 1199.00, 10, 'images\\dreamFinal.jpg', 'Male', NULL),
-(82, 'L\'infinity EDT', 'Cream', 8, 6, NULL, 1599.00, 10, 'images\\Linfinity.jpg', 'Male', NULL),
-(83, 'Origin EDT', 'Dark Brown', 8, 6, NULL, 1399.00, 10, 'images\\Origin.jpg', 'Male', NULL),
-(84, 'Pacific Aura EDT', 'Teal', 8, 6, NULL, 999.00, 10, 'images\\Aura.jpg', 'Male', NULL);
+(67, 'Sweatpants - Gray - l', 'gray', 3, 1, 'L', 799.00, 10, 'images\\gray_Sweatpants.png', 'Unisex', 1);
+
 
 -- --------------------------------------------------------
 
@@ -573,3 +557,11 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+select * from products;
+delete from products
+where product_id >=98
+
+SELECT product_id, product_name, gender, category_id, brand_id
+FROM products
+WHERE gender = 'male'
+ORDER BY product_id DESC
