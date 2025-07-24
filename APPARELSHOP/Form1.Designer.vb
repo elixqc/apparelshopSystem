@@ -111,7 +111,7 @@ Partial Class Form1
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1709, 897)
+        Me.Panel1.Size = New System.Drawing.Size(1726, 897)
         Me.Panel1.TabIndex = 0
         '
         'Panel2
@@ -126,16 +126,17 @@ Partial Class Form1
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1709, 51)
+        Me.Panel2.Size = New System.Drawing.Size(1726, 51)
         Me.Panel2.TabIndex = 0
         '
         'welcomeName
         '
         Me.welcomeName.AutoSize = True
-        Me.welcomeName.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.welcomeName.Location = New System.Drawing.Point(1337, 22)
+        Me.welcomeName.Font = New System.Drawing.Font("Microsoft Himalaya", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.welcomeName.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.welcomeName.Location = New System.Drawing.Point(1343, 18)
         Me.welcomeName.Name = "welcomeName"
-        Me.welcomeName.Size = New System.Drawing.Size(45, 19)
+        Me.welcomeName.Size = New System.Drawing.Size(54, 24)
         Me.welcomeName.TabIndex = 4
         Me.welcomeName.Text = "Label1"
         Me.welcomeName.Visible = False
@@ -154,43 +155,49 @@ Partial Class Form1
         '
         'ApparelToolStripMenuItem
         '
-        Me.ApparelToolStripMenuItem.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ApparelToolStripMenuItem.Font = New System.Drawing.Font("Microsoft Himalaya", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ApparelToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.ApparelToolStripMenuItem.Name = "ApparelToolStripMenuItem"
-        Me.ApparelToolStripMenuItem.Size = New System.Drawing.Size(77, 24)
+        Me.ApparelToolStripMenuItem.Size = New System.Drawing.Size(95, 24)
         Me.ApparelToolStripMenuItem.Text = "APPAREL"
         '
         'PerfumeruToolStripMenuItem
         '
         Me.PerfumeruToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MasculineToolStripMenuItem, Me.FeminineToolStripMenuItem1})
-        Me.PerfumeruToolStripMenuItem.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PerfumeruToolStripMenuItem.Font = New System.Drawing.Font("Microsoft Himalaya", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PerfumeruToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.PerfumeruToolStripMenuItem.Name = "PerfumeruToolStripMenuItem"
-        Me.PerfumeruToolStripMenuItem.Size = New System.Drawing.Size(95, 24)
+        Me.PerfumeruToolStripMenuItem.Size = New System.Drawing.Size(119, 24)
         Me.PerfumeruToolStripMenuItem.Text = "PERFUMERY"
         '
         'MasculineToolStripMenuItem
         '
+        Me.MasculineToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.MasculineToolStripMenuItem.Name = "MasculineToolStripMenuItem"
-        Me.MasculineToolStripMenuItem.Size = New System.Drawing.Size(131, 24)
+        Me.MasculineToolStripMenuItem.Size = New System.Drawing.Size(144, 28)
         Me.MasculineToolStripMenuItem.Text = "Masculine"
         '
         'FeminineToolStripMenuItem1
         '
+        Me.FeminineToolStripMenuItem1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.FeminineToolStripMenuItem1.Name = "FeminineToolStripMenuItem1"
-        Me.FeminineToolStripMenuItem1.Size = New System.Drawing.Size(131, 24)
+        Me.FeminineToolStripMenuItem1.Size = New System.Drawing.Size(144, 28)
         Me.FeminineToolStripMenuItem1.Text = "Feminine"
         '
         'TestingToolStripMenuItem
         '
-        Me.TestingToolStripMenuItem.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TestingToolStripMenuItem.Font = New System.Drawing.Font("Microsoft Himalaya", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TestingToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.TestingToolStripMenuItem.Name = "TestingToolStripMenuItem"
-        Me.TestingToolStripMenuItem.Size = New System.Drawing.Size(82, 24)
+        Me.TestingToolStripMenuItem.Size = New System.Drawing.Size(104, 24)
         Me.TestingToolStripMenuItem.Text = "ABOUT US"
         '
         'adminPage
         '
-        Me.adminPage.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.adminPage.Font = New System.Drawing.Font("Microsoft Himalaya", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.adminPage.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.adminPage.Name = "adminPage"
-        Me.adminPage.Size = New System.Drawing.Size(98, 24)
+        Me.adminPage.Size = New System.Drawing.Size(123, 24)
         Me.adminPage.Text = "ADMIN PAGE"
         Me.adminPage.Visible = False
         '
@@ -210,7 +217,7 @@ Partial Class Form1
         Me.PictureBox3.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.PictureBox3.Cursor = System.Windows.Forms.Cursors.Hand
         Me.PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), System.Drawing.Image)
-        Me.PictureBox3.Location = New System.Drawing.Point(1493, 15)
+        Me.PictureBox3.Location = New System.Drawing.Point(1502, 15)
         Me.PictureBox3.Name = "PictureBox3"
         Me.PictureBox3.Size = New System.Drawing.Size(25, 25)
         Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -244,7 +251,7 @@ Partial Class Form1
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
-        Me.ClientSize = New System.Drawing.Size(1726, 687)
+        Me.ClientSize = New System.Drawing.Size(1743, 687)
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.MainMenuStrip = Me.MenuStrip1

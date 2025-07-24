@@ -85,6 +85,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="aboutus.Designer.vb">
+      <DependentUpon>aboutus.vb</DependentUpon>
+    </Compile>
+    <Compile Include="aboutus.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="AdminFormPage.Designer.vb">
       <DependentUpon>AdminFormPage.vb</DependentUpon>
     </Compile>
@@ -184,6 +190,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="aboutus.resx">
+      <DependentUpon>aboutus.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AdminFormPage.resx">
       <DependentUpon>AdminFormPage.vb</DependentUpon>
     </EmbeddedResource>
@@ -485,6 +494,8 @@
     <Content Include="images\yellow_swsh.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\abtusimg1.png" />
+    <None Include="Resources\abtusimg.png" />
     <None Include="Resources\plusbutton.png" />
     <None Include="Resources\minusbutton.png" />
   </ItemGroup>

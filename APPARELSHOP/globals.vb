@@ -282,24 +282,25 @@ Module globals
                 Dim reader = cmd.ExecuteReader()
 
                 While reader.Read()
+                    Dim stockQty As Integer = Convert.ToInt32(reader("stock_quantity"))
+                    If stockQty <= 0 Then Continue While ' 🛑 Skip products with zero stock
+
                     Dim fullName As String = reader("product_name").ToString()
                     Dim size As String = reader("size").ToString()
                     Dim imagePath As String = reader("image_path").ToString()
                     Dim color As String = reader("color").ToString()
-                    totalStock += Convert.ToInt32(reader("stock_quantity"))
-                    If Not firstPriceCaptured Then
-                        priceValue = Convert.ToDecimal(reader("price"))
-                        firstPriceCaptured = True
-                    End If
 
+                    totalStock += stockQty
 
                     sizes.Add(size)
 
                     If Not colorImageMap.ContainsKey(color) Then
                         colorImageMap.Add(color, imagePath)
                     End If
-
                 End While
+                If totalStock <= 0 Then
+                    Exit Sub ' Don't display panel if all variants are out of stock
+                End If
                 reader.Close()
             End Using
         Catch ex As Exception
@@ -796,14 +797,16 @@ Module globals
                     Dim foundAny As Boolean = False
 
                     While reader.Read()
+                        Dim stock As Integer = If(IsDBNull(reader("stock_quantity")), 0, Convert.ToInt32(reader("stock_quantity")))
+
+                        If stock <= 0 Then Continue While ' 🛑 SKIP if out of stock
+
                         foundAny = True
 
                         Dim fullName As String = If(IsDBNull(reader("product_name")), "", reader("product_name").ToString())
                         Dim color As String = If(IsDBNull(reader("color")), "", reader("color").ToString())
                         Dim imagePath As String = If(IsDBNull(reader("image_path")), "", reader("image_path").ToString())
                         Dim price As Decimal = If(IsDBNull(reader("price")), 0D, Convert.ToDecimal(reader("price")))
-                        Dim stock As Integer = If(IsDBNull(reader("stock_quantity")), 0, Convert.ToInt32(reader("stock_quantity")))
-
 
                         totalStock += stock
 
@@ -811,12 +814,12 @@ Module globals
                         Dim variantKey As String = $"{variantType} - ₱{price:F2}"
 
                         perfumeVariants(variantKey) = New Dictionary(Of String, Object) From {
-                    {"FullName", fullName},
-                    {"Color", color},
-                    {"ImagePath", imagePath},
-                    {"Price", price},
-                    {"Stock", stock}
-                }
+        {"FullName", fullName},
+        {"Color", color},
+        {"ImagePath", imagePath},
+        {"Price", price},
+        {"Stock", stock}
+    }
 
                         ' Set default image
                         If Not firstImageSet Then
@@ -828,8 +831,9 @@ Module globals
                         End If
                     End While
 
+
                     If Not foundAny Then
-                        MessageBox.Show("No variants found for perfume: " & productName)
+
                         Exit Sub
                     End If
                 End Using

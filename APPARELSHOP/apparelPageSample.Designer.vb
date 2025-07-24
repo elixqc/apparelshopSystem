@@ -36,7 +36,7 @@ Partial Class apparelPageSample
         Me.Flowproductpanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Flowproductpanel.Location = New System.Drawing.Point(0, 0)
         Me.Flowproductpanel.Name = "Flowproductpanel"
-        Me.Flowproductpanel.Size = New System.Drawing.Size(1400, 641)
+        Me.Flowproductpanel.Size = New System.Drawing.Size(1420, 507)
         Me.Flowproductpanel.TabIndex = 0
         '
         'btnLoadProducts
@@ -61,7 +61,7 @@ Partial Class apparelPageSample
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1400, 641)
+        Me.ClientSize = New System.Drawing.Size(1420, 507)
         Me.Controls.Add(Me.Flowproductpanel)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "apparelPageSample"

@@ -54,7 +54,7 @@ Partial Class login
         Me.signInText.AutoSize = True
         Me.signInText.Cursor = System.Windows.Forms.Cursors.Hand
         Me.signInText.Font = New System.Drawing.Font("Times New Roman", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.signInText.Location = New System.Drawing.Point(103, 69)
+        Me.signInText.Location = New System.Drawing.Point(95, 69)
         Me.signInText.Name = "signInText"
         Me.signInText.Size = New System.Drawing.Size(79, 27)
         Me.signInText.TabIndex = 0
@@ -65,7 +65,7 @@ Partial Class login
         Me.createAccLabel.AutoSize = True
         Me.createAccLabel.Cursor = System.Windows.Forms.Cursors.Hand
         Me.createAccLabel.Font = New System.Drawing.Font("Times New Roman", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.createAccLabel.Location = New System.Drawing.Point(223, 69)
+        Me.createAccLabel.Location = New System.Drawing.Point(211, 69)
         Me.createAccLabel.Name = "createAccLabel"
         Me.createAccLabel.Size = New System.Drawing.Size(163, 27)
         Me.createAccLabel.TabIndex = 0
@@ -187,7 +187,7 @@ Partial Class login
         Me.Label3.ForeColor = System.Drawing.SystemColors.InfoText
         Me.Label3.Location = New System.Drawing.Point(88, 178)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(76, 16)
+        Me.Label3.Size = New System.Drawing.Size(75, 16)
         Me.Label3.TabIndex = 1
         Me.Label3.Text = "FULL NAME"
         '
@@ -199,7 +199,7 @@ Partial Class login
         Me.Label4.ForeColor = System.Drawing.SystemColors.InfoText
         Me.Label4.Location = New System.Drawing.Point(87, 236)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(45, 16)
+        Me.Label4.Size = New System.Drawing.Size(44, 16)
         Me.Label4.TabIndex = 1
         Me.Label4.Text = "EMAIL"
         '
@@ -211,7 +211,7 @@ Partial Class login
         Me.Label5.ForeColor = System.Drawing.SystemColors.InfoText
         Me.Label5.Location = New System.Drawing.Point(87, 290)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(77, 16)
+        Me.Label5.Size = New System.Drawing.Size(76, 16)
         Me.Label5.TabIndex = 1
         Me.Label5.Text = "PASSWORD"
         '
@@ -231,7 +231,7 @@ Partial Class login
         Me.Label6.ForeColor = System.Drawing.SystemColors.InfoText
         Me.Label6.Location = New System.Drawing.Point(87, 345)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(121, 16)
+        Me.Label6.Size = New System.Drawing.Size(120, 16)
         Me.Label6.TabIndex = 1
         Me.Label6.Text = "CONTACT NUMBER"
         '
@@ -251,7 +251,7 @@ Partial Class login
         Me.Label7.ForeColor = System.Drawing.SystemColors.InfoText
         Me.Label7.Location = New System.Drawing.Point(87, 400)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(65, 16)
+        Me.Label7.Size = New System.Drawing.Size(64, 16)
         Me.Label7.TabIndex = 1
         Me.Label7.Text = "ADDRESS"
         '

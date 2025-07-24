@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="MenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
+  <data name="Label3.Text" xml:space="preserve">
+    <value>Founded in 2025, Prestige blends timeless style with modern attitude. Our collections are crafted for every generation, rooted in quality, comfort, and bold identity. From streetwear to staples, Prestige stands for confidence, unity, and culture.</value>
+  </data>
 </root>
