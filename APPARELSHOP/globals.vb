@@ -283,16 +283,21 @@ Module globals
 
                 While reader.Read()
                     Dim stockQty As Integer = Convert.ToInt32(reader("stock_quantity"))
-                    If stockQty <= 0 Then Continue While ' 🛑 Skip products with zero stock
+                    If stockQty <= 0 Then Continue While
 
                     Dim fullName As String = reader("product_name").ToString()
                     Dim size As String = reader("size").ToString()
                     Dim imagePath As String = reader("image_path").ToString()
                     Dim color As String = reader("color").ToString()
+                    Dim price As Decimal = Convert.ToDecimal(reader("price"))
 
                     totalStock += stockQty
-
                     sizes.Add(size)
+
+                    If Not firstPriceCaptured Then
+                        priceValue = price
+                        firstPriceCaptured = True
+                    End If
 
                     If Not colorImageMap.ContainsKey(color) Then
                         colorImageMap.Add(color, imagePath)
