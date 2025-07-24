@@ -116,4 +116,8 @@ Public Class Form1
     Private Sub PerfumeruToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PerfumeruToolStripMenuItem.Click
 
     End Sub
+
+    Private Sub welcomeName_Click(sender As Object, e As EventArgs) Handles welcomeName.Click
+
+    End Sub
 End Class

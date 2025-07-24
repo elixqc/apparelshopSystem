@@ -236,7 +236,7 @@ Public Class customerProfile
         loggedInUserID = 0
 
 
-
+        Form1.welcomeName.Hide()
         ' Close this form
         appthemes.FadeOutForm(Me)
     End Sub

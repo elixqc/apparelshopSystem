@@ -469,6 +469,16 @@ Public Class AdminFormPage
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
 
+                ' Get current status of the order
+                Dim checkStatusCmd As New MySqlCommand("SELECT order_status FROM orders WHERE order_id = @oid", conn)
+                checkStatusCmd.Parameters.AddWithValue("@oid", selectedOrderId)
+                Dim currentStatus As String = Convert.ToString(checkStatusCmd.ExecuteScalar())
+
+                If currentStatus = "Completed" OrElse currentStatus = "Cancelled" Then
+                    MessageBox.Show("You cannot change the status of an order that is already 'Completed' or 'Cancelled'.")
+                    Return
+                End If
+
                 ' Begin transaction
                 Dim transaction As MySqlTransaction = conn.BeginTransaction()
 
@@ -485,7 +495,7 @@ Public Class AdminFormPage
 
                 ' If Completed, deduct stocks
                 If newStatus = "Completed" Then
-                    ' Get order details (product_id and quantity)
+                    ' Get order details
                     Dim getDetailsCmd As New MySqlCommand("
                     SELECT product_id, quantity 
                     FROM order_details 
@@ -518,7 +528,6 @@ Public Class AdminFormPage
                 End If
 
                 transaction.Commit()
-
             End Using
 
             MessageBox.Show("Order status updated.")
@@ -528,6 +537,7 @@ Public Class AdminFormPage
             MessageBox.Show("Error updating status: " & ex.Message)
         End Try
     End Sub
+
 
     Private Sub ComboBox3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox3.SelectedIndexChanged
         Dim selectedType As String = ComboBox3.SelectedItem?.ToString()

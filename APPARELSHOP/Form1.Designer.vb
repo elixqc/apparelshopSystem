@@ -183,8 +183,8 @@ Partial Class Form1
         '
         Me.TestingToolStripMenuItem.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TestingToolStripMenuItem.Name = "TestingToolStripMenuItem"
-        Me.TestingToolStripMenuItem.Size = New System.Drawing.Size(56, 24)
-        Me.TestingToolStripMenuItem.Text = "testing"
+        Me.TestingToolStripMenuItem.Size = New System.Drawing.Size(82, 24)
+        Me.TestingToolStripMenuItem.Text = "ABOUT US"
         '
         'adminPage
         '
@@ -192,6 +192,7 @@ Partial Class Form1
         Me.adminPage.Name = "adminPage"
         Me.adminPage.Size = New System.Drawing.Size(98, 24)
         Me.adminPage.Text = "ADMIN PAGE"
+        Me.adminPage.Visible = False
         '
         'PictureBox4
         '
