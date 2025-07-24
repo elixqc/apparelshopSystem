@@ -3,7 +3,7 @@ Imports System.IO
 Imports System.Drawing
 
 Public Class perfumepageMale
-
+    'get male perfume types from the database
     Public Function GetMalePerfumeTypes() As List(Of String)
         Dim types As New HashSet(Of String)
 

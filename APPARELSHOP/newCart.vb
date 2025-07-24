@@ -5,8 +5,8 @@ Imports MySql.Data.MySqlClient
 
 Public Class newCart
 
-
     Public Sub UpdateSubtotalLabel(cartPanel As FlowLayoutPanel)
+        ' This function calculates the subtotal from the cart items and updates the subtotal label
         Dim subtotal As Decimal = 0
 
         For Each ctrl As Control In cartPanel.Controls
@@ -36,7 +36,7 @@ Public Class newCart
 
 
 
-
+    '    ' Helper function to find a control by name in a container
     Public Sub LoadCartItems()
         CartPanel.Controls.Clear() ' Clear old items if any
 
@@ -118,63 +118,72 @@ Public Class newCart
                                               Return
                                           End If
 
-                                          ' 1. Insert new order
                                           Dim orderId As Integer = -1
                                           Dim deliveryAddress As String = ""
 
-                                          ' Get delivery address from customer profile
-                                          Using conn1 As New MySqlConnection(connectionString)
-                                              conn1.Open()
-                                              Dim getAddressCmd As New MySqlCommand("SELECT address FROM customers WHERE customer_id = @cid", conn1)
-                                              getAddressCmd.Parameters.AddWithValue("@cid", loggedInUserID)
-                                              Dim addrResult = getAddressCmd.ExecuteScalar()
-                                              If addrResult IsNot Nothing Then
-                                                  deliveryAddress = addrResult.ToString()
-                                              End If
-                                          End Using
+                                          Try
+                                              Using conn As New MySqlConnection(connectionString)
+                                                  conn.Open()
 
-                                          ' Insert order including delivery address
-                                          Using conn2 As New MySqlConnection(connectionString)
-                                              conn2.Open()
-                                              Dim insertOrderCmd As New MySqlCommand("
-                                                        INSERT INTO orders (customer_id, order_date, order_status, delivery_address)
-                                                        VALUES (@cid, NOW(), 'Pending', @address);
-                                                        SELECT LAST_INSERT_ID();", conn2)
-                                              insertOrderCmd.Parameters.AddWithValue("@cid", loggedInUserID)
-                                              insertOrderCmd.Parameters.AddWithValue("@address", deliveryAddress)
-                                              orderId = Convert.ToInt32(insertOrderCmd.ExecuteScalar())
-                                          End Using
+                                                  ' Begin transaction
+                                                  Dim transaction = conn.BeginTransaction()
 
+                                                  Try
+                                                      ' Step 1: Get delivery address
+                                                      Dim getAddressCmd As New MySqlCommand("SELECT address FROM customers WHERE customer_id = @cid", conn, transaction)
+                                                      getAddressCmd.Parameters.AddWithValue("@cid", loggedInUserID)
+                                                      Dim addrResult = getAddressCmd.ExecuteScalar()
+                                                      If addrResult IsNot Nothing Then
+                                                          deliveryAddress = addrResult.ToString()
+                                                      End If
 
-                                          ' 2. Insert order details
-                                          Using conn As New MySqlConnection(connectionString)
-                                              conn.Open()
-                                              For Each item In cartItems
-                                                  Dim priceCmd As New MySqlCommand("SELECT price FROM products WHERE product_id = @pid", conn)
-                                                  priceCmd.Parameters.AddWithValue("@pid", item.ProductID)
-                                                  Dim unitPrice As Decimal = Convert.ToDecimal(priceCmd.ExecuteScalar())
+                                                      ' Step 2: Insert into orders
+                                                      Dim insertOrderCmd As New MySqlCommand("
+                                                            INSERT INTO orders (customer_id, order_date, order_status, delivery_address)
+                                                            VALUES (@cid, NOW(), 'Pending', @address);
+                                                            SELECT LAST_INSERT_ID();", conn, transaction)
+                                                      insertOrderCmd.Parameters.AddWithValue("@cid", loggedInUserID)
+                                                      insertOrderCmd.Parameters.AddWithValue("@address", deliveryAddress)
+                                                      orderId = Convert.ToInt32(insertOrderCmd.ExecuteScalar())
 
-                                                  Dim detailCmd As New MySqlCommand("INSERT INTO order_details (order_id, product_id, quantity, unit_price) VALUES (@oid, @pid, @qty, @price)", conn)
-                                                  detailCmd.Parameters.AddWithValue("@oid", orderId)
-                                                  detailCmd.Parameters.AddWithValue("@pid", item.ProductID)
-                                                  detailCmd.Parameters.AddWithValue("@qty", item.Quantity)
-                                                  detailCmd.Parameters.AddWithValue("@price", unitPrice)
-                                                  detailCmd.ExecuteNonQuery()
-                                              Next
-                                          End Using
+                                                      ' Step 3: Insert into order_details
+                                                      For Each item In cartItems
+                                                          Dim priceCmd As New MySqlCommand("SELECT price FROM products WHERE product_id = @pid", conn, transaction)
+                                                          priceCmd.Parameters.AddWithValue("@pid", item.ProductID)
+                                                          Dim unitPrice As Decimal = Convert.ToDecimal(priceCmd.ExecuteScalar())
 
-                                          ' 3. Clear cart
-                                          Using conn As New MySqlConnection(connectionString)
-                                              conn.Open()
-                                              Dim clearCmd As New MySqlCommand("DELETE FROM cart WHERE customer_id = @cid", conn)
-                                              clearCmd.Parameters.AddWithValue("@cid", loggedInUserID)
-                                              clearCmd.ExecuteNonQuery()
-                                          End Using
+                                                          Dim detailCmd As New MySqlCommand("
+                                                                INSERT INTO order_details (order_id, product_id, quantity, unit_price)
+                                                                VALUES (@oid, @pid, @qty, @price)", conn, transaction)
+                                                          detailCmd.Parameters.AddWithValue("@oid", orderId)
+                                                          detailCmd.Parameters.AddWithValue("@pid", item.ProductID)
+                                                          detailCmd.Parameters.AddWithValue("@qty", item.Quantity)
+                                                          detailCmd.Parameters.AddWithValue("@price", unitPrice)
+                                                          detailCmd.ExecuteNonQuery()
+                                                      Next
 
-                                          MessageBox.Show("Checkout successful! Your order has been placed.")
-                                          CartPanel.Controls.Clear()
-                                          LoadCartItems()
+                                                      ' Step 4: Clear cart
+                                                      Dim clearCmd As New MySqlCommand("DELETE FROM cart WHERE customer_id = @cid", conn, transaction)
+                                                      clearCmd.Parameters.AddWithValue("@cid", loggedInUserID)
+                                                      clearCmd.ExecuteNonQuery()
+
+                                                      ' Commit transaction
+                                                      transaction.Commit()
+
+                                                      MessageBox.Show("Checkout successful! Your order has been placed.")
+                                                      CartPanel.Controls.Clear()
+                                                      LoadCartItems()
+                                                  Catch ex As Exception
+                                                      ' Rollback on any error
+                                                      transaction.Rollback()
+                                                      MessageBox.Show("Checkout failed: " & ex.Message)
+                                                  End Try
+                                              End Using
+                                          Catch ex As Exception
+                                              MessageBox.Show("Unexpected error: " & ex.Message)
+                                          End Try
                                       End Sub
+
 
         CartPanel.Controls.Add(checkoutBtn)
         UpdateSubtotalLabel(CartPanel)

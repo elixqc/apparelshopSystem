@@ -7,6 +7,7 @@ Public Class AdminFormPage
     Dim selectedOrderId As Integer = -1
     Dim conn As New MySqlConnection("server=localhost;userid=root;password=;database=apparelshopdb")
 
+    'get total income and products sold
     Private Sub LoadTotalIncomeAndProductsSold()
         Dim totalIncome As Decimal = 0D
         Dim totalProductsSold As Integer = 0
@@ -48,7 +49,7 @@ Public Class AdminFormPage
 
 
 
-
+    '    ' Load customer orders into DataGridView
     Public Sub LoadCustomerOrdersToGrid()
         Dim query As String = "
         SELECT 
@@ -80,7 +81,7 @@ Public Class AdminFormPage
         End Try
     End Sub
 
-
+    ' ' Load product details into text fields based on selected product_id
     Private Sub LoadProductDetails(productId As Integer)
         Dim query As String = "
         SELECT 
@@ -144,7 +145,7 @@ Public Class AdminFormPage
         End Try
     End Sub
 
-
+    ' ' Load products into DataGridView
     Public Sub LoadProductsToGrid()
         Dim query As String = "
             SELECT 
@@ -174,7 +175,7 @@ Public Class AdminFormPage
         End Try
     End Sub
 
-
+    ' ' Load categories, suppliers, and brands into respective ComboBoxes
 
     Private Sub LoadCategories()
         CategoryLists.Items.Clear()
@@ -193,7 +194,7 @@ Public Class AdminFormPage
             MessageBox.Show("Error loading categories: " & ex.Message)
         End Try
     End Sub
-
+    ' ' Load suppliers into ComboBox
     Private Sub LoadSuppliers()
         SupplierLists.Items.Clear()
         Try
@@ -210,7 +211,7 @@ Public Class AdminFormPage
             MessageBox.Show("Error loading suppliers: " & ex.Message)
         End Try
     End Sub
-
+    ' ' Load brands into ComboBox
     Private Sub LoadBrands()
         brandTxt.Items.Clear()
         Try
@@ -227,7 +228,7 @@ Public Class AdminFormPage
             MessageBox.Show("Error loading brands: " & ex.Message)
         End Try
     End Sub
-
+    ' ' Handle file upload button click
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles FileUploadButton.Click
 
         Dim openFileDialog As New OpenFileDialog()
@@ -240,7 +241,7 @@ Public Class AdminFormPage
         End If
     End Sub
 
-
+    ' ' Handle upload button click to save product details
     Private Sub btnUpload_Click(sender As Object, e As EventArgs) Handles btnUpload.Click
         ' --- Step 1: Get Category ID ---
         Dim categoryId As Integer = GetId("SELECT category_id FROM categories WHERE category_name = @name", CategoryLists.SelectedItem?.ToString())
@@ -390,14 +391,14 @@ Public Class AdminFormPage
     End Function
 
 
-
+    '' Helper function to execute a scalar query with a parameter
     Private Function ExecuteScalar(query As String, conn As MySqlConnection, pid As Integer) As Object
         Using cmd As New MySqlCommand(query, conn)
             cmd.Parameters.AddWithValue("@pid", pid)
             Return cmd.ExecuteScalar()
         End Using
     End Function
-
+    '' Helper function to save image file to a specific path
     Private Function SaveImageToPath(filePath As String) As String
         Dim folder As String = Path.Combine(Application.StartupPath, "images")
         If Not Directory.Exists(folder) Then Directory.CreateDirectory(folder)
@@ -430,8 +431,9 @@ Public Class AdminFormPage
         LoadCustomerOrdersToGrid()
         LoadTotalIncomeAndProductsSold()
     End Sub
-
+    ' ' Handle DataGridView cell click to load product details
     Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
+
         ' Prevent error if user clicks header or empty row
         If e.RowIndex < 0 OrElse e.ColumnIndex < 0 Then Return
 
@@ -443,7 +445,7 @@ Public Class AdminFormPage
         ' Load full product details from database
         LoadProductDetails(productId)
     End Sub
-
+    ' ' Handle DataGridView2 cell click to select an order
     Private Sub DataGridView2_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView2.CellClick
         If e.RowIndex >= 0 Then
             Dim row As DataGridViewRow = DataGridView2.Rows(e.RowIndex)
@@ -451,7 +453,7 @@ Public Class AdminFormPage
             statusDropdown.SelectedItem = row.Cells("order_status").Value.ToString()
         End If
     End Sub
-
+    ' ' Handle Update Status button click to change order status
     Private Sub btnUpdateStatus_Click(sender As Object, e As EventArgs) Handles btnUpdateStatus.Click
         If selectedOrderId = -1 Then
             MessageBox.Show("Please select an order first.")
@@ -537,7 +539,7 @@ Public Class AdminFormPage
             MessageBox.Show("Error updating status: " & ex.Message)
         End Try
     End Sub
-
+    ' ' Handle ComboBox selection change to enable/disable fields
 
     Private Sub ComboBox3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox3.SelectedIndexChanged
         Dim selectedType As String = ComboBox3.SelectedItem?.ToString()
@@ -566,7 +568,7 @@ Public Class AdminFormPage
     Private Sub DateTimePicker1_ValueChanged(sender As Object, e As EventArgs) Handles dtpStartDate.ValueChanged
 
     End Sub
-
+    ' ' Handle button click to calculate income and profit within date range
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
         Dim startDate As Date = dtpStartDate.Value.Date
         Dim endDate As Date = dtpEndDate.Value.Date
@@ -614,10 +616,6 @@ Public Class AdminFormPage
         Catch ex As Exception
             MessageBox.Show("Error calculating: " & ex.Message)
         End Try
-
-    End Sub
-
-    Private Sub Label22_Click(sender As Object, e As EventArgs) Handles lblTotalStoreProfit.Click
 
     End Sub
 End Class

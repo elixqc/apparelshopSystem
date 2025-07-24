@@ -5,7 +5,7 @@ Public Class login
 
     Dim conn As New MySqlConnection("server=localhost;userid=root;password=;database=apparelshopdb")
 
-
+    ' This variable will hold the logged-in user's ID
     Private Sub login_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         'asterisk password
@@ -124,7 +124,7 @@ Public Class login
     Private Sub signInBtn_Click(sender As Object, e As EventArgs) Handles signInBtn.Click
 
 
-
+        ' Check if email and password fields are not empty
         Try
             conn.Open()
             Dim foundUser As Boolean = False
@@ -202,7 +202,4 @@ Public Class login
         End Try
     End Sub
 
-    Private Sub emailLogin_TextChanged(sender As Object, e As EventArgs) Handles emailLogin.TextChanged
-
-    End Sub
 End Class

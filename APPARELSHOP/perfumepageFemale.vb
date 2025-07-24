@@ -3,6 +3,7 @@ Imports System.IO
 Imports System.Drawing
 Public Class perfumepageFemale
 
+    'get female perfume types from the database
     Public Function GetFemalePerfumeTypes() As List(Of String)
         Dim types As New HashSet(Of String)
 
@@ -38,7 +39,7 @@ Public Class perfumepageFemale
     Private Sub perfumepageFemale_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadFemalePerfumes()
     End Sub
-
+    '' LoadFemalePerfumes method to populate the FlowLayoutPanel
     Private Sub LoadFemalePerfumes()
         FlowLayoutPanel1.Controls.Clear()
 
@@ -54,7 +55,4 @@ Public Class perfumepageFemale
         Next
     End Sub
 
-    Private Sub FlowLayoutPanel1_Paint(sender As Object, e As PaintEventArgs) Handles FlowLayoutPanel1.Paint
-
-    End Sub
 End Class

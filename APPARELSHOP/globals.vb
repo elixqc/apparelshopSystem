@@ -37,7 +37,7 @@ Module globals
         Return GetPerfumeTypesByGender("Male")
     End Function
 
-
+    ' Function to find a control by name recursively
     Public Function FindControlByName(parent As Control, name As String) As Control
         For Each ctrl As Control In parent.Controls
             If ctrl.Name = name Then
@@ -77,7 +77,7 @@ Module globals
                     While reader.Read()
                         Dim fullName As String = reader("product_name").ToString()
 
-                        ' Strip " EDP"/" EDT" suffix if present
+                        ' Removee " EDP"/" EDT" suffix if present
                         If fullName.EndsWith(" EDT") Or fullName.EndsWith(" EDP") Then
                             types.Add(fullName.Substring(0, fullName.Length - 4))
                         Else

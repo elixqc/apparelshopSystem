@@ -3,6 +3,7 @@ Imports System.Drawing
 Imports System.IO
 
 Public Class customerProfile
+
     Private Sub customerProfile_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         MenuStrip1.Renderer = appthemes.MenuRenderer
@@ -15,7 +16,7 @@ Public Class customerProfile
     Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
 
     End Sub
-
+    ' ' Load customer contact information into labels
     Public Sub LoadCustomerContactInfo(customerId As Integer)
         Dim query As String = "
         SELECT address, contact_number 
@@ -42,7 +43,7 @@ Public Class customerProfile
     End Sub
 
 
-
+    '    ' Load customer orders into the FlowLayoutPanel
     Public Sub LoadCustomerOrders(container As FlowLayoutPanel, customerId As Integer, Optional statusFilter As String = "")
         container.Controls.Clear()
 
@@ -181,6 +182,7 @@ Public Class customerProfile
     End Sub
 
     Private Sub changeAddress_Click(sender As Object, e As EventArgs) Handles changeAddress.Click
+        ' Prompt user for new address
         Dim newAddress As String = InputBox("Enter new delivery address:", "Update Address", deliveryAddress.Text.Replace("Address: ", ""))
 
         If String.IsNullOrWhiteSpace(newAddress) Then
@@ -207,6 +209,7 @@ Public Class customerProfile
     End Sub
 
     Private Sub ChangeContactNum_Click(sender As Object, e As EventArgs) Handles ChangeContactNum.Click
+        ' Prompt user for new Contact Number
         Dim newContact As String = InputBox("Enter new contact number:", "Update Contact Number", contactNumber.Text.Replace("Contact #: ", ""))
 
         If String.IsNullOrWhiteSpace(newContact) Then
@@ -235,13 +238,17 @@ Public Class customerProfile
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         loggedInUserID = 0
 
-
+        Form1.adminPage.Visible = False
         Form1.welcomeName.Hide()
         ' Close this form
         appthemes.FadeOutForm(Me)
     End Sub
 
     Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
+
+    End Sub
+
+    Private Sub MenuStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles MenuStrip1.ItemClicked
 
     End Sub
 End Class

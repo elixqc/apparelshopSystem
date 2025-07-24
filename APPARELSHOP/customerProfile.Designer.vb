@@ -49,7 +49,7 @@ Partial Class customerProfile
         Me.Panel1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.Panel1.Location = New System.Drawing.Point(598, 12)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(502, 536)
+        Me.Panel1.Size = New System.Drawing.Size(580, 536)
         Me.Panel1.TabIndex = 0
         '
         'FlowLayoutPanel1
@@ -58,64 +58,64 @@ Partial Class customerProfile
         Me.FlowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(16, 73)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(473, 453)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(555, 453)
         Me.FlowLayoutPanel1.TabIndex = 0
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Leelawadee", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.Label1.Location = New System.Drawing.Point(12, 8)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(71, 19)
+        Me.Label1.Size = New System.Drawing.Size(85, 20)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "ORDERS"
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.BackColor = System.Drawing.Color.Transparent
+        Me.MenuStrip1.BackColor = System.Drawing.Color.Lavender
         Me.MenuStrip1.Dock = System.Windows.Forms.DockStyle.None
         Me.MenuStrip1.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.toRecieveMenuStrip, Me.CompleteOrdersBtnMenu, Me.CANCELLEDToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(614, 55)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(474, 27)
+        Me.MenuStrip1.Size = New System.Drawing.Size(555, 28)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
         'toRecieveMenuStrip
         '
-        Me.toRecieveMenuStrip.Font = New System.Drawing.Font("Leelawadee", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.toRecieveMenuStrip.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
         Me.toRecieveMenuStrip.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.toRecieveMenuStrip.Name = "toRecieveMenuStrip"
-        Me.toRecieveMenuStrip.Size = New System.Drawing.Size(125, 23)
+        Me.toRecieveMenuStrip.Size = New System.Drawing.Size(148, 24)
         Me.toRecieveMenuStrip.Text = "TO RECIEVE    "
         '
         'CompleteOrdersBtnMenu
         '
-        Me.CompleteOrdersBtnMenu.Font = New System.Drawing.Font("Leelawadee", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.CompleteOrdersBtnMenu.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
         Me.CompleteOrdersBtnMenu.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.CompleteOrdersBtnMenu.Name = "CompleteOrdersBtnMenu"
-        Me.CompleteOrdersBtnMenu.Size = New System.Drawing.Size(202, 23)
+        Me.CompleteOrdersBtnMenu.Size = New System.Drawing.Size(238, 24)
         Me.CompleteOrdersBtnMenu.Text = "            COMPLETED          "
         '
         'CANCELLEDToolStripMenuItem
         '
-        Me.CANCELLEDToolStripMenuItem.Font = New System.Drawing.Font("Leelawadee", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.CANCELLEDToolStripMenuItem.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
         Me.CANCELLEDToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.CANCELLEDToolStripMenuItem.Name = "CANCELLEDToolStripMenuItem"
-        Me.CANCELLEDToolStripMenuItem.Size = New System.Drawing.Size(139, 23)
+        Me.CANCELLEDToolStripMenuItem.Size = New System.Drawing.Size(161, 24)
         Me.CANCELLEDToolStripMenuItem.Text = "       CANCELLED"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Font = New System.Drawing.Font("LEMON MILK Medium", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.Label2.Location = New System.Drawing.Point(12, 12)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(188, 30)
+        Me.Label2.Size = New System.Drawing.Size(200, 25)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "USER SETTINGS:"
         '
@@ -123,7 +123,7 @@ Partial Class customerProfile
         '
         Me.Button1.BackColor = System.Drawing.Color.Lavender
         Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Button1.Font = New System.Drawing.Font("Leelawadee", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Button1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.Button1.Location = New System.Drawing.Point(12, 502)
         Me.Button1.Name = "Button1"
@@ -136,29 +136,29 @@ Partial Class customerProfile
         '
         Me.deliveryAddress.AutoSize = True
         Me.deliveryAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.deliveryAddress.Font = New System.Drawing.Font("Leelawadee", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.deliveryAddress.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
         Me.deliveryAddress.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.deliveryAddress.Location = New System.Drawing.Point(49, 85)
         Me.deliveryAddress.Name = "deliveryAddress"
-        Me.deliveryAddress.Size = New System.Drawing.Size(61, 21)
+        Me.deliveryAddress.Size = New System.Drawing.Size(65, 22)
         Me.deliveryAddress.TabIndex = 3
         Me.deliveryAddress.Text = "Label3"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Leelawadee", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.Label3.Location = New System.Drawing.Point(45, 53)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(240, 19)
+        Me.Label3.Size = New System.Drawing.Size(286, 20)
         Me.Label3.TabIndex = 1
         Me.Label3.Text = "CURRENT DELIVERY ADDRESS:"
         '
         'changeAddress
         '
         Me.changeAddress.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.changeAddress.Font = New System.Drawing.Font("Leelawadee", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.changeAddress.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
         Me.changeAddress.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.changeAddress.Location = New System.Drawing.Point(49, 117)
         Me.changeAddress.Name = "changeAddress"
@@ -170,11 +170,11 @@ Partial Class customerProfile
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Leelawadee", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.Label4.Location = New System.Drawing.Point(49, 158)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(236, 19)
+        Me.Label4.Size = New System.Drawing.Size(266, 20)
         Me.Label4.TabIndex = 1
         Me.Label4.Text = "CURRENT CONTACT NUMBER:"
         '
@@ -182,18 +182,18 @@ Partial Class customerProfile
         '
         Me.contactNumber.AutoSize = True
         Me.contactNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.contactNumber.Font = New System.Drawing.Font("Leelawadee", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.contactNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
         Me.contactNumber.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.contactNumber.Location = New System.Drawing.Point(53, 190)
         Me.contactNumber.Name = "contactNumber"
-        Me.contactNumber.Size = New System.Drawing.Size(61, 21)
+        Me.contactNumber.Size = New System.Drawing.Size(65, 22)
         Me.contactNumber.TabIndex = 3
         Me.contactNumber.Text = "Label3"
         '
         'ChangeContactNum
         '
         Me.ChangeContactNum.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ChangeContactNum.Font = New System.Drawing.Font("Leelawadee", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.ChangeContactNum.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
         Me.ChangeContactNum.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.ChangeContactNum.Location = New System.Drawing.Point(53, 222)
         Me.ChangeContactNum.Name = "ChangeContactNum"
@@ -207,7 +207,7 @@ Partial Class customerProfile
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.SeaShell
-        Me.ClientSize = New System.Drawing.Size(1102, 560)
+        Me.ClientSize = New System.Drawing.Size(1223, 560)
         Me.Controls.Add(Me.ChangeContactNum)
         Me.Controls.Add(Me.changeAddress)
         Me.Controls.Add(Me.MenuStrip1)
