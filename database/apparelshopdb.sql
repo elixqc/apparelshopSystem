@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2025 at 05:22 AM
+-- Generation Time: Jul 23, 2025 at 06:45 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -106,7 +106,7 @@ CREATE TABLE `customers` (
 
 INSERT INTO `customers` (`customer_id`, `full_name`, `contact_number`, `address`, `email`, `password`) VALUES
 (1, 'nico barredo', '09392891165', '291 zamora st. brgy pinagsama taguig city', 'nico.barredo@tup.edu.ph', '7661f83e32e9b6467f2bb50619049fd8951c266665967ebb678a10d520a36de1'),
-(2, 'nico', '09392891165', '291', 'nico@gmail.com', 'b18aaa6c6b929b866051b69a785a6cdce5bdd564d41be247c7d5ef7c2e2e2271'),
+(2, 'nico', '09294585592', '291 Zamora St. Brgy. Pinagsama Taguig City', 'nico@gmail.com', 'b18aaa6c6b929b866051b69a785a6cdce5bdd564d41be247c7d5ef7c2e2e2271'),
 (3, 'joseph', '0939412331', 'taguig city', 'joseph@gmail.com', '7ee8118150e0ce023742beba6f10bf23aabbf0bc2c182f36fd1a6753cd21b4c6');
 
 -- --------------------------------------------------------
@@ -129,7 +129,13 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `customer_id`, `order_date`, `order_status`, `date_received`, `delivery_address`) VALUES
-(1, 2, '2025-07-23 11:17:40', 'Completed', NULL, '291');
+(1, 2, '2025-07-23 11:17:40', 'Completed', NULL, '291'),
+(2, 2, '2025-07-23 22:59:17', 'Completed', '2025-07-23 23:01:44', '291'),
+(3, 2, '2025-07-23 23:04:13', 'Cancelled', NULL, '291'),
+(4, 2, '2025-07-23 23:33:42', 'Cancelled', NULL, '291 Zamora St. Brgy. Pinagsama Taguig City'),
+(5, 2, '2025-07-23 23:37:13', 'Completed', '2025-07-23 23:42:08', '291 Zamora St. Brgy. Pinagsama Taguig City'),
+(6, 2, '2025-07-23 23:48:31', 'Completed', '2025-07-23 23:48:44', '291 Zamora St. Brgy. Pinagsama Taguig City'),
+(7, 2, '2025-07-24 00:42:48', 'Completed', '2025-07-24 00:43:13', '291 Zamora St. Brgy. Pinagsama Taguig City');
 
 -- --------------------------------------------------------
 
@@ -151,7 +157,19 @@ CREATE TABLE `order_details` (
 
 INSERT INTO `order_details` (`order_detail_id`, `order_id`, `product_id`, `quantity`, `unit_price`) VALUES
 (1, 1, 20, 1, 599.00),
-(2, 1, 34, 2, 499.00);
+(2, 1, 34, 2, 499.00),
+(3, 2, 85, 1, 1399.00),
+(4, 2, 86, 1, 1399.00),
+(5, 3, 20, 1, 599.00),
+(6, 3, 85, 1, 1399.00),
+(7, 4, 85, 12, 1399.00),
+(8, 5, 19, 2, 599.00),
+(9, 6, 85, 1, 1399.00),
+(10, 7, 24, 1, 499.00),
+(11, 7, 91, 1, 1799.00),
+(12, 7, 94, 1, 1999.00),
+(13, 7, 96, 1, 1499.00),
+(14, 7, 98, 1, 2099.00);
 
 -- --------------------------------------------------------
 
@@ -196,12 +214,12 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (16, 'Sweatshirt - Gray - s', 'gray', 2, 1, 'S', 599.00, 10, 'images\\gray_swsh.png', 'Unisex', 1),
 (17, 'Sweatshirt - Black - s', 'black', 2, 1, 'S', 599.00, 10, 'images\\black_swsh.png', 'Unisex', 1),
 (18, 'Sweatshirt - Black - m', 'black', 2, 1, 'M', 599.00, 10, 'images\\black_swsh.png', 'Unisex', 1),
-(19, 'Sweatshirt - Black - l', 'black', 2, 1, 'L', 599.00, 10, 'images\\black_swsh.png', 'Unisex', 1),
+(19, 'Sweatshirt - Black - l', 'black', 2, 1, 'L', 599.00, 8, 'images\\black_swsh.png', 'Unisex', 1),
 (20, 'Sweatshirt - Black - xl', 'black', 2, 1, 'XL', 599.00, 10, 'images\\black_swsh.png', 'Unisex', 1),
 (21, 'T-shirt - White - s', 'white', 1, 3, 'S', 499.00, 10, 'images\\white_shirt1.png', 'Unisex', 2),
 (22, 'T-shirt - White - m', 'white', 1, 3, 'M', 499.00, 10, 'images\\white_shirt1.png', 'Unisex', 2),
 (23, 'T-shirt - White - l', 'white', 1, 3, 'L', 499.00, 10, 'images\\white_shirt1.png', 'Unisex', 2),
-(24, 'T-shirt - White - xl', 'white', 1, 3, 'XL', 499.00, 10, 'images\\white_shirt1.png', 'Unisex', 2),
+(24, 'T-shirt - White - xl', 'white', 1, 3, 'XL', 499.00, 9, 'images\\white_shirt1.png', 'Unisex', 2),
 (25, 'T-shirt - Green - xl', 'green', 1, 3, 'XL', 499.00, 10, 'images\\green_shirt1.png', 'Unisex', 2),
 (26, 'T-shirt - Green - l', 'green', 1, 3, 'L', 499.00, 10, 'images\\green_shirt1.png', 'Unisex', 2),
 (27, 'T-shirt - Green - m', 'green', 1, 3, 'M', 499.00, 10, 'images\\green_shirt1.png', 'Unisex', 2),
@@ -244,8 +262,23 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (64, 'Sweatpants - Black - s', 'black', 3, 1, 'S', 799.00, 10, 'images\\black_Sweatpants.png', 'Unisex', 1),
 (65, 'Sweatpants - Gray - s', 'gray', 3, 1, 'S', 799.00, 10, 'images\\gray_Sweatpants.png', 'Unisex', 1),
 (66, 'Sweatpants - Gray - m', 'gray', 3, 1, 'M', 799.00, 10, 'images\\gray_Sweatpants.png', 'Unisex', 1),
-(67, 'Sweatpants - Gray - l', 'gray', 3, 1, 'L', 799.00, 10, 'images\\gray_Sweatpants.png', 'Unisex', 1);
-
+(67, 'Sweatpants - Gray - l', 'gray', 3, 1, 'L', 799.00, 10, 'images\\gray_Sweatpants.png', 'Unisex', 1),
+(85, 'dream EDP', NULL, 7, 4, NULL, 1399.00, 9, 'images\\dreamFinal.jpg', 'Male', NULL),
+(86, 'love spell EDP', NULL, 7, 4, NULL, 1399.00, 10, 'images\\Lovespell.jpg', 'Female', NULL),
+(87, 'origin EDP', NULL, 7, 5, NULL, 1999.00, 10, 'images\\originFinal.jpg', 'Male', NULL),
+(88, 'origin EDT', NULL, 8, 5, NULL, 1999.00, 10, 'images\\originFinal.jpg', 'Male', NULL),
+(90, 'dream EDT', NULL, 8, 4, NULL, 1899.00, 10, '', 'Male', NULL),
+(91, 'Linfinite EDP', NULL, 7, 4, NULL, 1799.00, 9, 'images\\Linfinity.jpg', 'Male', NULL),
+(92, 'Linfinite EDT', NULL, 8, 4, NULL, 1799.00, 10, 'images\\Linfinity.jpg', 'Male', NULL),
+(93, 'Pacific Aura EDP', NULL, 7, 5, NULL, 1999.00, 10, 'images\\Aura.jpg', 'Male', NULL),
+(94, 'Pacific Aura EDT', NULL, 8, 5, NULL, 1999.00, 9, 'images\\Aura.jpg', 'Male', NULL),
+(95, 'love spell EDT', NULL, 8, 5, NULL, 1399.00, 10, 'images\\Lovespell.jpg', 'Female', NULL),
+(96, 'Afternoon Vibe EDP', NULL, 7, 6, NULL, 1499.00, 9, 'images\\AfternoonVibe.jpg', 'Female', NULL),
+(97, 'Afternoon Vibe EDT', NULL, 8, 6, NULL, 1499.00, 10, 'images\\AfternoonVibe.jpg', 'Female', NULL),
+(98, 'coeur de rose EDP', NULL, 7, 6, NULL, 2099.00, 9, 'images\\CoeurDeRose.jpg', 'Female', NULL),
+(99, 'coeur de rose EDT', NULL, 8, 6, NULL, 2099.00, 10, 'images\\CoeurDeRose.jpg', 'Female', NULL),
+(100, 'sun set EDP', NULL, 7, 6, NULL, 2099.00, 10, 'images\\Sunset.jpg', 'Female', NULL),
+(101, 'sun set EDT', NULL, 8, 6, NULL, 2099.00, 10, 'images\\Sunset.jpg', 'Female', NULL);
 
 -- --------------------------------------------------------
 
@@ -361,7 +394,23 @@ INSERT INTO `supply_logs` (`supply_id`, `product_id`, `supplier_id`, `quantity_a
 (65, 65, 1, 10, '2025-07-23 11:12:21', 'initial stock swetpants', 500.00),
 (66, 66, 1, 10, '2025-07-23 11:12:25', 'initial stock swetpants', 500.00),
 (67, 67, 1, 10, '2025-07-23 11:12:29', 'initial stock swetpants', 500.00),
-(68, 68, 1, 10, '2025-07-23 11:12:35', 'initial stock swetpants', 500.00);
+(68, 68, 1, 10, '2025-07-23 11:12:35', 'initial stock swetpants', 500.00),
+(69, 85, 4, 10, '2025-07-23 22:56:58', 'dream perf initial stock', 1000.00),
+(70, 86, 4, 10, '2025-07-23 22:58:14', 'initial stock lovespell', 1000.00),
+(71, 87, 5, 10, '2025-07-24 00:26:35', 'origin initial sotcks', 1600.00),
+(72, 88, 5, 10, '2025-07-24 00:26:49', 'origin initial sotcks', 1600.00),
+(74, 90, 4, 10, '2025-07-24 00:31:47', 'initialstockdream edt', 1299.00),
+(75, 91, 4, 10, '2025-07-24 00:33:08', 'initialsotkc linfinite', 1500.00),
+(76, 92, 4, 10, '2025-07-24 00:33:19', 'initialsotkc linfinite', 1500.00),
+(77, 93, 5, 10, '2025-07-24 00:33:58', 'initialsotkc linfinite', 1800.00),
+(78, 94, 5, 10, '2025-07-24 00:34:08', 'initialsotkc linfinite', 1800.00),
+(79, 95, 5, 10, '2025-07-24 00:38:35', 'initial sotck love spell edt', 1000.00),
+(80, 96, 6, 10, '2025-07-24 00:39:20', 'initial sotck afv edp', 1000.00),
+(81, 97, 6, 10, '2025-07-24 00:39:29', 'initial sotck afv edt', 1000.00),
+(82, 98, 6, 10, '2025-07-24 00:40:15', 'initial sotck cdr edp', 1800.00),
+(83, 99, 6, 10, '2025-07-24 00:40:26', 'initial sotck cdr edt', 1800.00),
+(84, 100, 6, 10, '2025-07-24 00:41:16', 'initial sotck sunset edp', 1800.00),
+(85, 101, 6, 10, '2025-07-24 00:41:29', 'initial sotck sunset edp', 1800.00);
 
 -- --------------------------------------------------------
 
@@ -483,19 +532,19 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
@@ -507,7 +556,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `supply_logs`
 --
 ALTER TABLE `supply_logs`
-  MODIFY `supply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `supply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -557,11 +606,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-select * from products;
-delete from products
-where product_id >=98
-
-SELECT product_id, product_name, gender, category_id, brand_id
-FROM products
-WHERE gender = 'male'
-ORDER BY product_id DESC
