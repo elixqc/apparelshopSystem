@@ -242,7 +242,7 @@ Public Class AdminFormPage
     End Sub
 
     ' ' Handle upload button click to save product details
-    Private Sub btnUpload_Click(sender As Object, e As EventArgs) Handles btnUpload.Click
+    Private Sub btnUpload_Click(sender As Object, e As EventArgs) Handles addProductBtn.Click
         ' --- Step 1: Get Category ID ---
         Dim categoryId As Integer = GetId("SELECT category_id FROM categories WHERE category_name = @name", CategoryLists.SelectedItem?.ToString())
         Dim isPerfume As Boolean = (categoryId >= 6 AndAlso categoryId <= 12)
@@ -312,56 +312,87 @@ Public Class AdminFormPage
         Try
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
+                Dim transaction = conn.BeginTransaction()
 
-                If isUpdate Then
-                    ' UPDATE existing product
-                    Dim currentStock As Integer = Convert.ToInt32(ExecuteScalar("SELECT stock_quantity FROM products WHERE product_id = @pid", conn, productId))
-                    Dim newStock As Integer = currentStock + quantityValue
+                Try
+                    If isUpdate Then
+                        ' --- Update existing product ---
+                        Dim currentStock As Integer = Convert.ToInt32(ExecuteScalar("SELECT stock_quantity FROM products WHERE product_id = @pid", conn, productId))
+                        Dim newStock As Integer = currentStock + quantityValue
 
-                    Dim updateCmd As New MySqlCommand("UPDATE products SET price = @price, stock_quantity = @qty WHERE product_id = @pid", conn)
-                    updateCmd.Parameters.AddWithValue("@price", priceValue)
-                    updateCmd.Parameters.AddWithValue("@qty", newStock)
-                    updateCmd.Parameters.AddWithValue("@pid", productId)
-                    updateCmd.ExecuteNonQuery()
+                        Dim updateCmd As New MySqlCommand("UPDATE products SET price = @price, stock_quantity = @qty WHERE product_id = @pid", conn, transaction)
+                        updateCmd.Parameters.AddWithValue("@price", priceValue)
+                        updateCmd.Parameters.AddWithValue("@qty", newStock)
+                        updateCmd.Parameters.AddWithValue("@pid", productId)
+                        updateCmd.ExecuteNonQuery()
+
+                    Else
+                        ' --- Insert new product ---
+                        If String.IsNullOrEmpty(selectedFilePath) OrElse Not File.Exists(selectedFilePath) Then
+                            MessageBox.Show("No file selected or file does not exist.")
+                            transaction.Rollback()
+                            Return
+                        End If
+
+                        imagePathForDb = SaveImageToPath(selectedFilePath)
+
+                        Dim insertCmd As New MySqlCommand("
+                    INSERT INTO products 
+                        (product_name, color, size, category_id, supplier_id, brand_id, price, stock_quantity, image_path, gender)
+                    VALUES 
+                        (@pname, @color, @size, @catid, @supid, @brid, @price, @qty, @imgpath, @gender);
+                    SELECT LAST_INSERT_ID();", conn, transaction)
+
+                        insertCmd.Parameters.AddWithValue("@pname", productNameForDb)
+                        insertCmd.Parameters.AddWithValue("@color", If(isPerfume, DBNull.Value, ColorTxt.Text.Trim()))
+                        insertCmd.Parameters.AddWithValue("@size", If(isPerfume, DBNull.Value, sizeTxt.Text.Trim()))
+                        insertCmd.Parameters.AddWithValue("@catid", categoryId)
+                        insertCmd.Parameters.AddWithValue("@supid", supplierId)
+                        insertCmd.Parameters.AddWithValue("@brid", If(isPerfume, DBNull.Value, brandId))
+                        insertCmd.Parameters.AddWithValue("@price", priceValue)
+                        insertCmd.Parameters.AddWithValue("@qty", quantityValue)
+                        insertCmd.Parameters.AddWithValue("@imgpath", imagePathForDb)
+                        Dim genderValue As Object = If(String.IsNullOrWhiteSpace(genderTxt.Text), DBNull.Value, genderTxt.SelectedItem.ToString())
+                        insertCmd.Parameters.AddWithValue("@gender", genderValue)
+
+                        productId = Convert.ToInt32(insertCmd.ExecuteScalar())
+                    End If
+
+                    ' --- Insert into supply_logs ---
+                    Dim supplierPrice As Decimal
+                    Decimal.TryParse(supplierPriceTxt.Text.Trim(), supplierPrice)
+                    Dim remarks As String = remarksTxt.Text.Trim()
+
+                    Dim logCmd As New MySqlCommand("
+                INSERT INTO supply_logs 
+                    (product_id, supplier_id, quantity_added, remarks, supplier_price)
+                VALUES 
+                    (@pid, @sid, @qty, @remarks, @sprice)", conn, transaction)
+
+                    logCmd.Parameters.AddWithValue("@pid", productId)
+                    logCmd.Parameters.AddWithValue("@sid", supplierId)
+                    logCmd.Parameters.AddWithValue("@qty", quantityValue)
+                    logCmd.Parameters.AddWithValue("@remarks", remarks)
+                    logCmd.Parameters.AddWithValue("@sprice", supplierPrice)
+                    logCmd.ExecuteNonQuery()
+
+                    ' --- All successful: Commit ---
+                    transaction.Commit()
+
                     LoadProductsToGrid()
-                    MessageBox.Show("Product updated successfully!")
-                Else
-                    ' INSERT new product
-                    Dim insertCmd As New MySqlCommand("INSERT INTO products (product_name, color, size, category_id, supplier_id, brand_id, price, stock_quantity, image_path, gender) VALUES (@pname, @color, @size, @catid, @supid, @brid, @price, @qty, @imgpath, @gender); SELECT LAST_INSERT_ID();", conn)
-                    insertCmd.Parameters.AddWithValue("@pname", productNameForDb)
-                    insertCmd.Parameters.AddWithValue("@color", If(isPerfume, DBNull.Value, ColorTxt.Text.Trim()))
-                    insertCmd.Parameters.AddWithValue("@size", If(isPerfume, DBNull.Value, sizeTxt.Text.Trim()))
-                    insertCmd.Parameters.AddWithValue("@catid", categoryId)
-                    insertCmd.Parameters.AddWithValue("@supid", supplierId)
-                    insertCmd.Parameters.AddWithValue("@brid", If(isPerfume, DBNull.Value, brandId))
-                    insertCmd.Parameters.AddWithValue("@price", priceValue)
-                    insertCmd.Parameters.AddWithValue("@qty", quantityValue)
-                    insertCmd.Parameters.AddWithValue("@imgpath", imagePathForDb)
-                    Dim genderValue As Object = If(String.IsNullOrWhiteSpace(genderTxt.Text), DBNull.Value, genderTxt.SelectedItem.ToString())
-                    insertCmd.Parameters.AddWithValue("@gender", genderValue)
-                    productId = Convert.ToInt32(insertCmd.ExecuteScalar())
-                    LoadProductsToGrid()
-                    MessageBox.Show("Product added successfully!")
-                End If
+                    MessageBox.Show(If(isUpdate, "Product updated successfully!", "Product added successfully!"))
 
-                ' Insert supply log
-                Dim supplierPrice As Decimal
-                Decimal.TryParse(supplierPriceTxt.Text.Trim(), supplierPrice)
-                Dim remarks As String = remarksTxt.Text.Trim()
-                Dim logCmd As New MySqlCommand("INSERT INTO supply_logs (product_id, supplier_id, quantity_added, remarks, supplier_price) VALUES (@pid, @sid, @qty, @remarks, @sprice)", conn)
-                logCmd.Parameters.AddWithValue("@pid", productId)
-                logCmd.Parameters.AddWithValue("@sid", supplierId)
-                logCmd.Parameters.AddWithValue("@qty", quantityValue)
-                logCmd.Parameters.AddWithValue("@remarks", remarks)
-                logCmd.Parameters.AddWithValue("@sprice", supplierPrice)
-                logCmd.ExecuteNonQuery()
-
+                Catch exInner As Exception
+                    transaction.Rollback()
+                    MessageBox.Show("Error saving product: " & exInner.Message)
+                End Try
             End Using
-        Catch ex As Exception
-            MessageBox.Show("Error saving product: " & ex.Message)
+        Catch exOuter As Exception
+            MessageBox.Show("Unexpected error: " & exOuter.Message)
         End Try
 
         selectedFilePath = ""
+
     End Sub
 
 
@@ -617,5 +648,46 @@ Public Class AdminFormPage
             MessageBox.Show("Error calculating: " & ex.Message)
         End Try
 
+    End Sub
+
+    Private Sub createBtn_Click(sender As Object, e As EventArgs) Handles createBtn.Click
+        Dim username As String = usernameTxt.Text.Trim()
+        Dim password As String = passwordTxt.Text.Trim()
+
+        If String.IsNullOrWhiteSpace(username) OrElse String.IsNullOrWhiteSpace(password) Then
+            MessageBox.Show("Please enter both username and password.")
+            Return
+        End If
+
+        Try
+            Using conn As New MySqlConnection(connectionString)
+                conn.Open()
+
+                ' Optional: Check if username already exists
+                Dim checkCmd As New MySqlCommand("SELECT COUNT(*) FROM users WHERE username = @uname", conn)
+                checkCmd.Parameters.AddWithValue("@uname", username)
+                Dim exists As Integer = Convert.ToInt32(checkCmd.ExecuteScalar())
+
+                If exists > 0 Then
+                    MessageBox.Show("Username already exists. Please choose a different one.")
+                    Return
+                End If
+
+                ' Insert new user with SHA2 hashed password
+                Dim insertCmd As New MySqlCommand("
+                INSERT INTO users (username, password)
+                VALUES (@uname, SHA2(@pass, 256))", conn)
+
+                insertCmd.Parameters.AddWithValue("@uname", username)
+                insertCmd.Parameters.AddWithValue("@pass", password)
+                insertCmd.ExecuteNonQuery()
+
+                MessageBox.Show("User created successfully!")
+                usernameTxt.Clear()
+                passwordTxt.Clear()
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error creating user: " & ex.Message)
+        End Try
     End Sub
 End Class

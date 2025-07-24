@@ -8,7 +8,13 @@ Public Class customerProfile
 
         MenuStrip1.Renderer = appthemes.MenuRenderer
         LoadCustomerOrders(FlowLayoutPanel1, loggedInUserID)
-        LoadCustomerContactInfo(loggedInUserID)
+
+        If adminUserLogin = "" Then
+            LoadCustomerContactInfo(loggedInUserID)
+        Else
+            Exit Sub
+        End If
+
 
 
     End Sub
@@ -238,6 +244,7 @@ Public Class customerProfile
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         loggedInUserID = 0
 
+        adminUserLogin = ""
         Form1.adminPage.Visible = False
         Form1.welcomeName.Hide()
         ' Close this form

@@ -27,7 +27,7 @@ Partial Class AdminFormPage
         Me.remarksTxt = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.supplierPriceTxt = New System.Windows.Forms.TextBox()
-        Me.btnUpload = New System.Windows.Forms.Button()
+        Me.addProductBtn = New System.Windows.Forms.Button()
         Me.FileUploadButton = New System.Windows.Forms.Button()
         Me.SupplierLists = New System.Windows.Forms.ComboBox()
         Me.sizeTxt = New System.Windows.Forms.ComboBox()
@@ -72,10 +72,18 @@ Partial Class AdminFormPage
         Me.Button1 = New System.Windows.Forms.Button()
         Me.lblResult = New System.Windows.Forms.Label()
         Me.lblTotalStoreProfit = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.usernameTxt = New System.Windows.Forms.TextBox()
+        Me.passwordTxt = New System.Windows.Forms.TextBox()
+        Me.createBtn = New System.Windows.Forms.Button()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
         Me.addProductPanel.SuspendLayout()
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'addProductPanel
@@ -85,7 +93,7 @@ Partial Class AdminFormPage
         Me.addProductPanel.Controls.Add(Me.remarksTxt)
         Me.addProductPanel.Controls.Add(Me.Label11)
         Me.addProductPanel.Controls.Add(Me.supplierPriceTxt)
-        Me.addProductPanel.Controls.Add(Me.btnUpload)
+        Me.addProductPanel.Controls.Add(Me.addProductBtn)
         Me.addProductPanel.Controls.Add(Me.FileUploadButton)
         Me.addProductPanel.Controls.Add(Me.SupplierLists)
         Me.addProductPanel.Controls.Add(Me.sizeTxt)
@@ -109,7 +117,7 @@ Partial Class AdminFormPage
         Me.addProductPanel.Controls.Add(Me.Label9)
         Me.addProductPanel.Controls.Add(Me.Label2)
         Me.addProductPanel.Controls.Add(Me.Label1)
-        Me.addProductPanel.Location = New System.Drawing.Point(12, 449)
+        Me.addProductPanel.Location = New System.Drawing.Point(13, 522)
         Me.addProductPanel.Name = "addProductPanel"
         Me.addProductPanel.Size = New System.Drawing.Size(1311, 212)
         Me.addProductPanel.TabIndex = 0
@@ -151,17 +159,17 @@ Partial Class AdminFormPage
         Me.supplierPriceTxt.Size = New System.Drawing.Size(115, 26)
         Me.supplierPriceTxt.TabIndex = 5
         '
-        'btnUpload
+        'addProductBtn
         '
-        Me.btnUpload.BackColor = System.Drawing.Color.ForestGreen
-        Me.btnUpload.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnUpload.ForeColor = System.Drawing.Color.White
-        Me.btnUpload.Location = New System.Drawing.Point(1187, 181)
-        Me.btnUpload.Name = "btnUpload"
-        Me.btnUpload.Size = New System.Drawing.Size(104, 23)
-        Me.btnUpload.TabIndex = 4
-        Me.btnUpload.Text = "ADD ITEM"
-        Me.btnUpload.UseVisualStyleBackColor = False
+        Me.addProductBtn.BackColor = System.Drawing.Color.ForestGreen
+        Me.addProductBtn.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.addProductBtn.ForeColor = System.Drawing.Color.White
+        Me.addProductBtn.Location = New System.Drawing.Point(1187, 173)
+        Me.addProductBtn.Name = "addProductBtn"
+        Me.addProductBtn.Size = New System.Drawing.Size(104, 31)
+        Me.addProductBtn.TabIndex = 4
+        Me.addProductBtn.Text = "ADD ITEM"
+        Me.addProductBtn.UseVisualStyleBackColor = False
         '
         'FileUploadButton
         '
@@ -572,11 +580,88 @@ Partial Class AdminFormPage
         Me.lblTotalStoreProfit.TabIndex = 2
         Me.lblTotalStoreProfit.Text = "Total Store Profit:"
         '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.SystemColors.ScrollBar
+        Me.Panel1.Controls.Add(Me.createBtn)
+        Me.Panel1.Controls.Add(Me.passwordTxt)
+        Me.Panel1.Controls.Add(Me.usernameTxt)
+        Me.Panel1.Controls.Add(Me.Label22)
+        Me.Panel1.Controls.Add(Me.Label24)
+        Me.Panel1.Controls.Add(Me.Label23)
+        Me.Panel1.Location = New System.Drawing.Point(839, 432)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(485, 84)
+        Me.Panel1.TabIndex = 10
+        '
+        'usernameTxt
+        '
+        Me.usernameTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.usernameTxt.Location = New System.Drawing.Point(4, 20)
+        Me.usernameTxt.Name = "usernameTxt"
+        Me.usernameTxt.Size = New System.Drawing.Size(181, 23)
+        Me.usernameTxt.TabIndex = 0
+        '
+        'passwordTxt
+        '
+        Me.passwordTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.passwordTxt.Location = New System.Drawing.Point(190, 20)
+        Me.passwordTxt.Name = "passwordTxt"
+        Me.passwordTxt.Size = New System.Drawing.Size(181, 23)
+        Me.passwordTxt.TabIndex = 0
+        '
+        'createBtn
+        '
+        Me.createBtn.BackColor = System.Drawing.Color.ForestGreen
+        Me.createBtn.Font = New System.Drawing.Font("Microsoft Himalaya", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.createBtn.ForeColor = System.Drawing.SystemColors.Control
+        Me.createBtn.Location = New System.Drawing.Point(377, 17)
+        Me.createBtn.Name = "createBtn"
+        Me.createBtn.Size = New System.Drawing.Size(105, 40)
+        Me.createBtn.TabIndex = 1
+        Me.createBtn.Text = "CREATE STAFF ACCOUNT"
+        Me.createBtn.UseVisualStyleBackColor = False
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label22.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label22.Location = New System.Drawing.Point(2, 4)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(204, 19)
+        Me.Label22.TabIndex = 6
+        Me.Label22.Text = "CREATE ADMIN/STAFF ACCOUNT"
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label23.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Label23.Location = New System.Drawing.Point(5, 46)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(57, 19)
+        Me.Label23.TabIndex = 6
+        Me.Label23.Text = "username"
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label24.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Label24.Location = New System.Drawing.Point(186, 46)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(56, 19)
+        Me.Label24.TabIndex = 6
+        Me.Label24.Text = "password"
+        '
         'AdminFormPage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1335, 673)
+        Me.AutoScroll = True
+        Me.ClientSize = New System.Drawing.Size(1351, 669)
+        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.dtpEndDate)
         Me.Controls.Add(Me.dtpStartDate)
@@ -605,6 +690,8 @@ Partial Class AdminFormPage
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -628,7 +715,7 @@ Partial Class AdminFormPage
     Friend WithEvents FileUploadButton As Button
     Friend WithEvents Label8 As Label
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
-    Friend WithEvents btnUpload As Button
+    Friend WithEvents addProductBtn As Button
     Friend WithEvents ComboBox3 As ComboBox
     Friend WithEvents Label9 As Label
     Friend WithEvents FileSystemWatcher1 As IO.FileSystemWatcher
@@ -660,4 +747,11 @@ Partial Class AdminFormPage
     Friend WithEvents Button1 As Button
     Friend WithEvents lblResult As Label
     Friend WithEvents lblTotalStoreProfit As Label
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents createBtn As Button
+    Friend WithEvents passwordTxt As TextBox
+    Friend WithEvents usernameTxt As TextBox
+    Friend WithEvents Label22 As Label
+    Friend WithEvents Label24 As Label
+    Friend WithEvents Label23 As Label
 End Class
