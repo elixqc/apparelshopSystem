@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 24, 2025 at 07:12 AM
+-- Generation Time: Jul 24, 2025 at 09:33 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -143,7 +143,8 @@ INSERT INTO `orders` (`order_id`, `customer_id`, `order_date`, `order_status`, `
 (11, 5, '2025-07-24 12:35:55', 'Completed', '2025-07-24 12:36:17', 'testing'),
 (12, 5, '2025-07-24 12:48:54', 'Cancelled', NULL, 'testing'),
 (13, 5, '2025-07-24 12:52:33', 'Completed', '2025-07-24 12:53:35', 'testing'),
-(14, 5, '2025-07-24 13:08:44', 'Completed', '2025-07-24 13:10:10', 'testing');
+(14, 5, '2025-07-24 13:08:44', 'Completed', '2025-07-24 13:10:10', 'testing'),
+(15, 5, '2025-07-24 15:07:18', 'Completed', '2025-07-24 15:07:39', 'testing');
 
 -- --------------------------------------------------------
 
@@ -191,7 +192,8 @@ INSERT INTO `order_details` (`order_detail_id`, `order_id`, `product_id`, `quant
 (25, 12, 26, 3, 499.00),
 (26, 13, 86, 1, 1399.00),
 (27, 14, 87, 1, 1999.00),
-(28, 14, 91, 1, 1799.00);
+(28, 14, 91, 1, 1799.00),
+(29, 15, 106, 1, 999.00);
 
 -- --------------------------------------------------------
 
@@ -300,7 +302,19 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (98, 'coeur de rose EDP', NULL, 7, 6, NULL, 2099.00, 9, 'images\\CoeurDeRose.jpg', 'Female', NULL),
 (99, 'coeur de rose EDT', NULL, 8, 6, NULL, 2099.00, 10, 'images\\CoeurDeRose.jpg', 'Female', NULL),
 (100, 'sun set EDP', NULL, 7, 6, NULL, 2099.00, 10, 'images\\Sunset.jpg', 'Female', NULL),
-(101, 'sun set EDT', NULL, 8, 6, NULL, 2099.00, 10, 'images\\Sunset.jpg', 'Female', NULL);
+(101, 'sun set EDT', NULL, 8, 6, NULL, 2099.00, 10, 'images\\Sunset.jpg', 'Female', NULL),
+(102, 'Knittedpolo - Blue - s', 'blue', 1, 1, 'S', 999.00, 10, 'images\\blue_polo.png', 'Unisex', 1),
+(103, 'Knittedpolo - Blue - m', 'blue', 1, 1, 'M', 999.00, 10, 'images\\blue_polo.png', 'Unisex', 1),
+(104, 'Knittedpolo - Blue - l', 'blue', 1, 1, 'L', 999.00, 10, 'images\\blue_polo.png', 'Unisex', 1),
+(105, 'Knittedpolo - Blue - xl', 'blue', 1, 1, 'XL', 999.00, 10, 'images\\blue_polo.png', 'Unisex', 1),
+(106, 'Knittedpolo - Green - xl', 'green', 1, 1, 'XL', 999.00, 9, 'images\\green_polo.png', 'Unisex', 1),
+(107, 'Knittedpolo - Green - l', 'green', 1, 1, 'L', 999.00, 10, 'images\\green_polo.png', 'Unisex', 1),
+(108, 'Knittedpolo - Green - m', 'green', 1, 1, 'M', 999.00, 10, 'images\\green_polo.png', 'Unisex', 1),
+(109, 'Knittedpolo - Green - s', 'green', 1, 1, 'S', 999.00, 10, 'images\\green_polo.png', 'Unisex', 1),
+(110, 'Knittedpolo - Red - s', 'red', 1, 1, 'S', 999.00, 10, 'images\\red_polo.png', 'Unisex', 1),
+(111, 'Knittedpolo - Red - m', 'red', 1, 1, 'M', 999.00, 10, 'images\\red_polo.png', 'Unisex', 1),
+(112, 'Knittedpolo - Red - l', 'red', 1, 1, 'L', 999.00, 10, 'images\\red_polo.png', 'Unisex', 1),
+(113, 'Knittedpolo - Red - xl', 'red', 1, 1, 'XL', 999.00, 10, 'images\\red_polo.png', 'Unisex', 1);
 
 -- --------------------------------------------------------
 
@@ -433,7 +447,19 @@ INSERT INTO `supply_logs` (`supply_id`, `product_id`, `supplier_id`, `quantity_a
 (83, 99, 6, 10, '2025-07-24 00:40:26', 'initial sotck cdr edt', 1800.00),
 (84, 100, 6, 10, '2025-07-24 00:41:16', 'initial sotck sunset edp', 1800.00),
 (85, 101, 6, 10, '2025-07-24 00:41:29', 'initial sotck sunset edp', 1800.00),
-(86, 20, 1, 10, '2025-07-24 12:37:31', 'added product swblackxl', 499.00);
+(86, 20, 1, 10, '2025-07-24 12:37:31', 'added product swblackxl', 499.00),
+(87, 102, 1, 10, '2025-07-24 15:05:09', 'initial stocks knitted polo', 800.00),
+(88, 103, 1, 10, '2025-07-24 15:05:18', 'initial stocks knitted polo', 800.00),
+(89, 104, 1, 10, '2025-07-24 15:05:26', 'initial stocks knitted polo', 800.00),
+(90, 105, 1, 10, '2025-07-24 15:05:32', 'initial stocks knitted polo', 800.00),
+(91, 106, 1, 10, '2025-07-24 15:05:44', 'initial stocks knitted polo', 800.00),
+(92, 107, 1, 10, '2025-07-24 15:05:49', 'initial stocks knitted polo', 800.00),
+(93, 108, 1, 10, '2025-07-24 15:05:55', 'initial stocks knitted polo', 800.00),
+(94, 109, 1, 10, '2025-07-24 15:06:01', 'initial stocks knitted polo', 800.00),
+(95, 110, 1, 10, '2025-07-24 15:06:09', 'initial stocks knitted polo', 800.00),
+(96, 111, 1, 10, '2025-07-24 15:06:15', 'initial stocks knitted polo', 800.00),
+(97, 112, 1, 10, '2025-07-24 15:06:24', 'initial stocks knitted polo', 800.00),
+(98, 113, 1, 10, '2025-07-24 15:06:30', 'initial stocks knitted polo', 800.00);
 
 -- --------------------------------------------------------
 
@@ -452,7 +478,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `password`) VALUES
-(1, 'elixqc', '7661f83e32e9b6467f2bb50619049fd8951c266665967ebb678a10d520a36de1');
+(1, 'elixqc', '7661f83e32e9b6467f2bb50619049fd8951c266665967ebb678a10d520a36de1'),
+(2, 'admin1', '25f43b1486ad95a1398e3eeb3d83bc4010015fcc9bedb35b432e00298d5021f7');
 
 --
 -- Indexes for dumped tables
@@ -555,19 +582,19 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
@@ -579,13 +606,13 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `supply_logs`
 --
 ALTER TABLE `supply_logs`
-  MODIFY `supply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `supply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
