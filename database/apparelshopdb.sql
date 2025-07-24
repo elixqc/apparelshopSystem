@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 24, 2025 at 03:33 AM
+-- Generation Time: Jul 24, 2025 at 07:12 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -138,7 +138,12 @@ INSERT INTO `orders` (`order_id`, `customer_id`, `order_date`, `order_status`, `
 (6, 2, '2025-07-23 23:48:31', 'Completed', '2025-07-23 23:48:44', '291 Zamora St. Brgy. Pinagsama Taguig City'),
 (7, 2, '2025-07-24 00:42:48', 'Completed', '2025-07-24 00:43:13', '291 Zamora St. Brgy. Pinagsama Taguig City'),
 (8, 5, '2025-07-24 09:21:54', 'Completed', '2025-07-24 09:23:34', 'testing'),
-(9, 5, '2025-07-24 09:27:29', 'Completed', '2025-07-24 09:27:50', 'testing');
+(9, 5, '2025-07-24 09:27:29', 'Completed', '2025-07-24 09:27:50', 'testing'),
+(10, 5, '2025-07-24 12:20:38', 'Completed', '2025-07-24 12:21:38', 'testing'),
+(11, 5, '2025-07-24 12:35:55', 'Completed', '2025-07-24 12:36:17', 'testing'),
+(12, 5, '2025-07-24 12:48:54', 'Cancelled', NULL, 'testing'),
+(13, 5, '2025-07-24 12:52:33', 'Completed', '2025-07-24 12:53:35', 'testing'),
+(14, 5, '2025-07-24 13:08:44', 'Completed', '2025-07-24 13:10:10', 'testing');
 
 -- --------------------------------------------------------
 
@@ -178,7 +183,15 @@ INSERT INTO `order_details` (`order_detail_id`, `order_id`, `product_id`, `quant
 (17, 8, 60, 9, 799.00),
 (18, 8, 87, 1, 1999.00),
 (19, 8, 94, 1, 1999.00),
-(20, 9, 96, 1, 1499.00);
+(20, 9, 96, 1, 1499.00),
+(21, 10, 24, 1, 499.00),
+(22, 10, 87, 1, 1999.00),
+(23, 10, 92, 1, 1799.00),
+(24, 11, 20, 10, 599.00),
+(25, 12, 26, 3, 499.00),
+(26, 13, 86, 1, 1399.00),
+(27, 14, 87, 1, 1999.00),
+(28, 14, 91, 1, 1799.00);
 
 -- --------------------------------------------------------
 
@@ -228,7 +241,7 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (21, 'T-shirt - White - s', 'white', 1, 3, 'S', 499.00, 10, 'images\\white_shirt1.png', 'Unisex', 2),
 (22, 'T-shirt - White - m', 'white', 1, 3, 'M', 499.00, 0, 'images\\white_shirt1.png', 'Unisex', 2),
 (23, 'T-shirt - White - l', 'white', 1, 3, 'L', 499.00, 10, 'images\\white_shirt1.png', 'Unisex', 2),
-(24, 'T-shirt - White - xl', 'white', 1, 3, 'XL', 499.00, 9, 'images\\white_shirt1.png', 'Unisex', 2),
+(24, 'T-shirt - White - xl', 'white', 1, 3, 'XL', 499.00, 8, 'images\\white_shirt1.png', 'Unisex', 2),
 (25, 'T-shirt - Green - xl', 'green', 1, 3, 'XL', 499.00, 10, 'images\\green_shirt1.png', 'Unisex', 2),
 (26, 'T-shirt - Green - l', 'green', 1, 3, 'L', 499.00, 10, 'images\\green_shirt1.png', 'Unisex', 2),
 (27, 'T-shirt - Green - m', 'green', 1, 3, 'M', 499.00, 10, 'images\\green_shirt1.png', 'Unisex', 2),
@@ -273,12 +286,12 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (66, 'Sweatpants - Gray - m', 'gray', 3, 1, 'M', 799.00, 10, 'images\\gray_Sweatpants.png', 'Unisex', 1),
 (67, 'Sweatpants - Gray - l', 'gray', 3, 1, 'L', 799.00, 10, 'images\\gray_Sweatpants.png', 'Unisex', 1),
 (85, 'dream EDP', NULL, 7, 4, NULL, 1399.00, 9, 'images\\dreamFinal.jpg', 'Male', NULL),
-(86, 'love spell EDP', NULL, 7, 4, NULL, 1399.00, 10, 'images\\Lovespell.jpg', 'Female', NULL),
-(87, 'origin EDP', NULL, 7, 5, NULL, 1999.00, 8, 'images\\originFinal.jpg', 'Male', NULL),
+(86, 'love spell EDP', NULL, 7, 4, NULL, 1399.00, 9, 'images\\Lovespell.jpg', 'Female', NULL),
+(87, 'origin EDP', NULL, 7, 5, NULL, 1999.00, 6, 'images\\originFinal.jpg', 'Male', NULL),
 (88, 'origin EDT', NULL, 8, 5, NULL, 1999.00, 10, 'images\\originFinal.jpg', 'Male', NULL),
 (90, 'dream EDT', NULL, 8, 4, NULL, 1899.00, 10, '', 'Male', NULL),
-(91, 'Linfinite EDP', NULL, 7, 4, NULL, 1799.00, 9, 'images\\Linfinity.jpg', 'Male', NULL),
-(92, 'Linfinite EDT', NULL, 8, 4, NULL, 1799.00, 10, 'images\\Linfinity.jpg', 'Male', NULL),
+(91, 'Linfinite EDP', NULL, 7, 4, NULL, 1799.00, 8, 'images\\Linfinity.jpg', 'Male', NULL),
+(92, 'Linfinite EDT', NULL, 8, 4, NULL, 1799.00, 9, 'images\\Linfinity.jpg', 'Male', NULL),
 (93, 'Pacific Aura EDP', NULL, 7, 5, NULL, 1999.00, 10, 'images\\Aura.jpg', 'Male', NULL),
 (94, 'Pacific Aura EDT', NULL, 8, 5, NULL, 1999.00, 7, 'images\\Aura.jpg', 'Male', NULL),
 (95, 'love spell EDT', NULL, 8, 5, NULL, 1399.00, 10, 'images\\Lovespell.jpg', 'Female', NULL),
@@ -419,7 +432,8 @@ INSERT INTO `supply_logs` (`supply_id`, `product_id`, `supplier_id`, `quantity_a
 (82, 98, 6, 10, '2025-07-24 00:40:15', 'initial sotck cdr edp', 1800.00),
 (83, 99, 6, 10, '2025-07-24 00:40:26', 'initial sotck cdr edt', 1800.00),
 (84, 100, 6, 10, '2025-07-24 00:41:16', 'initial sotck sunset edp', 1800.00),
-(85, 101, 6, 10, '2025-07-24 00:41:29', 'initial sotck sunset edp', 1800.00);
+(85, 101, 6, 10, '2025-07-24 00:41:29', 'initial sotck sunset edp', 1800.00),
+(86, 20, 1, 10, '2025-07-24 12:37:31', 'added product swblackxl', 499.00);
 
 -- --------------------------------------------------------
 
@@ -541,13 +555,13 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -565,7 +579,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `supply_logs`
 --
 ALTER TABLE `supply_logs`
-  MODIFY `supply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `supply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT for table `users`
