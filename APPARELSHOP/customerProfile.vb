@@ -8,7 +8,7 @@ Imports MySql.Data.MySqlClient
 
 
 Public Class customerProfile
-
+    'load notifications from the database
     Private Sub LoadNotifications()
         FlowLayoutPanel2.Controls.Clear()
 
@@ -93,7 +93,7 @@ Public Class customerProfile
         End Using
     End Sub
 
-
+    ' ' Generate PDF receipt for the order
     Private Sub GenerateReceiptPDF(orderId As Integer)
         Dim connStr As String = connectionString
         Dim desktopPath As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
@@ -123,7 +123,7 @@ Public Class customerProfile
             Dim logoPath As String = Path.Combine(Application.StartupPath, "images", "prestigeLogoReceipt.png")
             If File.Exists(logoPath) Then
                 Dim logo = iTextSharp.text.Image.GetInstance(logoPath)
-                logo.ScaleAbsolute(80, 80) ' Resize logo
+                logo.ScaleAbsolute(80, 80) ' Logo Size
                 logo.Alignment = Element.ALIGN_CENTER
                 doc.Add(logo)
                 doc.Add(spacer)
@@ -240,11 +240,6 @@ Public Class customerProfile
             MessageBox.Show("Error generating PDF: " & ex.Message)
         End Try
     End Sub
-
-
-
-
-
 
     Private Sub customerProfile_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -420,15 +415,21 @@ Public Class customerProfile
     End Sub
 
     Private Sub toRecieveMenuStrip_Click(sender As Object, e As EventArgs) Handles toRecieveMenuStrip.Click
+        ' ' Load orders that are pending or processing
         LoadCustomerOrders(FlowLayoutPanel1, loggedInUserID)
+
     End Sub
 
     Private Sub COMPLETEDToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CompleteOrdersBtnMenu.Click
+        ' ' Load completed orders
         LoadCustomerOrders(FlowLayoutPanel1, loggedInUserID, "Completed")
+
     End Sub
 
     Private Sub CANCELLEDToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CANCELLEDToolStripMenuItem.Click
+        ' ' Load cancelled orders
         LoadCustomerOrders(FlowLayoutPanel1, loggedInUserID, "Cancelled")
+
     End Sub
 
     Private Sub changeAddress_Click(sender As Object, e As EventArgs) Handles changeAddress.Click
@@ -493,13 +494,5 @@ Public Class customerProfile
         Form1.welcomeName.Hide()
         ' Close this form
         appthemes.FadeOutForm(Me)
-    End Sub
-
-    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
-
-    End Sub
-
-    Private Sub MenuStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles MenuStrip1.ItemClicked
-
     End Sub
 End Class

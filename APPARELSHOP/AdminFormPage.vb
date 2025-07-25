@@ -310,7 +310,8 @@ Public Class AdminFormPage
             imagePathForDb = SaveImageToPath(selectedFilePath) ' Save image and get relative path
         End If
 
-        ' --- Step 8: Perform Insert or Update ---
+        ' --- Step 8 ---
+        ' TRANSACTION HANDLING ( ADD PRODCUCT OR UPDATE PRODUCT )
         Try
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
@@ -514,6 +515,8 @@ Public Class AdminFormPage
                     Return
                 End If
 
+                'TRANSACTION HANDLING (UPDATE ORDER STATUS AND DEDUCT STOCKS IF COMPLETED)
+
                 ' Begin transaction
                 Dim transaction As MySqlTransaction = conn.BeginTransaction()
 
@@ -609,14 +612,6 @@ Public Class AdminFormPage
         End If
     End Sub
 
-
-    Private Sub brandTxt_SelectedIndexChanged(sender As Object, e As EventArgs) Handles brandTxt.SelectedIndexChanged
-
-    End Sub
-
-    Private Sub DateTimePicker1_ValueChanged(sender As Object, e As EventArgs) Handles dtpStartDate.ValueChanged
-
-    End Sub
     ' ' Handle button click to calculate income and profit within date range
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
         Dim startDate As Date = dtpStartDate.Value.Date

@@ -126,6 +126,8 @@ Public Class newCart
                                               Using conn As New MySqlConnection(connectionString)
                                                   conn.Open()
 
+                                                  'TRANSACTION HANDLING (ADDING ORDER AND ORDER_DETAILS tbl AT ONCE)
+
                                                   ' Begin transaction
                                                   Dim transaction = conn.BeginTransaction()
 
@@ -197,7 +199,4 @@ Public Class newCart
         LoadCartItems()
     End Sub
 
-    Private Sub CartPanel_Paint(sender As Object, e As PaintEventArgs) Handles CartPanel.Paint
-
-    End Sub
 End Class
