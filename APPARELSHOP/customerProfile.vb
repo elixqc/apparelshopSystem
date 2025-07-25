@@ -96,7 +96,9 @@ Public Class customerProfile
 
     Private Sub GenerateReceiptPDF(orderId As Integer)
         Dim connStr As String = connectionString
-        Dim folderPath As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Downloads")
+        Dim desktopPath As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+        Dim folderPath As String = Path.Combine(desktopPath, "Prestige Receipts")
+
         If Not Directory.Exists(folderPath) Then
             Directory.CreateDirectory(folderPath)
         End If
