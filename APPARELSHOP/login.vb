@@ -148,7 +148,7 @@ Public Class login
                 Form1.adminPage.Visible = True
 
                 Form1.Show()
-                Form1.welcomeName.Text = "Welcome Admin, " & firstName
+                Form1.welcomeName.Text = "Welcome Admin, " & adminUserLogin
                 Form1.welcomeName.Visible = True
                 Me.Hide()
                 foundUser = True
