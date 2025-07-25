@@ -79,11 +79,7 @@ INSERT INTO `categories` (`category_id`, `category_name`) VALUES
 (5, 'Dresses'),
 (6, 'Shorts'),
 (7, 'Eau de Parfum'),
-(8, 'Eau de Toilette'),
-(9, 'Cologne'),
-(10, 'Body Mist'),
-(11, 'Perfume Oil'),
-(12, 'Fragrance Set');
+(8, 'Eau de Toilette');
 
 -- --------------------------------------------------------
 
