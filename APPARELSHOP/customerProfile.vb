@@ -106,10 +106,8 @@ Public Class customerProfile
         Dim savePath As String = Path.Combine(folderPath, $"Receipt_Order_{orderId}.pdf")
 
         Try
-            ' Prepare the PDF document
             Dim doc As New Document(PageSize.A4, 50, 50, 25, 25)
             Dim fs As New FileStream(savePath, FileMode.Create, FileAccess.Write, FileShare.Read)
-
             Dim writer As PdfWriter = PdfWriter.GetInstance(doc, fs)
             doc.Open()
 
@@ -117,24 +115,41 @@ Public Class customerProfile
             Dim titleFont As New iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 18, iTextSharp.text.Font.BOLD)
             Dim subFont As New iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12)
             Dim boldFont As New iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10, iTextSharp.text.Font.BOLD)
-
+            Dim bigBoldFont As New iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 14, iTextSharp.text.Font.BOLD)
             Dim separator As New Paragraph(New Chunk(New LineSeparator(1.0F, 100.0F, BaseColor.GRAY, Element.ALIGN_CENTER, -1)))
             Dim spacer As New Paragraph(Environment.NewLine)
 
+            ' Load logo image
+            Dim logoPath As String = Path.Combine(Application.StartupPath, "images", "prestigeLogoReceipt.png")
+            If File.Exists(logoPath) Then
+                Dim logo = iTextSharp.text.Image.GetInstance(logoPath)
+                logo.ScaleAbsolute(80, 80) ' Resize logo
+                logo.Alignment = Element.ALIGN_CENTER
+                doc.Add(logo)
+                doc.Add(spacer)
+            End If
+
+
             ' Header
-            doc.Add(New Paragraph("PRESTIGE APPAREL", titleFont))
-            doc.Add(New Paragraph("Official Receipt", subFont))
+            Dim header As New Paragraph("PRESTIGE APPAREL", titleFont)
+            header.Alignment = Element.ALIGN_CENTER
+            doc.Add(header)
+
+            Dim subheader As New Paragraph("Official Receipt", subFont)
+            subheader.Alignment = Element.ALIGN_CENTER
+            doc.Add(subheader)
+
             doc.Add(New Paragraph($"Order ID: {orderId}", subFont))
-            doc.Add(New Paragraph($"Date: {DateTime.Now:MMMM dd, yyyy hh:mm tt}", subFont))
-            doc.Add(New Paragraph(Environment.NewLine))
+            doc.Add(New Paragraph($"Date Issued: {DateTime.Now:MMMM dd, yyyy hh:mm tt}", subFont))
+            doc.Add(spacer)
 
             ' DB Connection
             Using conn As New MySqlConnection(connStr)
                 conn.Open()
 
-                ' Customer Info
+                ' Fetch customer + order info
                 Dim summaryCmd As New MySqlCommand("
-                SELECT o.date_received, c.full_name
+                SELECT o.date_received, o.delivery_address, c.full_name, c.contact_number
                 FROM orders o
                 JOIN customers c ON o.customer_id = c.customer_id
                 WHERE o.order_id = @oid", conn)
@@ -142,44 +157,31 @@ Public Class customerProfile
 
                 Using reader = summaryCmd.ExecuteReader()
                     If reader.Read() Then
-                        doc.Add(New Paragraph($"Customer: {reader("full_name")}"))
-                        doc.Add(New Paragraph($"Date Received: {Convert.ToDateTime(reader("date_received")).ToString("MMMM dd, yyyy")}"))
-                        doc.Add(New Paragraph(Environment.NewLine))
+                        doc.Add(New Paragraph($"Sold To: {reader("full_name")}", subFont))
+                        doc.Add(New Paragraph($"Contact: {reader("contact_number")}", subFont))
+                        doc.Add(New Paragraph($"Delivery Address: {reader("delivery_address")}", subFont))
+                        doc.Add(New Paragraph($"Date Received: {Convert.ToDateTime(reader("date_received")).ToString("MMMM dd, yyyy")}", subFont))
+                        doc.Add(spacer)
                     End If
                 End Using
 
-                ' Table Setup
-                Dim table As New PdfPTable(4)
-                table.WidthPercentage = 100
-                table.SetWidths(New Single() {50, 15, 15, 20})
-                ' Optional: Light gray background for header
-                Dim headerBackground As New BaseColor(240, 240, 240) ' Light gray
-
-                Dim cell1 As New PdfPCell(New Phrase("Product", boldFont))
-                cell1.BackgroundColor = headerBackground
-                table.AddCell(cell1)
-
-                Dim cell2 As New PdfPCell(New Phrase("Qty", boldFont))
-                cell2.BackgroundColor = headerBackground
-                table.AddCell(cell2)
-
-                Dim cell3 As New PdfPCell(New Phrase("Price", boldFont))
-                cell3.BackgroundColor = headerBackground
-                table.AddCell(cell3)
-
-                Dim cell4 As New PdfPCell(New Phrase("Subtotal", boldFont))
-                cell4.BackgroundColor = headerBackground
-                table.AddCell(cell4)
-
-                doc.Add(spacer)
                 doc.Add(separator)
                 doc.Add(spacer)
 
+                ' Table
+                Dim table As New PdfPTable(4)
+                table.WidthPercentage = 100
+                table.SetWidths(New Single() {50, 15, 15, 20})
 
+                Dim headerColor As New BaseColor(240, 240, 240)
 
+                Dim headers = {"Product", "Qty", "Price", "Subtotal"}
+                For Each h In headers
+                    Dim cell As New PdfPCell(New Phrase(h, boldFont)) With {.BackgroundColor = headerColor}
+                    table.AddCell(cell)
+                Next
 
-
-                ' Order Items
+                ' Order items
                 Dim itemCmd As New MySqlCommand("
                 SELECT p.product_name, od.quantity, od.unit_price AS price
                 FROM order_details od
@@ -197,40 +199,42 @@ Public Class customerProfile
                         Dim subtotal = qty * price
                         grandTotal += subtotal
 
-                        table.AddCell(name)
-                        table.AddCell(qty.ToString())
-                        table.AddCell("₱" & price.ToString("N2"))
-                        table.AddCell("₱" & subtotal.ToString("N2"))
+                        table.AddCell(New PdfPCell(New Phrase(name)))
+                        table.AddCell(New PdfPCell(New Phrase(qty.ToString())))
+                        table.AddCell(New PdfPCell(New Phrase("₱" & price.ToString("N2"))))
+                        table.AddCell(New PdfPCell(New Phrase("₱" & subtotal.ToString("N2"))))
                     End While
                 End Using
 
                 doc.Add(table)
+                doc.Add(spacer)
+
+                doc.Add(separator)
+                doc.Add(spacer)
+
+                ' Total
+                Dim totalPara As New Paragraph($"GRAND TOTAL: ₱{grandTotal:N2}", bigBoldFont)
+                totalPara.Alignment = Element.ALIGN_RIGHT
+                doc.Add(totalPara)
 
                 doc.Add(spacer)
                 doc.Add(separator)
                 doc.Add(spacer)
 
-                doc.Add(New Paragraph($"Total: ₱{grandTotal:N2}", boldFont))
-
-
-                doc.Add(spacer)
-                doc.Add(separator)
-                doc.Add(spacer)
-
-                doc.Add(New Paragraph("Thank you for your purchase!", subFont))
+                doc.Add(New Paragraph("Thank you for shopping with Prestige Apparel!", subFont))
+                doc.Add(New Paragraph("This serves as your official receipt.", subFont))
             End Using
 
-            ' Close and clean up
+            ' Close and open PDF
             doc.Close()
             fs.Close()
 
-            ' ✅ Open the file after saving
             Process.Start(New ProcessStartInfo With {
             .FileName = savePath,
             .UseShellExecute = True
         })
 
-            MessageBox.Show("Receipt downloaded to your Downloads folder.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Receipt has been saved to your Desktop under 'Prestige Receipts'.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         Catch ex As Exception
             MessageBox.Show("Error generating PDF: " & ex.Message)
@@ -239,86 +243,6 @@ Public Class customerProfile
 
 
 
-
-
-    Private Sub DownloadReceipt(sender As Object, e As EventArgs)
-        Dim btn As Button = CType(sender, Button)
-        Dim orderId As Integer = CInt(btn.Tag)
-
-        Using conn As New MySqlConnection(connectionString)
-            conn.Open()
-
-            ' Get order and customer info
-            Dim cmd As New MySqlCommand("
-            SELECT o.order_id, o.date_ordered, o.date_received, u.username
-            FROM orders o
-            JOIN users u ON o.user_id = u.user_id
-            WHERE o.order_id = @oid", conn)
-            cmd.Parameters.AddWithValue("@oid", orderId)
-
-            Dim orderInfo = cmd.ExecuteReader()
-            If Not orderInfo.Read() Then Return
-
-            Dim username = orderInfo("username").ToString()
-            Dim dateOrdered = Convert.ToDateTime(orderInfo("date_ordered")).ToShortDateString()
-            Dim dateReceived = Convert.ToDateTime(orderInfo("date_received")).ToShortDateString()
-            orderInfo.Close()
-
-            ' Get order items
-            Dim itemsCmd As New MySqlCommand("
-            SELECT p.product_name, od.quantity, od.unit_price
-            FROM order_details od
-            JOIN products p ON od.product_id = p.product_id
-            WHERE od.order_id = @oid", conn)
-            itemsCmd.Parameters.AddWithValue("@oid", orderId)
-
-            Dim items = itemsCmd.ExecuteReader()
-
-            ' Generate PDF
-            Dim savePath = $"Receipt_Order_{orderId}.pdf"
-            Dim doc As New Document()
-            PdfWriter.GetInstance(doc, New FileStream(savePath, FileMode.Create))
-            doc.Open()
-
-            doc.Add(New Paragraph("SHOP NAME"))
-            doc.Add(New Paragraph("Official Receipt"))
-            doc.Add(New Paragraph("Order ID: " & orderId))
-            doc.Add(New Paragraph("Customer: " & username))
-            doc.Add(New Paragraph("Date Ordered: " & dateOrdered))
-            doc.Add(New Paragraph("Date Received: " & dateReceived))
-            doc.Add(New Paragraph(" "))
-            doc.Add(New Paragraph("Items:"))
-
-            Dim table As New PdfPTable(4)
-            table.AddCell("Product")
-            table.AddCell("Quantity")
-            table.AddCell("Unit Price")
-            table.AddCell("Subtotal")
-
-            Dim total As Decimal = 0
-            While items.Read()
-                Dim pname = items("product_name").ToString()
-                Dim qty = CInt(items("quantity"))
-                Dim price = CDec(items("unit_price"))
-                Dim subtotal = qty * price
-
-                table.AddCell(pname)
-                table.AddCell(qty.ToString())
-                table.AddCell(price.ToString("C"))
-                table.AddCell(subtotal.ToString("C"))
-
-                total += subtotal
-            End While
-            doc.Add(table)
-            doc.Add(New Paragraph(" "))
-            doc.Add(New Paragraph("Total: " & total.ToString("C")))
-            doc.Add(New Paragraph("Thank you for shopping!"))
-            doc.Close()
-            items.Close()
-        End Using
-
-        MessageBox.Show("Receipt downloaded.")
-    End Sub
 
 
 
