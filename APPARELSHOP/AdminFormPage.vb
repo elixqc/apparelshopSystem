@@ -107,8 +107,8 @@ Public Class AdminFormPage
                             Dim fullName As String = reader("product_name").ToString()
                             Dim categoryId As Integer = Convert.ToInt32(reader("category_id"))
 
-                            ' Perfume categories: 6 to 12
-                            If categoryId >= 6 AndAlso categoryId <= 12 Then
+                            ' Perfume categories: 7 to 8
+                            If categoryId >= 7 AndAlso categoryId <= 8 Then
                                 ' Perfumes: name is literal
                                 productNameTxt.Text = fullName
                                 ColorTxt.Text = reader("color").ToString()

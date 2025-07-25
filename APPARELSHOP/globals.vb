@@ -535,7 +535,7 @@ Module globals
         Try
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
-                Dim cmd As New MySqlCommand("SELECT DISTINCT product_name FROM products WHERE category_id NOT IN (7,8,9,10,11,12)", conn)
+                Dim cmd As New MySqlCommand("SELECT DISTINCT product_name FROM products WHERE category_id NOT IN (7,8)", conn)
                 Dim reader = cmd.ExecuteReader()
 
                 While reader.Read()
