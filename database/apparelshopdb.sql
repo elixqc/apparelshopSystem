@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 24, 2025 at 09:33 AM
+-- Generation Time: Jul 25, 2025 at 03:42 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -113,6 +113,36 @@ INSERT INTO `customers` (`customer_id`, `full_name`, `contact_number`, `address`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `notification_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `message` varchar(255) NOT NULL,
+  `is_read` tinyint(1) DEFAULT 0,
+  `date_created` datetime DEFAULT current_timestamp(),
+  `customer_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`notification_id`, `order_id`, `message`, `is_read`, `date_created`, `customer_id`) VALUES
+(2, 20, 'Your order #20 has been completed. Click to download your receipt.', 1, '2025-07-25 08:46:04', 5),
+(3, 21, 'Your order #21 has been completed. Click to download your receipt.', 1, '2025-07-25 08:54:39', 5),
+(4, 22, 'Your order #22 has been completed. Click to download your receipt.', 1, '2025-07-25 08:57:29', 5),
+(5, 23, 'Your order #23 has been completed. Click to download your receipt.', 1, '2025-07-25 08:59:06', 5),
+(6, 24, 'Your order #24 has been completed. Click to download your receipt.', 1, '2025-07-25 09:02:05', 5),
+(7, 25, 'Your order #25 has been completed. Click to download your receipt.', 1, '2025-07-25 09:03:36', 5),
+(8, 26, 'Your order #26 has been completed. Click to download your receipt.', 1, '2025-07-25 09:08:21', 5),
+(9, 27, 'Your order #27 has been completed. Click to download your receipt.', 1, '2025-07-25 09:10:15', 5),
+(10, 28, 'Your order #28 has been completed. Click to download your receipt.', 1, '2025-07-25 09:18:39', 5);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `orders`
 --
 
@@ -144,7 +174,20 @@ INSERT INTO `orders` (`order_id`, `customer_id`, `order_date`, `order_status`, `
 (12, 5, '2025-07-24 12:48:54', 'Cancelled', NULL, 'testing'),
 (13, 5, '2025-07-24 12:52:33', 'Completed', '2025-07-24 12:53:35', 'testing'),
 (14, 5, '2025-07-24 13:08:44', 'Completed', '2025-07-24 13:10:10', 'testing'),
-(15, 5, '2025-07-24 15:07:18', 'Completed', '2025-07-24 15:07:39', 'testing');
+(15, 5, '2025-07-24 15:07:18', 'Completed', '2025-07-24 15:07:39', 'testing'),
+(16, 5, '2025-07-24 15:44:23', 'Completed', '2025-07-24 15:45:03', 'testing'),
+(17, 5, '2025-07-25 08:22:23', 'Completed', '2025-07-25 08:33:02', 'testing'),
+(18, 5, '2025-07-25 08:37:06', 'Completed', '2025-07-25 08:37:23', 'testing'),
+(19, 5, '2025-07-25 08:40:22', 'Completed', '2025-07-25 08:40:40', 'testing'),
+(20, 5, '2025-07-25 08:45:01', 'Completed', '2025-07-25 08:46:04', 'testing'),
+(21, 5, '2025-07-25 08:54:23', 'Completed', '2025-07-25 08:54:39', 'testing'),
+(22, 5, '2025-07-25 08:57:13', 'Completed', '2025-07-25 08:57:29', 'testing'),
+(23, 5, '2025-07-25 08:58:51', 'Completed', '2025-07-25 08:59:06', 'testing'),
+(24, 5, '2025-07-25 09:01:50', 'Completed', '2025-07-25 09:02:05', 'testing'),
+(25, 5, '2025-07-25 09:03:20', 'Completed', '2025-07-25 09:03:36', 'testing'),
+(26, 5, '2025-07-25 09:08:01', 'Completed', '2025-07-25 09:08:21', 'testing'),
+(27, 5, '2025-07-25 09:10:01', 'Completed', '2025-07-25 09:10:15', 'testing'),
+(28, 5, '2025-07-25 09:18:20', 'Completed', '2025-07-25 09:18:39', 'testing');
 
 -- --------------------------------------------------------
 
@@ -193,7 +236,31 @@ INSERT INTO `order_details` (`order_detail_id`, `order_id`, `product_id`, `quant
 (26, 13, 86, 1, 1399.00),
 (27, 14, 87, 1, 1999.00),
 (28, 14, 91, 1, 1799.00),
-(29, 15, 106, 1, 999.00);
+(29, 15, 106, 1, 999.00),
+(30, 16, 20, 1, 599.00),
+(31, 16, 86, 1, 1399.00),
+(32, 17, 20, 1, 599.00),
+(33, 17, 32, 2, 499.00),
+(34, 17, 93, 1, 1999.00),
+(35, 18, 33, 1, 499.00),
+(36, 19, 1, 1, 599.00),
+(37, 20, 55, 1, 1099.00),
+(38, 21, 54, 1, 1099.00),
+(39, 21, 87, 1, 1999.00),
+(40, 22, 87, 1, 1999.00),
+(41, 23, 87, 1, 1999.00),
+(42, 24, 65, 1, 799.00),
+(43, 24, 100, 1, 2099.00),
+(44, 25, 87, 1, 1999.00),
+(45, 26, 86, 1, 1399.00),
+(46, 27, 96, 1, 1499.00),
+(47, 28, 20, 1, 599.00),
+(48, 28, 24, 1, 499.00),
+(49, 28, 61, 1, 799.00),
+(50, 28, 85, 1, 1399.00),
+(51, 28, 88, 1, 1999.00),
+(52, 28, 91, 1, 1799.00),
+(53, 28, 93, 1, 1999.00);
 
 -- --------------------------------------------------------
 
@@ -220,7 +287,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `supplier_id`, `size`, `price`, `stock_quantity`, `image_path`, `gender`, `brand_id`) VALUES
-(1, 'Sweatshirt - Yellow - s', 'yellow', 2, 1, 'S', 599.00, 10, 'images\\yellow_swsh.png', 'Unisex', 1),
+(1, 'Sweatshirt - Yellow - s', 'yellow', 2, 1, 'S', 599.00, 9, 'images\\yellow_swsh.png', 'Unisex', 1),
 (2, 'Sweatshirt - Yellow - m', 'yellow', 2, 1, 'M', 599.00, 10, 'images\\yellow_swsh.png', 'Unisex', 1),
 (3, 'Sweatshirt - Yellow - l', 'yellow', 2, 1, 'L', 599.00, 10, 'images\\yellow_swsh.png', 'Unisex', 1),
 (4, 'Sweatshirt - Yellow - xl', 'yellow', 2, 1, 'XL', 599.00, 4, 'images\\yellow_swsh.png', 'Unisex', 1),
@@ -239,11 +306,11 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (17, 'Sweatshirt - Black - s', 'black', 2, 1, 'S', 599.00, 10, 'images\\black_swsh.png', 'Unisex', 1),
 (18, 'Sweatshirt - Black - m', 'black', 2, 1, 'M', 599.00, 10, 'images\\black_swsh.png', 'Unisex', 1),
 (19, 'Sweatshirt - Black - l', 'black', 2, 1, 'L', 599.00, 8, 'images\\black_swsh.png', 'Unisex', 1),
-(20, 'Sweatshirt - Black - xl', 'black', 2, 1, 'XL', 599.00, 10, 'images\\black_swsh.png', 'Unisex', 1),
+(20, 'Sweatshirt - Black - xl', 'black', 2, 1, 'XL', 599.00, 7, 'images\\black_swsh.png', 'Unisex', 1),
 (21, 'T-shirt - White - s', 'white', 1, 3, 'S', 499.00, 10, 'images\\white_shirt1.png', 'Unisex', 2),
 (22, 'T-shirt - White - m', 'white', 1, 3, 'M', 499.00, 0, 'images\\white_shirt1.png', 'Unisex', 2),
 (23, 'T-shirt - White - l', 'white', 1, 3, 'L', 499.00, 10, 'images\\white_shirt1.png', 'Unisex', 2),
-(24, 'T-shirt - White - xl', 'white', 1, 3, 'XL', 499.00, 8, 'images\\white_shirt1.png', 'Unisex', 2),
+(24, 'T-shirt - White - xl', 'white', 1, 3, 'XL', 499.00, 7, 'images\\white_shirt1.png', 'Unisex', 2),
 (25, 'T-shirt - Green - xl', 'green', 1, 3, 'XL', 499.00, 10, 'images\\green_shirt1.png', 'Unisex', 2),
 (26, 'T-shirt - Green - l', 'green', 1, 3, 'L', 499.00, 10, 'images\\green_shirt1.png', 'Unisex', 2),
 (27, 'T-shirt - Green - m', 'green', 1, 3, 'M', 499.00, 10, 'images\\green_shirt1.png', 'Unisex', 2),
@@ -251,8 +318,8 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (29, 'T-shirt - Brown - s', 'brown', 1, 3, 'S', 499.00, 10, 'images\\brown_shirt1.png', 'Unisex', 2),
 (30, 'T-shirt - Brown - m', 'brown', 1, 3, 'M', 499.00, 10, 'images\\brown_shirt1.png', 'Unisex', 2),
 (31, 'T-shirt - Brown - l', 'brown', 1, 3, 'L', 499.00, 10, 'images\\brown_shirt1.png', 'Unisex', 2),
-(32, 'T-shirt - Brown - xl', 'brown', 1, 3, 'XL', 499.00, 10, 'images\\brown_shirt1.png', 'Unisex', 2),
-(33, 'T-shirt - Blue - xl', 'blue', 1, 3, 'XL', 499.00, 10, 'images\\blue_shirt1.png', 'Unisex', 2),
+(32, 'T-shirt - Brown - xl', 'brown', 1, 3, 'XL', 499.00, 8, 'images\\brown_shirt1.png', 'Unisex', 2),
+(33, 'T-shirt - Blue - xl', 'blue', 1, 3, 'XL', 499.00, 9, 'images\\blue_shirt1.png', 'Unisex', 2),
 (34, 'T-shirt - Blue - l', 'blue', 1, 3, 'L', 499.00, 10, 'images\\blue_shirt1.png', 'Unisex', 2),
 (35, 'T-shirt - Blue - m', 'blue', 1, 3, 'M', 499.00, 10, 'images\\blue_shirt1.png', 'Unisex', 2),
 (36, 'T-shirt - Blue - s', 'blue', 1, 3, 'S', 499.00, 10, 'images\\blue_shirt1.png', 'Unisex', 2),
@@ -273,35 +340,35 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (51, 'Hoodie - Pink - s', 'pink', 4, 2, 'S', 1099.00, 10, 'images\\pink_hoodie.png', 'Unisex', 3),
 (52, 'Hoodie - Blue - s', 'blue', 4, 2, 'S', 1099.00, 10, 'images\\blue_hoodie.png', 'Unisex', 3),
 (53, 'Hoodie - Blue - m', 'blue', 4, 2, 'M', 1099.00, 10, 'images\\blue_hoodie.png', 'Unisex', 3),
-(54, 'Hoodie - Blue - l', 'blue', 4, 2, 'L', 1099.00, 10, 'images\\blue_hoodie.png', 'Unisex', 3),
-(55, 'Hoodie - Blue - xl', 'blue', 4, 2, 'XL', 1099.00, 10, 'images\\blue_hoodie.png', 'Unisex', 3),
+(54, 'Hoodie - Blue - l', 'blue', 4, 2, 'L', 1099.00, 9, 'images\\blue_hoodie.png', 'Unisex', 3),
+(55, 'Hoodie - Blue - xl', 'blue', 4, 2, 'XL', 1099.00, 9, 'images\\blue_hoodie.png', 'Unisex', 3),
 (56, 'Hoodie - Blue - xxl', 'blue', 4, 2, 'XXL', 1099.00, 10, 'images\\blue_hoodie.png', 'Unisex', 3),
 (57, 'Sweatpants - White - s', 'white', 3, 1, 'S', 799.00, 10, 'images\\white_sweatpants.png', 'Unisex', 1),
 (58, 'Sweatpants - White - m', 'white', 3, 1, 'M', 799.00, 10, 'images\\white_sweatpants.png', 'Unisex', 1),
 (59, 'Sweatpants - White - l', 'white', 3, 1, 'L', 799.00, 10, 'images\\white_sweatpants.png', 'Unisex', 1),
 (60, 'Sweatpants - White - xl', 'white', 3, 1, 'XL', 799.00, -8, 'images\\white_sweatpants.png', 'Unisex', 1),
-(61, 'Sweatpants - Black - xl', 'black', 3, 1, 'XL', 799.00, 10, 'images\\black_Sweatpants.png', 'Unisex', 1),
+(61, 'Sweatpants - Black - xl', 'black', 3, 1, 'XL', 799.00, 9, 'images\\black_Sweatpants.png', 'Unisex', 1),
 (62, 'Sweatpants - Black - l', 'black', 3, 1, 'L', 799.00, 10, 'images\\black_Sweatpants.png', 'Unisex', 1),
 (63, 'Sweatpants - Black - m', 'black', 3, 1, 'M', 799.00, 10, 'images\\black_Sweatpants.png', 'Unisex', 1),
 (64, 'Sweatpants - Black - s', 'black', 3, 1, 'S', 799.00, 10, 'images\\black_Sweatpants.png', 'Unisex', 1),
-(65, 'Sweatpants - Gray - s', 'gray', 3, 1, 'S', 799.00, 10, 'images\\gray_Sweatpants.png', 'Unisex', 1),
+(65, 'Sweatpants - Gray - s', 'gray', 3, 1, 'S', 799.00, 9, 'images\\gray_Sweatpants.png', 'Unisex', 1),
 (66, 'Sweatpants - Gray - m', 'gray', 3, 1, 'M', 799.00, 10, 'images\\gray_Sweatpants.png', 'Unisex', 1),
 (67, 'Sweatpants - Gray - l', 'gray', 3, 1, 'L', 799.00, 10, 'images\\gray_Sweatpants.png', 'Unisex', 1),
-(85, 'dream EDP', NULL, 7, 4, NULL, 1399.00, 9, 'images\\dreamFinal.jpg', 'Male', NULL),
-(86, 'love spell EDP', NULL, 7, 4, NULL, 1399.00, 9, 'images\\Lovespell.jpg', 'Female', NULL),
-(87, 'origin EDP', NULL, 7, 5, NULL, 1999.00, 6, 'images\\originFinal.jpg', 'Male', NULL),
-(88, 'origin EDT', NULL, 8, 5, NULL, 1999.00, 10, 'images\\originFinal.jpg', 'Male', NULL),
+(85, 'dream EDP', NULL, 7, 4, NULL, 1399.00, 8, 'images\\dreamFinal.jpg', 'Male', NULL),
+(86, 'love spell EDP', NULL, 7, 4, NULL, 1399.00, 7, 'images\\Lovespell.jpg', 'Female', NULL),
+(87, 'origin EDP', NULL, 7, 5, NULL, 1999.00, 2, 'images\\originFinal.jpg', 'Male', NULL),
+(88, 'origin EDT', NULL, 8, 5, NULL, 1999.00, 9, 'images\\originFinal.jpg', 'Male', NULL),
 (90, 'dream EDT', NULL, 8, 4, NULL, 1899.00, 10, '', 'Male', NULL),
-(91, 'Linfinite EDP', NULL, 7, 4, NULL, 1799.00, 8, 'images\\Linfinity.jpg', 'Male', NULL),
+(91, 'Linfinite EDP', NULL, 7, 4, NULL, 1799.00, 7, 'images\\Linfinity.jpg', 'Male', NULL),
 (92, 'Linfinite EDT', NULL, 8, 4, NULL, 1799.00, 9, 'images\\Linfinity.jpg', 'Male', NULL),
-(93, 'Pacific Aura EDP', NULL, 7, 5, NULL, 1999.00, 10, 'images\\Aura.jpg', 'Male', NULL),
+(93, 'Pacific Aura EDP', NULL, 7, 5, NULL, 1999.00, 8, 'images\\Aura.jpg', 'Male', NULL),
 (94, 'Pacific Aura EDT', NULL, 8, 5, NULL, 1999.00, 7, 'images\\Aura.jpg', 'Male', NULL),
 (95, 'love spell EDT', NULL, 8, 5, NULL, 1399.00, 10, 'images\\Lovespell.jpg', 'Female', NULL),
-(96, 'Afternoon Vibe EDP', NULL, 7, 6, NULL, 1499.00, 8, 'images\\AfternoonVibe.jpg', 'Female', NULL),
+(96, 'Afternoon Vibe EDP', NULL, 7, 6, NULL, 1499.00, 7, 'images\\AfternoonVibe.jpg', 'Female', NULL),
 (97, 'Afternoon Vibe EDT', NULL, 8, 6, NULL, 1499.00, 10, 'images\\AfternoonVibe.jpg', 'Female', NULL),
 (98, 'coeur de rose EDP', NULL, 7, 6, NULL, 2099.00, 9, 'images\\CoeurDeRose.jpg', 'Female', NULL),
 (99, 'coeur de rose EDT', NULL, 8, 6, NULL, 2099.00, 10, 'images\\CoeurDeRose.jpg', 'Female', NULL),
-(100, 'sun set EDP', NULL, 7, 6, NULL, 2099.00, 10, 'images\\Sunset.jpg', 'Female', NULL),
+(100, 'sun set EDP', NULL, 7, 6, NULL, 2099.00, 9, 'images\\Sunset.jpg', 'Female', NULL),
 (101, 'sun set EDT', NULL, 8, 6, NULL, 2099.00, 10, 'images\\Sunset.jpg', 'Female', NULL),
 (102, 'Knittedpolo - Blue - s', 'blue', 1, 1, 'S', 999.00, 10, 'images\\blue_polo.png', 'Unisex', 1),
 (103, 'Knittedpolo - Blue - m', 'blue', 1, 1, 'M', 999.00, 10, 'images\\blue_polo.png', 'Unisex', 1),
@@ -513,6 +580,14 @@ ALTER TABLE `customers`
   ADD UNIQUE KEY `email` (`email`);
 
 --
+-- Indexes for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`notification_id`),
+  ADD KEY `order_id` (`order_id`),
+  ADD KEY `fk_customer` (`customer_id`);
+
+--
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
@@ -579,16 +654,22 @@ ALTER TABLE `customers`
   MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `notifications`
+--
+ALTER TABLE `notifications`
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -630,6 +711,13 @@ ALTER TABLE `brands`
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD CONSTRAINT `fk_customer` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `notifications_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `orders`
