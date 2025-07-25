@@ -27,6 +27,8 @@ Module globals
         Public Property Quantity As Integer
         Public Property ImagePath As String
         Public Property Price As Decimal ' 👈 Added Price
+        Public Property MaxStock As Integer
+
     End Class
 
     Public Function GetFemalePerfumeTypes() As List(Of String)
@@ -561,7 +563,8 @@ Module globals
     End Function
     ' ' Function to create a cart item panel
 
-    Public Sub CreateCartItemPanel(productID As Integer, productName As String, size As String, color As String, brand As String, quantity As Integer, imagePath As String, price As Decimal, container As FlowLayoutPanel, newCartForm As newCart)
+    Public Sub CreateCartItemPanel(productID As Integer, productName As String, size As String, color As String, brand As String, quantity As Integer, imagePath As String, price As Decimal, maxStock As Integer, container As FlowLayoutPanel, newCartForm As newCart)
+
 
 
         Dim panel As New Panel With {
@@ -678,16 +681,14 @@ Module globals
         .Location = New Point(443, 114)
     }
         AddHandler plusBtn.Click, Sub()
-                                      quantity += 1
-                                      qtyLabel.Text = quantity.ToString()
-                                      Debug.WriteLine("Qty: " & quantity & " | Price: " & price)
-
-                                      newCartForm.UpdateSubtotalLabel(container) ' container = CartPanel
-
-
-                                      ' 🔄 Update in database
-                                      UpdateCartQuantity(loggedInUserID, productID, size, quantity)
-
+                                      If quantity < maxStock Then
+                                          quantity += 1
+                                          qtyLabel.Text = quantity.ToString()
+                                          newCartForm.UpdateSubtotalLabel(container)
+                                          UpdateCartQuantity(loggedInUserID, productID, size, quantity)
+                                      Else
+                                          MessageBox.Show("You've reached the maximum available stock for this item.")
+                                      End If
                                   End Sub
         panel.Controls.Add(plusBtn)
 
@@ -706,20 +707,22 @@ Module globals
         Dim cartItems As New List(Of CartItem)()
 
         Dim query As String = "
-    SELECT 
-        c.product_id,
-        p.product_name,
-        p.color,
-        COALESCE(b.brand_name, 'Unknown') AS brand_name,
-        c.size,
-        c.quantity,
-        p.image_path,
-        p.price
-    FROM cart c
-    INNER JOIN products p ON c.product_id = p.product_id
-    LEFT JOIN brands b ON p.brand_id = b.brand_id
-    WHERE c.customer_id = @custID
-    "
+            SELECT 
+                c.product_id,
+                p.product_name,
+                p.color,
+                COALESCE(b.brand_name, 'Unknown') AS brand_name,
+                c.size,
+                c.quantity,
+                p.image_path,
+                p.price,
+                p.stock_quantity AS max_stock
+            FROM cart c
+            INNER JOIN products p ON c.product_id = p.product_id
+            LEFT JOIN brands b ON p.brand_id = b.brand_id
+            WHERE c.customer_id = @custID
+            "
+
 
         Try
             Using conn As New MySqlConnection("server=localhost;userid=root;password=;database=apparelshopdb")
@@ -738,7 +741,8 @@ Module globals
                             .Size = If(reader("size") Is DBNull.Value, "", reader("size").ToString()),
                             .Quantity = Convert.ToInt32(reader("quantity")),
                             .ImagePath = reader("image_path").ToString(),
-                            .Price = Convert.ToDecimal(reader("price")) ' 👈 Assign price
+                            .Price = Convert.ToDecimal(reader("price")), ' 👈 Assign price
+                            .MaxStock = Convert.ToInt32(reader("max_stock"))
                         }
 
                             cartItems.Add(item)

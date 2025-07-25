@@ -210,7 +210,7 @@ Partial Class customerProfile
         Me.FlowLayoutPanel2.BackColor = System.Drawing.Color.Lavender
         Me.FlowLayoutPanel2.Location = New System.Drawing.Point(12, 286)
         Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
-        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(488, 262)
+        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(480, 262)
         Me.FlowLayoutPanel2.TabIndex = 5
         '
         'Label5

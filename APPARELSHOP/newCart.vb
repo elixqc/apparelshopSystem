@@ -69,7 +69,8 @@ Public Class newCart
 
         Dim subtotal As Decimal = 0D
         For Each item In cartItems
-            CreateCartItemPanel(item.ProductID, item.Name, item.Size, item.Color, item.Brand, item.Quantity, item.ImagePath, item.Price, CartPanel, Me)
+            CreateCartItemPanel(item.ProductID, item.Name, item.Size, item.Color, item.Brand, item.Quantity, item.ImagePath, item.Price, item.MaxStock, CartPanel, Me)
+
 
             ' Get price for each item
             Using conn As New MySqlConnection(connectionString)
