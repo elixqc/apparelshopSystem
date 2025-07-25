@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2025 at 03:42 AM
+-- Generation Time: Jul 25, 2025 at 08:39 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -134,7 +134,10 @@ INSERT INTO `notifications` (`notification_id`, `order_id`, `message`, `is_read`
 (7, 25, 'Your order #25 has been completed. Click to download your receipt.', 1, '2025-07-25 09:03:36', 5),
 (8, 26, 'Your order #26 has been completed. Click to download your receipt.', 1, '2025-07-25 09:08:21', 5),
 (9, 27, 'Your order #27 has been completed. Click to download your receipt.', 1, '2025-07-25 09:10:15', 5),
-(10, 28, 'Your order #28 has been completed. Click to download your receipt.', 1, '2025-07-25 09:18:39', 5);
+(10, 28, 'Your order #28 has been completed. Click to download your receipt.', 1, '2025-07-25 09:18:39', 5),
+(11, 29, 'Your order #29 has been completed. Click to download your receipt.', 1, '2025-07-25 14:06:57', 5),
+(12, 30, 'Your order #30 has been completed. Click to download your receipt.', 1, '2025-07-25 14:07:00', 5),
+(13, 31, 'Your order #31 has been completed. Click to download your receipt.', 1, '2025-07-25 14:31:36', 5);
 
 -- --------------------------------------------------------
 
@@ -183,7 +186,10 @@ INSERT INTO `orders` (`order_id`, `customer_id`, `order_date`, `order_status`, `
 (25, 5, '2025-07-25 09:03:20', 'Completed', '2025-07-25 09:03:36', 'testing'),
 (26, 5, '2025-07-25 09:08:01', 'Completed', '2025-07-25 09:08:21', 'testing'),
 (27, 5, '2025-07-25 09:10:01', 'Completed', '2025-07-25 09:10:15', 'testing'),
-(28, 5, '2025-07-25 09:18:20', 'Completed', '2025-07-25 09:18:39', 'testing');
+(28, 5, '2025-07-25 09:18:20', 'Completed', '2025-07-25 09:18:39', 'testing'),
+(29, 5, '2025-07-25 14:03:40', 'Completed', '2025-07-25 14:06:57', 'testing'),
+(30, 5, '2025-07-25 14:04:14', 'Completed', '2025-07-25 14:07:00', 'testing'),
+(31, 5, '2025-07-25 14:31:18', 'Completed', '2025-07-25 14:31:36', 'testing');
 
 -- --------------------------------------------------------
 
@@ -256,7 +262,11 @@ INSERT INTO `order_details` (`order_detail_id`, `order_id`, `product_id`, `quant
 (50, 28, 85, 1, 1399.00),
 (51, 28, 88, 1, 1999.00),
 (52, 28, 91, 1, 1799.00),
-(53, 28, 93, 1, 1999.00);
+(53, 28, 93, 1, 1999.00),
+(54, 29, 90, 1, 1899.00),
+(55, 30, 20, 1, 599.00),
+(56, 30, 86, 1, 1399.00),
+(57, 31, 20, 1, 599.00);
 
 -- --------------------------------------------------------
 
@@ -302,7 +312,7 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (17, 'Sweatshirt - Black - s', 'black', 2, 1, 'S', 599.00, 10, 'images\\black_swsh.png', 'Unisex', 1),
 (18, 'Sweatshirt - Black - m', 'black', 2, 1, 'M', 599.00, 10, 'images\\black_swsh.png', 'Unisex', 1),
 (19, 'Sweatshirt - Black - l', 'black', 2, 1, 'L', 599.00, 8, 'images\\black_swsh.png', 'Unisex', 1),
-(20, 'Sweatshirt - Black - xl', 'black', 2, 1, 'XL', 599.00, 7, 'images\\black_swsh.png', 'Unisex', 1),
+(20, 'Sweatshirt - Black - xl', 'black', 2, 1, 'XL', 599.00, 5, 'images\\black_swsh.png', 'Unisex', 1),
 (21, 'T-shirt - White - s', 'white', 1, 3, 'S', 499.00, 10, 'images\\white_shirt1.png', 'Unisex', 2),
 (22, 'T-shirt - White - m', 'white', 1, 3, 'M', 499.00, 0, 'images\\white_shirt1.png', 'Unisex', 2),
 (23, 'T-shirt - White - l', 'white', 1, 3, 'L', 499.00, 10, 'images\\white_shirt1.png', 'Unisex', 2),
@@ -351,10 +361,10 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (66, 'Sweatpants - Gray - m', 'gray', 3, 1, 'M', 799.00, 10, 'images\\gray_Sweatpants.png', 'Unisex', 1),
 (67, 'Sweatpants - Gray - l', 'gray', 3, 1, 'L', 799.00, 10, 'images\\gray_Sweatpants.png', 'Unisex', 1),
 (85, 'dream EDP', NULL, 7, 4, NULL, 1399.00, 8, 'images\\dreamFinal.jpg', 'Male', NULL),
-(86, 'love spell EDP', NULL, 7, 4, NULL, 1399.00, 7, 'images\\Lovespell.jpg', 'Female', NULL),
+(86, 'love spell EDP', NULL, 7, 4, NULL, 1399.00, 6, 'images\\Lovespell.jpg', 'Female', NULL),
 (87, 'origin EDP', NULL, 7, 5, NULL, 1999.00, 2, 'images\\originFinal.jpg', 'Male', NULL),
 (88, 'origin EDT', NULL, 8, 5, NULL, 1999.00, 9, 'images\\originFinal.jpg', 'Male', NULL),
-(90, 'dream EDT', NULL, 8, 4, NULL, 1899.00, 10, '', 'Male', NULL),
+(90, 'dream EDT', NULL, 8, 4, NULL, 1899.00, 9, 'imagesdreamFinal.jpg', 'Male', NULL),
 (91, 'Linfinite EDP', NULL, 7, 4, NULL, 1799.00, 7, 'images\\Linfinity.jpg', 'Male', NULL),
 (92, 'Linfinite EDT', NULL, 8, 4, NULL, 1799.00, 9, 'images\\Linfinity.jpg', 'Male', NULL),
 (93, 'Pacific Aura EDP', NULL, 7, 5, NULL, 1999.00, 8, 'images\\Aura.jpg', 'Male', NULL),
@@ -653,19 +663,19 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `products`
