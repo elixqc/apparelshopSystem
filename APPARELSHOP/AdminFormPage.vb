@@ -561,6 +561,22 @@ Public Class AdminFormPage
                 End If
 
                 transaction.Commit()
+
+                ' Insert a notification to the customer if status is Completed
+                If newStatus = "Completed" Then
+                    Dim insertNotifCmd As New MySqlCommand("
+                        INSERT INTO notifications (customer_id, order_id, message)
+                        SELECT o.customer_id, o.order_id, CONCAT('Your order #', o.order_id, ' has been completed. Click to download your receipt.')
+                        FROM orders o
+                        WHERE o.order_id = @oid", conn)
+
+                    insertNotifCmd.Parameters.AddWithValue("@oid", selectedOrderId)
+                    insertNotifCmd.ExecuteNonQuery()
+                End If
+
+
+
+
             End Using
 
             MessageBox.Show("Order status updated.")
