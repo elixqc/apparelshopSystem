@@ -245,7 +245,8 @@ Public Class AdminFormPage
     Private Sub btnUpload_Click(sender As Object, e As EventArgs) Handles addProductBtn.Click
         ' --- Step 1: Get Category ID ---
         Dim categoryId As Integer = GetId("SELECT category_id FROM categories WHERE category_name = @name", CategoryLists.SelectedItem?.ToString())
-        Dim isPerfume As Boolean = (categoryId >= 6 AndAlso categoryId <= 12)
+        Dim isPerfume As Boolean = (categoryId >= 7 AndAlso categoryId <= 8)  ' Check if selected category is a perfume type
+
 
         ' --- Step 2: Validate Required Fields ---
         If String.IsNullOrWhiteSpace(productNameTxt.Text) OrElse
@@ -265,8 +266,9 @@ Public Class AdminFormPage
         Dim formattedSize As String = If(rawSize.Length > 0, rawSize.ToLower(), "")
 
         Dim categorySelected As String = CategoryLists.SelectedItem?.ToString()?.ToLower()
-        MessageBox.Show("Selected category: " & categorySelected) ' <-- For debugging
+        MessageBox.Show("Selected category: " & categorySelected) ' For debugging
 
+        ' Determine suffix based on perfume type (e.g., EDP or EDT)
         Dim suffix As String = ""
 
         If isPerfume AndAlso Not String.IsNullOrWhiteSpace(categorySelected) Then
@@ -276,7 +278,7 @@ Public Class AdminFormPage
                 suffix = " EDT"
             End If
         End If
-
+        '  final product name for database
         Dim productNameForDb As String = If(isPerfume, rawName & suffix, $"{formattedName} - {formattedColor} - {formattedSize}")
 
 
@@ -305,7 +307,7 @@ Public Class AdminFormPage
                 MessageBox.Show("No file selected or file does not exist.")
                 Return
             End If
-            imagePathForDb = SaveImageToPath(selectedFilePath)
+            imagePathForDb = SaveImageToPath(selectedFilePath) ' Save image and get relative path
         End If
 
         ' --- Step 8: Perform Insert or Update ---
@@ -379,11 +381,11 @@ Public Class AdminFormPage
                     ' --- All successful: Commit ---
                     transaction.Commit()
 
-                    LoadProductsToGrid()
+                    LoadProductsToGrid() ' Refresh product display
                     MessageBox.Show(If(isUpdate, "Product updated successfully!", "Product added successfully!"))
 
                 Catch exInner As Exception
-                    transaction.Rollback()
+                    transaction.Rollback() ' Roll back if error occurs
                     MessageBox.Show("Error saving product: " & exInner.Message)
                 End Try
             End Using
