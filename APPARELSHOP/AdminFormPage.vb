@@ -6,24 +6,35 @@ Imports System.Drawing
 Public Class AdminFormPage
     Public Property PendingUploadFilePath As String
     Dim selectedOrderId As Integer = -1
-    Dim conn As New MySqlConnection("server=localhost;userid=root;password=;database=apparelshopdb")
+    Dim conn As New MySqlConnection(connectionString)
 
     'get total income and products sold
     Private Sub LoadTotalIncomeAndProductsSold()
         Dim totalIncome As Decimal = 0D
         Dim totalProductsSold As Integer = 0
         Dim totalProfit As Decimal = 0D
-        Dim conn As New MySqlConnection("server=localhost;userid=root;password=;database=apparelshopdb")
+        Dim conn As New MySqlConnection(connectionString)
 
         Try
             conn.Open()
+
+            'fetch total products sold, income, and profit from completed orders
             Dim cmd As New MySqlCommand("
-            SELECT od.quantity, od.unit_price, sl.supplier_price
+            SELECT 
+                od.quantity, 
+                od.unit_price, 
+                (
+                    SELECT sl.supplier_price
+                    FROM supply_logs sl
+                    WHERE sl.product_id = p.product_id
+                    ORDER BY sl.supply_date DESC
+                    LIMIT 1
+                ) AS supplier_price
             FROM orders o
-            INNER JOIN order_details od ON o.order_id = od.order_id
-            INNER JOIN products p ON od.product_id = p.product_id
-            LEFT JOIN supply_logs sl ON p.product_id = sl.product_id
-            WHERE o.order_status = 'Completed'", conn)
+            JOIN order_details od ON o.order_id = od.order_id
+            JOIN products p ON od.product_id = p.product_id
+            WHERE o.order_status = 'Completed'
+            ", conn)
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
@@ -50,7 +61,7 @@ Public Class AdminFormPage
 
 
 
-    '    ' Load customer orders into DataGridView
+    'fetch customer orders and load into DataGridView
     Public Sub LoadCustomerOrdersToGrid()
         Dim query As String = "
         SELECT 
@@ -84,7 +95,7 @@ Public Class AdminFormPage
     End Sub
 
 
-    ' ' Load product details into text fields based on selected product_id
+    'fetch product details by product_id and load into textboxes
     Private Sub LoadProductDetails(productId As Integer)
         Dim query As String = "
         SELECT 
@@ -148,7 +159,7 @@ Public Class AdminFormPage
         End Try
     End Sub
 
-    ' ' Load products into DataGridView
+    'fetch products and load into DataGridView
     Public Sub LoadProductsToGrid()
         Dim query As String = "
             SELECT 
@@ -178,7 +189,7 @@ Public Class AdminFormPage
         End Try
     End Sub
 
-    ' ' Load categories, suppliers, and brands into respective ComboBoxes
+    'fetch categories and load into ComboBox
 
     Private Sub LoadCategories()
         CategoryLists.Items.Clear()
@@ -197,7 +208,7 @@ Public Class AdminFormPage
             MessageBox.Show("Error loading categories: " & ex.Message)
         End Try
     End Sub
-    ' ' Load suppliers into ComboBox
+    ' ' Fetch suppliers into ComboBox
     Private Sub LoadSuppliers()
         SupplierLists.Items.Clear()
         Try
@@ -214,7 +225,7 @@ Public Class AdminFormPage
             MessageBox.Show("Error loading suppliers: " & ex.Message)
         End Try
     End Sub
-    ' ' Load brands into ComboBox
+    ' ' Fetch brands into ComboBox
     Private Sub LoadBrands()
         brandTxt.Items.Clear()
         Try
@@ -470,7 +481,7 @@ Public Class AdminFormPage
         LoadCustomerOrdersToGrid()
         LoadTotalIncomeAndProductsSold()
     End Sub
-    ' ' Handle DataGridView cell click to load product details
+    ' ' Handle DataGridView cell click to fetch product details
     Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
 
         ' Prevent error if user clicks header or empty row
@@ -647,13 +658,24 @@ Public Class AdminFormPage
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
                 Dim query As String = "
-                SELECT od.quantity, p.price, sl.supplier_price
+                SELECT 
+                    od.quantity, 
+                    od.unit_price, 
+                    sl_latest.supplier_price
                 FROM orders o
                 JOIN order_details od ON o.order_id = od.order_id
                 JOIN products p ON od.product_id = p.product_id
-                LEFT JOIN supply_logs sl ON p.product_id = sl.product_id
+                LEFT JOIN (
+                    SELECT sl.product_id, sl.supplier_price
+                    FROM supply_logs sl
+                    WHERE sl.supply_date = (
+                        SELECT MAX(supply_date)
+                        FROM supply_logs
+                        WHERE product_id = sl.product_id
+                    )
+                ) sl_latest ON p.product_id = sl_latest.product_id
                 WHERE o.order_status = 'Completed'
-                AND o.order_date BETWEEN @start AND @end
+                  AND DATE(o.order_date) BETWEEN @start AND @end
             "
 
                 Using cmd As New MySqlCommand(query, conn)
@@ -662,9 +684,9 @@ Public Class AdminFormPage
 
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         While reader.Read()
-                            Dim qty = Convert.ToInt32(reader("quantity"))
-                            Dim sellPrice = Convert.ToDecimal(reader("price"))
-                            Dim supplierPrice = If(IsDBNull(reader("supplier_price")), 0, Convert.ToDecimal(reader("supplier_price")))
+                            Dim qty As Integer = Convert.ToInt32(reader("quantity"))
+                            Dim sellPrice As Decimal = Convert.ToDecimal(reader("unit_price"))
+                            Dim supplierPrice As Decimal = If(IsDBNull(reader("supplier_price")), 0D, Convert.ToDecimal(reader("supplier_price")))
 
                             incomeRange += qty * sellPrice
                             profitRange += qty * (sellPrice - supplierPrice)
@@ -675,16 +697,16 @@ Public Class AdminFormPage
             End Using
 
             lblResult.Text = "Result:" & vbCrLf &
-                             "Products Sold: " & totalProductsSold.ToString() & vbCrLf &
-                             "Income: ₱" & incomeRange.ToString("N2") & vbCrLf &
-                             "Profit: ₱" & profitRange.ToString("N2") & vbCrLf &
-                             "From " & startDate.ToShortDateString() & " to " & endDate.ToShortDateString()
+                         "Products Sold: " & totalProductsSold.ToString() & vbCrLf &
+                         "Income: ₱" & incomeRange.ToString("N2") & vbCrLf &
+                         "Profit: ₱" & profitRange.ToString("N2") & vbCrLf &
+                         "From " & startDate.ToShortDateString() & " to " & endDate.ToShortDateString()
         Catch ex As Exception
             MessageBox.Show("Error calculating: " & ex.Message)
         End Try
-
     End Sub
 
+    'create new admin user
     Private Sub createBtn_Click(sender As Object, e As EventArgs) Handles createBtn.Click
         Dim username As String = usernameTxt.Text.Trim()
         Dim password As String = passwordTxt.Text.Trim()
@@ -745,7 +767,7 @@ Public Class AdminFormPage
         .MaximizeBox = False,
         .MinimizeBox = False
     }
-
+        'show qr code existing
         Dim picQRPreview As New PictureBox With {
         .Size = New Size(300, 300),
         .Location = New Point(30, 20),
@@ -761,7 +783,7 @@ Public Class AdminFormPage
         .ForeColor = Color.White
     }
 
-        ' Load existing QR if available
+        'fetch existing QR
         Dim qrPath As String = Path.Combine(Application.StartupPath, "Images", "qr.png")
         If File.Exists(qrPath) Then
             Using tempImg As Image = Image.FromFile(qrPath)

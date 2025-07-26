@@ -18,6 +18,7 @@ Module globals
     Public selectedFilePath As String = ""
     Public imagePathForDb As String = ""
 
+    'FETCH products table transfer into frontend table
     Public Class CartItem
         Public Property ProductID As Integer
         Public Property Name As String
@@ -528,7 +529,7 @@ Module globals
 
 
     End Sub
-    ' ' Function to get all product types (apparel)
+    ' ' Function to FETCH all product types (apparel)
     Public Function GetAllProductTypes() As List(Of String)
         Dim types As New HashSet(Of String)
 
@@ -565,120 +566,118 @@ Module globals
 
     Public Sub CreateCartItemPanel(productID As Integer, productName As String, size As String, color As String, brand As String, quantity As Integer, imagePath As String, price As Decimal, maxStock As Integer, container As FlowLayoutPanel, newCartForm As newCart)
 
-
-
         Dim panel As New Panel With {
         .Width = 471,
         .Height = 165,
-        .BorderStyle = BorderStyle.FixedSingle
+        .BackColor = System.Drawing.Color.FromArgb(245, 245, 245),
+        .BorderStyle = BorderStyle.FixedSingle,
+        .Margin = New Padding(5)
     }
 
         ' Brand label
         Dim brandLabel As New Label With {
-        .Text = brand.ToLower(),
-        .Font = New Font("Microsoft Sans Serif", 9, FontStyle.Bold),
+        .Text = brand,
+        .Font = New Font("Segoe UI", 9, FontStyle.Bold),
+        .ForeColor = System.Drawing.Color.Gray,
         .AutoSize = True,
-        .Location = New Point(4, 3)
+        .Location = New Point(10, 5)
     }
         panel.Controls.Add(brandLabel)
 
         ' Product Image
         Dim productImage As New PictureBox With {
-        .Size = New Size(120, 120),
-        .SizeMode = PictureBoxSizeMode.StretchImage,
-        .Location = New Point(19, 30)
+        .Size = New Size(110, 110),
+        .SizeMode = PictureBoxSizeMode.Zoom,
+        .Location = New Point(20, 35),
+        .BackColor = System.Drawing.Color.WhiteSmoke,
+        .BorderStyle = BorderStyle.FixedSingle
     }
         If File.Exists(imagePath) Then
             productImage.Image = Image.FromFile(imagePath)
         End If
         panel.Controls.Add(productImage)
 
-        ' Product Name Label
+        ' Product Name
         Dim nameLabel As New Label With {
         .Text = productName,
-        .Font = New Font("Microsoft Sans Serif", 10),
-        .Location = New Point(147, 36),
-        .AutoSize = True
+        .Font = New Font("Segoe UI", 10, FontStyle.Bold),
+        .AutoSize = True,
+        .Location = New Point(140, 35)
     }
         panel.Controls.Add(nameLabel)
 
-        ' Size Label (only show if size exists - perfumes don't have sizes)
+        ' Size Label
         If Not String.IsNullOrEmpty(size) Then
             Dim sizeLabel As New Label With {
-                .Text = "Size: " & size,
-                .Font = New Font("Microsoft Sans Serif", 9),
-                .Location = New Point(147, 57),
-                .AutoSize = True
-            }
+            .Text = "Size: " & size,
+            .Font = New Font("Segoe UI", 9),
+            .Location = New Point(140, 60),
+            .AutoSize = True
+        }
             panel.Controls.Add(sizeLabel)
         End If
 
         ' Color Label
         Dim colorLabel As New Label With {
         .Text = "Color: " & color,
-        .Font = New Font("Microsoft Sans Serif", 9),
-        .Location = New Point(147, If(String.IsNullOrEmpty(size), 57, 76)),
+        .Font = New Font("Segoe UI", 9),
+        .Location = New Point(140, If(String.IsNullOrEmpty(size), 60, 80)),
         .AutoSize = True
     }
         panel.Controls.Add(colorLabel)
 
-        ' Price Label (right after color)
+        ' Price
         Dim priceLabel As New Label With {
-        .Name = "priceLabel", ' ← Required for UpdateSubtotalLabel
+        .Name = "priceLabel",
         .Text = "Price: ₱" & price.ToString("F2"),
-        .Tag = price,         ' ← Store the raw decimal price here
-        .Location = New Point(147, 95),
         .Font = New Font("Segoe UI", 9),
+        .ForeColor = System.Drawing.Color.DarkGreen,
+        .Tag = price,
+        .Location = New Point(140, 100),
         .AutoSize = True
     }
         panel.Controls.Add(priceLabel)
 
-
         ' Quantity Label
         Dim qtyLabel As New Label With {
-        .Name = "qtyLabel", ' ← Add this
+        .Name = "qtyLabel",
         .Text = quantity.ToString(),
-        .Font = New Font("Microsoft Sans Serif", 10),
-        .Location = New Point(408, 114),
-        .AutoSize = True
+        .Font = New Font("Segoe UI", 9, FontStyle.Bold),
+        .Location = New Point(405, 115),
+        .Size = New Size(30, 25),
+        .TextAlign = ContentAlignment.MiddleCenter
     }
-
         panel.Controls.Add(qtyLabel)
 
-        ' Decrease Quantity Button
+        ' Minus Button
         Dim minusBtn As New Button With {
         .Text = "-",
         .Width = 25,
         .Height = 25,
-        .Location = New Point(374, 114)
+        .Location = New Point(375, 115),
+        .BackColor = System.Drawing.Color.LightGray
     }
         AddHandler minusBtn.Click, Sub()
                                        If quantity > 1 Then
                                            quantity -= 1
                                            qtyLabel.Text = quantity.ToString()
-
-                                           newCartForm.UpdateSubtotalLabel(container) ' container = CartPanel
-
-                                           ' 🔄 Update in database
+                                           newCartForm.UpdateSubtotalLabel(container)
                                            UpdateCartQuantity(loggedInUserID, productID, size, quantity)
-
                                        ElseIf quantity = 1 Then
-                                           ' ❌ Delete from cart in database
                                            DeleteFromCart(loggedInUserID, productID, size)
                                            newCartForm.CartPanel.Controls.Clear()
                                            newCartForm.LoadCartItems()
-
-
                                        End If
                                    End Sub
         panel.Controls.Add(minusBtn)
 
-        ' Increase Quantity Button
+        ' Plus Button
         Dim plusBtn As New Button With {
         .Text = "+",
         .Width = 25,
         .Height = 25,
-        .Location = New Point(443, 114)
+        .Location = New Point(440, 115),
+        .BackColor = System.Drawing.Color.LightGray
     }
         AddHandler plusBtn.Click, Sub()
                                       If quantity < maxStock Then
@@ -692,16 +691,10 @@ Module globals
                                   End Sub
         panel.Controls.Add(plusBtn)
 
-        ' Checkout Selection Radio Button
-        Dim selectRadio As New RadioButton With {
-        .Location = New Point(19, 84),
-        .Width = 20,
-        .Height = 20
-    }
-        panel.Controls.Add(selectRadio)
 
         container.Controls.Add(panel)
     End Sub
+
     ' ' Function to get cart items for the logged-in user
     Public Function GetCartItems(customerID As Integer) As List(Of CartItem)
         Dim cartItems As New List(Of CartItem)()
@@ -711,7 +704,7 @@ Module globals
                 c.product_id,
                 p.product_name,
                 p.color,
-                COALESCE(b.brand_name, 'Unknown') AS brand_name,
+                COALESCE(b.brand_name, 'PERFUMERIES') AS brand_name,
                 c.size,
                 c.quantity,
                 p.image_path,

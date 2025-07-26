@@ -50,9 +50,9 @@ Partial Class customerProfile
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.MenuStrip1)
         Me.Panel1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.Panel1.Location = New System.Drawing.Point(506, 12)
+        Me.Panel1.Location = New System.Drawing.Point(536, 12)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(562, 536)
+        Me.Panel1.Size = New System.Drawing.Size(532, 536)
         Me.Panel1.TabIndex = 0
         '
         'FlowLayoutPanel1
@@ -61,7 +61,7 @@ Partial Class customerProfile
         Me.FlowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.FlowLayoutPanel1.Location = New System.Drawing.Point(16, 73)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(531, 453)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(503, 453)
         Me.FlowLayoutPanel1.TabIndex = 0
         '
         'Label1
@@ -83,7 +83,7 @@ Partial Class customerProfile
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.toRecieveMenuStrip, Me.CompleteOrdersBtnMenu, Me.CANCELLEDToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(16, 33)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(540, 28)
+        Me.MenuStrip1.Size = New System.Drawing.Size(490, 28)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -100,8 +100,8 @@ Partial Class customerProfile
         Me.CompleteOrdersBtnMenu.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
         Me.CompleteOrdersBtnMenu.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.CompleteOrdersBtnMenu.Name = "CompleteOrdersBtnMenu"
-        Me.CompleteOrdersBtnMenu.Size = New System.Drawing.Size(238, 24)
-        Me.CompleteOrdersBtnMenu.Text = "            COMPLETED          "
+        Me.CompleteOrdersBtnMenu.Size = New System.Drawing.Size(188, 24)
+        Me.CompleteOrdersBtnMenu.Text = "       COMPLETED     "
         '
         'CANCELLEDToolStripMenuItem
         '
@@ -210,7 +210,7 @@ Partial Class customerProfile
         Me.FlowLayoutPanel2.BackColor = System.Drawing.Color.Lavender
         Me.FlowLayoutPanel2.Location = New System.Drawing.Point(12, 286)
         Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
-        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(480, 262)
+        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(468, 262)
         Me.FlowLayoutPanel2.TabIndex = 5
         '
         'Label5

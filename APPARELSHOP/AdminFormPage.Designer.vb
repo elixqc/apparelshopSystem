@@ -392,10 +392,11 @@ Partial Class AdminFormPage
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.ForestGreen
         Me.Label1.Location = New System.Drawing.Point(12, 11)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(117, 21)
+        Me.Label1.Size = New System.Drawing.Size(129, 21)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "ADD PRODUCTS"
         '
@@ -419,10 +420,11 @@ Partial Class AdminFormPage
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.ForeColor = System.Drawing.Color.ForestGreen
         Me.Label15.Location = New System.Drawing.Point(911, 9)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(83, 21)
+        Me.Label15.Size = New System.Drawing.Size(91, 21)
         Me.Label15.TabIndex = 2
         Me.Label15.Text = "PRODUCTS"
         '
@@ -437,10 +439,11 @@ Partial Class AdminFormPage
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.ForeColor = System.Drawing.Color.ForestGreen
         Me.Label16.Location = New System.Drawing.Point(356, 9)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(65, 21)
+        Me.Label16.Size = New System.Drawing.Size(71, 21)
         Me.Label16.TabIndex = 2
         Me.Label16.Text = "ORDERS"
         '
@@ -481,6 +484,7 @@ Partial Class AdminFormPage
         '
         Me.Label18.AutoSize = True
         Me.Label18.Font = New System.Drawing.Font("Microsoft Himalaya", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label18.ForeColor = System.Drawing.Color.ForestGreen
         Me.Label18.Location = New System.Drawing.Point(8, 9)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(141, 24)
@@ -518,6 +522,7 @@ Partial Class AdminFormPage
         '
         Me.Label19.AutoSize = True
         Me.Label19.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label19.ForeColor = System.Drawing.Color.ForestGreen
         Me.Label19.Location = New System.Drawing.Point(12, 165)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(281, 21)
