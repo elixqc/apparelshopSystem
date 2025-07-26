@@ -54,11 +54,12 @@ Public Class AdminFormPage
         Dim query As String = "
         SELECT 
             o.order_id,
-            o.customer_id,
             c.full_name AS customer_name,
             o.order_date,
             o.order_status,
-            o.delivery_address
+            o.delivery_address,
+            o.payment_method,
+            o.payment_reference
         FROM orders o
         INNER JOIN customers c ON o.customer_id = c.customer_id
         ORDER BY o.order_date DESC
@@ -80,6 +81,7 @@ Public Class AdminFormPage
             MessageBox.Show("Error loading orders: " & ex.Message)
         End Try
     End Sub
+
 
     ' ' Load product details into text fields based on selected product_id
     Private Sub LoadProductDetails(productId As Integer)
@@ -457,6 +459,8 @@ Public Class AdminFormPage
 
 
     Private Sub AdminFormPage_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+
         statusDropdown.Items.AddRange(New String() {"Pending", "Processing", "Completed", "Cancelled"})
         LoadProductsToGrid()
         LoadCategories()
@@ -567,17 +571,34 @@ Public Class AdminFormPage
 
                 transaction.Commit()
 
-                ' Insert a notification to the customer if status is Completed
+                ' Insert a notification to the customer
                 If newStatus = "Completed" Then
                     Dim insertNotifCmd As New MySqlCommand("
-                        INSERT INTO notifications (customer_id, order_id, message)
-                        SELECT o.customer_id, o.order_id, CONCAT('Your order #', o.order_id, ' has been completed. Click to download your receipt.')
-                        FROM orders o
-                        WHERE o.order_id = @oid", conn)
+        INSERT INTO notifications (customer_id, order_id, message)
+        SELECT o.customer_id, o.order_id, CONCAT('Your order #', o.order_id, ' has been completed. Click to download your receipt.')
+        FROM orders o
+        WHERE o.order_id = @oid", conn)
 
                     insertNotifCmd.Parameters.AddWithValue("@oid", selectedOrderId)
                     insertNotifCmd.ExecuteNonQuery()
+
+                ElseIf newStatus = "Cancelled" Then
+                    If String.IsNullOrWhiteSpace(txtCancelReason.Text) Then
+                        MessageBox.Show("Please provide a reason for cancellation.")
+                        Return
+                    End If
+
+                    Dim insertCancelNotifCmd As New MySqlCommand("
+        INSERT INTO notifications (customer_id, order_id, message)
+        SELECT o.customer_id, o.order_id, CONCAT('Order #', o.order_id, ' cancelled. ', @reason)
+        FROM orders o
+        WHERE o.order_id = @oid", conn)
+
+                    insertCancelNotifCmd.Parameters.AddWithValue("@oid", selectedOrderId)
+                    insertCancelNotifCmd.Parameters.AddWithValue("@reason", txtCancelReason.Text.Trim())
+                    insertCancelNotifCmd.ExecuteNonQuery()
                 End If
+
 
 
 
@@ -703,4 +724,16 @@ Public Class AdminFormPage
             MessageBox.Show("Error creating user: " & ex.Message)
         End Try
     End Sub
+
+    Private Sub statusDropdown_SelectedIndexChanged(sender As Object, e As EventArgs) Handles statusDropdown.SelectedIndexChanged
+        If statusDropdown.SelectedItem.ToString() = "Cancelled" Then
+            txtCancelReason.Enabled = True
+            txtCancelReason.Text = "Enter reason for cancellation..."
+        Else
+            txtCancelReason.Enabled = False
+            txtCancelReason.Text = ""
+        End If
+    End Sub
+
+
 End Class

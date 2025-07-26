@@ -19,6 +19,8 @@ Public Class customerProfile
             SELECT 
                 n.notification_id, 
                 n.order_id, 
+                o.order_status,
+                n.message,
                 (
                     SELECT SUM(od.unit_price * od.quantity) 
                     FROM order_details od 
@@ -28,7 +30,7 @@ Public Class customerProfile
             INNER JOIN orders o ON n.order_id = o.order_id
             WHERE n.customer_id = @uid 
               AND n.is_read = FALSE 
-              AND o.order_status = 'Completed'
+              AND o.order_status IN ('Completed', 'Cancelled')
             ORDER BY n.date_created DESC
         "
 
@@ -37,61 +39,126 @@ Public Class customerProfile
 
             Using reader As MySqlDataReader = cmd.ExecuteReader()
                 While reader.Read()
+                    Dim orderId As Integer = CInt(reader("order_id"))
+                    Dim status As String = reader("order_status").ToString()
+                    Dim message As String = reader("message").ToString()
+                    Dim totalPrice As Decimal = If(IsDBNull(reader("total_price")), 0D, CDec(reader("total_price")))
+
+                    ' --- Notification Panel ---
                     Dim notifPanel As New Panel With {
                     .Width = 450,
-                    .Height = 70,
-                    .BackColor = Color.White,
-                    .Margin = New Padding(5)
+                    .Height = 85,
+                    .BackColor = Color.FromArgb(245, 245, 245),
+                    .Margin = New Padding(5),
+                    .BorderStyle = BorderStyle.FixedSingle,
+                    .Cursor = If(status = "Cancelled", Cursors.Hand, Cursors.Default),
+                    .Tag = orderId
                 }
 
-                    Dim lblNotif As New Label With {
-                    .Text = "Your order #" & reader("order_id").ToString() &
-                            " (₱" & Format(CDec(reader("total_price")), "N2") &
-                            ") has been completed.",
+                    ' Left Border Indicator
+                    Dim borderPanel As New Panel With {
+                    .Width = 6,
+                    .Dock = DockStyle.Left,
+                    .BackColor = If(status = "Completed", Color.SeaGreen, Color.IndianRed)
+                }
+                    notifPanel.Controls.Add(borderPanel)
+
+                    ' Main Notification Text
+                    Dim lblMessage As New Label With {
+                    .Text = message,
+                    .Font = New System.Drawing.Font("Segoe UI", 10, FontStyle.Bold),
+                    .Location = New Point(12, 8),
+                    .Width = 420,
                     .AutoSize = True,
-                    .Location = New Point(10, 10),
-                    .Font = New System.Drawing.Font("Segoe UI", 10, FontStyle.Regular)
+                    .MaximumSize = New Size(420, 0)
                 }
 
-                    Dim btnDownload As New Button With {
-                    .Text = "Download Receipt",
-                    .Size = New Size(140, 30),
-                    .Location = New Point(10, 35),
-                    .Tag = reader("order_id")
+
+                    notifPanel.Controls.Add(lblMessage)
+                    notifPanel.Height = lblMessage.Bottom + 40 ' Extra space for subtext/button
+
+
+                    ' Subtext with order ID and total
+                    Dim lblSub As New Label With {
+                    .Text = "Order #" & orderId & " | Total: ₱" & totalPrice.ToString("N2"),
+                    .Font = New System.Drawing.Font("Segoe UI", 9, FontStyle.Italic),
+                    .ForeColor = Color.Gray,
+                    .Location = New Point(12, lblMessage.Bottom + 10),
+                    .AutoSize = True
                 }
 
-                    AddHandler btnDownload.Click,
-                Sub(senderBtn As Object, eBtn As EventArgs)
-                    Dim orderId As Integer = CInt(CType(senderBtn, Button).Tag)
+                    notifPanel.Controls.Add(lblSub)
 
-                    Try
-                        Using innerConn As New MySqlConnection(connectionString)
-                            innerConn.Open()
+                    ' Button for receipt (Completed only)
+                    If status = "Completed" Then
+                        Dim btnDownload As New Button With {
+                        .Text = "Download Receipt",
+                        .Size = New Size(140, 30),
+                        .Location = New Point(295, lblMessage.Bottom + 5), ' Dynamically below the message,
+                        .Tag = orderId,
+                        .BackColor = Color.Black,
+                        .ForeColor = Color.White,
+                        .FlatStyle = FlatStyle.Flat
+                    }
+                        btnDownload.FlatAppearance.BorderSize = 0
 
-                            Dim markCmd As New MySqlCommand("
-                                UPDATE notifications 
-                                SET is_read = TRUE 
-                                WHERE customer_id = @uid AND order_id = @oid", innerConn)
-                            markCmd.Parameters.AddWithValue("@uid", loggedInUserID)
-                            markCmd.Parameters.AddWithValue("@oid", orderId)
-                            markCmd.ExecuteNonQuery()
-                        End Using
+                        AddHandler btnDownload.Click,
+                    Sub(senderBtn As Object, eBtn As EventArgs)
+                        Dim oid As Integer = CInt(CType(senderBtn, Button).Tag)
 
-                        GenerateReceiptPDF(orderId)
-                        LoadNotifications()
+                        Try
+                            Using innerConn As New MySqlConnection(connectionString)
+                                innerConn.Open()
 
-                    Catch ex As Exception
-                        MessageBox.Show("Error: " & ex.Message)
-                    End Try
-                End Sub
+                                Dim markCmd As New MySqlCommand("
+                                    UPDATE notifications 
+                                    SET is_read = TRUE 
+                                    WHERE customer_id = @uid AND order_id = @oid", innerConn)
+                                markCmd.Parameters.AddWithValue("@uid", loggedInUserID)
+                                markCmd.Parameters.AddWithValue("@oid", oid)
+                                markCmd.ExecuteNonQuery()
+                            End Using
 
-                    notifPanel.Controls.Add(lblNotif)
-                    notifPanel.Controls.Add(btnDownload)
+                            GenerateReceiptPDF(oid)
+                            LoadNotifications()
+                        Catch ex As Exception
+                            MessageBox.Show("Error: " & ex.Message)
+                        End Try
+                    End Sub
+
+                        notifPanel.Controls.Add(btnDownload)
+
+                    ElseIf status = "Cancelled" Then
+                        ' Entire panel is clickable to mark as read
+                        AddHandler notifPanel.Click,
+                    Sub(senderPanel As Object, ePanel As EventArgs)
+                        Try
+                            Using innerConn As New MySqlConnection(connectionString)
+                                innerConn.Open()
+
+                                Dim markCmd As New MySqlCommand("
+                                    UPDATE notifications 
+                                    SET is_read = TRUE 
+                                    WHERE customer_id = @uid AND order_id = @oid", innerConn)
+                                markCmd.Parameters.AddWithValue("@uid", loggedInUserID)
+                                markCmd.Parameters.AddWithValue("@oid", orderId)
+                                markCmd.ExecuteNonQuery()
+                            End Using
+
+                            LoadNotifications()
+                        Catch ex As Exception
+                            MessageBox.Show("Error: " & ex.Message)
+                        End Try
+                    End Sub
+                    End If
+
                     FlowLayoutPanel2.Controls.Add(notifPanel)
                 End While
             End Using
         End Using
     End Sub
+
+
 
     ' ' Generate PDF receipt for the order
     Private Sub GenerateReceiptPDF(orderId As Integer)

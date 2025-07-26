@@ -114,50 +114,133 @@ Public Class newCart
                                               Return
                                           End If
 
-                                          Dim confirmResult = MessageBox.Show("Your subtotal is ₱" & subtotal.ToString("F2") & vbCrLf & "Do you want to proceed to checkout?", "Confirm Checkout", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-                                          If confirmResult <> DialogResult.Yes Then
+                                          ' Declare variables to use throughout
+                                          Dim deliveryAddress As String = ""
+                                          Dim contactNumber As String = ""
+                                          Dim paymentMethod As String = ""
+                                          Dim paymentReference As String = ""
+
+                                          ' Step 1: Fetch delivery address and contact number
+                                          Try
+                                              Using conn As New MySqlConnection(connectionString)
+                                                  conn.Open()
+                                                  Dim getInfoCmd As New MySqlCommand("SELECT address, contact_number FROM customers WHERE customer_id = @cid", conn)
+                                                  getInfoCmd.Parameters.AddWithValue("@cid", loggedInUserID)
+
+                                                  Using reader = getInfoCmd.ExecuteReader()
+                                                      If reader.Read() Then
+                                                          deliveryAddress = reader("address").ToString()
+                                                          contactNumber = reader("contact_number").ToString()
+                                                      End If
+                                                  End Using
+                                              End Using
+                                          Catch ex As Exception
+                                              MessageBox.Show("Failed to fetch customer info: " & ex.Message)
                                               Return
+                                          End Try
+
+                                          ' Step 2: Confirm checkout details
+                                          Dim confirmResult = MessageBox.Show("Subtotal: ₱" & subtotal.ToString("F2") & vbCrLf &
+                                                                              "Delivery Address: " & deliveryAddress & vbCrLf &
+                                                                              "Contact Number: " & contactNumber & vbCrLf & vbCrLf &
+                                                                              "Do you want to proceed to checkout?",
+                                                                              "Confirm Checkout", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                                          If confirmResult <> DialogResult.Yes Then Return
+
+                                          ' Step 3: Select payment method
+                                          Dim paymentMethodDialog As DialogResult = MessageBox.Show("Select payment method:" & vbCrLf &
+                                                                                                    "Yes = Cash on Delivery" & vbCrLf &
+                                                                                                    "No = eWallet (Scan QR Code)",
+                                                                                                    "Payment Method",
+                                                                                                    MessageBoxButtons.YesNoCancel,
+                                                                                                    MessageBoxIcon.Question)
+
+                                          If paymentMethodDialog = DialogResult.Cancel Then Return
+
+                                          paymentMethod = If(paymentMethodDialog = DialogResult.Yes, "COD", "eWallet")
+
+                                          ' Step 4: Show QR form and get reference number if eWallet
+                                          If paymentMethod = "eWallet" Then
+                                              Dim qrForm As New Form With {
+                                                  .Text = "Scan QR Code to Pay",
+                                                  .Size = New Size(320, 450),
+                                                  .StartPosition = FormStartPosition.CenterParent,
+                                                  .FormBorderStyle = FormBorderStyle.FixedDialog,
+                                                  .MaximizeBox = False,
+                                                  .MinimizeBox = False
+                                              }
+
+                                              Dim qrPicture As New PictureBox With {
+                                                  .Image = Image.FromFile("Images\qr.png"),
+                                                  .SizeMode = PictureBoxSizeMode.StretchImage,
+                                                  .Location = New Point(10, 10),
+                                                  .Size = New Size(280, 280)
+                                              }
+
+                                              Dim refLabel As New Label With {
+                                                  .Text = "Enter GCash Reference No.:",
+                                                  .Location = New Point(20, 300),
+                                                  .AutoSize = True
+                                              }
+
+                                              Dim refTextbox As New TextBox With {
+                                                  .Location = New Point(20, 320),
+                                                  .Width = 260
+                                              }
+
+                                              Dim doneBtn As New Button With {
+                                                  .Text = "Done Paying",
+                                                  .Size = New Size(120, 40),
+                                                  .Location = New Point((qrForm.ClientSize.Width - 120) \ 2, 360),
+                                                  .BackColor = Color.Black,
+                                                  .ForeColor = Color.White
+                                              }
+
+                                              AddHandler doneBtn.Click, Sub()
+                                                                            If String.IsNullOrWhiteSpace(refTextbox.Text) Then
+                                                                                MessageBox.Show("Please enter the reference number.")
+                                                                                Return
+                                                                            End If
+                                                                            paymentReference = refTextbox.Text.Trim()
+                                                                            qrForm.Close()
+                                                                        End Sub
+
+                                              qrForm.Controls.Add(qrPicture)
+                                              qrForm.Controls.Add(refLabel)
+                                              qrForm.Controls.Add(refTextbox)
+                                              qrForm.Controls.Add(doneBtn)
+                                              qrForm.ShowDialog()
                                           End If
 
+                                          ' Step 5: Begin transaction to place the order
                                           Dim orderId As Integer = -1
-                                          Dim deliveryAddress As String = ""
 
                                           Try
                                               Using conn As New MySqlConnection(connectionString)
                                                   conn.Open()
-
-                                                  'TRANSACTION HANDLING (ADDING ORDER AND ORDER_DETAILS tbl AT ONCE)
-
-                                                  ' Begin transaction
                                                   Dim transaction = conn.BeginTransaction()
 
                                                   Try
-                                                      ' Step 1: Get delivery address
-                                                      Dim getAddressCmd As New MySqlCommand("SELECT address FROM customers WHERE customer_id = @cid", conn, transaction)
-                                                      getAddressCmd.Parameters.AddWithValue("@cid", loggedInUserID)
-                                                      Dim addrResult = getAddressCmd.ExecuteScalar()
-                                                      If addrResult IsNot Nothing Then
-                                                          deliveryAddress = addrResult.ToString()
-                                                      End If
-
-                                                      ' Step 2: Insert into orders
+                                                      ' Insert order with payment details
                                                       Dim insertOrderCmd As New MySqlCommand("
-                                                            INSERT INTO orders (customer_id, order_date, order_status, delivery_address)
-                                                            VALUES (@cid, NOW(), 'Pending', @address);
-                                                            SELECT LAST_INSERT_ID();", conn, transaction)
+                    INSERT INTO orders (customer_id, order_date, order_status, delivery_address, payment_method, payment_reference)
+                    VALUES (@cid, NOW(), 'Pending', @address, @method, @ref);
+                    SELECT LAST_INSERT_ID();", conn, transaction)
                                                       insertOrderCmd.Parameters.AddWithValue("@cid", loggedInUserID)
                                                       insertOrderCmd.Parameters.AddWithValue("@address", deliveryAddress)
+                                                      insertOrderCmd.Parameters.AddWithValue("@method", paymentMethod)
+                                                      insertOrderCmd.Parameters.AddWithValue("@ref", If(paymentMethod = "eWallet", paymentReference, DBNull.Value))
                                                       orderId = Convert.ToInt32(insertOrderCmd.ExecuteScalar())
 
-                                                      ' Step 3: Insert into order_details
+                                                      ' Insert order details
                                                       For Each item In cartItems
                                                           Dim priceCmd As New MySqlCommand("SELECT price FROM products WHERE product_id = @pid", conn, transaction)
                                                           priceCmd.Parameters.AddWithValue("@pid", item.ProductID)
                                                           Dim unitPrice As Decimal = Convert.ToDecimal(priceCmd.ExecuteScalar())
 
                                                           Dim detailCmd As New MySqlCommand("
-                                                                INSERT INTO order_details (order_id, product_id, quantity, unit_price)
-                                                                VALUES (@oid, @pid, @qty, @price)", conn, transaction)
+                        INSERT INTO order_details (order_id, product_id, quantity, unit_price)
+                        VALUES (@oid, @pid, @qty, @price)", conn, transaction)
                                                           detailCmd.Parameters.AddWithValue("@oid", orderId)
                                                           detailCmd.Parameters.AddWithValue("@pid", item.ProductID)
                                                           detailCmd.Parameters.AddWithValue("@qty", item.Quantity)
@@ -165,19 +248,16 @@ Public Class newCart
                                                           detailCmd.ExecuteNonQuery()
                                                       Next
 
-                                                      ' Step 4: Clear cart
+                                                      ' Clear the cart
                                                       Dim clearCmd As New MySqlCommand("DELETE FROM cart WHERE customer_id = @cid", conn, transaction)
                                                       clearCmd.Parameters.AddWithValue("@cid", loggedInUserID)
                                                       clearCmd.ExecuteNonQuery()
 
-                                                      ' Commit transaction
                                                       transaction.Commit()
-
-                                                      MessageBox.Show("Checkout successful! Your order has been placed.")
+                                                      MessageBox.Show("Checkout successful! Your order has been placed.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                                                       CartPanel.Controls.Clear()
                                                       LoadCartItems()
                                                   Catch ex As Exception
-                                                      ' Rollback on any error
                                                       transaction.Rollback()
                                                       MessageBox.Show("Checkout failed: " & ex.Message)
                                                   End Try
@@ -186,6 +266,7 @@ Public Class newCart
                                               MessageBox.Show("Unexpected error: " & ex.Message)
                                           End Try
                                       End Sub
+
 
 
         CartPanel.Controls.Add(checkoutBtn)
@@ -199,4 +280,7 @@ Public Class newCart
         LoadCartItems()
     End Sub
 
+    Private Sub CartPanel_Paint(sender As Object, e As PaintEventArgs) Handles CartPanel.Paint
+
+    End Sub
 End Class

@@ -73,12 +73,14 @@ Partial Class AdminFormPage
         Me.lblResult = New System.Windows.Forms.Label()
         Me.lblTotalStoreProfit = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.usernameTxt = New System.Windows.Forms.TextBox()
-        Me.passwordTxt = New System.Windows.Forms.TextBox()
         Me.createBtn = New System.Windows.Forms.Button()
+        Me.passwordTxt = New System.Windows.Forms.TextBox()
+        Me.usernameTxt = New System.Windows.Forms.TextBox()
         Me.Label22 = New System.Windows.Forms.Label()
-        Me.Label23 = New System.Windows.Forms.Label()
         Me.Label24 = New System.Windows.Forms.Label()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.txtCancelReason = New System.Windows.Forms.TextBox()
+        Me.Label25 = New System.Windows.Forms.Label()
         Me.addProductPanel.SuspendLayout()
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -446,7 +448,7 @@ Partial Class AdminFormPage
         Me.statusDropdown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.statusDropdown.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.statusDropdown.FormattingEnabled = True
-        Me.statusDropdown.Location = New System.Drawing.Point(466, 388)
+        Me.statusDropdown.Location = New System.Drawing.Point(323, 392)
         Me.statusDropdown.Name = "statusDropdown"
         Me.statusDropdown.Size = New System.Drawing.Size(166, 29)
         Me.statusDropdown.TabIndex = 4
@@ -456,9 +458,9 @@ Partial Class AdminFormPage
         Me.btnUpdateStatus.BackColor = System.Drawing.Color.ForestGreen
         Me.btnUpdateStatus.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnUpdateStatus.ForeColor = System.Drawing.Color.White
-        Me.btnUpdateStatus.Location = New System.Drawing.Point(657, 388)
+        Me.btnUpdateStatus.Location = New System.Drawing.Point(691, 388)
         Me.btnUpdateStatus.Name = "btnUpdateStatus"
-        Me.btnUpdateStatus.Size = New System.Drawing.Size(159, 33)
+        Me.btnUpdateStatus.Size = New System.Drawing.Size(125, 33)
         Me.btnUpdateStatus.TabIndex = 5
         Me.btnUpdateStatus.Text = "UPDATE STATUS"
         Me.btnUpdateStatus.UseVisualStyleBackColor = False
@@ -468,7 +470,7 @@ Partial Class AdminFormPage
         Me.Label17.AutoSize = True
         Me.Label17.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label17.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label17.Location = New System.Drawing.Point(464, 415)
+        Me.Label17.Location = New System.Drawing.Point(319, 424)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(39, 19)
         Me.Label17.TabIndex = 6
@@ -594,22 +596,6 @@ Partial Class AdminFormPage
         Me.Panel1.Size = New System.Drawing.Size(485, 84)
         Me.Panel1.TabIndex = 10
         '
-        'usernameTxt
-        '
-        Me.usernameTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.usernameTxt.Location = New System.Drawing.Point(4, 20)
-        Me.usernameTxt.Name = "usernameTxt"
-        Me.usernameTxt.Size = New System.Drawing.Size(181, 23)
-        Me.usernameTxt.TabIndex = 0
-        '
-        'passwordTxt
-        '
-        Me.passwordTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.passwordTxt.Location = New System.Drawing.Point(190, 20)
-        Me.passwordTxt.Name = "passwordTxt"
-        Me.passwordTxt.Size = New System.Drawing.Size(181, 23)
-        Me.passwordTxt.TabIndex = 0
-        '
         'createBtn
         '
         Me.createBtn.BackColor = System.Drawing.Color.ForestGreen
@@ -622,6 +608,22 @@ Partial Class AdminFormPage
         Me.createBtn.Text = "CREATE STAFF ACCOUNT"
         Me.createBtn.UseVisualStyleBackColor = False
         '
+        'passwordTxt
+        '
+        Me.passwordTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.passwordTxt.Location = New System.Drawing.Point(190, 20)
+        Me.passwordTxt.Name = "passwordTxt"
+        Me.passwordTxt.Size = New System.Drawing.Size(181, 23)
+        Me.passwordTxt.TabIndex = 0
+        '
+        'usernameTxt
+        '
+        Me.usernameTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.usernameTxt.Location = New System.Drawing.Point(4, 20)
+        Me.usernameTxt.Name = "usernameTxt"
+        Me.usernameTxt.Size = New System.Drawing.Size(181, 23)
+        Me.usernameTxt.TabIndex = 0
+        '
         'Label22
         '
         Me.Label22.AutoSize = True
@@ -632,17 +634,6 @@ Partial Class AdminFormPage
         Me.Label22.Size = New System.Drawing.Size(204, 19)
         Me.Label22.TabIndex = 6
         Me.Label22.Text = "CREATE ADMIN/STAFF ACCOUNT"
-        '
-        'Label23
-        '
-        Me.Label23.AutoSize = True
-        Me.Label23.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label23.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label23.Location = New System.Drawing.Point(5, 46)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(57, 19)
-        Me.Label23.TabIndex = 6
-        Me.Label23.Text = "username"
         '
         'Label24
         '
@@ -655,12 +646,44 @@ Partial Class AdminFormPage
         Me.Label24.TabIndex = 6
         Me.Label24.Text = "password"
         '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label23.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Label23.Location = New System.Drawing.Point(5, 46)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(57, 19)
+        Me.Label23.TabIndex = 6
+        Me.Label23.Text = "username"
+        '
+        'txtCancelReason
+        '
+        Me.txtCancelReason.Enabled = False
+        Me.txtCancelReason.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCancelReason.Location = New System.Drawing.Point(495, 392)
+        Me.txtCancelReason.Name = "txtCancelReason"
+        Me.txtCancelReason.Size = New System.Drawing.Size(190, 28)
+        Me.txtCancelReason.TabIndex = 11
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label25.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.Label25.Location = New System.Drawing.Point(491, 424)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(52, 19)
+        Me.Label25.TabIndex = 6
+        Me.Label25.Text = "message"
+        '
         'AdminFormPage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
         Me.ClientSize = New System.Drawing.Size(1351, 669)
+        Me.Controls.Add(Me.txtCancelReason)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.dtpEndDate)
@@ -680,6 +703,7 @@ Partial Class AdminFormPage
         Me.Controls.Add(Me.Label15)
         Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.addProductPanel)
+        Me.Controls.Add(Me.Label25)
         Me.Controls.Add(Me.Label17)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "AdminFormPage"
@@ -754,4 +778,6 @@ Partial Class AdminFormPage
     Friend WithEvents Label22 As Label
     Friend WithEvents Label24 As Label
     Friend WithEvents Label23 As Label
+    Friend WithEvents txtCancelReason As TextBox
+    Friend WithEvents Label25 As Label
 End Class
