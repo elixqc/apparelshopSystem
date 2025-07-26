@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2025 at 08:39 AM
+-- Generation Time: Jul 26, 2025 at 08:21 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -104,7 +104,8 @@ INSERT INTO `customers` (`customer_id`, `full_name`, `contact_number`, `address`
 (1, 'nico barredo', '09392891165', '291 zamora st. brgy pinagsama taguig city', 'nico.barredo@tup.edu.ph', '7661f83e32e9b6467f2bb50619049fd8951c266665967ebb678a10d520a36de1'),
 (2, 'nico', '09294585592', '291 Zamora St. Brgy. Pinagsama Taguig City', 'nico@gmail.com', 'b18aaa6c6b929b866051b69a785a6cdce5bdd564d41be247c7d5ef7c2e2e2271'),
 (3, 'joseph', '0939412331', 'taguig city', 'joseph@gmail.com', '7ee8118150e0ce023742beba6f10bf23aabbf0bc2c182f36fd1a6753cd21b4c6'),
-(5, 'nico barredo', '1', 'testing', 'a', 'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb');
+(5, 'nico barredo', '1', 'testing', 'a', 'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb'),
+(6, 'lloyd forger', '091243141632', 'Block 2 Lot 8 Camella Residence Brgy. Pinagsama Taguig City', 'forger@gmail.com', '814ccdfae0812b1bd9a95ae4b4a7d7d128890d1859cf8fd3e4c4befb22e63e8f');
 
 -- --------------------------------------------------------
 
@@ -126,18 +127,12 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`notification_id`, `order_id`, `message`, `is_read`, `date_created`, `customer_id`) VALUES
-(2, 20, 'Your order #20 has been completed. Click to download your receipt.', 1, '2025-07-25 08:46:04', 5),
-(3, 21, 'Your order #21 has been completed. Click to download your receipt.', 1, '2025-07-25 08:54:39', 5),
-(4, 22, 'Your order #22 has been completed. Click to download your receipt.', 1, '2025-07-25 08:57:29', 5),
-(5, 23, 'Your order #23 has been completed. Click to download your receipt.', 1, '2025-07-25 08:59:06', 5),
-(6, 24, 'Your order #24 has been completed. Click to download your receipt.', 1, '2025-07-25 09:02:05', 5),
-(7, 25, 'Your order #25 has been completed. Click to download your receipt.', 1, '2025-07-25 09:03:36', 5),
-(8, 26, 'Your order #26 has been completed. Click to download your receipt.', 1, '2025-07-25 09:08:21', 5),
-(9, 27, 'Your order #27 has been completed. Click to download your receipt.', 1, '2025-07-25 09:10:15', 5),
-(10, 28, 'Your order #28 has been completed. Click to download your receipt.', 1, '2025-07-25 09:18:39', 5),
-(11, 29, 'Your order #29 has been completed. Click to download your receipt.', 1, '2025-07-25 14:06:57', 5),
-(12, 30, 'Your order #30 has been completed. Click to download your receipt.', 1, '2025-07-25 14:07:00', 5),
-(13, 31, 'Your order #31 has been completed. Click to download your receipt.', 1, '2025-07-25 14:31:36', 5);
+(1, 1, 'Your order #1 has been completed. Click to download your receipt.', 1, '2025-07-26 13:48:15', 5),
+(2, 2, 'Order #2 cancelled. Payment Unsuccesful. Payment Did Not Received!!!', 1, '2025-07-26 14:00:11', 5),
+(3, 3, 'Your order #3 has been completed. Click to download your receipt.', 1, '2025-07-26 14:07:32', 5),
+(4, 4, 'Order #4 cancelled. INVALID PAYMENT. REFERENCE NUMBER DO NOT EXISTS!!', 1, '2025-07-26 14:08:09', 5),
+(5, 5, 'Order #5 cancelled. INVALID PAYMENT REFERENCE NUMBER!!!!', 0, '2025-07-26 14:14:10', 5),
+(6, 6, 'Your order #6 has been completed. Click to download your receipt.', 1, '2025-07-26 14:18:06', 5);
 
 -- --------------------------------------------------------
 
@@ -151,45 +146,22 @@ CREATE TABLE `orders` (
   `order_date` datetime DEFAULT current_timestamp(),
   `order_status` varchar(20) DEFAULT NULL,
   `date_received` datetime DEFAULT NULL,
-  `delivery_address` text DEFAULT NULL
+  `delivery_address` text DEFAULT NULL,
+  `payment_method` varchar(50) DEFAULT 'COD',
+  `payment_reference` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `customer_id`, `order_date`, `order_status`, `date_received`, `delivery_address`) VALUES
-(1, 2, '2025-07-23 11:17:40', 'Completed', NULL, '291'),
-(2, 2, '2025-07-23 22:59:17', 'Completed', '2025-07-23 23:01:44', '291'),
-(3, 2, '2025-07-23 23:04:13', 'Cancelled', NULL, '291'),
-(4, 2, '2025-07-23 23:33:42', 'Cancelled', NULL, '291 Zamora St. Brgy. Pinagsama Taguig City'),
-(5, 2, '2025-07-23 23:37:13', 'Completed', '2025-07-23 23:42:08', '291 Zamora St. Brgy. Pinagsama Taguig City'),
-(6, 2, '2025-07-23 23:48:31', 'Completed', '2025-07-23 23:48:44', '291 Zamora St. Brgy. Pinagsama Taguig City'),
-(7, 2, '2025-07-24 00:42:48', 'Completed', '2025-07-24 00:43:13', '291 Zamora St. Brgy. Pinagsama Taguig City'),
-(8, 5, '2025-07-24 09:21:54', 'Completed', '2025-07-24 09:23:34', 'testing'),
-(9, 5, '2025-07-24 09:27:29', 'Completed', '2025-07-24 09:27:50', 'testing'),
-(10, 5, '2025-07-24 12:20:38', 'Completed', '2025-07-24 12:21:38', 'testing'),
-(11, 5, '2025-07-24 12:35:55', 'Completed', '2025-07-24 12:36:17', 'testing'),
-(12, 5, '2025-07-24 12:48:54', 'Cancelled', NULL, 'testing'),
-(13, 5, '2025-07-24 12:52:33', 'Completed', '2025-07-24 12:53:35', 'testing'),
-(14, 5, '2025-07-24 13:08:44', 'Completed', '2025-07-24 13:10:10', 'testing'),
-(15, 5, '2025-07-24 15:07:18', 'Completed', '2025-07-24 15:07:39', 'testing'),
-(16, 5, '2025-07-24 15:44:23', 'Completed', '2025-07-24 15:45:03', 'testing'),
-(17, 5, '2025-07-25 08:22:23', 'Completed', '2025-07-25 08:33:02', 'testing'),
-(18, 5, '2025-07-25 08:37:06', 'Completed', '2025-07-25 08:37:23', 'testing'),
-(19, 5, '2025-07-25 08:40:22', 'Completed', '2025-07-25 08:40:40', 'testing'),
-(20, 5, '2025-07-25 08:45:01', 'Completed', '2025-07-25 08:46:04', 'testing'),
-(21, 5, '2025-07-25 08:54:23', 'Completed', '2025-07-25 08:54:39', 'testing'),
-(22, 5, '2025-07-25 08:57:13', 'Completed', '2025-07-25 08:57:29', 'testing'),
-(23, 5, '2025-07-25 08:58:51', 'Completed', '2025-07-25 08:59:06', 'testing'),
-(24, 5, '2025-07-25 09:01:50', 'Completed', '2025-07-25 09:02:05', 'testing'),
-(25, 5, '2025-07-25 09:03:20', 'Completed', '2025-07-25 09:03:36', 'testing'),
-(26, 5, '2025-07-25 09:08:01', 'Completed', '2025-07-25 09:08:21', 'testing'),
-(27, 5, '2025-07-25 09:10:01', 'Completed', '2025-07-25 09:10:15', 'testing'),
-(28, 5, '2025-07-25 09:18:20', 'Completed', '2025-07-25 09:18:39', 'testing'),
-(29, 5, '2025-07-25 14:03:40', 'Completed', '2025-07-25 14:06:57', 'testing'),
-(30, 5, '2025-07-25 14:04:14', 'Completed', '2025-07-25 14:07:00', 'testing'),
-(31, 5, '2025-07-25 14:31:18', 'Completed', '2025-07-25 14:31:36', 'testing');
+INSERT INTO `orders` (`order_id`, `customer_id`, `order_date`, `order_status`, `date_received`, `delivery_address`, `payment_method`, `payment_reference`) VALUES
+(1, 5, '2025-07-26 13:47:27', 'Completed', '2025-07-26 13:48:15', 'testing', 'eWallet', '54356675234324252'),
+(2, 5, '2025-07-26 13:58:35', 'Cancelled', NULL, 'testing', 'eWallet', '24643524123213'),
+(3, 5, '2025-07-26 14:06:40', 'Completed', '2025-07-26 14:07:32', 'testing', 'COD', NULL),
+(4, 5, '2025-07-26 14:06:59', 'Cancelled', NULL, 'testing', 'eWallet', '231412541231'),
+(5, 5, '2025-07-26 14:13:26', 'Cancelled', NULL, 'testing', 'eWallet', '12545324123124321'),
+(6, 5, '2025-07-26 14:17:46', 'Completed', '2025-07-26 14:18:06', 'testing', 'eWallet', '414533123124');
 
 -- --------------------------------------------------------
 
@@ -211,62 +183,11 @@ CREATE TABLE `order_details` (
 
 INSERT INTO `order_details` (`order_detail_id`, `order_id`, `product_id`, `quantity`, `unit_price`) VALUES
 (1, 1, 20, 1, 599.00),
-(2, 1, 34, 2, 499.00),
-(3, 2, 85, 1, 1399.00),
-(4, 2, 86, 1, 1399.00),
-(5, 3, 20, 1, 599.00),
-(6, 3, 85, 1, 1399.00),
-(7, 4, 85, 12, 1399.00),
-(8, 5, 19, 2, 599.00),
-(9, 6, 85, 1, 1399.00),
-(10, 7, 24, 1, 499.00),
-(11, 7, 91, 1, 1799.00),
-(12, 7, 94, 1, 1999.00),
-(13, 7, 96, 1, 1499.00),
-(14, 7, 98, 1, 2099.00),
-(15, 8, 4, 3, 599.00),
-(16, 8, 22, 5, 499.00),
-(17, 8, 60, 9, 799.00),
-(18, 8, 87, 1, 1999.00),
-(19, 8, 94, 1, 1999.00),
-(20, 9, 96, 1, 1499.00),
-(21, 10, 24, 1, 499.00),
-(22, 10, 87, 1, 1999.00),
-(23, 10, 92, 1, 1799.00),
-(24, 11, 20, 10, 599.00),
-(25, 12, 26, 3, 499.00),
-(26, 13, 86, 1, 1399.00),
-(27, 14, 87, 1, 1999.00),
-(28, 14, 91, 1, 1799.00),
-(29, 15, 106, 1, 999.00),
-(30, 16, 20, 1, 599.00),
-(31, 16, 86, 1, 1399.00),
-(32, 17, 20, 1, 599.00),
-(33, 17, 32, 2, 499.00),
-(34, 17, 93, 1, 1999.00),
-(35, 18, 33, 1, 499.00),
-(36, 19, 1, 1, 599.00),
-(37, 20, 55, 1, 1099.00),
-(38, 21, 54, 1, 1099.00),
-(39, 21, 87, 1, 1999.00),
-(40, 22, 87, 1, 1999.00),
-(41, 23, 87, 1, 1999.00),
-(42, 24, 65, 1, 799.00),
-(43, 24, 100, 1, 2099.00),
-(44, 25, 87, 1, 1999.00),
-(45, 26, 86, 1, 1399.00),
-(46, 27, 96, 1, 1499.00),
-(47, 28, 20, 1, 599.00),
-(48, 28, 24, 1, 499.00),
-(49, 28, 61, 1, 799.00),
-(50, 28, 85, 1, 1399.00),
-(51, 28, 88, 1, 1999.00),
-(52, 28, 91, 1, 1799.00),
-(53, 28, 93, 1, 1999.00),
-(54, 29, 90, 1, 1899.00),
-(55, 30, 20, 1, 599.00),
-(56, 30, 86, 1, 1399.00),
-(57, 31, 20, 1, 599.00);
+(2, 2, 32, 1, 499.00),
+(3, 3, 21, 1, 499.00),
+(4, 4, 88, 1, 1999.00),
+(5, 5, 100, 1, 2099.00),
+(6, 6, 20, 1, 599.00);
 
 -- --------------------------------------------------------
 
@@ -304,7 +225,7 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (9, 'Sweatshirt - Pink - s', 'pink', 2, 1, 'S', 599.00, 10, 'images\\pink_swsh.png', 'Unisex', 1),
 (10, 'Sweatshirt - Pink - m', 'pink', 2, 1, 'M', 599.00, 10, 'images\\pink_swsh.png', 'Unisex', 1),
 (11, 'Sweatshirt - Pink - l', 'pink', 2, 1, 'L', 599.00, 10, 'images\\pink_swsh.png', 'Unisex', 1),
-(12, 'Sweatshirt - Pink - xl', 'pink', 2, 1, 'XL', 599.00, 10, 'images\\pink_swsh.png', 'Unisex', 1),
+(12, 'Sweatshirt - Pink - xl', 'pink', 2, 1, 'XL', 599.00, 8, 'images\\pink_swsh.png', 'Unisex', 1),
 (13, 'Sweatshirt - Gray - xl', 'gray', 2, 1, 'XL', 599.00, 10, 'images\\gray_swsh.png', 'Unisex', 1),
 (14, 'Sweatshirt - Gray - l', 'gray', 2, 1, 'L', 599.00, 10, 'images\\gray_swsh.png', 'Unisex', 1),
 (15, 'Sweatshirt - Gray - m', 'gray', 2, 1, 'M', 599.00, 10, 'images\\gray_swsh.png', 'Unisex', 1),
@@ -312,8 +233,8 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (17, 'Sweatshirt - Black - s', 'black', 2, 1, 'S', 599.00, 10, 'images\\black_swsh.png', 'Unisex', 1),
 (18, 'Sweatshirt - Black - m', 'black', 2, 1, 'M', 599.00, 10, 'images\\black_swsh.png', 'Unisex', 1),
 (19, 'Sweatshirt - Black - l', 'black', 2, 1, 'L', 599.00, 8, 'images\\black_swsh.png', 'Unisex', 1),
-(20, 'Sweatshirt - Black - xl', 'black', 2, 1, 'XL', 599.00, 5, 'images\\black_swsh.png', 'Unisex', 1),
-(21, 'T-shirt - White - s', 'white', 1, 3, 'S', 499.00, 10, 'images\\white_shirt1.png', 'Unisex', 2),
+(20, 'Sweatshirt - Black - xl', 'black', 2, 1, 'XL', 599.00, 3, 'images\\black_swsh.png', 'Unisex', 1),
+(21, 'T-shirt - White - s', 'white', 1, 3, 'S', 499.00, 9, 'images\\white_shirt1.png', 'Unisex', 2),
 (22, 'T-shirt - White - m', 'white', 1, 3, 'M', 499.00, 0, 'images\\white_shirt1.png', 'Unisex', 2),
 (23, 'T-shirt - White - l', 'white', 1, 3, 'L', 499.00, 10, 'images\\white_shirt1.png', 'Unisex', 2),
 (24, 'T-shirt - White - xl', 'white', 1, 3, 'XL', 499.00, 7, 'images\\white_shirt1.png', 'Unisex', 2),
@@ -361,11 +282,11 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (66, 'Sweatpants - Gray - m', 'gray', 3, 1, 'M', 799.00, 10, 'images\\gray_Sweatpants.png', 'Unisex', 1),
 (67, 'Sweatpants - Gray - l', 'gray', 3, 1, 'L', 799.00, 10, 'images\\gray_Sweatpants.png', 'Unisex', 1),
 (85, 'dream EDP', NULL, 7, 4, NULL, 1399.00, 8, 'images\\dreamFinal.jpg', 'Male', NULL),
-(86, 'love spell EDP', NULL, 7, 4, NULL, 1399.00, 6, 'images\\Lovespell.jpg', 'Female', NULL),
-(87, 'origin EDP', NULL, 7, 5, NULL, 1999.00, 2, 'images\\originFinal.jpg', 'Male', NULL),
+(86, 'love spell EDP', NULL, 7, 4, NULL, 1399.00, 5, 'images\\Lovespell.jpg', 'Female', NULL),
+(87, 'origin EDP', NULL, 7, 5, NULL, 1999.00, 1, 'images\\originFinal.jpg', 'Male', NULL),
 (88, 'origin EDT', NULL, 8, 5, NULL, 1999.00, 9, 'images\\originFinal.jpg', 'Male', NULL),
 (90, 'dream EDT', NULL, 8, 4, NULL, 1899.00, 9, 'imagesdreamFinal.jpg', 'Male', NULL),
-(91, 'Linfinite EDP', NULL, 7, 4, NULL, 1799.00, 7, 'images\\Linfinity.jpg', 'Male', NULL),
+(91, 'Linfinite EDP', NULL, 7, 4, NULL, 1799.00, 6, 'images\\Linfinity.jpg', 'Male', NULL),
 (92, 'Linfinite EDT', NULL, 8, 4, NULL, 1799.00, 9, 'images\\Linfinity.jpg', 'Male', NULL),
 (93, 'Pacific Aura EDP', NULL, 7, 5, NULL, 1999.00, 8, 'images\\Aura.jpg', 'Male', NULL),
 (94, 'Pacific Aura EDT', NULL, 8, 5, NULL, 1999.00, 7, 'images\\Aura.jpg', 'Male', NULL),
@@ -379,7 +300,7 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (102, 'Knittedpolo - Blue - s', 'blue', 1, 1, 'S', 999.00, 10, 'images\\blue_polo.png', 'Unisex', 1),
 (103, 'Knittedpolo - Blue - m', 'blue', 1, 1, 'M', 999.00, 10, 'images\\blue_polo.png', 'Unisex', 1),
 (104, 'Knittedpolo - Blue - l', 'blue', 1, 1, 'L', 999.00, 10, 'images\\blue_polo.png', 'Unisex', 1),
-(105, 'Knittedpolo - Blue - xl', 'blue', 1, 1, 'XL', 999.00, 10, 'images\\blue_polo.png', 'Unisex', 1),
+(105, 'Knittedpolo - Blue - xl', 'blue', 1, 1, 'XL', 999.00, 7, 'images\\blue_polo.png', 'Unisex', 1),
 (106, 'Knittedpolo - Green - xl', 'green', 1, 1, 'XL', 999.00, 9, 'images\\green_polo.png', 'Unisex', 1),
 (107, 'Knittedpolo - Green - l', 'green', 1, 1, 'L', 999.00, 10, 'images\\green_polo.png', 'Unisex', 1),
 (108, 'Knittedpolo - Green - m', 'green', 1, 1, 'M', 999.00, 10, 'images\\green_polo.png', 'Unisex', 1),
@@ -657,25 +578,25 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `products`
