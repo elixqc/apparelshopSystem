@@ -1,6 +1,7 @@
 ﻿Imports System.IO
 Imports MySql.Data.MySqlClient
 Imports Mysqlx.XDevAPI.Relational
+Imports System.Drawing
 
 Public Class AdminFormPage
     Public Property PendingUploadFilePath As String
@@ -735,5 +736,63 @@ Public Class AdminFormPage
         End If
     End Sub
 
+    Private Sub btnUpdateQR_Click(sender As Object, e As EventArgs) Handles btnUpdateQR.Click
+        Dim qrForm As New Form With {
+        .Text = "QR Code Settings",
+        .Size = New Size(360, 450),
+        .StartPosition = FormStartPosition.CenterParent,
+        .FormBorderStyle = FormBorderStyle.FixedDialog,
+        .MaximizeBox = False,
+        .MinimizeBox = False
+    }
 
+        Dim picQRPreview As New PictureBox With {
+        .Size = New Size(300, 300),
+        .Location = New Point(30, 20),
+        .SizeMode = PictureBoxSizeMode.StretchImage,
+        .BorderStyle = BorderStyle.FixedSingle
+    }
+
+        Dim btnBrowseQR As New Button With {
+        .Text = "Update QR Code",
+        .Size = New Size(120, 40),
+        .Location = New Point((qrForm.ClientSize.Width - 120) \ 2, 340),
+        .BackColor = Color.Black,
+        .ForeColor = Color.White
+    }
+
+        ' Load existing QR if available
+        Dim qrPath As String = Path.Combine(Application.StartupPath, "Images", "qr.png")
+        If File.Exists(qrPath) Then
+            Using tempImg As Image = Image.FromFile(qrPath)
+                picQRPreview.Image = New Bitmap(tempImg)
+            End Using
+        End If
+
+
+        ' Browse and replace QR code logic
+        AddHandler btnBrowseQR.Click,
+        Sub()
+            Dim ofd As New OpenFileDialog With {
+                .Filter = "Image Files|*.png;*.jpg;*.jpeg;*.bmp",
+                .Title = "Select New QR Code"
+            }
+
+            If ofd.ShowDialog() = DialogResult.OK Then
+                Try
+                    Directory.CreateDirectory(Path.GetDirectoryName(qrPath)) ' Ensure folder exists
+                    File.Copy(ofd.FileName, qrPath, True)
+
+                    picQRPreview.Image = Image.FromFile(qrPath)
+                    MessageBox.Show("QR code updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Catch ex As Exception
+                    MessageBox.Show("Failed to update QR code: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End Try
+            End If
+        End Sub
+
+        qrForm.Controls.Add(picQRPreview)
+        qrForm.Controls.Add(btnBrowseQR)
+        qrForm.ShowDialog()
+    End Sub
 End Class

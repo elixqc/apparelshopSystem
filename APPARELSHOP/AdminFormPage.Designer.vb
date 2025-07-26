@@ -81,6 +81,7 @@ Partial Class AdminFormPage
         Me.Label23 = New System.Windows.Forms.Label()
         Me.txtCancelReason = New System.Windows.Forms.TextBox()
         Me.Label25 = New System.Windows.Forms.Label()
+        Me.btnUpdateQR = New System.Windows.Forms.Button()
         Me.addProductPanel.SuspendLayout()
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -119,7 +120,7 @@ Partial Class AdminFormPage
         Me.addProductPanel.Controls.Add(Me.Label9)
         Me.addProductPanel.Controls.Add(Me.Label2)
         Me.addProductPanel.Controls.Add(Me.Label1)
-        Me.addProductPanel.Location = New System.Drawing.Point(13, 522)
+        Me.addProductPanel.Location = New System.Drawing.Point(13, 531)
         Me.addProductPanel.Name = "addProductPanel"
         Me.addProductPanel.Size = New System.Drawing.Size(1311, 212)
         Me.addProductPanel.TabIndex = 0
@@ -410,16 +411,16 @@ Partial Class AdminFormPage
         'DataGridView1
         '
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Location = New System.Drawing.Point(839, 33)
+        Me.DataGridView1.Location = New System.Drawing.Point(915, 33)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(484, 388)
+        Me.DataGridView1.Size = New System.Drawing.Size(408, 388)
         Me.DataGridView1.TabIndex = 1
         '
         'Label15
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(835, 9)
+        Me.Label15.Location = New System.Drawing.Point(911, 9)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(83, 21)
         Me.Label15.TabIndex = 2
@@ -428,16 +429,16 @@ Partial Class AdminFormPage
         'DataGridView2
         '
         Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView2.Location = New System.Drawing.Point(323, 33)
+        Me.DataGridView2.Location = New System.Drawing.Point(360, 33)
         Me.DataGridView2.Name = "DataGridView2"
-        Me.DataGridView2.Size = New System.Drawing.Size(493, 349)
+        Me.DataGridView2.Size = New System.Drawing.Size(541, 349)
         Me.DataGridView2.TabIndex = 3
         '
         'Label16
         '
         Me.Label16.AutoSize = True
         Me.Label16.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(319, 9)
+        Me.Label16.Location = New System.Drawing.Point(356, 9)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(65, 21)
         Me.Label16.TabIndex = 2
@@ -448,7 +449,7 @@ Partial Class AdminFormPage
         Me.statusDropdown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.statusDropdown.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.statusDropdown.FormattingEnabled = True
-        Me.statusDropdown.Location = New System.Drawing.Point(323, 392)
+        Me.statusDropdown.Location = New System.Drawing.Point(408, 392)
         Me.statusDropdown.Name = "statusDropdown"
         Me.statusDropdown.Size = New System.Drawing.Size(166, 29)
         Me.statusDropdown.TabIndex = 4
@@ -458,7 +459,7 @@ Partial Class AdminFormPage
         Me.btnUpdateStatus.BackColor = System.Drawing.Color.ForestGreen
         Me.btnUpdateStatus.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnUpdateStatus.ForeColor = System.Drawing.Color.White
-        Me.btnUpdateStatus.Location = New System.Drawing.Point(691, 388)
+        Me.btnUpdateStatus.Location = New System.Drawing.Point(776, 388)
         Me.btnUpdateStatus.Name = "btnUpdateStatus"
         Me.btnUpdateStatus.Size = New System.Drawing.Size(125, 33)
         Me.btnUpdateStatus.TabIndex = 5
@@ -470,7 +471,7 @@ Partial Class AdminFormPage
         Me.Label17.AutoSize = True
         Me.Label17.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label17.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label17.Location = New System.Drawing.Point(319, 424)
+        Me.Label17.Location = New System.Drawing.Point(404, 423)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(39, 19)
         Me.Label17.TabIndex = 6
@@ -661,7 +662,7 @@ Partial Class AdminFormPage
         '
         Me.txtCancelReason.Enabled = False
         Me.txtCancelReason.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCancelReason.Location = New System.Drawing.Point(495, 392)
+        Me.txtCancelReason.Location = New System.Drawing.Point(580, 392)
         Me.txtCancelReason.Name = "txtCancelReason"
         Me.txtCancelReason.Size = New System.Drawing.Size(190, 28)
         Me.txtCancelReason.TabIndex = 11
@@ -671,11 +672,23 @@ Partial Class AdminFormPage
         Me.Label25.AutoSize = True
         Me.Label25.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label25.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label25.Location = New System.Drawing.Point(491, 424)
+        Me.Label25.Location = New System.Drawing.Point(576, 423)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(52, 19)
         Me.Label25.TabIndex = 6
         Me.Label25.Text = "message"
+        '
+        'btnUpdateQR
+        '
+        Me.btnUpdateQR.BackColor = System.Drawing.Color.ForestGreen
+        Me.btnUpdateQR.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnUpdateQR.ForeColor = System.Drawing.Color.Transparent
+        Me.btnUpdateQR.Location = New System.Drawing.Point(707, 432)
+        Me.btnUpdateQR.Name = "btnUpdateQR"
+        Me.btnUpdateQR.Size = New System.Drawing.Size(124, 84)
+        Me.btnUpdateQR.TabIndex = 12
+        Me.btnUpdateQR.Text = "UPDATE QR PAYMENT PICTURE"
+        Me.btnUpdateQR.UseVisualStyleBackColor = False
         '
         'AdminFormPage
         '
@@ -683,6 +696,7 @@ Partial Class AdminFormPage
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
         Me.ClientSize = New System.Drawing.Size(1351, 669)
+        Me.Controls.Add(Me.btnUpdateQR)
         Me.Controls.Add(Me.txtCancelReason)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Button1)
@@ -780,4 +794,5 @@ Partial Class AdminFormPage
     Friend WithEvents Label23 As Label
     Friend WithEvents txtCancelReason As TextBox
     Friend WithEvents Label25 As Label
+    Friend WithEvents btnUpdateQR As Button
 End Class
