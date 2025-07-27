@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 26, 2025 at 08:21 AM
+-- Generation Time: Jul 26, 2025 at 11:00 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -127,12 +127,10 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`notification_id`, `order_id`, `message`, `is_read`, `date_created`, `customer_id`) VALUES
-(1, 1, 'Your order #1 has been completed. Click to download your receipt.', 1, '2025-07-26 13:48:15', 5),
-(2, 2, 'Order #2 cancelled. Payment Unsuccesful. Payment Did Not Received!!!', 1, '2025-07-26 14:00:11', 5),
-(3, 3, 'Your order #3 has been completed. Click to download your receipt.', 1, '2025-07-26 14:07:32', 5),
-(4, 4, 'Order #4 cancelled. INVALID PAYMENT. REFERENCE NUMBER DO NOT EXISTS!!', 1, '2025-07-26 14:08:09', 5),
-(5, 5, 'Order #5 cancelled. INVALID PAYMENT REFERENCE NUMBER!!!!', 0, '2025-07-26 14:14:10', 5),
-(6, 6, 'Your order #6 has been completed. Click to download your receipt.', 1, '2025-07-26 14:18:06', 5);
+(1, 1, 'Your order #1 has been completed. Click to download your receipt.', 1, '2025-07-26 15:58:31', 5),
+(2, 2, 'Your order #2 has been completed. Click to download your receipt.', 1, '2025-07-26 16:16:48', 5),
+(3, 3, 'Order #3 cancelled. NOT ENOUGH STOCKS, NOT UPDATED.', 1, '2025-07-26 16:39:54', 5),
+(4, 4, 'Your order #4 has been completed. Click to download your receipt.', 1, '2025-07-26 16:57:34', 5);
 
 -- --------------------------------------------------------
 
@@ -156,12 +154,10 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `customer_id`, `order_date`, `order_status`, `date_received`, `delivery_address`, `payment_method`, `payment_reference`) VALUES
-(1, 5, '2025-07-26 13:47:27', 'Completed', '2025-07-26 13:48:15', 'testing', 'eWallet', '54356675234324252'),
-(2, 5, '2025-07-26 13:58:35', 'Cancelled', NULL, 'testing', 'eWallet', '24643524123213'),
-(3, 5, '2025-07-26 14:06:40', 'Completed', '2025-07-26 14:07:32', 'testing', 'COD', NULL),
-(4, 5, '2025-07-26 14:06:59', 'Cancelled', NULL, 'testing', 'eWallet', '231412541231'),
-(5, 5, '2025-07-26 14:13:26', 'Cancelled', NULL, 'testing', 'eWallet', '12545324123124321'),
-(6, 5, '2025-07-26 14:17:46', 'Completed', '2025-07-26 14:18:06', 'testing', 'eWallet', '414533123124');
+(1, 5, '2025-07-26 15:58:04', 'Completed', '2025-07-26 15:58:31', 'testing', 'eWallet', '64523423524'),
+(2, 5, '2025-07-26 16:15:19', 'Completed', '2025-07-26 16:16:48', 'testing', 'eWallet', '643523423526'),
+(3, 5, '2025-07-26 16:33:51', 'Cancelled', NULL, 'testing', 'COD', NULL),
+(4, 5, '2025-07-26 16:57:13', 'Completed', '2025-07-26 16:57:34', 'testing', 'COD', NULL);
 
 -- --------------------------------------------------------
 
@@ -183,11 +179,12 @@ CREATE TABLE `order_details` (
 
 INSERT INTO `order_details` (`order_detail_id`, `order_id`, `product_id`, `quantity`, `unit_price`) VALUES
 (1, 1, 20, 1, 599.00),
-(2, 2, 32, 1, 499.00),
-(3, 3, 21, 1, 499.00),
-(4, 4, 88, 1, 1999.00),
-(5, 5, 100, 1, 2099.00),
-(6, 6, 20, 1, 599.00);
+(2, 1, 24, 2, 499.00),
+(3, 1, 88, 1, 1999.00),
+(4, 2, 101, 1, 2099.00),
+(5, 3, 33, 1, 499.00),
+(6, 3, 87, 1, 1999.00),
+(7, 4, 33, 1, 499.00);
 
 -- --------------------------------------------------------
 
@@ -233,11 +230,11 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (17, 'Sweatshirt - Black - s', 'black', 2, 1, 'S', 599.00, 10, 'images\\black_swsh.png', 'Unisex', 1),
 (18, 'Sweatshirt - Black - m', 'black', 2, 1, 'M', 599.00, 10, 'images\\black_swsh.png', 'Unisex', 1),
 (19, 'Sweatshirt - Black - l', 'black', 2, 1, 'L', 599.00, 8, 'images\\black_swsh.png', 'Unisex', 1),
-(20, 'Sweatshirt - Black - xl', 'black', 2, 1, 'XL', 599.00, 3, 'images\\black_swsh.png', 'Unisex', 1),
+(20, 'Sweatshirt - Black - xl', 'black', 2, 1, 'XL', 599.00, 2, 'images\\black_swsh.png', 'Unisex', 1),
 (21, 'T-shirt - White - s', 'white', 1, 3, 'S', 499.00, 9, 'images\\white_shirt1.png', 'Unisex', 2),
 (22, 'T-shirt - White - m', 'white', 1, 3, 'M', 499.00, 0, 'images\\white_shirt1.png', 'Unisex', 2),
 (23, 'T-shirt - White - l', 'white', 1, 3, 'L', 499.00, 10, 'images\\white_shirt1.png', 'Unisex', 2),
-(24, 'T-shirt - White - xl', 'white', 1, 3, 'XL', 499.00, 7, 'images\\white_shirt1.png', 'Unisex', 2),
+(24, 'T-shirt - White - xl', 'white', 1, 3, 'XL', 499.00, 5, 'images\\white_shirt1.png', 'Unisex', 2),
 (25, 'T-shirt - Green - xl', 'green', 1, 3, 'XL', 499.00, 10, 'images\\green_shirt1.png', 'Unisex', 2),
 (26, 'T-shirt - Green - l', 'green', 1, 3, 'L', 499.00, 10, 'images\\green_shirt1.png', 'Unisex', 2),
 (27, 'T-shirt - Green - m', 'green', 1, 3, 'M', 499.00, 10, 'images\\green_shirt1.png', 'Unisex', 2),
@@ -246,7 +243,7 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (30, 'T-shirt - Brown - m', 'brown', 1, 3, 'M', 499.00, 10, 'images\\brown_shirt1.png', 'Unisex', 2),
 (31, 'T-shirt - Brown - l', 'brown', 1, 3, 'L', 499.00, 10, 'images\\brown_shirt1.png', 'Unisex', 2),
 (32, 'T-shirt - Brown - xl', 'brown', 1, 3, 'XL', 499.00, 8, 'images\\brown_shirt1.png', 'Unisex', 2),
-(33, 'T-shirt - Blue - xl', 'blue', 1, 3, 'XL', 499.00, 9, 'images\\blue_shirt1.png', 'Unisex', 2),
+(33, 'T-shirt - Blue - xl', 'blue', 1, 3, 'XL', 499.00, 8, 'images\\blue_shirt1.png', 'Unisex', 2),
 (34, 'T-shirt - Blue - l', 'blue', 1, 3, 'L', 499.00, 10, 'images\\blue_shirt1.png', 'Unisex', 2),
 (35, 'T-shirt - Blue - m', 'blue', 1, 3, 'M', 499.00, 10, 'images\\blue_shirt1.png', 'Unisex', 2),
 (36, 'T-shirt - Blue - s', 'blue', 1, 3, 'S', 499.00, 10, 'images\\blue_shirt1.png', 'Unisex', 2),
@@ -284,7 +281,7 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (85, 'dream EDP', NULL, 7, 4, NULL, 1399.00, 8, 'images\\dreamFinal.jpg', 'Male', NULL),
 (86, 'love spell EDP', NULL, 7, 4, NULL, 1399.00, 5, 'images\\Lovespell.jpg', 'Female', NULL),
 (87, 'origin EDP', NULL, 7, 5, NULL, 1999.00, 1, 'images\\originFinal.jpg', 'Male', NULL),
-(88, 'origin EDT', NULL, 8, 5, NULL, 1999.00, 9, 'images\\originFinal.jpg', 'Male', NULL),
+(88, 'origin EDT', NULL, 8, 5, NULL, 1999.00, 8, 'images\\originFinal.jpg', 'Male', NULL),
 (90, 'dream EDT', NULL, 8, 4, NULL, 1899.00, 9, 'imagesdreamFinal.jpg', 'Male', NULL),
 (91, 'Linfinite EDP', NULL, 7, 4, NULL, 1799.00, 6, 'images\\Linfinity.jpg', 'Male', NULL),
 (92, 'Linfinite EDT', NULL, 8, 4, NULL, 1799.00, 9, 'images\\Linfinity.jpg', 'Male', NULL),
@@ -296,7 +293,7 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (98, 'coeur de rose EDP', NULL, 7, 6, NULL, 2099.00, 9, 'images\\CoeurDeRose.jpg', 'Female', NULL),
 (99, 'coeur de rose EDT', NULL, 8, 6, NULL, 2099.00, 10, 'images\\CoeurDeRose.jpg', 'Female', NULL),
 (100, 'sun set EDP', NULL, 7, 6, NULL, 2099.00, 9, 'images\\Sunset.jpg', 'Female', NULL),
-(101, 'sun set EDT', NULL, 8, 6, NULL, 2099.00, 10, 'images\\Sunset.jpg', 'Female', NULL),
+(101, 'sun set EDT', NULL, 8, 6, NULL, 2099.00, 9, 'images\\Sunset.jpg', 'Female', NULL),
 (102, 'Knittedpolo - Blue - s', 'blue', 1, 1, 'S', 999.00, 10, 'images\\blue_polo.png', 'Unisex', 1),
 (103, 'Knittedpolo - Blue - m', 'blue', 1, 1, 'M', 999.00, 10, 'images\\blue_polo.png', 'Unisex', 1),
 (104, 'Knittedpolo - Blue - l', 'blue', 1, 1, 'L', 999.00, 10, 'images\\blue_polo.png', 'Unisex', 1),
@@ -584,19 +581,19 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `products`
