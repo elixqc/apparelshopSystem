@@ -134,7 +134,7 @@ Partial Class Form1
         Me.welcomeName.AutoSize = True
         Me.welcomeName.Font = New System.Drawing.Font("Microsoft Himalaya", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.welcomeName.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.welcomeName.Location = New System.Drawing.Point(1343, 18)
+        Me.welcomeName.Location = New System.Drawing.Point(1304, 18)
         Me.welcomeName.Name = "welcomeName"
         Me.welcomeName.Size = New System.Drawing.Size(54, 24)
         Me.welcomeName.TabIndex = 4
