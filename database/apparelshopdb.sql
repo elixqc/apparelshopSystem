@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 26, 2025 at 11:00 AM
+-- Generation Time: Jul 29, 2025 at 01:48 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -130,7 +130,9 @@ INSERT INTO `notifications` (`notification_id`, `order_id`, `message`, `is_read`
 (1, 1, 'Your order #1 has been completed. Click to download your receipt.', 1, '2025-07-26 15:58:31', 5),
 (2, 2, 'Your order #2 has been completed. Click to download your receipt.', 1, '2025-07-26 16:16:48', 5),
 (3, 3, 'Order #3 cancelled. NOT ENOUGH STOCKS, NOT UPDATED.', 1, '2025-07-26 16:39:54', 5),
-(4, 4, 'Your order #4 has been completed. Click to download your receipt.', 1, '2025-07-26 16:57:34', 5);
+(4, 4, 'Your order #4 has been completed. Click to download your receipt.', 1, '2025-07-26 16:57:34', 5),
+(5, 5, 'Your order #5 has been received and is now processing. Estimated delivery: July 31, 2025', 1, '2025-07-29 19:06:35', 5),
+(6, 5, 'Your order #5 has been completed. Click to download your receipt.', 1, '2025-07-29 19:07:35', 5);
 
 -- --------------------------------------------------------
 
@@ -157,7 +159,8 @@ INSERT INTO `orders` (`order_id`, `customer_id`, `order_date`, `order_status`, `
 (1, 5, '2025-07-26 15:58:04', 'Completed', '2025-07-26 15:58:31', 'testing', 'eWallet', '64523423524'),
 (2, 5, '2025-07-26 16:15:19', 'Completed', '2025-07-26 16:16:48', 'testing', 'eWallet', '643523423526'),
 (3, 5, '2025-07-26 16:33:51', 'Cancelled', NULL, 'testing', 'COD', NULL),
-(4, 5, '2025-07-26 16:57:13', 'Completed', '2025-07-26 16:57:34', 'testing', 'COD', NULL);
+(4, 5, '2025-07-26 16:57:13', 'Completed', '2025-07-26 16:57:34', 'testing', 'COD', NULL),
+(5, 5, '2025-07-29 19:00:58', 'Completed', '2025-07-29 19:07:35', 'testing', 'COD', NULL);
 
 -- --------------------------------------------------------
 
@@ -184,7 +187,8 @@ INSERT INTO `order_details` (`order_detail_id`, `order_id`, `product_id`, `quant
 (4, 2, 101, 1, 2099.00),
 (5, 3, 33, 1, 499.00),
 (6, 3, 87, 1, 1999.00),
-(7, 4, 33, 1, 499.00);
+(7, 4, 33, 1, 499.00),
+(8, 5, 30, 1, 499.00);
 
 -- --------------------------------------------------------
 
@@ -240,7 +244,7 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (27, 'T-shirt - Green - m', 'green', 1, 3, 'M', 499.00, 10, 'images\\green_shirt1.png', 'Unisex', 2),
 (28, 'T-shirt - Green - s', 'green', 1, 3, 'S', 499.00, 10, 'images\\green_shirt1.png', 'Unisex', 2),
 (29, 'T-shirt - Brown - s', 'brown', 1, 3, 'S', 499.00, 10, 'images\\brown_shirt1.png', 'Unisex', 2),
-(30, 'T-shirt - Brown - m', 'brown', 1, 3, 'M', 499.00, 10, 'images\\brown_shirt1.png', 'Unisex', 2),
+(30, 'T-shirt - Brown - m', 'brown', 1, 3, 'M', 499.00, 9, 'images\\brown_shirt1.png', 'Unisex', 2),
 (31, 'T-shirt - Brown - l', 'brown', 1, 3, 'L', 499.00, 10, 'images\\brown_shirt1.png', 'Unisex', 2),
 (32, 'T-shirt - Brown - xl', 'brown', 1, 3, 'XL', 499.00, 8, 'images\\brown_shirt1.png', 'Unisex', 2),
 (33, 'T-shirt - Blue - xl', 'blue', 1, 3, 'XL', 499.00, 8, 'images\\blue_shirt1.png', 'Unisex', 2),
@@ -581,19 +585,19 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `products`
