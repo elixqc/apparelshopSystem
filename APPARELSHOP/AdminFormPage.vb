@@ -1,7 +1,10 @@
-﻿Imports System.IO
+﻿Imports System.Drawing
+Imports System.IO
+Imports iTextSharp.text
+Imports iTextSharp.text.pdf
+Imports iTextSharp.text.pdf.draw
 Imports MySql.Data.MySqlClient
 Imports Mysqlx.XDevAPI.Relational
-Imports System.Drawing
 
 Public Class AdminFormPage
     Public Property PendingUploadFilePath As String
@@ -609,6 +612,28 @@ Public Class AdminFormPage
                     insertCancelNotifCmd.Parameters.AddWithValue("@oid", selectedOrderId)
                     insertCancelNotifCmd.Parameters.AddWithValue("@reason", txtCancelReason.Text.Trim())
                     insertCancelNotifCmd.ExecuteNonQuery()
+
+                ElseIf newStatus = "Processing" Then
+                    ' Get order date and compute ETA (add 2-5 days randomly)
+                    Dim etaCmd As New MySqlCommand("SELECT order_date FROM orders WHERE order_id = @oid", conn)
+                    etaCmd.Parameters.AddWithValue("@oid", selectedOrderId)
+                    Dim orderDate As DateTime = Convert.ToDateTime(etaCmd.ExecuteScalar())
+
+                    Dim rand As New Random()
+                    Dim daysToAdd As Integer = rand.Next(2, 6) ' 2 to 5 inclusive
+                    Dim etaDate As DateTime = orderDate.AddDays(daysToAdd)
+
+                    Dim insertProcessingNotifCmd As New MySqlCommand("
+                    INSERT INTO notifications (customer_id, order_id, message)
+                    SELECT o.customer_id, o.order_id, 
+                    CONCAT('Your order #', o.order_id, ' has been received and is now processing. Estimated delivery: ', @eta)
+                    FROM orders o
+                    WHERE o.order_id = @oid", conn)
+
+                    insertProcessingNotifCmd.Parameters.AddWithValue("@oid", selectedOrderId)
+                    insertProcessingNotifCmd.Parameters.AddWithValue("@eta", etaDate.ToString("MMMM dd, yyyy"))
+                    insertProcessingNotifCmd.ExecuteNonQuery()
+
                 End If
 
 
@@ -786,7 +811,7 @@ Public Class AdminFormPage
         'fetch existing QR
         Dim qrPath As String = Path.Combine(Application.StartupPath, "Images", "qr.png")
         If File.Exists(qrPath) Then
-            Using tempImg As Image = Image.FromFile(qrPath)
+            Using tempImg As System.Drawing.Image = System.Drawing.Image.FromFile(qrPath)
                 picQRPreview.Image = New Bitmap(tempImg)
             End Using
         End If
@@ -805,7 +830,7 @@ Public Class AdminFormPage
                     Directory.CreateDirectory(Path.GetDirectoryName(qrPath)) ' Ensure folder exists
                     File.Copy(ofd.FileName, qrPath, True)
 
-                    picQRPreview.Image = Image.FromFile(qrPath)
+                    picQRPreview.Image = System.Drawing.Image.FromFile(qrPath)
                     MessageBox.Show("QR code updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Catch ex As Exception
                     MessageBox.Show("Failed to update QR code: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -816,5 +841,139 @@ Public Class AdminFormPage
         qrForm.Controls.Add(picQRPreview)
         qrForm.Controls.Add(btnBrowseQR)
         qrForm.ShowDialog()
+    End Sub
+
+    Private Sub dtpStartDate_ValueChanged(sender As Object, e As EventArgs) Handles dtpStartDate.ValueChanged
+
+    End Sub
+
+    Private Sub GenerateExpensesReportPDF(startDate As DateTime, endDate As DateTime)
+        Dim connStr As String = connectionString
+        Dim desktopPath As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+        Dim folderPath As String = Path.Combine(desktopPath, "Expenses")
+
+        If Not Directory.Exists(folderPath) Then
+            Directory.CreateDirectory(folderPath)
+        End If
+
+        Dim fileName As String = $"ExpensesReport_{startDate:yyyyMMdd}_{endDate:yyyyMMdd}.pdf"
+        Dim savePath As String = Path.Combine(folderPath, fileName)
+
+        Try
+            Using fs As New FileStream(savePath, FileMode.Create, FileAccess.Write, FileShare.Read)
+                Dim doc As New Document(PageSize.A4, 50, 50, 25, 25)
+                Dim writer = PdfWriter.GetInstance(doc, fs)
+                doc.Open()
+
+                ' Fonts
+                Dim titleFont As New iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 18, iTextSharp.text.Font.BOLD)
+                Dim subFont As New iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12)
+                Dim boldFont As New iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10, iTextSharp.text.Font.BOLD)
+                Dim bigBoldFont As New iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 14, iTextSharp.text.Font.BOLD)
+                Dim spacer = New Paragraph(Environment.NewLine)
+                Dim separator = New Paragraph(New Chunk(New LineSeparator(1.0F, 100.0F, BaseColor.GRAY, Element.ALIGN_CENTER, -1)))
+
+                ' Header
+                doc.Add(New Paragraph("PRESTIGE APPAREL", titleFont) With {.Alignment = Element.ALIGN_CENTER})
+                doc.Add(New Paragraph("Expenses Report", subFont) With {.Alignment = Element.ALIGN_CENTER})
+                doc.Add(New Paragraph($"From {startDate:MMMM dd, yyyy} to {endDate:MMMM dd, yyyy}", subFont) With {.Alignment = Element.ALIGN_CENTER})
+                doc.Add(spacer)
+
+                doc.Add(separator)
+                doc.Add(spacer)
+
+                ' Table Setup
+                Dim table As New PdfPTable(5)
+                table.WidthPercentage = 100
+                table.SetWidths(New Single() {30, 20, 15, 15, 20}) ' Product, Supplier, Qty, Price, Date
+                Dim headerColor As New BaseColor(240, 240, 240)
+
+                For Each colTitle In {"Product", "Supplier", "Quantity", "Supplier Price", "Supply Date"}
+                    Dim cell As New PdfPCell(New Phrase(colTitle, boldFont)) With {
+                    .BackgroundColor = headerColor,
+                    .HorizontalAlignment = Element.ALIGN_CENTER
+                }
+                    table.AddCell(cell)
+                Next
+
+                Dim totalExpense As Decimal = 0
+
+                Using conn As New MySqlConnection(connStr)
+                    conn.Open()
+
+                    Dim cmd As New MySqlCommand("
+                    SELECT 
+                        p.product_name,
+                        s.supplier_name,
+                        sl.quantity_added,
+                        sl.supplier_price,
+                        sl.supply_date
+                    FROM supply_logs sl
+                    JOIN products p ON sl.product_id = p.product_id
+                    JOIN suppliers s ON sl.supplier_id = s.supplier_id
+                    WHERE sl.supply_date BETWEEN @start AND @end
+                    ORDER BY sl.supply_date", conn)
+
+                    cmd.Parameters.AddWithValue("@start", startDate)
+                    cmd.Parameters.AddWithValue("@end", endDate)
+
+                    Using reader = cmd.ExecuteReader()
+                        While reader.Read()
+                            Dim product = reader("product_name").ToString()
+                            Dim supplier = reader("supplier_name").ToString()
+                            Dim qty = Convert.ToInt32(reader("quantity_added"))
+                            Dim price = Convert.ToDecimal(reader("supplier_price"))
+                            Dim dateSupplied = Convert.ToDateTime(reader("supply_date"))
+                            Dim subtotal = qty * price
+                            totalExpense += subtotal
+
+                            table.AddCell(New PdfPCell(New Phrase(product)))
+                            table.AddCell(New PdfPCell(New Phrase(supplier)))
+                            table.AddCell(New PdfPCell(New Phrase(qty.ToString())))
+                            table.AddCell(New PdfPCell(New Phrase("₱" & price.ToString("N2"))))
+                            table.AddCell(New PdfPCell(New Phrase(dateSupplied.ToString("MM/dd/yyyy"))))
+                        End While
+                    End Using
+                End Using
+
+                doc.Add(table)
+                doc.Add(spacer)
+                doc.Add(separator)
+                doc.Add(spacer)
+
+                ' Total
+                Dim totalPara = New Paragraph($"TOTAL EXPENSE: ₱{totalExpense:N2}", bigBoldFont)
+                totalPara.Alignment = Element.ALIGN_RIGHT
+                doc.Add(totalPara)
+
+                doc.Add(spacer)
+                doc.Add(New Paragraph("Generated by Prestige System", subFont) With {.Alignment = Element.ALIGN_CENTER})
+                doc.Close()
+            End Using
+
+            Process.Start(New ProcessStartInfo With {
+            .FileName = savePath,
+            .UseShellExecute = True
+        })
+
+            MessageBox.Show("Expenses report saved to your Desktop under 'Expenses'.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        Catch ex As Exception
+            MessageBox.Show("Error generating report: " & ex.Message, "PDF Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub calculateExpbtn_Click(sender As Object, e As EventArgs) Handles calculateExpbtn.Click
+
+        Dim startDate As DateTime = DateTimePicker1.Value.Date
+        Dim endDate As DateTime = DateTimePicker2.Value.Date
+
+        If endDate < startDate Then
+            MessageBox.Show("End date must be on or after start date.", "Invalid Dates", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+
+        GenerateExpensesReportPDF(startDate, endDate)
+
     End Sub
 End Class

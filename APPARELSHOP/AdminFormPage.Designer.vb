@@ -82,16 +82,23 @@ Partial Class AdminFormPage
         Me.txtCancelReason = New System.Windows.Forms.TextBox()
         Me.Label25 = New System.Windows.Forms.Label()
         Me.btnUpdateQR = New System.Windows.Forms.Button()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
+        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
+        Me.calculateExpbtn = New System.Windows.Forms.Button()
         Me.addProductPanel.SuspendLayout()
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'addProductPanel
         '
-        Me.addProductPanel.BackColor = System.Drawing.SystemColors.ScrollBar
+        Me.addProductPanel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
         Me.addProductPanel.Controls.Add(Me.genderTxt)
         Me.addProductPanel.Controls.Add(Me.remarksTxt)
         Me.addProductPanel.Controls.Add(Me.Label11)
@@ -590,14 +597,14 @@ Partial Class AdminFormPage
         '
         'Panel1
         '
-        Me.Panel1.BackColor = System.Drawing.SystemColors.ScrollBar
+        Me.Panel1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
         Me.Panel1.Controls.Add(Me.createBtn)
         Me.Panel1.Controls.Add(Me.passwordTxt)
         Me.Panel1.Controls.Add(Me.usernameTxt)
         Me.Panel1.Controls.Add(Me.Label22)
         Me.Panel1.Controls.Add(Me.Label24)
         Me.Panel1.Controls.Add(Me.Label23)
-        Me.Panel1.Location = New System.Drawing.Point(839, 432)
+        Me.Panel1.Location = New System.Drawing.Point(709, 429)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(485, 84)
         Me.Panel1.TabIndex = 10
@@ -688,19 +695,79 @@ Partial Class AdminFormPage
         Me.btnUpdateQR.BackColor = System.Drawing.Color.ForestGreen
         Me.btnUpdateQR.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnUpdateQR.ForeColor = System.Drawing.Color.Transparent
-        Me.btnUpdateQR.Location = New System.Drawing.Point(707, 432)
+        Me.btnUpdateQR.Location = New System.Drawing.Point(1200, 429)
         Me.btnUpdateQR.Name = "btnUpdateQR"
         Me.btnUpdateQR.Size = New System.Drawing.Size(124, 84)
         Me.btnUpdateQR.TabIndex = 12
         Me.btnUpdateQR.Text = "UPDATE QR PAYMENT PICTURE"
         Me.btnUpdateQR.UseVisualStyleBackColor = False
         '
+        'Panel2
+        '
+        Me.Panel2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Panel2.Controls.Add(Me.Label27)
+        Me.Panel2.Controls.Add(Me.Label26)
+        Me.Panel2.Controls.Add(Me.DateTimePicker2)
+        Me.Panel2.Controls.Add(Me.DateTimePicker1)
+        Me.Panel2.Controls.Add(Me.calculateExpbtn)
+        Me.Panel2.Location = New System.Drawing.Point(333, 442)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(362, 71)
+        Me.Panel2.TabIndex = 13
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label27.Location = New System.Drawing.Point(7, 44)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(57, 19)
+        Me.Label27.TabIndex = 2
+        Me.Label27.Text = "End Date"
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label26.Location = New System.Drawing.Point(4, 12)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(62, 19)
+        Me.Label26.TabIndex = 2
+        Me.Label26.Text = "Start Date"
+        '
+        'DateTimePicker2
+        '
+        Me.DateTimePicker2.Location = New System.Drawing.Point(67, 42)
+        Me.DateTimePicker2.Name = "DateTimePicker2"
+        Me.DateTimePicker2.Size = New System.Drawing.Size(200, 20)
+        Me.DateTimePicker2.TabIndex = 1
+        '
+        'DateTimePicker1
+        '
+        Me.DateTimePicker1.Location = New System.Drawing.Point(67, 10)
+        Me.DateTimePicker1.Name = "DateTimePicker1"
+        Me.DateTimePicker1.Size = New System.Drawing.Size(200, 20)
+        Me.DateTimePicker1.TabIndex = 1
+        '
+        'calculateExpbtn
+        '
+        Me.calculateExpbtn.BackColor = System.Drawing.Color.ForestGreen
+        Me.calculateExpbtn.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.calculateExpbtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.calculateExpbtn.Location = New System.Drawing.Point(271, 10)
+        Me.calculateExpbtn.Name = "calculateExpbtn"
+        Me.calculateExpbtn.Size = New System.Drawing.Size(84, 52)
+        Me.calculateExpbtn.TabIndex = 0
+        Me.calculateExpbtn.Text = "Calculate Expenses"
+        Me.calculateExpbtn.UseVisualStyleBackColor = False
+        '
         'AdminFormPage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
-        Me.ClientSize = New System.Drawing.Size(1351, 669)
+        Me.ClientSize = New System.Drawing.Size(1368, 669)
+        Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.btnUpdateQR)
         Me.Controls.Add(Me.txtCancelReason)
         Me.Controls.Add(Me.Panel1)
@@ -735,6 +802,8 @@ Partial Class AdminFormPage
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -800,4 +869,10 @@ Partial Class AdminFormPage
     Friend WithEvents txtCancelReason As TextBox
     Friend WithEvents Label25 As Label
     Friend WithEvents btnUpdateQR As Button
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents calculateExpbtn As Button
+    Friend WithEvents Label27 As Label
+    Friend WithEvents Label26 As Label
+    Friend WithEvents DateTimePicker2 As DateTimePicker
+    Friend WithEvents DateTimePicker1 As DateTimePicker
 End Class

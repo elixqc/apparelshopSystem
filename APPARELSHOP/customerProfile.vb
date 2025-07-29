@@ -17,7 +17,7 @@ Public Class customerProfile
             conn.Open()
 
             Dim query As String = "
-            SELECT 
+                SELECT 
                 n.notification_id, 
                 n.order_id, 
                 o.order_status,
@@ -31,7 +31,7 @@ Public Class customerProfile
             INNER JOIN orders o ON n.order_id = o.order_id
             WHERE n.customer_id = @uid 
               AND n.is_read = FALSE 
-              AND o.order_status IN ('Completed', 'Cancelled')
+              AND o.order_status IN ('Completed', 'Cancelled', 'Processing')
             ORDER BY n.date_created DESC
         "
 
@@ -150,7 +150,32 @@ Public Class customerProfile
                         Catch ex As Exception
                             MessageBox.Show("Error: " & ex.Message)
                         End Try
+
                     End Sub
+
+                    ElseIf status = "Processing" Then
+                        ' Optional: Make panel clickable to mark as read
+                        AddHandler notifPanel.Click,
+                        Sub(senderPanel As Object, ePanel As EventArgs)
+                            Try
+                                Using innerConn As New MySqlConnection(connectionString)
+                                    innerConn.Open()
+
+                                    Dim markCmd As New MySqlCommand("
+                                    UPDATE notifications 
+                                    SET is_read = TRUE 
+                                    WHERE customer_id = @uid AND order_id = @oid", innerConn)
+                                    markCmd.Parameters.AddWithValue("@uid", loggedInUserID)
+                                    markCmd.Parameters.AddWithValue("@oid", orderId)
+                                    markCmd.ExecuteNonQuery()
+                                End Using
+
+                                LoadNotifications()
+                            Catch ex As Exception
+                                MessageBox.Show("Error: " & ex.Message)
+                            End Try
+                        End Sub
+
                     End If
 
                     FlowLayoutPanel2.Controls.Add(notifPanel)
