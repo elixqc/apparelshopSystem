@@ -50,7 +50,7 @@ Partial Class perfumepageMale
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "perfumepageMale"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "perfumepageMale"
+        Me.Text = "MALE PERFUMES"
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 

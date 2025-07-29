@@ -483,8 +483,8 @@ Module globals
         Dim addToCartBtn As New Button With {
             .Text = "ADD TO CART",
             .Font = New Font("Microsoft Himalaya", 14.25),
-            .ForeColor = Color.White, ' ← Sets the font color
-            .BackColor = Color.Black, ' Optional: background color
+            .ForeColor = Color.White, ' font color
+            .BackColor = Color.Black, ' background color
             .Top = 418,
             .Left = 202,
             .Width = 100,

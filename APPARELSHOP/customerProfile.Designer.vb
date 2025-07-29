@@ -244,7 +244,7 @@ Partial Class customerProfile
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "customerProfile"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "customerProfile"
+        Me.Text = "CUSTOMER PROFILE"
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)

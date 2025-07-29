@@ -43,7 +43,7 @@ Partial Class perfumepageFemale
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "perfumepageFemale"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "perfumepageFemale"
+        Me.Text = "FEMALE PERFUMES"
         Me.ResumeLayout(False)
 
     End Sub

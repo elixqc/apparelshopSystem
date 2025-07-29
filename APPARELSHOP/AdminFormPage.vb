@@ -258,14 +258,14 @@ Public Class AdminFormPage
         End If
     End Sub
 
-    ' ' Handle upload button click to save product details
+    '  Handle upload button click to save product details
     Private Sub btnUpload_Click(sender As Object, e As EventArgs) Handles addProductBtn.Click
         ' --- Step 1: Get Category ID ---
         Dim categoryId As Integer = GetId("SELECT category_id FROM categories WHERE category_name = @name", CategoryLists.SelectedItem?.ToString())
         Dim isPerfume As Boolean = (categoryId >= 7 AndAlso categoryId <= 8)  ' Check if selected category is a perfume type
 
 
-        ' --- Step 2: Validate Required Fields ---
+        'Validate Required Fields
         If String.IsNullOrWhiteSpace(productNameTxt.Text) OrElse
            String.IsNullOrWhiteSpace(PriceTxt.Text) OrElse
            String.IsNullOrWhiteSpace(QuantityList.Text) OrElse
@@ -274,7 +274,7 @@ Public Class AdminFormPage
             Return
         End If
 
-        ' --- Step 3: Format Inputs ---
+        'Format Input
         Dim rawName As String = productNameTxt.Text.Trim()
         Dim rawColor As String = ColorTxt.Text.Trim()
         Dim rawSize As String = sizeTxt.Text.Trim()
@@ -295,12 +295,13 @@ Public Class AdminFormPage
                 suffix = " EDT"
             End If
         End If
+
         '  final product name for database
         Dim productNameForDb As String = If(isPerfume, rawName & suffix, $"{formattedName} - {formattedColor} - {formattedSize}")
 
 
 
-        ' --- Step 4: Get Other IDs ---
+        ' Get Other IDs 
         Dim supplierId As Integer = GetId("SELECT supplier_id FROM suppliers WHERE supplier_name = @name", SupplierLists.SelectedItem?.ToString())
         Dim brandId As Integer = GetId("SELECT brand_id FROM brands WHERE brand_name = @name", brandTxt.SelectedItem?.ToString())
         If supplierId = -1 OrElse (Not isPerfume AndAlso brandId = -1) Then
@@ -308,17 +309,17 @@ Public Class AdminFormPage
             Return
         End If
 
-        ' --- Step 5: Parse Price & Quantity ---
+        ' Parse Price & Quantity
         Dim priceValue As Decimal
         Dim quantityValue As Integer
         Decimal.TryParse(PriceTxt.Text.Trim(), priceValue)
         Integer.TryParse(QuantityList.Text.Trim(), quantityValue)
 
-        ' --- Step 6: Check for Existing Product ---
+        ' Check for Existing Product 
         Dim productId As Integer = GetId("SELECT product_id FROM products WHERE product_name = @pname", productNameForDb)
         Dim isUpdate As Boolean = (productId <> -1)
 
-        ' --- Step 7: File Check (only required for new product) ---
+        ' File Check (only required for new product)
         If Not isUpdate Then
             If String.IsNullOrEmpty(selectedFilePath) OrElse Not File.Exists(selectedFilePath) Then
                 MessageBox.Show("No file selected or file does not exist.")
@@ -327,7 +328,7 @@ Public Class AdminFormPage
             imagePathForDb = SaveImageToPath(selectedFilePath) ' Save image and get relative path
         End If
 
-        ' --- Step 8 ---
+        ' Step 8
         ' TRANSACTION HANDLING ( ADD PRODCUCT OR UPDATE PRODUCT )
         Try
             Using conn As New MySqlConnection(connectionString)
@@ -843,9 +844,6 @@ Public Class AdminFormPage
         qrForm.ShowDialog()
     End Sub
 
-    Private Sub dtpStartDate_ValueChanged(sender As Object, e As EventArgs) Handles dtpStartDate.ValueChanged
-
-    End Sub
 
     Private Sub GenerateExpensesReportPDF(startDate As DateTime, endDate As DateTime)
         Dim connStr As String = connectionString
