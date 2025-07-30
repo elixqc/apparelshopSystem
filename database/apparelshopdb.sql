@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 29, 2025 at 01:48 PM
+-- Generation Time: Jul 30, 2025 at 04:09 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -132,7 +132,15 @@ INSERT INTO `notifications` (`notification_id`, `order_id`, `message`, `is_read`
 (3, 3, 'Order #3 cancelled. NOT ENOUGH STOCKS, NOT UPDATED.', 1, '2025-07-26 16:39:54', 5),
 (4, 4, 'Your order #4 has been completed. Click to download your receipt.', 1, '2025-07-26 16:57:34', 5),
 (5, 5, 'Your order #5 has been received and is now processing. Estimated delivery: July 31, 2025', 1, '2025-07-29 19:06:35', 5),
-(6, 5, 'Your order #5 has been completed. Click to download your receipt.', 1, '2025-07-29 19:07:35', 5);
+(6, 5, 'Your order #5 has been completed. Click to download your receipt.', 1, '2025-07-29 19:07:35', 5),
+(7, 11, 'Your order #11 has been received and is now processing. Estimated delivery: August 04, 2025', 0, '2025-07-30 09:17:20', 5),
+(8, 9, 'Order #9 cancelled. Enter reason for cancellation...', 1, '2025-07-30 09:18:12', 5),
+(9, 10, 'Order #10 cancelled. Enter reason for cancellation...', 1, '2025-07-30 09:18:18', 5),
+(10, 8, 'Order #8 cancelled. Enter reason for cancellation...', 1, '2025-07-30 09:18:32', 5),
+(11, 7, 'Order #7 cancelled. Enter reason for cancellation...', 1, '2025-07-30 09:18:38', 5),
+(12, 6, 'Order #6 cancelled. Enter reason for cancellation...', 1, '2025-07-30 09:18:47', 5),
+(13, 13, 'Your order #13 has been completed. Click to download your receipt.', 0, '2025-07-30 10:04:07', 5),
+(14, 12, 'Your order #12 has been completed. Click to download your receipt.', 0, '2025-07-30 10:04:14', 5);
 
 -- --------------------------------------------------------
 
@@ -160,7 +168,15 @@ INSERT INTO `orders` (`order_id`, `customer_id`, `order_date`, `order_status`, `
 (2, 5, '2025-07-26 16:15:19', 'Completed', '2025-07-26 16:16:48', 'testing', 'eWallet', '643523423526'),
 (3, 5, '2025-07-26 16:33:51', 'Cancelled', NULL, 'testing', 'COD', NULL),
 (4, 5, '2025-07-26 16:57:13', 'Completed', '2025-07-26 16:57:34', 'testing', 'COD', NULL),
-(5, 5, '2025-07-29 19:00:58', 'Completed', '2025-07-29 19:07:35', 'testing', 'COD', NULL);
+(5, 5, '2025-07-29 19:00:58', 'Completed', '2025-07-29 19:07:35', 'testing', 'COD', NULL),
+(6, 5, '2025-07-30 09:02:12', 'Cancelled', NULL, 'testing', 'eWallet', ''),
+(7, 5, '2025-07-30 09:04:03', 'Cancelled', NULL, 'testing', 'eWallet', ''),
+(8, 5, '2025-07-30 09:05:13', 'Cancelled', NULL, 'testing', 'eWallet', ''),
+(9, 5, '2025-07-30 09:07:31', 'Cancelled', NULL, 'testing', 'eWallet', '453645236235'),
+(10, 5, '2025-07-30 09:11:30', 'Cancelled', NULL, 'testing', 'eWallet', 'faf'),
+(11, 5, '2025-07-30 09:14:03', 'Processing', NULL, 'testing', 'eWallet', 'r5151'),
+(12, 5, '2025-07-30 09:36:01', 'Completed', '2025-07-30 10:04:14', 'testing', 'COD', NULL),
+(13, 5, '2025-07-30 09:44:12', 'Completed', '2025-07-30 10:04:07', 'testing', 'COD', NULL);
 
 -- --------------------------------------------------------
 
@@ -188,7 +204,17 @@ INSERT INTO `order_details` (`order_detail_id`, `order_id`, `product_id`, `quant
 (5, 3, 33, 1, 499.00),
 (6, 3, 87, 1, 1999.00),
 (7, 4, 33, 1, 499.00),
-(8, 5, 30, 1, 499.00);
+(8, 5, 30, 1, 499.00),
+(9, 6, 97, 1, 1499.00),
+(10, 7, 96, 1, 1499.00),
+(11, 8, 87, 1, 1999.00),
+(12, 9, 96, 1, 1499.00),
+(13, 10, 85, 1, 1399.00),
+(14, 11, 17, 1, 599.00),
+(15, 12, 86, 1, 1399.00),
+(16, 12, 88, 1, 1999.00),
+(17, 12, 91, 1, 1799.00),
+(18, 13, 55, 1, 1099.00);
 
 -- --------------------------------------------------------
 
@@ -215,7 +241,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `supplier_id`, `size`, `price`, `stock_quantity`, `image_path`, `gender`, `brand_id`) VALUES
-(1, 'Sweatshirt - Yellow - s', 'yellow', 2, 1, 'S', 599.00, 9, 'images\\yellow_swsh.png', 'Unisex', 1),
+(1, 'Sweatshirt - Yellow - s', 'yellow', 2, 1, 'S', 599.00, 14, 'images\\yellow_swsh.png', 'Unisex', 1),
 (2, 'Sweatshirt - Yellow - m', 'yellow', 2, 1, 'M', 599.00, 10, 'images\\yellow_swsh.png', 'Unisex', 1),
 (3, 'Sweatshirt - Yellow - l', 'yellow', 2, 1, 'L', 599.00, 10, 'images\\yellow_swsh.png', 'Unisex', 1),
 (4, 'Sweatshirt - Yellow - xl', 'yellow', 2, 1, 'XL', 599.00, 4, 'images\\yellow_swsh.png', 'Unisex', 1),
@@ -269,7 +295,7 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (52, 'Hoodie - Blue - s', 'blue', 4, 2, 'S', 1099.00, 10, 'images\\blue_hoodie.png', 'Unisex', 3),
 (53, 'Hoodie - Blue - m', 'blue', 4, 2, 'M', 1099.00, 10, 'images\\blue_hoodie.png', 'Unisex', 3),
 (54, 'Hoodie - Blue - l', 'blue', 4, 2, 'L', 1099.00, 9, 'images\\blue_hoodie.png', 'Unisex', 3),
-(55, 'Hoodie - Blue - xl', 'blue', 4, 2, 'XL', 1099.00, 9, 'images\\blue_hoodie.png', 'Unisex', 3),
+(55, 'Hoodie - Blue - xl', 'blue', 4, 2, 'XL', 1099.00, 8, 'images\\blue_hoodie.png', 'Unisex', 3),
 (56, 'Hoodie - Blue - xxl', 'blue', 4, 2, 'XXL', 1099.00, 10, 'images\\blue_hoodie.png', 'Unisex', 3),
 (57, 'Sweatpants - White - s', 'white', 3, 1, 'S', 799.00, 10, 'images\\white_sweatpants.png', 'Unisex', 1),
 (58, 'Sweatpants - White - m', 'white', 3, 1, 'M', 799.00, 10, 'images\\white_sweatpants.png', 'Unisex', 1),
@@ -283,11 +309,11 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (66, 'Sweatpants - Gray - m', 'gray', 3, 1, 'M', 799.00, 10, 'images\\gray_Sweatpants.png', 'Unisex', 1),
 (67, 'Sweatpants - Gray - l', 'gray', 3, 1, 'L', 799.00, 10, 'images\\gray_Sweatpants.png', 'Unisex', 1),
 (85, 'dream EDP', NULL, 7, 4, NULL, 1399.00, 8, 'images\\dreamFinal.jpg', 'Male', NULL),
-(86, 'love spell EDP', NULL, 7, 4, NULL, 1399.00, 5, 'images\\Lovespell.jpg', 'Female', NULL),
+(86, 'love spell EDP', NULL, 7, 4, NULL, 1399.00, 4, 'images\\Lovespell.jpg', 'Female', NULL),
 (87, 'origin EDP', NULL, 7, 5, NULL, 1999.00, 1, 'images\\originFinal.jpg', 'Male', NULL),
-(88, 'origin EDT', NULL, 8, 5, NULL, 1999.00, 8, 'images\\originFinal.jpg', 'Male', NULL),
+(88, 'origin EDT', NULL, 8, 5, NULL, 1999.00, 7, 'images\\originFinal.jpg', 'Male', NULL),
 (90, 'dream EDT', NULL, 8, 4, NULL, 1899.00, 9, 'imagesdreamFinal.jpg', 'Male', NULL),
-(91, 'Linfinite EDP', NULL, 7, 4, NULL, 1799.00, 6, 'images\\Linfinity.jpg', 'Male', NULL),
+(91, 'Linfinite EDP', NULL, 7, 4, NULL, 1799.00, 5, 'images\\Linfinity.jpg', 'Male', NULL),
 (92, 'Linfinite EDT', NULL, 8, 4, NULL, 1799.00, 9, 'images\\Linfinity.jpg', 'Male', NULL),
 (93, 'Pacific Aura EDP', NULL, 7, 5, NULL, 1999.00, 8, 'images\\Aura.jpg', 'Male', NULL),
 (94, 'Pacific Aura EDT', NULL, 8, 5, NULL, 1999.00, 7, 'images\\Aura.jpg', 'Male', NULL),
@@ -425,7 +451,6 @@ INSERT INTO `supply_logs` (`supply_id`, `product_id`, `supplier_id`, `quantity_a
 (65, 65, 1, 10, '2025-07-23 11:12:21', 'initial stock swetpants', 500.00),
 (66, 66, 1, 10, '2025-07-23 11:12:25', 'initial stock swetpants', 500.00),
 (67, 67, 1, 10, '2025-07-23 11:12:29', 'initial stock swetpants', 500.00),
-(68, 68, 1, 10, '2025-07-23 11:12:35', 'initial stock swetpants', 500.00),
 (69, 85, 4, 10, '2025-07-23 22:56:58', 'dream perf initial stock', 1000.00),
 (70, 86, 4, 10, '2025-07-23 22:58:14', 'initial stock lovespell', 1000.00),
 (71, 87, 5, 10, '2025-07-24 00:26:35', 'origin initial sotcks', 1600.00),
@@ -454,7 +479,8 @@ INSERT INTO `supply_logs` (`supply_id`, `product_id`, `supplier_id`, `quantity_a
 (95, 110, 1, 10, '2025-07-24 15:06:09', 'initial stocks knitted polo', 800.00),
 (96, 111, 1, 10, '2025-07-24 15:06:15', 'initial stocks knitted polo', 800.00),
 (97, 112, 1, 10, '2025-07-24 15:06:24', 'initial stocks knitted polo', 800.00),
-(98, 113, 1, 10, '2025-07-24 15:06:30', 'initial stocks knitted polo', 800.00);
+(98, 113, 1, 10, '2025-07-24 15:06:30', 'initial stocks knitted polo', 800.00),
+(99, 1, 1, 5, '2025-07-29 22:36:44', '', 499.00);
 
 -- --------------------------------------------------------
 
@@ -585,19 +611,19 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -615,7 +641,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `supply_logs`
 --
 ALTER TABLE `supply_logs`
-  MODIFY `supply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `supply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -667,6 +693,13 @@ ALTER TABLE `products`
   ADD CONSTRAINT `fk_brand` FOREIGN KEY (`brand_id`) REFERENCES `brands` (`brand_id`),
   ADD CONSTRAINT `fk_product_category` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`) ON DELETE SET NULL,
   ADD CONSTRAINT `fk_product_supplier` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`supplier_id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `supply_logs`
+--
+ALTER TABLE `supply_logs`
+  ADD CONSTRAINT `fk_supply_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_supply_supplier` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`supplier_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
