@@ -396,6 +396,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="images\AfternoonVibe - Copy.jpg" />
     <Content Include="images\AfternoonVibe.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -457,7 +458,9 @@
     <Content Include="images\Origin.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\originFinal - Copy.jpg" />
+    <Content Include="images\originFinal - Copy.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="images\originFinal.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -521,4 +524,9 @@
     <None Include="Resources\minusbutton.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <ItemGroup>
+    <Content Include="images\shrek.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

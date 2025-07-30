@@ -5,11 +5,42 @@ Imports iTextSharp.text.pdf
 Imports iTextSharp.text.pdf.draw
 Imports MySql.Data.MySqlClient
 Imports Mysqlx.XDevAPI.Relational
+Imports System.Xml
 
 Public Class AdminFormPage
     Public Property PendingUploadFilePath As String
     Dim selectedOrderId As Integer = -1
     Dim conn As New MySqlConnection(connectionString)
+
+    Private Sub AddImageToProjectFile(vbprojPath As String, relativeImagePath As String)
+        Try
+            Dim doc As New System.Xml.XmlDocument()
+            doc.Load(vbprojPath)
+
+            Dim nsmgr As New System.Xml.XmlNamespaceManager(doc.NameTable)
+            nsmgr.AddNamespace("msb", "http://schemas.microsoft.com/developer/msbuild/2003")
+
+            Dim alreadyExists = doc.SelectSingleNode($"//msb:Content[@Include='{relativeImagePath}']", nsmgr)
+            If alreadyExists IsNot Nothing Then Return ' Already added
+
+            ' Create XML nodes
+            Dim itemGroup = doc.CreateElement("ItemGroup", doc.DocumentElement.NamespaceURI)
+            Dim contentNode = doc.CreateElement("Content", doc.DocumentElement.NamespaceURI)
+            contentNode.SetAttribute("Include", relativeImagePath)
+
+            Dim copyNode = doc.CreateElement("CopyToOutputDirectory", doc.DocumentElement.NamespaceURI)
+            copyNode.InnerText = "PreserveNewest"
+
+            contentNode.AppendChild(copyNode)
+            itemGroup.AppendChild(contentNode)
+            doc.DocumentElement.AppendChild(itemGroup)
+
+            doc.Save(vbprojPath)
+        Catch ex As Exception
+            MessageBox.Show("Failed to update project file: " & ex.Message)
+        End Try
+    End Sub
+
 
     'get total income and products sold
     Private Sub LoadTotalIncomeAndProductsSold()
@@ -452,26 +483,36 @@ Public Class AdminFormPage
         End Using
     End Function
     '' Helper function to save image file to a specific path
-    Private Function SaveImageToPath(filePath As String) As String
-        Dim folder As String = Path.Combine(Application.StartupPath, "images")
-        If Not Directory.Exists(folder) Then Directory.CreateDirectory(folder)
+    Private Function SaveImageToPath(sourceFilePath As String) As String
+        Try
+            Dim fileName As String = Path.GetFileName(sourceFilePath)
+            Dim projectDir As String = Path.GetFullPath(Path.Combine(Application.StartupPath, "..\.."))
+            Dim imageDir As String = Path.Combine(projectDir, "images")
 
-        Dim destPath As String = Path.Combine(folder, Path.GetFileName(filePath))
+            If Not Directory.Exists(imageDir) Then
+                Directory.CreateDirectory(imageDir)
+            End If
 
-        ' ✅ Prevent copying file onto itself
-        If Not filePath.Equals(destPath, StringComparison.OrdinalIgnoreCase) Then
-            ' Try to copy safely
-            Try
-                File.Copy(filePath, destPath, True)
-            Catch ex As IOException
-                MessageBox.Show("Error copying image file: " & ex.Message)
-                Return ""
-            End Try
-        End If
+            Dim destinationPath As String = Path.Combine(imageDir, fileName)
 
-        Return "images\" & Path.GetFileName(filePath)
+            File.Copy(sourceFilePath, destinationPath, True)
+
+            ' Also copy to bin\Debug\images so the image loads immediately without rebuild
+            Dim debugImageDir As String = Path.Combine(Application.StartupPath, "images")
+            If Not Directory.Exists(debugImageDir) Then
+                Directory.CreateDirectory(debugImageDir)
+            End If
+            File.Copy(destinationPath, Path.Combine(debugImageDir, fileName), True)
+
+
+            ' Return relative path: this works with Application.StartupPath + "images\file"
+            Return Path.Combine("images", fileName)
+
+        Catch ex As Exception
+            MessageBox.Show("Error copying image: " & ex.Message)
+            Return ""
+        End Try
     End Function
-
 
 
 
