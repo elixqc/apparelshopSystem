@@ -45,7 +45,7 @@ Partial Class customerProfile
         '
         'Panel1
         '
-        Me.Panel1.BackColor = System.Drawing.Color.Lavender
+        Me.Panel1.BackColor = System.Drawing.Color.OldLace
         Me.Panel1.Controls.Add(Me.FlowLayoutPanel1)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.MenuStrip1)
@@ -77,7 +77,7 @@ Partial Class customerProfile
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.BackColor = System.Drawing.Color.Lavender
+        Me.MenuStrip1.BackColor = System.Drawing.Color.OldLace
         Me.MenuStrip1.Dock = System.Windows.Forms.DockStyle.None
         Me.MenuStrip1.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.toRecieveMenuStrip, Me.CompleteOrdersBtnMenu, Me.CANCELLEDToolStripMenuItem})
@@ -124,8 +124,9 @@ Partial Class customerProfile
         '
         'Button1
         '
-        Me.Button1.BackColor = System.Drawing.Color.Lavender
+        Me.Button1.BackColor = System.Drawing.Color.OldLace
         Me.Button1.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Button1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.Button1.Location = New System.Drawing.Point(935, 561)
@@ -141,7 +142,7 @@ Partial Class customerProfile
         Me.deliveryAddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.deliveryAddress.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
         Me.deliveryAddress.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.deliveryAddress.Location = New System.Drawing.Point(49, 85)
+        Me.deliveryAddress.Location = New System.Drawing.Point(62, 77)
         Me.deliveryAddress.Name = "deliveryAddress"
         Me.deliveryAddress.Size = New System.Drawing.Size(65, 22)
         Me.deliveryAddress.TabIndex = 3
@@ -152,7 +153,7 @@ Partial Class customerProfile
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.Label3.Location = New System.Drawing.Point(45, 53)
+        Me.Label3.Location = New System.Drawing.Point(58, 45)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(286, 20)
         Me.Label3.TabIndex = 1
@@ -160,22 +161,23 @@ Partial Class customerProfile
         '
         'changeAddress
         '
+        Me.changeAddress.BackColor = System.Drawing.Color.OldLace
         Me.changeAddress.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.changeAddress.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
         Me.changeAddress.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.changeAddress.Location = New System.Drawing.Point(49, 117)
+        Me.changeAddress.Location = New System.Drawing.Point(62, 109)
         Me.changeAddress.Name = "changeAddress"
         Me.changeAddress.Size = New System.Drawing.Size(83, 29)
         Me.changeAddress.TabIndex = 4
         Me.changeAddress.Text = "Change"
-        Me.changeAddress.UseVisualStyleBackColor = True
+        Me.changeAddress.UseVisualStyleBackColor = False
         '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
         Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.Label4.Location = New System.Drawing.Point(49, 158)
+        Me.Label4.Location = New System.Drawing.Point(58, 152)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(266, 20)
         Me.Label4.TabIndex = 1
@@ -184,10 +186,11 @@ Partial Class customerProfile
         'contactNumber
         '
         Me.contactNumber.AutoSize = True
+        Me.contactNumber.BackColor = System.Drawing.Color.OldLace
         Me.contactNumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.contactNumber.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
         Me.contactNumber.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.contactNumber.Location = New System.Drawing.Point(53, 190)
+        Me.contactNumber.Location = New System.Drawing.Point(62, 182)
         Me.contactNumber.Name = "contactNumber"
         Me.contactNumber.Size = New System.Drawing.Size(65, 22)
         Me.contactNumber.TabIndex = 3
@@ -195,19 +198,21 @@ Partial Class customerProfile
         '
         'ChangeContactNum
         '
+        Me.ChangeContactNum.BackColor = System.Drawing.Color.OldLace
         Me.ChangeContactNum.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ChangeContactNum.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
         Me.ChangeContactNum.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.ChangeContactNum.Location = New System.Drawing.Point(53, 222)
+        Me.ChangeContactNum.Location = New System.Drawing.Point(62, 216)
         Me.ChangeContactNum.Name = "ChangeContactNum"
         Me.ChangeContactNum.Size = New System.Drawing.Size(83, 29)
         Me.ChangeContactNum.TabIndex = 4
         Me.ChangeContactNum.Text = "Change"
-        Me.ChangeContactNum.UseVisualStyleBackColor = True
+        Me.ChangeContactNum.UseVisualStyleBackColor = False
         '
         'FlowLayoutPanel2
         '
-        Me.FlowLayoutPanel2.BackColor = System.Drawing.Color.Lavender
+        Me.FlowLayoutPanel2.AutoScroll = True
+        Me.FlowLayoutPanel2.BackColor = System.Drawing.Color.OldLace
         Me.FlowLayoutPanel2.Location = New System.Drawing.Point(12, 286)
         Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
         Me.FlowLayoutPanel2.Size = New System.Drawing.Size(468, 262)
@@ -216,11 +221,11 @@ Partial Class customerProfile
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold)
         Me.Label5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.Label5.Location = New System.Drawing.Point(11, 263)
+        Me.Label5.Location = New System.Drawing.Point(12, 258)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(144, 20)
+        Me.Label5.Size = New System.Drawing.Size(184, 25)
         Me.Label5.TabIndex = 0
         Me.Label5.Text = "NOTIFICATIONS"
         '

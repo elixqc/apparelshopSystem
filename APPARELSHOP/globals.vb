@@ -484,11 +484,12 @@ Module globals
             .Text = "ADD TO CART",
             .Font = New Font("Microsoft Himalaya", 14.25),
             .ForeColor = Color.White, ' font color
-            .BackColor = Color.Black, ' background color
+            .BackColor = Color.FromArgb(74, 80, 66), ' background color
             .Top = 418,
             .Left = 202,
             .Width = 100,
-            .Height = 40
+            .Height = 40,
+        .FlatStyle = FlatStyle.Flat
         }
 
 
@@ -919,7 +920,8 @@ Module globals
             .Text = "ADD TO CART",
             .Font = New Font("Microsoft Himalaya", 12),
             .ForeColor = Color.White,
-            .BackColor = Color.DarkSlateBlue,
+            .BackColor = Color.FromArgb(74, 80, 66),
+            .FlatStyle = FlatStyle.Flat,
             .Top = 475,
             .Left = 30,
             .Width = 280,

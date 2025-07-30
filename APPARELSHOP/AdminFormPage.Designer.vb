@@ -88,6 +88,7 @@ Partial Class AdminFormPage
         Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.calculateExpbtn = New System.Windows.Forms.Button()
+        Me.Label28 = New System.Windows.Forms.Label()
         Me.addProductPanel.SuspendLayout()
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -98,7 +99,8 @@ Partial Class AdminFormPage
         '
         'addProductPanel
         '
-        Me.addProductPanel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.addProductPanel.BackColor = System.Drawing.Color.OldLace
+        Me.addProductPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.addProductPanel.Controls.Add(Me.genderTxt)
         Me.addProductPanel.Controls.Add(Me.remarksTxt)
         Me.addProductPanel.Controls.Add(Me.Label11)
@@ -127,9 +129,9 @@ Partial Class AdminFormPage
         Me.addProductPanel.Controls.Add(Me.Label9)
         Me.addProductPanel.Controls.Add(Me.Label2)
         Me.addProductPanel.Controls.Add(Me.Label1)
-        Me.addProductPanel.Location = New System.Drawing.Point(13, 531)
+        Me.addProductPanel.Location = New System.Drawing.Point(13, 518)
         Me.addProductPanel.Name = "addProductPanel"
-        Me.addProductPanel.Size = New System.Drawing.Size(1311, 212)
+        Me.addProductPanel.Size = New System.Drawing.Size(1311, 225)
         Me.addProductPanel.TabIndex = 0
         '
         'genderTxt
@@ -138,7 +140,7 @@ Partial Class AdminFormPage
         Me.genderTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.genderTxt.FormattingEnabled = True
         Me.genderTxt.Items.AddRange(New Object() {"Male", "Female", "Unisex"})
-        Me.genderTxt.Location = New System.Drawing.Point(775, 34)
+        Me.genderTxt.Location = New System.Drawing.Point(775, 41)
         Me.genderTxt.Name = "genderTxt"
         Me.genderTxt.Size = New System.Drawing.Size(121, 27)
         Me.genderTxt.TabIndex = 8
@@ -146,7 +148,7 @@ Partial Class AdminFormPage
         'remarksTxt
         '
         Me.remarksTxt.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.remarksTxt.Location = New System.Drawing.Point(940, 32)
+        Me.remarksTxt.Location = New System.Drawing.Point(940, 39)
         Me.remarksTxt.Name = "remarksTxt"
         Me.remarksTxt.Size = New System.Drawing.Size(340, 29)
         Me.remarksTxt.TabIndex = 7
@@ -155,7 +157,8 @@ Partial Class AdminFormPage
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(619, 149)
+        Me.Label11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Label11.Location = New System.Drawing.Point(619, 156)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(105, 38)
         Me.Label11.TabIndex = 6
@@ -164,17 +167,18 @@ Partial Class AdminFormPage
         'supplierPriceTxt
         '
         Me.supplierPriceTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.supplierPriceTxt.Location = New System.Drawing.Point(623, 115)
+        Me.supplierPriceTxt.Location = New System.Drawing.Point(623, 122)
         Me.supplierPriceTxt.Name = "supplierPriceTxt"
         Me.supplierPriceTxt.Size = New System.Drawing.Size(115, 26)
         Me.supplierPriceTxt.TabIndex = 5
         '
         'addProductBtn
         '
-        Me.addProductBtn.BackColor = System.Drawing.Color.ForestGreen
+        Me.addProductBtn.BackColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.addProductBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.addProductBtn.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.addProductBtn.ForeColor = System.Drawing.Color.White
-        Me.addProductBtn.Location = New System.Drawing.Point(1187, 173)
+        Me.addProductBtn.Location = New System.Drawing.Point(1187, 180)
         Me.addProductBtn.Name = "addProductBtn"
         Me.addProductBtn.Size = New System.Drawing.Size(104, 31)
         Me.addProductBtn.TabIndex = 4
@@ -184,7 +188,8 @@ Partial Class AdminFormPage
         'FileUploadButton
         '
         Me.FileUploadButton.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.FileUploadButton.Location = New System.Drawing.Point(940, 114)
+        Me.FileUploadButton.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.FileUploadButton.Location = New System.Drawing.Point(940, 121)
         Me.FileUploadButton.Name = "FileUploadButton"
         Me.FileUploadButton.Size = New System.Drawing.Size(128, 26)
         Me.FileUploadButton.TabIndex = 3
@@ -196,7 +201,7 @@ Partial Class AdminFormPage
         Me.SupplierLists.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.SupplierLists.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SupplierLists.FormattingEnabled = True
-        Me.SupplierLists.Location = New System.Drawing.Point(454, 119)
+        Me.SupplierLists.Location = New System.Drawing.Point(454, 126)
         Me.SupplierLists.Name = "SupplierLists"
         Me.SupplierLists.Size = New System.Drawing.Size(142, 27)
         Me.SupplierLists.TabIndex = 2
@@ -207,7 +212,7 @@ Partial Class AdminFormPage
         Me.sizeTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.sizeTxt.FormattingEnabled = True
         Me.sizeTxt.Items.AddRange(New Object() {"S", "M", "L", "XL", "XXL"})
-        Me.sizeTxt.Location = New System.Drawing.Point(291, 35)
+        Me.sizeTxt.Location = New System.Drawing.Point(291, 42)
         Me.sizeTxt.Name = "sizeTxt"
         Me.sizeTxt.Size = New System.Drawing.Size(142, 27)
         Me.sizeTxt.TabIndex = 2
@@ -218,7 +223,7 @@ Partial Class AdminFormPage
         Me.brandTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.brandTxt.FormattingEnabled = True
         Me.brandTxt.Items.AddRange(New Object() {"APPAREL", "PERFUME"})
-        Me.brandTxt.Location = New System.Drawing.Point(154, 119)
+        Me.brandTxt.Location = New System.Drawing.Point(154, 126)
         Me.brandTxt.Name = "brandTxt"
         Me.brandTxt.Size = New System.Drawing.Size(115, 27)
         Me.brandTxt.TabIndex = 2
@@ -229,7 +234,7 @@ Partial Class AdminFormPage
         Me.ComboBox3.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ComboBox3.FormattingEnabled = True
         Me.ComboBox3.Items.AddRange(New Object() {"APPAREL", "PERFUME"})
-        Me.ComboBox3.Location = New System.Drawing.Point(16, 119)
+        Me.ComboBox3.Location = New System.Drawing.Point(16, 126)
         Me.ComboBox3.Name = "ComboBox3"
         Me.ComboBox3.Size = New System.Drawing.Size(115, 27)
         Me.ComboBox3.TabIndex = 2
@@ -239,7 +244,7 @@ Partial Class AdminFormPage
         Me.CategoryLists.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CategoryLists.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CategoryLists.FormattingEnabled = True
-        Me.CategoryLists.Location = New System.Drawing.Point(291, 119)
+        Me.CategoryLists.Location = New System.Drawing.Point(291, 126)
         Me.CategoryLists.Name = "CategoryLists"
         Me.CategoryLists.Size = New System.Drawing.Size(142, 27)
         Me.CategoryLists.TabIndex = 2
@@ -247,7 +252,7 @@ Partial Class AdminFormPage
         'QuantityList
         '
         Me.QuantityList.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.QuantityList.Location = New System.Drawing.Point(454, 36)
+        Me.QuantityList.Location = New System.Drawing.Point(454, 43)
         Me.QuantityList.Name = "QuantityList"
         Me.QuantityList.Size = New System.Drawing.Size(142, 26)
         Me.QuantityList.TabIndex = 1
@@ -255,7 +260,7 @@ Partial Class AdminFormPage
         'PriceTxt
         '
         Me.PriceTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PriceTxt.Location = New System.Drawing.Point(623, 36)
+        Me.PriceTxt.Location = New System.Drawing.Point(623, 43)
         Me.PriceTxt.Name = "PriceTxt"
         Me.PriceTxt.Size = New System.Drawing.Size(115, 26)
         Me.PriceTxt.TabIndex = 1
@@ -263,7 +268,7 @@ Partial Class AdminFormPage
         'ColorTxt
         '
         Me.ColorTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ColorTxt.Location = New System.Drawing.Point(154, 36)
+        Me.ColorTxt.Location = New System.Drawing.Point(154, 43)
         Me.ColorTxt.Name = "ColorTxt"
         Me.ColorTxt.Size = New System.Drawing.Size(115, 26)
         Me.ColorTxt.TabIndex = 1
@@ -271,7 +276,7 @@ Partial Class AdminFormPage
         'productNameTxt
         '
         Me.productNameTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.productNameTxt.Location = New System.Drawing.Point(16, 35)
+        Me.productNameTxt.Location = New System.Drawing.Point(16, 42)
         Me.productNameTxt.Name = "productNameTxt"
         Me.productNameTxt.Size = New System.Drawing.Size(115, 26)
         Me.productNameTxt.TabIndex = 1
@@ -280,7 +285,8 @@ Partial Class AdminFormPage
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(771, 67)
+        Me.Label14.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Label14.Location = New System.Drawing.Point(771, 74)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(99, 19)
         Me.Label14.TabIndex = 0
@@ -290,7 +296,8 @@ Partial Class AdminFormPage
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(936, 65)
+        Me.Label13.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Label13.Location = New System.Drawing.Point(936, 72)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(68, 19)
         Me.Label13.TabIndex = 0
@@ -300,7 +307,8 @@ Partial Class AdminFormPage
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label8.Location = New System.Drawing.Point(936, 143)
+        Me.Label8.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Label8.Location = New System.Drawing.Point(936, 150)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(123, 38)
         Me.Label8.TabIndex = 0
@@ -310,7 +318,8 @@ Partial Class AdminFormPage
         '
         Me.Label12.AutoSize = True
         Me.Label12.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label12.Location = New System.Drawing.Point(287, 67)
+        Me.Label12.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Label12.Location = New System.Drawing.Point(287, 74)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(36, 19)
         Me.Label12.TabIndex = 0
@@ -320,7 +329,8 @@ Partial Class AdminFormPage
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(450, 67)
+        Me.Label7.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Label7.Location = New System.Drawing.Point(450, 74)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(72, 19)
         Me.Label7.TabIndex = 0
@@ -330,7 +340,8 @@ Partial Class AdminFormPage
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(622, 62)
+        Me.Label6.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Label6.Location = New System.Drawing.Point(622, 69)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(100, 57)
         Me.Label6.TabIndex = 0
@@ -340,7 +351,8 @@ Partial Class AdminFormPage
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(450, 149)
+        Me.Label4.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Label4.Location = New System.Drawing.Point(450, 156)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(67, 19)
         Me.Label4.TabIndex = 0
@@ -350,7 +362,8 @@ Partial Class AdminFormPage
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(287, 149)
+        Me.Label3.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Label3.Location = New System.Drawing.Point(287, 156)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(76, 19)
         Me.Label3.TabIndex = 0
@@ -360,7 +373,8 @@ Partial Class AdminFormPage
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(150, 65)
+        Me.Label5.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Label5.Location = New System.Drawing.Point(150, 72)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(51, 19)
         Me.Label5.TabIndex = 0
@@ -370,7 +384,8 @@ Partial Class AdminFormPage
         '
         Me.Label10.AutoSize = True
         Me.Label10.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(150, 149)
+        Me.Label10.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Label10.Location = New System.Drawing.Point(150, 156)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(52, 19)
         Me.Label10.TabIndex = 0
@@ -380,7 +395,8 @@ Partial Class AdminFormPage
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label9.Location = New System.Drawing.Point(12, 149)
+        Me.Label9.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Label9.Location = New System.Drawing.Point(12, 156)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(100, 19)
         Me.Label9.TabIndex = 0
@@ -390,7 +406,8 @@ Partial Class AdminFormPage
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(13, 65)
+        Me.Label2.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Label2.Location = New System.Drawing.Point(13, 72)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(105, 19)
         Me.Label2.TabIndex = 0
@@ -399,11 +416,11 @@ Partial Class AdminFormPage
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.ForestGreen
-        Me.Label1.Location = New System.Drawing.Point(12, 11)
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Himalaya", 24.0!, System.Drawing.FontStyle.Bold)
+        Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Label1.Location = New System.Drawing.Point(12, 7)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(129, 21)
+        Me.Label1.Size = New System.Drawing.Size(187, 32)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "ADD PRODUCTS"
         '
@@ -428,7 +445,7 @@ Partial Class AdminFormPage
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.ForeColor = System.Drawing.Color.ForestGreen
+        Me.Label15.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.Label15.Location = New System.Drawing.Point(911, 9)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(91, 21)
@@ -447,7 +464,7 @@ Partial Class AdminFormPage
         '
         Me.Label16.AutoSize = True
         Me.Label16.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.ForeColor = System.Drawing.Color.ForestGreen
+        Me.Label16.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.Label16.Location = New System.Drawing.Point(356, 9)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(71, 21)
@@ -466,7 +483,7 @@ Partial Class AdminFormPage
         '
         'btnUpdateStatus
         '
-        Me.btnUpdateStatus.BackColor = System.Drawing.Color.ForestGreen
+        Me.btnUpdateStatus.BackColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.btnUpdateStatus.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnUpdateStatus.ForeColor = System.Drawing.Color.White
         Me.btnUpdateStatus.Location = New System.Drawing.Point(776, 388)
@@ -490,37 +507,39 @@ Partial Class AdminFormPage
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Font = New System.Drawing.Font("Microsoft Himalaya", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label18.ForeColor = System.Drawing.Color.ForestGreen
-        Me.Label18.Location = New System.Drawing.Point(8, 9)
+        Me.Label18.Font = New System.Drawing.Font("Microsoft Himalaya", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label18.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Label18.Location = New System.Drawing.Point(17, 12)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(141, 24)
+        Me.Label18.Size = New System.Drawing.Size(182, 32)
         Me.Label18.TabIndex = 2
         Me.Label18.Text = "STORE INCOME"
         '
         'lblTotalProductsSold
         '
         Me.lblTotalProductsSold.AutoSize = True
-        Me.lblTotalProductsSold.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTotalProductsSold.Location = New System.Drawing.Point(9, 36)
+        Me.lblTotalProductsSold.Font = New System.Drawing.Font("Microsoft Himalaya", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotalProductsSold.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.lblTotalProductsSold.Location = New System.Drawing.Point(12, 44)
         Me.lblTotalProductsSold.Name = "lblTotalProductsSold"
-        Me.lblTotalProductsSold.Size = New System.Drawing.Size(127, 21)
+        Me.lblTotalProductsSold.Size = New System.Drawing.Size(139, 24)
         Me.lblTotalProductsSold.TabIndex = 2
         Me.lblTotalProductsSold.Text = "Total Products Sold:"
         '
         'lblTotalStoreIncome
         '
         Me.lblTotalStoreIncome.AutoSize = True
-        Me.lblTotalStoreIncome.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTotalStoreIncome.Location = New System.Drawing.Point(8, 86)
+        Me.lblTotalStoreIncome.Font = New System.Drawing.Font("Microsoft Himalaya", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotalStoreIncome.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.lblTotalStoreIncome.Location = New System.Drawing.Point(11, 94)
         Me.lblTotalStoreIncome.Name = "lblTotalStoreIncome"
-        Me.lblTotalStoreIncome.Size = New System.Drawing.Size(124, 21)
+        Me.lblTotalStoreIncome.Size = New System.Drawing.Size(136, 24)
         Me.lblTotalStoreIncome.TabIndex = 2
         Me.lblTotalStoreIncome.Text = "Total Store Income:"
         '
         'dtpStartDate
         '
-        Me.dtpStartDate.Location = New System.Drawing.Point(48, 206)
+        Me.dtpStartDate.Location = New System.Drawing.Point(73, 256)
         Me.dtpStartDate.Name = "dtpStartDate"
         Me.dtpStartDate.Size = New System.Drawing.Size(200, 20)
         Me.dtpStartDate.TabIndex = 7
@@ -528,19 +547,19 @@ Partial Class AdminFormPage
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label19.ForeColor = System.Drawing.Color.ForestGreen
-        Me.Label19.Location = New System.Drawing.Point(12, 165)
+        Me.Label19.Font = New System.Drawing.Font("Microsoft Himalaya", 24.0!, System.Drawing.FontStyle.Bold)
+        Me.Label19.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Label19.Location = New System.Drawing.Point(17, 194)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(281, 21)
+        Me.Label19.Size = New System.Drawing.Size(198, 32)
         Me.Label19.TabIndex = 2
-        Me.Label19.Text = "Select a date range to view shop income:"
+        Me.Label19.Text = "Date Range Report"
         '
         'Label20
         '
         Me.Label20.AutoSize = True
         Me.Label20.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label20.Location = New System.Drawing.Point(94, 186)
+        Me.Label20.Location = New System.Drawing.Point(119, 236)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(109, 21)
         Me.Label20.TabIndex = 2
@@ -550,7 +569,7 @@ Partial Class AdminFormPage
         '
         Me.Label21.AutoSize = True
         Me.Label21.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label21.Location = New System.Drawing.Point(94, 229)
+        Me.Label21.Location = New System.Drawing.Point(119, 279)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(105, 21)
         Me.Label21.TabIndex = 2
@@ -558,17 +577,18 @@ Partial Class AdminFormPage
         '
         'dtpEndDate
         '
-        Me.dtpEndDate.Location = New System.Drawing.Point(48, 248)
+        Me.dtpEndDate.Location = New System.Drawing.Point(73, 298)
         Me.dtpEndDate.Name = "dtpEndDate"
         Me.dtpEndDate.Size = New System.Drawing.Size(200, 20)
         Me.dtpEndDate.TabIndex = 8
         '
         'Button1
         '
-        Me.Button1.BackColor = System.Drawing.Color.ForestGreen
+        Me.Button1.BackColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button1.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(48, 277)
+        Me.Button1.Location = New System.Drawing.Point(73, 327)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(200, 39)
         Me.Button1.TabIndex = 9
@@ -579,7 +599,8 @@ Partial Class AdminFormPage
         '
         Me.lblResult.AutoSize = True
         Me.lblResult.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblResult.Location = New System.Drawing.Point(12, 331)
+        Me.lblResult.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.lblResult.Location = New System.Drawing.Point(71, 384)
         Me.lblResult.Name = "lblResult"
         Me.lblResult.Size = New System.Drawing.Size(69, 21)
         Me.lblResult.TabIndex = 2
@@ -588,33 +609,36 @@ Partial Class AdminFormPage
         'lblTotalStoreProfit
         '
         Me.lblTotalStoreProfit.AutoSize = True
-        Me.lblTotalStoreProfit.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTotalStoreProfit.Location = New System.Drawing.Point(8, 61)
+        Me.lblTotalStoreProfit.Font = New System.Drawing.Font("Microsoft Himalaya", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotalStoreProfit.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.lblTotalStoreProfit.Location = New System.Drawing.Point(11, 69)
         Me.lblTotalStoreProfit.Name = "lblTotalStoreProfit"
-        Me.lblTotalStoreProfit.Size = New System.Drawing.Size(115, 21)
+        Me.lblTotalStoreProfit.Size = New System.Drawing.Size(123, 24)
         Me.lblTotalStoreProfit.TabIndex = 2
         Me.lblTotalStoreProfit.Text = "Total Store Profit:"
         '
         'Panel1
         '
-        Me.Panel1.BackColor = System.Drawing.SystemColors.GradientActiveCaption
+        Me.Panel1.BackColor = System.Drawing.Color.OldLace
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel1.Controls.Add(Me.createBtn)
         Me.Panel1.Controls.Add(Me.passwordTxt)
         Me.Panel1.Controls.Add(Me.usernameTxt)
         Me.Panel1.Controls.Add(Me.Label22)
         Me.Panel1.Controls.Add(Me.Label24)
         Me.Panel1.Controls.Add(Me.Label23)
-        Me.Panel1.Location = New System.Drawing.Point(709, 429)
+        Me.Panel1.Location = New System.Drawing.Point(797, 792)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(485, 84)
+        Me.Panel1.Size = New System.Drawing.Size(508, 101)
         Me.Panel1.TabIndex = 10
         '
         'createBtn
         '
-        Me.createBtn.BackColor = System.Drawing.Color.ForestGreen
+        Me.createBtn.BackColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.createBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.createBtn.Font = New System.Drawing.Font("Microsoft Himalaya", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.createBtn.ForeColor = System.Drawing.SystemColors.Control
-        Me.createBtn.Location = New System.Drawing.Point(377, 17)
+        Me.createBtn.Location = New System.Drawing.Point(390, 34)
         Me.createBtn.Name = "createBtn"
         Me.createBtn.Size = New System.Drawing.Size(105, 40)
         Me.createBtn.TabIndex = 1
@@ -624,7 +648,7 @@ Partial Class AdminFormPage
         'passwordTxt
         '
         Me.passwordTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.passwordTxt.Location = New System.Drawing.Point(190, 20)
+        Me.passwordTxt.Location = New System.Drawing.Point(203, 34)
         Me.passwordTxt.Name = "passwordTxt"
         Me.passwordTxt.Size = New System.Drawing.Size(181, 23)
         Me.passwordTxt.TabIndex = 0
@@ -632,7 +656,7 @@ Partial Class AdminFormPage
         'usernameTxt
         '
         Me.usernameTxt.Font = New System.Drawing.Font("Microsoft Himalaya", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.usernameTxt.Location = New System.Drawing.Point(4, 20)
+        Me.usernameTxt.Location = New System.Drawing.Point(17, 34)
         Me.usernameTxt.Name = "usernameTxt"
         Me.usernameTxt.Size = New System.Drawing.Size(181, 23)
         Me.usernameTxt.TabIndex = 0
@@ -640,11 +664,11 @@ Partial Class AdminFormPage
         'Label22
         '
         Me.Label22.AutoSize = True
-        Me.Label22.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label22.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label22.Font = New System.Drawing.Font("Microsoft Himalaya", 20.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label22.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.Label22.Location = New System.Drawing.Point(2, 4)
         Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(204, 19)
+        Me.Label22.Size = New System.Drawing.Size(325, 27)
         Me.Label22.TabIndex = 6
         Me.Label22.Text = "CREATE ADMIN/STAFF ACCOUNT"
         '
@@ -652,8 +676,8 @@ Partial Class AdminFormPage
         '
         Me.Label24.AutoSize = True
         Me.Label24.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label24.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label24.Location = New System.Drawing.Point(186, 46)
+        Me.Label24.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Label24.Location = New System.Drawing.Point(199, 60)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(56, 19)
         Me.Label24.TabIndex = 6
@@ -663,8 +687,8 @@ Partial Class AdminFormPage
         '
         Me.Label23.AutoSize = True
         Me.Label23.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label23.ForeColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label23.Location = New System.Drawing.Point(5, 46)
+        Me.Label23.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Label23.Location = New System.Drawing.Point(18, 60)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(57, 19)
         Me.Label23.TabIndex = 6
@@ -692,10 +716,11 @@ Partial Class AdminFormPage
         '
         'btnUpdateQR
         '
-        Me.btnUpdateQR.BackColor = System.Drawing.Color.ForestGreen
+        Me.btnUpdateQR.BackColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.btnUpdateQR.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnUpdateQR.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnUpdateQR.ForeColor = System.Drawing.Color.Transparent
-        Me.btnUpdateQR.Location = New System.Drawing.Point(1200, 429)
+        Me.btnUpdateQR.Location = New System.Drawing.Point(426, 809)
         Me.btnUpdateQR.Name = "btnUpdateQR"
         Me.btnUpdateQR.Size = New System.Drawing.Size(124, 84)
         Me.btnUpdateQR.TabIndex = 12
@@ -704,13 +729,14 @@ Partial Class AdminFormPage
         '
         'Panel2
         '
-        Me.Panel2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption
+        Me.Panel2.BackColor = System.Drawing.Color.OldLace
+        Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel2.Controls.Add(Me.Label27)
         Me.Panel2.Controls.Add(Me.Label26)
         Me.Panel2.Controls.Add(Me.DateTimePicker2)
         Me.Panel2.Controls.Add(Me.DateTimePicker1)
         Me.Panel2.Controls.Add(Me.calculateExpbtn)
-        Me.Panel2.Location = New System.Drawing.Point(333, 442)
+        Me.Panel2.Location = New System.Drawing.Point(12, 809)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(362, 71)
         Me.Panel2.TabIndex = 13
@@ -751,7 +777,8 @@ Partial Class AdminFormPage
         '
         'calculateExpbtn
         '
-        Me.calculateExpbtn.BackColor = System.Drawing.Color.ForestGreen
+        Me.calculateExpbtn.BackColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.calculateExpbtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.calculateExpbtn.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.calculateExpbtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.calculateExpbtn.Location = New System.Drawing.Point(271, 10)
@@ -761,12 +788,24 @@ Partial Class AdminFormPage
         Me.calculateExpbtn.Text = "Calculate Expenses"
         Me.calculateExpbtn.UseVisualStyleBackColor = False
         '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.Font = New System.Drawing.Font("Microsoft Himalaya", 24.0!, System.Drawing.FontStyle.Bold)
+        Me.Label28.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Label28.Location = New System.Drawing.Point(18, 776)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(128, 32)
+        Me.Label28.TabIndex = 14
+        Me.Label28.Text = "EXPENSES"
+        '
         'AdminFormPage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
-        Me.ClientSize = New System.Drawing.Size(1368, 669)
+        Me.ClientSize = New System.Drawing.Size(1368, 933)
+        Me.Controls.Add(Me.Label28)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.btnUpdateQR)
         Me.Controls.Add(Me.txtCancelReason)
@@ -875,4 +914,5 @@ Partial Class AdminFormPage
     Friend WithEvents Label26 As Label
     Friend WithEvents DateTimePicker2 As DateTimePicker
     Friend WithEvents DateTimePicker1 As DateTimePicker
+    Friend WithEvents Label28 As Label
 End Class

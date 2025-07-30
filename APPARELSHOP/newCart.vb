@@ -102,7 +102,8 @@ Public Class newCart
             .Font = New Font("Microsoft Himalaya", 14, FontStyle.Bold),
             .Width = 120,
             .Height = 40,
-            .BackColor = Color.Black,
+            .BackColor = Color.FromArgb(74, 80, 66),
+            .FlatStyle = FlatStyle.Flat,
             .ForeColor = Color.White,
             .Margin = New Padding(10)
         }
@@ -163,38 +164,38 @@ Public Class newCart
                                           If paymentMethod = "eWallet" Then
                                               Dim qrForm As New Form With {
                                                   .Text = "Scan QR Code to Pay",
-                                                  .Size = New Size(320, 450),
+                                                  .Size = New Size(350, 600),
                                                   .StartPosition = FormStartPosition.CenterParent,
-                                                  .FormBorderStyle = FormBorderStyle.FixedDialog,
+                                                  .FormBorderStyle = FormBorderStyle.None,
                                                   .MaximizeBox = False,
                                                   .MinimizeBox = False
                                               }
-
                                               Dim qrPicture As New PictureBox With {
-                                                  .Image = Image.FromFile("Images\qr.png"),
-                                                  .SizeMode = PictureBoxSizeMode.StretchImage,
-                                                  .Location = New Point(10, 10),
-                                                  .Size = New Size(280, 280)
-                                              }
+    .Image = Image.FromFile("Images\qr.png"),
+    .SizeMode = PictureBoxSizeMode.StretchImage,
+    .Location = New Point(10, 10),
+    .Size = New Size(300, 430)
+}
 
                                               Dim refLabel As New Label With {
-                                                  .Text = "Enter GCash Reference No.:",
-                                                  .Location = New Point(20, 300),
-                                                  .AutoSize = True
-                                              }
+    .Text = "Enter GCash Reference No.:",
+    .Location = New Point(20, 450), ' Below the picture
+    .AutoSize = True
+}
 
                                               Dim refTextbox As New TextBox With {
-                                                  .Location = New Point(20, 320),
-                                                  .Width = 260
-                                              }
+    .Location = New Point(20, 470), ' Just below label
+    .Width = 260
+}
 
                                               Dim doneBtn As New Button With {
-                                                  .Text = "Done Paying",
-                                                  .Size = New Size(120, 40),
-                                                  .Location = New Point((qrForm.ClientSize.Width - 120) \ 2, 360),
-                                                  .BackColor = Color.Black,
-                                                  .ForeColor = Color.White
-                                              }
+    .Text = "Done Paying",
+    .Size = New Size(120, 40),
+    .Location = New Point((qrForm.ClientSize.Width - 120) \ 2, 510), ' Below textbox and centered
+    .BackColor = Color.Black,
+    .ForeColor = Color.White
+}
+
 
                                               AddHandler doneBtn.Click, Sub()
                                                                             If String.IsNullOrWhiteSpace(refTextbox.Text) Then

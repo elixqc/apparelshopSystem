@@ -75,6 +75,7 @@ Public Class AdminFormPage
             o.delivery_address,
             o.payment_method,
             o.payment_reference
+            
         FROM orders o
         INNER JOIN customers c ON o.customer_id = c.customer_id
         ORDER BY o.order_date DESC
@@ -505,8 +506,57 @@ Public Class AdminFormPage
             Dim row As DataGridViewRow = DataGridView2.Rows(e.RowIndex)
             selectedOrderId = Convert.ToInt32(row.Cells("order_id").Value)
             statusDropdown.SelectedItem = row.Cells("order_status").Value.ToString()
+
+            Dim query As String = "
+            SELECT 
+                p.product_name,
+                od.quantity,
+                od.unit_price,
+                (
+                    SELECT sl.supplier_price
+                    FROM supply_logs sl
+                    WHERE sl.product_id = p.product_id
+                    ORDER BY sl.supply_date DESC
+                    LIMIT 1
+                ) AS supplier_price
+            FROM order_details od
+            INNER JOIN products p ON od.product_id = p.product_id
+            WHERE od.order_id = @OrderId"
+
+            Using conn As New MySqlConnection(connectionString)
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@OrderId", selectedOrderId)
+                    conn.Open()
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        Dim details As String = "Order Details:" & vbCrLf
+                        Dim orderTotal As Decimal = 0D
+                        Dim orderProfit As Decimal = 0D
+
+                        While reader.Read()
+                            Dim productName As String = reader("product_name").ToString()
+                            Dim quantity As Integer = Convert.ToInt32(reader("quantity"))
+                            Dim unitPrice As Decimal = Convert.ToDecimal(reader("unit_price"))
+                            Dim supplierPrice As Decimal = If(IsDBNull(reader("supplier_price")), 0D, Convert.ToDecimal(reader("supplier_price")))
+
+                            Dim itemTotal As Decimal = quantity * unitPrice
+                            Dim itemProfit As Decimal = quantity * (unitPrice - supplierPrice)
+
+                            orderTotal += itemTotal
+                            orderProfit += itemProfit
+
+                            details &= $"- {productName}: {quantity} pcs @ ₱{unitPrice:N2} (Profit: ₱{itemProfit:N2})" & vbCrLf
+                        End While
+
+                        details &= vbCrLf & $"Total Order Income: ₱{orderTotal:N2}" & vbCrLf
+                        details &= $"Total Order Profit: ₱{orderProfit:N2}"
+
+                        MsgBox(details, MsgBoxStyle.Information, "Order Items & Income")
+                    End Using
+                End Using
+            End Using
         End If
     End Sub
+
     ' ' Handle Update Status button click to change order status
     Private Sub btnUpdateStatus_Click(sender As Object, e As EventArgs) Handles btnUpdateStatus.Click
         If selectedOrderId = -1 Then
@@ -787,27 +837,29 @@ Public Class AdminFormPage
     Private Sub btnUpdateQR_Click(sender As Object, e As EventArgs) Handles btnUpdateQR.Click
         Dim qrForm As New Form With {
         .Text = "QR Code Settings",
-        .Size = New Size(360, 450),
+        .Size = New Size(370, 550),
         .StartPosition = FormStartPosition.CenterParent,
         .FormBorderStyle = FormBorderStyle.FixedDialog,
         .MaximizeBox = False,
         .MinimizeBox = False
     }
+
+
         'show qr code existing
         Dim picQRPreview As New PictureBox With {
-        .Size = New Size(300, 300),
+        .Size = New Size(300, 430),
         .Location = New Point(30, 20),
         .SizeMode = PictureBoxSizeMode.StretchImage,
         .BorderStyle = BorderStyle.FixedSingle
     }
-
         Dim btnBrowseQR As New Button With {
-        .Text = "Update QR Code",
-        .Size = New Size(120, 40),
-        .Location = New Point((qrForm.ClientSize.Width - 120) \ 2, 340),
-        .BackColor = Color.Black,
-        .ForeColor = Color.White
-    }
+    .Text = "Update QR Code",
+    .Size = New Size(120, 40),
+    .Location = New Point((qrForm.ClientSize.Width - 120) \ 2, 460), ' moved below picture
+    .BackColor = Color.FromArgb(74, 80, 66),
+    .ForeColor = Color.White,
+    .FlatStyle = FlatStyle.Flat
+}
 
         'fetch existing QR
         Dim qrPath As String = Path.Combine(Application.StartupPath, "Images", "qr.png")
@@ -842,6 +894,7 @@ Public Class AdminFormPage
         qrForm.Controls.Add(picQRPreview)
         qrForm.Controls.Add(btnBrowseQR)
         qrForm.ShowDialog()
+
     End Sub
 
 
@@ -972,6 +1025,10 @@ Public Class AdminFormPage
         End If
 
         GenerateExpensesReportPDF(startDate, endDate)
+
+    End Sub
+
+    Private Sub DataGridView2_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView2.CellContentClick
 
     End Sub
 End Class

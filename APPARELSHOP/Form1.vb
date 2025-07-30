@@ -78,8 +78,8 @@ Public Class Form1
 
     Private Sub MasculineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MasculineToolStripMenuItem.Click
 
-        If apparelPageSample.Visible Then
-            apparelPageSample.BringToFront()
+        If perfumepageMale.Visible Then
+            perfumepageMale.BringToFront()
             Exit Sub
         End If
         appthemes.SmoothFadeIn(perfumepageMale)
