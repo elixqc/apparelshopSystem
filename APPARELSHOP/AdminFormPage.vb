@@ -765,7 +765,7 @@ Public Class AdminFormPage
     ' ' Handle button click to calculate income and profit within date range
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
         Dim startDate As Date = dtpStartDate.Value.Date
-        Dim endDate As Date = dtpEndDate.Value.Date
+        Dim endDate As Date = dtpEndDate.Value.Date.AddDays(1).AddSeconds(-1)
 
         Dim incomeRange As Decimal = 0
         Dim profitRange As Decimal = 0
@@ -953,37 +953,57 @@ Public Class AdminFormPage
 
         Try
             Using fs As New FileStream(savePath, FileMode.Create, FileAccess.Write, FileShare.Read)
-                Dim doc As New Document(PageSize.A4, 50, 50, 25, 25)
+                Dim doc As New Document(PageSize.A4, 40, 40, 50, 50)
                 Dim writer = PdfWriter.GetInstance(doc, fs)
+
+                ' Add Page Number Footer
+                writer.PageEvent = New PDFPageEvents()
+
                 doc.Open()
 
                 ' Fonts
                 Dim titleFont As New iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 18, iTextSharp.text.Font.BOLD)
-                Dim subFont As New iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12)
+                Dim subFont As New iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 11)
                 Dim boldFont As New iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10, iTextSharp.text.Font.BOLD)
-                Dim bigBoldFont As New iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 14, iTextSharp.text.Font.BOLD)
-                Dim spacer = New Paragraph(Environment.NewLine)
-                Dim separator = New Paragraph(New Chunk(New LineSeparator(1.0F, 100.0F, BaseColor.GRAY, Element.ALIGN_CENTER, -1)))
+                Dim cellFont As New iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10)
+                Dim totalFont As New iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD)
+                Dim spacer = New Paragraph(" ", subFont)
 
-                ' Header
-                doc.Add(New Paragraph("PRESTIGE APPAREL", titleFont) With {.Alignment = Element.ALIGN_CENTER})
-                doc.Add(New Paragraph("Expenses Report", subFont) With {.Alignment = Element.ALIGN_CENTER})
-                doc.Add(New Paragraph($"From {startDate:MMMM dd, yyyy} to {endDate:MMMM dd, yyyy}", subFont) With {.Alignment = Element.ALIGN_CENTER})
-                doc.Add(spacer)
+                ' Logo (Optional - if you have a logo file)
+                'Dim logo = iTextSharp.text.Image.GetInstance("logo.png")
+                'logo.ScaleToFit(50, 50)
+                'logo.Alignment = Image.ALIGN_LEFT
+                'doc.Add(logo)
 
-                doc.Add(separator)
+                ' Title Block
+                Dim title = New Paragraph("PRESTIGE APPAREL", titleFont)
+                title.Alignment = Element.ALIGN_CENTER
+                doc.Add(title)
+
+                Dim subTitle = New Paragraph("Expenses Report", subFont)
+                subTitle.Alignment = Element.ALIGN_CENTER
+                doc.Add(subTitle)
+
+                Dim dateRange = New Paragraph($"From {startDate:MMMM dd, yyyy} to {endDate:MMMM dd, yyyy}", subFont)
+                dateRange.Alignment = Element.ALIGN_CENTER
+                doc.Add(dateRange)
+
                 doc.Add(spacer)
 
                 ' Table Setup
                 Dim table As New PdfPTable(5)
                 table.WidthPercentage = 100
-                table.SetWidths(New Single() {30, 20, 15, 15, 20}) ' Product, Supplier, Qty, Price, Date
-                Dim headerColor As New BaseColor(240, 240, 240)
+                table.SetWidths(New Single() {30, 25, 10, 15, 20})
 
-                For Each colTitle In {"Product", "Supplier", "Quantity", "Supplier Price", "Supply Date"}
-                    Dim cell As New PdfPCell(New Phrase(colTitle, boldFont)) With {
+                Dim headerColor As BaseColor = New BaseColor(230, 230, 230)
+
+                ' Header Row
+                Dim headers = {"Product", "Supplier", "Qty", "Supplier Price", "Supply Date"}
+                For Each header As String In headers
+                    Dim cell = New PdfPCell(New Phrase(header, boldFont)) With {
                     .BackgroundColor = headerColor,
-                    .HorizontalAlignment = Element.ALIGN_CENTER
+                    .HorizontalAlignment = Element.ALIGN_CENTER,
+                    .Padding = 5
                 }
                     table.AddCell(cell)
                 Next
@@ -992,7 +1012,6 @@ Public Class AdminFormPage
 
                 Using conn As New MySqlConnection(connStr)
                     conn.Open()
-
                     Dim cmd As New MySqlCommand("
                     SELECT 
                         p.product_name,
@@ -1019,27 +1038,27 @@ Public Class AdminFormPage
                             Dim subtotal = qty * price
                             totalExpense += subtotal
 
-                            table.AddCell(New PdfPCell(New Phrase(product)))
-                            table.AddCell(New PdfPCell(New Phrase(supplier)))
-                            table.AddCell(New PdfPCell(New Phrase(qty.ToString())))
-                            table.AddCell(New PdfPCell(New Phrase("₱" & price.ToString("N2"))))
-                            table.AddCell(New PdfPCell(New Phrase(dateSupplied.ToString("MM/dd/yyyy"))))
+                            table.AddCell(New PdfPCell(New Phrase(product, cellFont)) With {.Padding = 4})
+                            table.AddCell(New PdfPCell(New Phrase(supplier, cellFont)) With {.Padding = 4})
+                            table.AddCell(New PdfPCell(New Phrase(qty.ToString(), cellFont)) With {.HorizontalAlignment = Element.ALIGN_CENTER, .Padding = 4})
+                            table.AddCell(New PdfPCell(New Phrase("₱" & price.ToString("N2"), cellFont)) With {.HorizontalAlignment = Element.ALIGN_RIGHT, .Padding = 4})
+                            table.AddCell(New PdfPCell(New Phrase(dateSupplied.ToString("MM/dd/yyyy"), cellFont)) With {.HorizontalAlignment = Element.ALIGN_CENTER, .Padding = 4})
                         End While
                     End Using
                 End Using
 
                 doc.Add(table)
-                doc.Add(spacer)
-                doc.Add(separator)
+
                 doc.Add(spacer)
 
-                ' Total
-                Dim totalPara = New Paragraph($"TOTAL EXPENSE: ₱{totalExpense:N2}", bigBoldFont)
+                ' Total Summary
+                Dim totalPara = New Paragraph($"TOTAL EXPENSE: ₱{totalExpense:N2}", totalFont)
                 totalPara.Alignment = Element.ALIGN_RIGHT
                 doc.Add(totalPara)
 
                 doc.Add(spacer)
                 doc.Add(New Paragraph("Generated by Prestige System", subFont) With {.Alignment = Element.ALIGN_CENTER})
+
                 doc.Close()
             End Using
 
@@ -1055,10 +1074,12 @@ Public Class AdminFormPage
         End Try
     End Sub
 
+
     Private Sub calculateExpbtn_Click(sender As Object, e As EventArgs) Handles calculateExpbtn.Click
 
         Dim startDate As DateTime = DateTimePicker1.Value.Date
-        Dim endDate As DateTime = DateTimePicker2.Value.Date
+        Dim endDate As DateTime = DateTimePicker2.Value.Date.AddDays(1).AddSeconds(-1)
+
 
         If endDate < startDate Then
             MessageBox.Show("End date must be on or after start date.", "Invalid Dates", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -1072,4 +1093,20 @@ Public Class AdminFormPage
     Private Sub DataGridView2_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView2.CellContentClick
 
     End Sub
+
+    Public Class PDFPageEvents
+        Inherits PdfPageEventHelper
+
+        Private bf As BaseFont = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED)
+
+        Public Overrides Sub OnEndPage(writer As PdfWriter, document As Document)
+            Dim cb = writer.DirectContent
+            Dim footer = $"Generated on {DateTime.Now:MMMM dd, yyyy}   |   Page {writer.PageNumber}"
+            cb.BeginText()
+            cb.SetFontAndSize(bf, 9)
+            cb.ShowTextAligned(Element.ALIGN_CENTER, footer, (document.Left + document.Right) / 2, document.Bottom - 10, 0)
+            cb.EndText()
+        End Sub
+    End Class
+
 End Class

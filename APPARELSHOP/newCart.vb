@@ -171,30 +171,30 @@ Public Class newCart
                                                   .MinimizeBox = False
                                               }
                                               Dim qrPicture As New PictureBox With {
-    .Image = Image.FromFile("Images\qr.png"),
-    .SizeMode = PictureBoxSizeMode.StretchImage,
-    .Location = New Point(10, 10),
-    .Size = New Size(300, 430)
-}
+                                                    .Image = Image.FromFile("Images\qr.png"),
+                                                    .SizeMode = PictureBoxSizeMode.StretchImage,
+                                                    .Location = New Point(10, 10),
+                                                    .Size = New Size(300, 430)
+                                                }
 
                                               Dim refLabel As New Label With {
-    .Text = "Enter GCash Reference No.:",
-    .Location = New Point(20, 450), ' Below the picture
-    .AutoSize = True
-}
+                                                    .Text = "Enter GCash Reference No.:",
+                                                    .Location = New Point(20, 450), ' Below the picture
+                                                    .AutoSize = True
+                                                }
 
                                               Dim refTextbox As New TextBox With {
-    .Location = New Point(20, 470), ' Just below label
-    .Width = 260
-}
+                                                    .Location = New Point(20, 470), ' Just below label
+                                                    .Width = 260
+                                                }
 
                                               Dim doneBtn As New Button With {
-    .Text = "Done Paying",
-    .Size = New Size(120, 40),
-    .Location = New Point((qrForm.ClientSize.Width - 120) \ 2, 510), ' Below textbox and centered
-    .BackColor = Color.Black,
-    .ForeColor = Color.White
-}
+                                                    .Text = "Done Paying",
+                                                    .Size = New Size(120, 40),
+                                                    .Location = New Point((qrForm.ClientSize.Width - 120) \ 2, 510), ' Below textbox and centered
+                                                    .BackColor = Color.Black,
+                                                    .ForeColor = Color.White
+                                                }
 
 
                                               AddHandler doneBtn.Click, Sub()
@@ -213,7 +213,7 @@ Public Class newCart
                                               qrForm.ShowDialog()
                                           End If
 
-                                          ' Step 5: Begin transaction to place the order
+                                          ' Step 5: Begin TRANSACTION to place the order !!!!
                                           Dim orderId As Integer = -1
 
                                           Try
@@ -224,9 +224,9 @@ Public Class newCart
                                                   Try
                                                       ' Insert order with payment details
                                                       Dim insertOrderCmd As New MySqlCommand("
-                    INSERT INTO orders (customer_id, order_date, order_status, delivery_address, payment_method, payment_reference)
-                    VALUES (@cid, NOW(), 'Pending', @address, @method, @ref);
-                    SELECT LAST_INSERT_ID();", conn, transaction)
+                                                INSERT INTO orders (customer_id, order_date, order_status, delivery_address, payment_method, payment_reference)
+                                                VALUES (@cid, NOW(), 'Pending', @address, @method, @ref);
+                                                SELECT LAST_INSERT_ID();", conn, transaction)
                                                       insertOrderCmd.Parameters.AddWithValue("@cid", loggedInUserID)
                                                       insertOrderCmd.Parameters.AddWithValue("@address", deliveryAddress)
                                                       insertOrderCmd.Parameters.AddWithValue("@method", paymentMethod)
@@ -240,8 +240,8 @@ Public Class newCart
                                                           Dim unitPrice As Decimal = Convert.ToDecimal(priceCmd.ExecuteScalar())
 
                                                           Dim detailCmd As New MySqlCommand("
-                        INSERT INTO order_details (order_id, product_id, quantity, unit_price)
-                        VALUES (@oid, @pid, @qty, @price)", conn, transaction)
+                                                INSERT INTO order_details (order_id, product_id, quantity, unit_price)
+                                                VALUES (@oid, @pid, @qty, @price)", conn, transaction)
                                                           detailCmd.Parameters.AddWithValue("@oid", orderId)
                                                           detailCmd.Parameters.AddWithValue("@pid", item.ProductID)
                                                           detailCmd.Parameters.AddWithValue("@qty", item.Quantity)

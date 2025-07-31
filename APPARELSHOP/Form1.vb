@@ -55,6 +55,10 @@ Public Class Form1
         If loggedInUserID = 0 Then
             MsgBox("Please Login First")
         Else
+            If newCart.Visible Then
+                newCart.BringToFront()
+                Exit Sub
+            End If
             appthemes.SmoothFadeIn(newCart)
         End If
 

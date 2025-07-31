@@ -230,7 +230,7 @@ Module globals
                         cartCmd.ExecuteNonQuery()
                         MessageBox.Show("Product added to cart!")
                     Else
-                        MessageBox.Show("Product not found with the selected size and color.")
+                        MessageBox.Show("Product not available with the selected size and color.")
                     End If
                 End Using
             End Using
