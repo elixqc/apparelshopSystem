@@ -764,6 +764,11 @@ Public Class AdminFormPage
 
     ' ' Handle button click to calculate income and profit within date range
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+
+        If Not lblResult.Visible Then
+            lblResult.Visible = True
+        End If
+
         Dim startDate As Date = dtpStartDate.Value.Date
         Dim endDate As Date = dtpEndDate.Value.Date.AddDays(1).AddSeconds(-1)
 
@@ -1081,7 +1086,7 @@ Public Class AdminFormPage
         Dim endDate As DateTime = DateTimePicker2.Value.Date.AddDays(1).AddSeconds(-1)
 
 
-        If endDate < startDate Then
+        If endDate <startDate Then
             MessageBox.Show("End date must be on or after start date.", "Invalid Dates", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If

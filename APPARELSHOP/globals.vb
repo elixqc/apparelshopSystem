@@ -531,13 +531,24 @@ Module globals
 
     End Sub
     ' ' Function to FETCH all product types (apparel)
-    Public Function GetAllProductTypes() As List(Of String)
+    Public Function GetAllProductTypes(Optional searchKeyword As String = "") As List(Of String)
         Dim types As New HashSet(Of String)
 
         Try
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
-                Dim cmd As New MySqlCommand("SELECT DISTINCT product_name FROM products WHERE category_id NOT IN (7,8)", conn)
+
+                Dim sql As String = "SELECT DISTINCT product_name FROM products WHERE category_id NOT IN (7,8)"
+                If Not String.IsNullOrWhiteSpace(searchKeyword) Then
+                    sql &= " AND product_name LIKE @keyword"
+                End If
+
+                Dim cmd As New MySqlCommand(sql, conn)
+
+                If Not String.IsNullOrWhiteSpace(searchKeyword) Then
+                    cmd.Parameters.AddWithValue("@keyword", "%" & searchKeyword & "%")
+                End If
+
                 Dim reader = cmd.ExecuteReader()
 
                 While reader.Read()
@@ -550,9 +561,8 @@ Module globals
                         Dim baseType As String = fullName.Substring(0, lastDash2).Trim()
                         types.Add(baseType)
                     Else
-                        MessageBox.Show("Skipping (bad format): " & fullName)
+                        ' Skip badly formatted product names
                     End If
-
                 End While
 
                 reader.Close()
@@ -563,6 +573,7 @@ Module globals
 
         Return types.ToList()
     End Function
+
     ' ' Function to create a cart item panel
 
     Public Sub CreateCartItemPanel(productID As Integer, productName As String, size As String, color As String, brand As String, quantity As Integer, imagePath As String, price As Decimal, maxStock As Integer, container As FlowLayoutPanel, newCartForm As newCart)

@@ -31,6 +31,7 @@ Partial Class apparelPageSample
         'Flowproductpanel
         '
         Me.Flowproductpanel.AutoScroll = True
+        Me.Flowproductpanel.BackColor = System.Drawing.Color.White
         Me.Flowproductpanel.Controls.Add(Me.btnLoadProducts)
         Me.Flowproductpanel.Controls.Add(Me.Button1)
         Me.Flowproductpanel.Dock = System.Windows.Forms.DockStyle.Fill

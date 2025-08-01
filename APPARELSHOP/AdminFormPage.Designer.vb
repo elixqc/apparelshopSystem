@@ -89,6 +89,7 @@ Partial Class AdminFormPage
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.calculateExpbtn = New System.Windows.Forms.Button()
         Me.Label28 = New System.Windows.Forms.Label()
+        Me.Panel3 = New System.Windows.Forms.Panel()
         Me.addProductPanel.SuspendLayout()
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -547,6 +548,7 @@ Partial Class AdminFormPage
         'Label19
         '
         Me.Label19.AutoSize = True
+        Me.Label19.BackColor = System.Drawing.Color.OldLace
         Me.Label19.Font = New System.Drawing.Font("Microsoft Himalaya", 24.0!, System.Drawing.FontStyle.Bold)
         Me.Label19.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.Label19.Location = New System.Drawing.Point(17, 194)
@@ -558,6 +560,7 @@ Partial Class AdminFormPage
         'Label20
         '
         Me.Label20.AutoSize = True
+        Me.Label20.BackColor = System.Drawing.Color.OldLace
         Me.Label20.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label20.Location = New System.Drawing.Point(119, 236)
         Me.Label20.Name = "Label20"
@@ -568,6 +571,7 @@ Partial Class AdminFormPage
         'Label21
         '
         Me.Label21.AutoSize = True
+        Me.Label21.BackColor = System.Drawing.Color.OldLace
         Me.Label21.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label21.Location = New System.Drawing.Point(119, 279)
         Me.Label21.Name = "Label21"
@@ -598,6 +602,7 @@ Partial Class AdminFormPage
         'lblResult
         '
         Me.lblResult.AutoSize = True
+        Me.lblResult.BackColor = System.Drawing.Color.OldLace
         Me.lblResult.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblResult.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.lblResult.Location = New System.Drawing.Point(71, 384)
@@ -605,6 +610,7 @@ Partial Class AdminFormPage
         Me.lblResult.Size = New System.Drawing.Size(69, 21)
         Me.lblResult.TabIndex = 2
         Me.lblResult.Text = "lblResult"
+        Me.lblResult.Visible = False
         '
         'lblTotalStoreProfit
         '
@@ -799,29 +805,38 @@ Partial Class AdminFormPage
         Me.Label28.TabIndex = 14
         Me.Label28.Text = "EXPENSES"
         '
+        'Panel3
+        '
+        Me.Panel3.BackColor = System.Drawing.Color.OldLace
+        Me.Panel3.Location = New System.Drawing.Point(15, 180)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(339, 321)
+        Me.Panel3.TabIndex = 15
+        '
         'AdminFormPage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
         Me.ClientSize = New System.Drawing.Size(1368, 933)
+        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.dtpEndDate)
+        Me.Controls.Add(Me.dtpStartDate)
+        Me.Controls.Add(Me.Label21)
+        Me.Controls.Add(Me.Label20)
+        Me.Controls.Add(Me.Label19)
+        Me.Controls.Add(Me.lblResult)
+        Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Label28)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.btnUpdateQR)
         Me.Controls.Add(Me.txtCancelReason)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.Button1)
-        Me.Controls.Add(Me.dtpEndDate)
-        Me.Controls.Add(Me.dtpStartDate)
         Me.Controls.Add(Me.btnUpdateStatus)
         Me.Controls.Add(Me.statusDropdown)
         Me.Controls.Add(Me.DataGridView2)
         Me.Controls.Add(Me.lblTotalStoreIncome)
         Me.Controls.Add(Me.lblTotalProductsSold)
-        Me.Controls.Add(Me.Label21)
-        Me.Controls.Add(Me.Label20)
-        Me.Controls.Add(Me.Label19)
-        Me.Controls.Add(Me.lblResult)
         Me.Controls.Add(Me.lblTotalStoreProfit)
         Me.Controls.Add(Me.Label18)
         Me.Controls.Add(Me.Label16)
@@ -915,4 +930,5 @@ Partial Class AdminFormPage
     Friend WithEvents DateTimePicker2 As DateTimePicker
     Friend WithEvents DateTimePicker1 As DateTimePicker
     Friend WithEvents Label28 As Label
+    Friend WithEvents Panel3 As Panel
 End Class
