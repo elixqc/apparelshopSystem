@@ -764,7 +764,6 @@ Public Class AdminFormPage
 
     ' ' Handle button click to calculate income and profit within date range
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
-
         If Not lblResult.Visible Then
             lblResult.Visible = True
         End If
@@ -776,29 +775,33 @@ Public Class AdminFormPage
         Dim profitRange As Decimal = 0
         Dim totalProductsSold As Integer = 0
 
+        ' Store report data
+        Dim salesData As New List(Of Tuple(Of String, Integer, Decimal, Decimal))
+
         Try
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
                 Dim query As String = "
-                SELECT 
-                    od.quantity, 
-                    od.unit_price, 
-                    sl_latest.supplier_price
-                FROM orders o
-                JOIN order_details od ON o.order_id = od.order_id
-                JOIN products p ON od.product_id = p.product_id
-                LEFT JOIN (
-                    SELECT sl.product_id, sl.supplier_price
-                    FROM supply_logs sl
-                    WHERE sl.supply_date = (
-                        SELECT MAX(supply_date)
-                        FROM supply_logs
-                        WHERE product_id = sl.product_id
-                    )
-                ) sl_latest ON p.product_id = sl_latest.product_id
-                WHERE o.order_status = 'Completed'
-                  AND DATE(o.order_date) BETWEEN @start AND @end
-            "
+            SELECT 
+                p.product_name,
+                od.quantity, 
+                od.unit_price, 
+                sl_latest.supplier_price
+            FROM orders o
+            JOIN order_details od ON o.order_id = od.order_id
+            JOIN products p ON od.product_id = p.product_id
+            LEFT JOIN (
+                SELECT sl.product_id, sl.supplier_price
+                FROM supply_logs sl
+                WHERE sl.supply_date = (
+                    SELECT MAX(supply_date)
+                    FROM supply_logs
+                    WHERE product_id = sl.product_id
+                )
+            ) sl_latest ON p.product_id = sl_latest.product_id
+            WHERE o.order_status = 'Completed'
+              AND DATE(o.order_date) BETWEEN @start AND @end
+        "
 
                 Using cmd As New MySqlCommand(query, conn)
                     cmd.Parameters.AddWithValue("@start", startDate)
@@ -806,6 +809,7 @@ Public Class AdminFormPage
 
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         While reader.Read()
+                            Dim productName As String = reader("product_name").ToString()
                             Dim qty As Integer = Convert.ToInt32(reader("quantity"))
                             Dim sellPrice As Decimal = Convert.ToDecimal(reader("unit_price"))
                             Dim supplierPrice As Decimal = If(IsDBNull(reader("supplier_price")), 0D, Convert.ToDecimal(reader("supplier_price")))
@@ -813,6 +817,8 @@ Public Class AdminFormPage
                             incomeRange += qty * sellPrice
                             profitRange += qty * (sellPrice - supplierPrice)
                             totalProductsSold += qty
+
+                            salesData.Add(Tuple.Create(productName, qty, sellPrice, supplierPrice))
                         End While
                     End Using
                 End Using
@@ -823,10 +829,27 @@ Public Class AdminFormPage
                          "Income: ₱" & incomeRange.ToString("N2") & vbCrLf &
                          "Profit: ₱" & profitRange.ToString("N2") & vbCrLf &
                          "From " & startDate.ToShortDateString() & " to " & endDate.ToShortDateString()
+
+            ' Enable the download button
+            btnDownloadReport.Enabled = True
+            btnDownloadReport.BackColor = Color.FromArgb(74, 80, 66)
+            btnDownloadReport.ForeColor = Color.White
+
+
+            ' Store report info in Tag (optional technique)
+            btnDownloadReport.Tag = New With {
+            .StartDate = startDate,
+            .EndDate = endDate,
+            .SalesData = salesData,
+            .TotalIncome = incomeRange,
+            .TotalProfit = profitRange
+        }
+
         Catch ex As Exception
             MessageBox.Show("Error calculating: " & ex.Message)
         End Try
     End Sub
+
 
     'create new admin user
     Private Sub createBtn_Click(sender As Object, e As EventArgs) Handles createBtn.Click
@@ -974,11 +997,14 @@ Public Class AdminFormPage
                 Dim totalFont As New iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD)
                 Dim spacer = New Paragraph(" ", subFont)
 
-                ' Logo (Optional - if you have a logo file)
-                'Dim logo = iTextSharp.text.Image.GetInstance("logo.png")
-                'logo.ScaleToFit(50, 50)
-                'logo.Alignment = Image.ALIGN_LEFT
-                'doc.Add(logo)
+                Dim logoPath = Path.Combine(Application.StartupPath, "images", "prestigeLogoReceipt.png")
+                If File.Exists(logoPath) Then
+                    Dim logo = iTextSharp.text.Image.GetInstance(logoPath)
+                    logo.ScaleAbsolute(80, 80)
+                    logo.Alignment = Element.ALIGN_CENTER
+                    doc.Add(logo)
+                    doc.Add(spacer)
+                End If
 
                 ' Title Block
                 Dim title = New Paragraph("PRESTIGE APPAREL", titleFont)
@@ -1086,7 +1112,7 @@ Public Class AdminFormPage
         Dim endDate As DateTime = DateTimePicker2.Value.Date.AddDays(1).AddSeconds(-1)
 
 
-        If endDate <startDate Then
+        If endDate < startDate Then
             MessageBox.Show("End date must be on or after start date.", "Invalid Dates", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return
         End If
@@ -1114,4 +1140,103 @@ Public Class AdminFormPage
         End Sub
     End Class
 
+    Private Sub btnDownloadReport_Click(sender As Object, e As EventArgs) Handles btnDownloadReport.Click
+        Dim tagData = CType(btnDownloadReport.Tag, Object)
+        Dim startDate As Date = tagData.StartDate
+        Dim endDate As Date = tagData.EndDate
+        Dim salesData = CType(tagData.SalesData, List(Of Tuple(Of String, Integer, Decimal, Decimal)))
+        Dim totalIncome As Decimal = tagData.TotalIncome
+        Dim totalProfit As Decimal = tagData.TotalProfit
+
+        Dim desktopPath As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+        Dim folderPath As String = Path.Combine(desktopPath, "Sales")
+        If Not Directory.Exists(folderPath) Then Directory.CreateDirectory(folderPath)
+
+        Dim fileName As String = $"SalesReport_{startDate:yyyyMMdd}_{endDate:yyyyMMdd}.pdf"
+        Dim savePath As String = Path.Combine(folderPath, fileName)
+
+        Try
+            Using fs As New FileStream(savePath, FileMode.Create, FileAccess.Write, FileShare.Read)
+                Dim doc As New Document(PageSize.A4, 40, 40, 50, 50)
+                Dim writer = PdfWriter.GetInstance(doc, fs)
+                writer.PageEvent = New PDFPageEvents()
+                doc.Open()
+
+
+
+                ' Fonts
+                Dim titleFont As New iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 18, iTextSharp.text.Font.BOLD)
+                Dim subFont As New iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 11)
+                Dim boldFont As New iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10, iTextSharp.text.Font.BOLD)
+                Dim cellFont As New iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 10)
+                Dim totalFont As New iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.BOLD)
+                Dim spacer = New Paragraph(" ", subFont)
+
+                Dim logoPath = Path.Combine(Application.StartupPath, "images", "prestigeLogoReceipt.png")
+                If File.Exists(logoPath) Then
+                    Dim logo = iTextSharp.text.Image.GetInstance(logoPath)
+                    logo.ScaleAbsolute(80, 80)
+                    logo.Alignment = Element.ALIGN_CENTER
+                    doc.Add(logo)
+                    doc.Add(spacer)
+                End If
+
+                ' Header
+                doc.Add(New Paragraph("PRESTIGE APPAREL", titleFont) With {.Alignment = Element.ALIGN_CENTER})
+                doc.Add(New Paragraph("Sales Report", subFont) With {.Alignment = Element.ALIGN_CENTER})
+                doc.Add(New Paragraph($"From {startDate:MMMM dd, yyyy} to {endDate:MMMM dd, yyyy}", subFont) With {.Alignment = Element.ALIGN_CENTER})
+                doc.Add(spacer)
+
+                ' Table
+                Dim table As New PdfPTable(5)
+                table.WidthPercentage = 100
+                table.SetWidths({30, 10, 15, 15, 20})
+
+                Dim headers = {"Product", "Qty", "Unit Price", "Subtotal", "Profit"}
+                For Each h In headers
+                    table.AddCell(New PdfPCell(New Phrase(h, boldFont)) With {
+                        .BackgroundColor = New BaseColor(230, 230, 230),
+                        .HorizontalAlignment = Element.ALIGN_CENTER,
+                        .Padding = 5
+                    })
+                Next
+
+                For Each item In salesData
+                    Dim prod = item.Item1
+                    Dim qty = item.Item2
+                    Dim price = item.Item3
+                    Dim supplier = item.Item4
+                    Dim subtotal = qty * price
+                    Dim profit = qty * (price - supplier)
+
+                    table.AddCell(New PdfPCell(New Phrase(prod, cellFont)) With {.Padding = 4})
+                    table.AddCell(New PdfPCell(New Phrase(qty.ToString(), cellFont)) With {.HorizontalAlignment = Element.ALIGN_CENTER, .Padding = 4})
+                    table.AddCell(New PdfPCell(New Phrase("₱" & price.ToString("N2"), cellFont)) With {.HorizontalAlignment = Element.ALIGN_RIGHT, .Padding = 4})
+                    table.AddCell(New PdfPCell(New Phrase("₱" & subtotal.ToString("N2"), cellFont)) With {.HorizontalAlignment = Element.ALIGN_RIGHT, .Padding = 4})
+                    table.AddCell(New PdfPCell(New Phrase("₱" & profit.ToString("N2"), cellFont)) With {.HorizontalAlignment = Element.ALIGN_RIGHT, .Padding = 4})
+                Next
+
+                doc.Add(table)
+                doc.Add(spacer)
+
+                ' Summary
+                doc.Add(New Paragraph($"TOTAL INCOME: ₱{totalIncome:N2}", totalFont) With {.Alignment = Element.ALIGN_RIGHT})
+                doc.Add(New Paragraph($"TOTAL PROFIT: ₱{totalProfit:N2}", totalFont) With {.Alignment = Element.ALIGN_RIGHT})
+                doc.Add(spacer)
+                doc.Add(New Paragraph("Generated by Prestige System", subFont) With {.Alignment = Element.ALIGN_CENTER})
+
+                doc.Close()
+            End Using
+
+            Process.Start(New ProcessStartInfo With {
+                .FileName = savePath,
+                .UseShellExecute = True
+            })
+
+            MessageBox.Show("Sales report saved to your Desktop under 'Sales'.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        Catch ex As Exception
+            MessageBox.Show("Error generating sales report: " & ex.Message, "PDF Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
 End Class

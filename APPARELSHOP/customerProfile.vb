@@ -9,6 +9,7 @@ Imports MySql.Data.MySqlClient
 
 
 Public Class customerProfile
+
     'load notifications from the database
     Private Sub LoadNotifications()
         FlowLayoutPanel2.Controls.Clear()

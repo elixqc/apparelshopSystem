@@ -90,12 +90,14 @@ Partial Class AdminFormPage
         Me.calculateExpbtn = New System.Windows.Forms.Button()
         Me.Label28 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.btnDownloadReport = New System.Windows.Forms.Button()
         Me.addProductPanel.SuspendLayout()
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        Me.Panel3.SuspendLayout()
         Me.SuspendLayout()
         '
         'addProductPanel
@@ -421,7 +423,7 @@ Partial Class AdminFormPage
         Me.Label1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.Label1.Location = New System.Drawing.Point(12, 7)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(187, 32)
+        Me.Label1.Size = New System.Drawing.Size(186, 32)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "ADD PRODUCTS"
         '
@@ -512,7 +514,7 @@ Partial Class AdminFormPage
         Me.Label18.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.Label18.Location = New System.Drawing.Point(17, 12)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(182, 32)
+        Me.Label18.Size = New System.Drawing.Size(181, 32)
         Me.Label18.TabIndex = 2
         Me.Label18.Text = "STORE INCOME"
         '
@@ -540,7 +542,7 @@ Partial Class AdminFormPage
         '
         'dtpStartDate
         '
-        Me.dtpStartDate.Location = New System.Drawing.Point(73, 256)
+        Me.dtpStartDate.Location = New System.Drawing.Point(73, 210)
         Me.dtpStartDate.Name = "dtpStartDate"
         Me.dtpStartDate.Size = New System.Drawing.Size(200, 20)
         Me.dtpStartDate.TabIndex = 7
@@ -551,18 +553,18 @@ Partial Class AdminFormPage
         Me.Label19.BackColor = System.Drawing.Color.OldLace
         Me.Label19.Font = New System.Drawing.Font("Microsoft Himalaya", 24.0!, System.Drawing.FontStyle.Bold)
         Me.Label19.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.Label19.Location = New System.Drawing.Point(17, 194)
+        Me.Label19.Location = New System.Drawing.Point(17, 148)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(198, 32)
+        Me.Label19.Size = New System.Drawing.Size(275, 32)
         Me.Label19.TabIndex = 2
-        Me.Label19.Text = "Date Range Report"
+        Me.Label19.Text = "Date Range Income Report"
         '
         'Label20
         '
         Me.Label20.AutoSize = True
         Me.Label20.BackColor = System.Drawing.Color.OldLace
         Me.Label20.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label20.Location = New System.Drawing.Point(119, 236)
+        Me.Label20.Location = New System.Drawing.Point(119, 190)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(109, 21)
         Me.Label20.TabIndex = 2
@@ -573,7 +575,7 @@ Partial Class AdminFormPage
         Me.Label21.AutoSize = True
         Me.Label21.BackColor = System.Drawing.Color.OldLace
         Me.Label21.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label21.Location = New System.Drawing.Point(119, 279)
+        Me.Label21.Location = New System.Drawing.Point(119, 233)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(105, 21)
         Me.Label21.TabIndex = 2
@@ -581,7 +583,7 @@ Partial Class AdminFormPage
         '
         'dtpEndDate
         '
-        Me.dtpEndDate.Location = New System.Drawing.Point(73, 298)
+        Me.dtpEndDate.Location = New System.Drawing.Point(73, 252)
         Me.dtpEndDate.Name = "dtpEndDate"
         Me.dtpEndDate.Size = New System.Drawing.Size(200, 20)
         Me.dtpEndDate.TabIndex = 8
@@ -592,7 +594,7 @@ Partial Class AdminFormPage
         Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Button1.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Button1.ForeColor = System.Drawing.Color.White
-        Me.Button1.Location = New System.Drawing.Point(73, 327)
+        Me.Button1.Location = New System.Drawing.Point(73, 281)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(200, 39)
         Me.Button1.TabIndex = 9
@@ -801,17 +803,32 @@ Partial Class AdminFormPage
         Me.Label28.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
         Me.Label28.Location = New System.Drawing.Point(18, 776)
         Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(128, 32)
+        Me.Label28.Size = New System.Drawing.Size(127, 32)
         Me.Label28.TabIndex = 14
         Me.Label28.Text = "EXPENSES"
         '
         'Panel3
         '
         Me.Panel3.BackColor = System.Drawing.Color.OldLace
-        Me.Panel3.Location = New System.Drawing.Point(15, 180)
+        Me.Panel3.Controls.Add(Me.btnDownloadReport)
+        Me.Panel3.Location = New System.Drawing.Point(15, 147)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(339, 321)
+        Me.Panel3.Size = New System.Drawing.Size(339, 354)
         Me.Panel3.TabIndex = 15
+        '
+        'btnDownloadReport
+        '
+        Me.btnDownloadReport.BackColor = System.Drawing.Color.Silver
+        Me.btnDownloadReport.Enabled = False
+        Me.btnDownloadReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnDownloadReport.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnDownloadReport.ForeColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.btnDownloadReport.Location = New System.Drawing.Point(58, 179)
+        Me.btnDownloadReport.Name = "btnDownloadReport"
+        Me.btnDownloadReport.Size = New System.Drawing.Size(200, 42)
+        Me.btnDownloadReport.TabIndex = 0
+        Me.btnDownloadReport.Text = "DOWNLOAD INCOME REPORT"
+        Me.btnDownloadReport.UseVisualStyleBackColor = False
         '
         'AdminFormPage
         '
@@ -858,6 +875,7 @@ Partial Class AdminFormPage
         Me.Panel1.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        Me.Panel3.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -931,4 +949,5 @@ Partial Class AdminFormPage
     Friend WithEvents DateTimePicker1 As DateTimePicker
     Friend WithEvents Label28 As Label
     Friend WithEvents Panel3 As Panel
+    Friend WithEvents btnDownloadReport As Button
 End Class
