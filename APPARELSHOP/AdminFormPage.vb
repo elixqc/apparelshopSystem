@@ -1239,4 +1239,12 @@ Public Class AdminFormPage
             MessageBox.Show("Error generating sales report: " & ex.Message, "PDF Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
+
+    Private Sub btnEditAdminAccount_Click(sender As Object, e As EventArgs) Handles btnEditAdminAccount.Click
+        If UserManagementForm.Visible Then
+            UserManagementForm.BringToFront()
+            Exit Sub
+        End If
+        appthemes.SmoothFadeIn(UserManagementForm)
+    End Sub
 End Class

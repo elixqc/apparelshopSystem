@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class AdminFormPage
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class AdminFormPage
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.addProductPanel = New System.Windows.Forms.Panel()
         Me.genderTxt = New System.Windows.Forms.ComboBox()
@@ -73,6 +73,7 @@ Partial Class AdminFormPage
         Me.lblResult = New System.Windows.Forms.Label()
         Me.lblTotalStoreProfit = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.btnEditAdminAccount = New System.Windows.Forms.Button()
         Me.createBtn = New System.Windows.Forms.Button()
         Me.passwordTxt = New System.Windows.Forms.TextBox()
         Me.usernameTxt = New System.Windows.Forms.TextBox()
@@ -487,6 +488,7 @@ Partial Class AdminFormPage
         'btnUpdateStatus
         '
         Me.btnUpdateStatus.BackColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.btnUpdateStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnUpdateStatus.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnUpdateStatus.ForeColor = System.Drawing.Color.White
         Me.btnUpdateStatus.Location = New System.Drawing.Point(776, 388)
@@ -629,16 +631,30 @@ Partial Class AdminFormPage
         '
         Me.Panel1.BackColor = System.Drawing.Color.OldLace
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.btnEditAdminAccount)
         Me.Panel1.Controls.Add(Me.createBtn)
         Me.Panel1.Controls.Add(Me.passwordTxt)
         Me.Panel1.Controls.Add(Me.usernameTxt)
         Me.Panel1.Controls.Add(Me.Label22)
         Me.Panel1.Controls.Add(Me.Label24)
         Me.Panel1.Controls.Add(Me.Label23)
-        Me.Panel1.Location = New System.Drawing.Point(797, 792)
+        Me.Panel1.Location = New System.Drawing.Point(815, 792)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(508, 101)
+        Me.Panel1.Size = New System.Drawing.Size(508, 116)
         Me.Panel1.TabIndex = 10
+        '
+        'btnEditAdminAccount
+        '
+        Me.btnEditAdminAccount.BackColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.btnEditAdminAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnEditAdminAccount.Font = New System.Drawing.Font("Microsoft Himalaya", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnEditAdminAccount.ForeColor = System.Drawing.SystemColors.Control
+        Me.btnEditAdminAccount.Location = New System.Drawing.Point(391, 71)
+        Me.btnEditAdminAccount.Name = "btnEditAdminAccount"
+        Me.btnEditAdminAccount.Size = New System.Drawing.Size(105, 40)
+        Me.btnEditAdminAccount.TabIndex = 7
+        Me.btnEditAdminAccount.Text = "EDIT ADMIN ACCOUNT"
+        Me.btnEditAdminAccount.UseVisualStyleBackColor = False
         '
         'createBtn
         '
@@ -646,7 +662,7 @@ Partial Class AdminFormPage
         Me.createBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.createBtn.Font = New System.Drawing.Font("Microsoft Himalaya", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.createBtn.ForeColor = System.Drawing.SystemColors.Control
-        Me.createBtn.Location = New System.Drawing.Point(390, 34)
+        Me.createBtn.Location = New System.Drawing.Point(391, 27)
         Me.createBtn.Name = "createBtn"
         Me.createBtn.Size = New System.Drawing.Size(105, 40)
         Me.createBtn.TabIndex = 1
@@ -674,7 +690,7 @@ Partial Class AdminFormPage
         Me.Label22.AutoSize = True
         Me.Label22.Font = New System.Drawing.Font("Microsoft Himalaya", 20.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label22.ForeColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.Label22.Location = New System.Drawing.Point(2, 4)
+        Me.Label22.Location = New System.Drawing.Point(2, 5)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(325, 27)
         Me.Label22.TabIndex = 6
@@ -950,4 +966,5 @@ Partial Class AdminFormPage
     Friend WithEvents Label28 As Label
     Friend WithEvents Panel3 As Panel
     Friend WithEvents btnDownloadReport As Button
+    Friend WithEvents btnEditAdminAccount As Button
 End Class
