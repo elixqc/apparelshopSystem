@@ -27,18 +27,11 @@ Module globals
         Public Property Brand As String
         Public Property Quantity As Integer
         Public Property ImagePath As String
-        Public Property Price As Decimal ' 👈 Added Price
+        Public Property Price As Decimal
         Public Property MaxStock As Integer
 
     End Class
 
-    Public Function GetFemalePerfumeTypes() As List(Of String)
-        Return GetPerfumeTypesByGender("Female")
-    End Function
-
-    Public Function GetMalePerfumeTypes() As List(Of String)
-        Return GetPerfumeTypesByGender("Male")
-    End Function
 
     ' Function to find a control by name recursively
     Public Function FindControlByName(parent As Control, name As String) As Control
@@ -52,97 +45,6 @@ Module globals
         Next
         Return Nothing
     End Function
-
-
-
-
-
-    ' Shared function used internally
-    Private Function GetPerfumeTypesByGender(gender As String) As List(Of String)
-        Dim types As New HashSet(Of String)
-
-        Try
-            Using conn As New MySqlConnection(connectionString)
-                conn.Open()
-
-                ' Only use category_id 7 and 8 (EDP and EDT)
-                Dim query As String = "
-                SELECT DISTINCT product_name 
-                FROM products 
-                WHERE category_id IN (7, 8) 
-                  AND gender = @gender"
-
-                Using cmd As New MySqlCommand(query, conn)
-                    cmd.Parameters.AddWithValue("@gender", gender)
-
-                    Dim reader = cmd.ExecuteReader()
-
-                    While reader.Read()
-                        Dim fullName As String = reader("product_name").ToString()
-
-                        ' Removee " EDP"/" EDT" suffix if present
-                        If fullName.EndsWith(" EDT") Or fullName.EndsWith(" EDP") Then
-                            types.Add(fullName.Substring(0, fullName.Length - 4))
-                        Else
-                            types.Add(fullName)
-                        End If
-                    End While
-
-                    reader.Close()
-                End Using
-            End Using
-        Catch ex As Exception
-            MessageBox.Show("Error fetching perfume types by gender: " & ex.Message)
-        End Try
-
-        Return types.ToList()
-    End Function
-    ' Function to add perfumes to cart
-    Public Sub AddToPerfumeCart(productName As String, quantity As Integer)
-        Try
-            Using conn As New MySqlConnection(connectionString)
-                conn.Open()
-
-                ' Get product_id
-                Dim getProductCmd As New MySqlCommand("SELECT product_id FROM products WHERE product_name = @pname", conn)
-                getProductCmd.Parameters.AddWithValue("@pname", productName)
-
-                Dim productIdObj As Object = getProductCmd.ExecuteScalar()
-
-                If loggedInUserID <= 0 Then
-                    MessageBox.Show("Please log in before adding to cart.")
-                    Exit Sub
-                End If
-
-
-                If productIdObj Is Nothing Then
-                    MessageBox.Show("Product not found.")
-                    Exit Sub
-                End If
-
-                Dim productId As Integer = CInt(productIdObj)
-
-                ' Insert or update cart (perfumes don't have sizes, so size is NULL)
-                Dim cartCmd As New MySqlCommand("
-                    INSERT INTO cart (customer_id, product_id, quantity, date_added, size)
-                    VALUES (@cid, @pid, @qty, NOW(), NULL)
-                    ON DUPLICATE KEY UPDATE 
-                        quantity = quantity + @qty, 
-                        date_added = NOW();", conn)
-
-                cartCmd.Parameters.AddWithValue("@cid", loggedInUserID)
-                cartCmd.Parameters.AddWithValue("@pid", productId)
-                cartCmd.Parameters.AddWithValue("@qty", quantity)
-
-                cartCmd.ExecuteNonQuery()
-
-                MessageBox.Show("Perfume added to cart!")
-
-            End Using
-        Catch ex As Exception
-            MessageBox.Show("Error: " & ex.Message)
-        End Try
-    End Sub
 
     ' Function to update cart quantity for apparel
     Public Sub UpdateCartQuantity(customerID As Integer, productID As Integer, size As String, newQuantity As Integer)
@@ -211,7 +113,7 @@ Module globals
                             Exit Sub
                         End If
 
-                        reader.Close() ' Must close before executing another command on same connection
+                        reader.Close()
 
                         ' Insert or update cart entry
                         Dim cartCmd As New MySqlCommand("
@@ -241,7 +143,7 @@ Module globals
     End Sub
 
 
-    '' Function to create a product panel for apparel
+    'Function to create a product panel for apparel
     Public Sub CreateProductPanel(productType As String, container As FlowLayoutPanel)
 
 
@@ -250,7 +152,7 @@ Module globals
         .Width = 318,
         .Height = 479,
         .BorderStyle = BorderStyle.FixedSingle,
-        .Margin = New Padding(15, 15, 15, 15)'left top right bottom
+        .Margin = New Padding(15, 15, 15, 15) 'left top right bottom
     }
 
         Dim productData As New Dictionary(Of String, Object)
@@ -325,10 +227,10 @@ Module globals
         End If
         panel.Controls.Add(productImage)
 
-        ' Extract base name (without size and color)
+        ' Extract base name
         Dim baseName As String = "Prestige " & productType.Trim()
 
-        ' Product Name Label
+        ' Product Name
         Dim nameLabel As New Label With {
             .Text = baseName,
             .Font = New Font("Microsoft Himalaya", 15),
@@ -361,9 +263,6 @@ Module globals
 
 
 
-
-
-        ' Size ComboBox
         Dim sizeCombo As New ComboBox With {
         .Top = 337,
         .Left = 180,
@@ -730,7 +629,7 @@ Module globals
 
 
         Try
-            Using conn As New MySqlConnection("server=localhost;userid=root;password=;database=apparelshopdb")
+            Using conn As New MySqlConnection(connectionString)
                 conn.Open()
 
                 Using cmd As New MySqlCommand(query, conn)
@@ -746,7 +645,7 @@ Module globals
                             .Size = If(reader("size") Is DBNull.Value, "", reader("size").ToString()),
                             .Quantity = Convert.ToInt32(reader("quantity")),
                             .ImagePath = reader("image_path").ToString(),
-                            .Price = Convert.ToDecimal(reader("price")), ' 👈 Assign price
+                            .Price = Convert.ToDecimal(reader("price")),
                             .MaxStock = Convert.ToInt32(reader("max_stock"))
                         }
 
@@ -761,7 +660,100 @@ Module globals
 
         Return cartItems
     End Function
+    Public Function GetFemalePerfumeTypes() As List(Of String)
+        Return GetPerfumeTypesByGender("Female")
+    End Function
 
+    Public Function GetMalePerfumeTypes() As List(Of String)
+        Return GetPerfumeTypesByGender("Male")
+    End Function
+
+    ' Shared function used internally
+    Private Function GetPerfumeTypesByGender(gender As String) As List(Of String)
+        Dim types As New HashSet(Of String)
+
+        Try
+            Using conn As New MySqlConnection(connectionString)
+                conn.Open()
+
+                ' Only use category_id 7 and 8
+                Dim query As String = "
+                SELECT DISTINCT product_name 
+                FROM products 
+                WHERE category_id IN (7, 8) 
+                  AND gender = @gender"
+
+                Using cmd As New MySqlCommand(query, conn)
+                    cmd.Parameters.AddWithValue("@gender", gender)
+
+                    Dim reader = cmd.ExecuteReader()
+
+                    While reader.Read()
+                        Dim fullName As String = reader("product_name").ToString()
+
+                        ' Removee " EDP"/" EDT" text
+                        If fullName.EndsWith(" EDT") Or fullName.EndsWith(" EDP") Then
+                            types.Add(fullName.Substring(0, fullName.Length - 4))
+                        Else
+                            types.Add(fullName)
+                        End If
+                    End While
+
+                    reader.Close()
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error fetching perfume types by gender: " & ex.Message)
+        End Try
+
+        Return types.ToList()
+    End Function
+    ' Function to add perfumes to cart
+    Public Sub AddToPerfumeCart(productName As String, quantity As Integer)
+        Try
+            Using conn As New MySqlConnection(connectionString)
+                conn.Open()
+
+                ' Get product_id
+                Dim getProductCmd As New MySqlCommand("SELECT product_id FROM products WHERE product_name = @pname", conn)
+                getProductCmd.Parameters.AddWithValue("@pname", productName)
+
+                Dim productIdObj As Object = getProductCmd.ExecuteScalar()
+
+                If loggedInUserID <= 0 Then
+                    MessageBox.Show("Please log in before adding to cart.")
+                    Exit Sub
+                End If
+
+
+                If productIdObj Is Nothing Then
+                    MessageBox.Show("Product not found.")
+                    Exit Sub
+                End If
+
+                Dim productId As Integer = CInt(productIdObj)
+
+                ' Insert or update cart
+                Dim cartCmd As New MySqlCommand("
+                    INSERT INTO cart (customer_id, product_id, quantity, date_added, size)
+                    VALUES (@cid, @pid, @qty, NOW(), NULL)
+                    ON DUPLICATE KEY UPDATE 
+                        quantity = quantity + @qty, 
+                        date_added = NOW();", conn)
+
+                cartCmd.Parameters.AddWithValue("@cid", loggedInUserID)
+                cartCmd.Parameters.AddWithValue("@pid", productId)
+                cartCmd.Parameters.AddWithValue("@qty", quantity)
+
+                cartCmd.ExecuteNonQuery()
+
+                MessageBox.Show("Perfume added to cart!")
+
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message)
+        End Try
+    End Sub
 
 
     ' ' Function to create a perfume panel
@@ -791,7 +783,7 @@ Module globals
         Dim totalStock As Integer = 0
         Dim firstImageSet As Boolean = False
 
-        ' Get perfume variants (both EDP and EDT versions)
+        ' Get perfume variants
         Try
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
@@ -813,7 +805,7 @@ Module globals
                     While reader.Read()
                         Dim stock As Integer = If(IsDBNull(reader("stock_quantity")), 0, Convert.ToInt32(reader("stock_quantity")))
 
-                        If stock <= 0 Then Continue While ' 🛑 SKIP if out of stock
+                        If stock <= 0 Then Continue While 'SKIP if out of stock
 
                         foundAny = True
 

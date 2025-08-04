@@ -3,6 +3,7 @@ Imports System.IO
 Imports APPARELSHOP.globals
 Imports MySql.Data.MySqlClient
 
+
 Public Class newCart
 
     Public Sub UpdateSubtotalLabel(cartPanel As FlowLayoutPanel)
@@ -121,7 +122,7 @@ Public Class newCart
                                           Dim paymentMethod As String = ""
                                           Dim paymentReference As String = ""
 
-                                          ' Step 1: Fetch delivery address and contact number
+                                          'Fetch delivery address and contact number
                                           Try
                                               Using conn As New MySqlConnection(connectionString)
                                                   conn.Open()
@@ -140,7 +141,7 @@ Public Class newCart
                                               Return
                                           End Try
 
-                                          ' Step 2: Confirm checkout details
+                                          'Confirm checkout details
                                           Dim confirmResult = MessageBox.Show("Subtotal: ₱" & subtotal.ToString("F2") & vbCrLf &
                                                                               "Delivery Address: " & deliveryAddress & vbCrLf &
                                                                               "Contact Number: " & contactNumber & vbCrLf & vbCrLf &
@@ -148,7 +149,7 @@ Public Class newCart
                                                                               "Confirm Checkout", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                                           If confirmResult <> DialogResult.Yes Then Return
 
-                                          ' Step 3: Select payment method
+                                          'Select payment method
                                           Dim paymentMethodDialog As DialogResult = MessageBox.Show("Select payment method:" & vbCrLf &
                                                                                                     "Yes = Cash on Delivery" & vbCrLf &
                                                                                                     "No = eWallet (Scan QR Code)",
@@ -160,7 +161,7 @@ Public Class newCart
 
                                           paymentMethod = If(paymentMethodDialog = DialogResult.Yes, "COD", "eWallet")
 
-                                          ' Step 4: Show QR form and get reference number if eWallet
+                                          'Show QR form and get reference number if eWallet
                                           If paymentMethod = "eWallet" Then
                                               Dim qrForm As New Form With {
                                                   .Text = "Scan QR Code to Pay",
@@ -179,19 +180,19 @@ Public Class newCart
 
                                               Dim refLabel As New Label With {
                                                     .Text = "Enter GCash Reference No.:",
-                                                    .Location = New Point(20, 450), ' Below the picture
+                                                    .Location = New Point(20, 450),
                                                     .AutoSize = True
                                                 }
 
                                               Dim refTextbox As New TextBox With {
-                                                    .Location = New Point(20, 470), ' Just below label
+                                                    .Location = New Point(20, 470),
                                                     .Width = 260
                                                 }
 
                                               Dim doneBtn As New Button With {
                                                     .Text = "Done Paying",
                                                     .Size = New Size(120, 40),
-                                                    .Location = New Point((qrForm.ClientSize.Width - 120) \ 2, 510), ' Below textbox and centered
+                                                    .Location = New Point((qrForm.ClientSize.Width - 120) \ 2, 510),
                                                     .BackColor = Color.Black,
                                                     .ForeColor = Color.White
                                                 }
@@ -213,7 +214,7 @@ Public Class newCart
                                               qrForm.ShowDialog()
                                           End If
 
-                                          ' Step 5: Begin TRANSACTION to place the order !!!!
+                                          'Begin TRANSACTION to place the order /// CHECKOUT INTO ORDERS AND ORDER DETAILS
                                           Dim orderId As Integer = -1
 
                                           Try

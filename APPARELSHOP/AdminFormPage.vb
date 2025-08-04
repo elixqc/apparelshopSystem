@@ -360,7 +360,7 @@ Public Class AdminFormPage
             imagePathForDb = SaveImageToPath(selectedFilePath) ' Save image and get relative path
         End If
 
-        ' Step 8
+
         ' TRANSACTION HANDLING ( ADD PRODCUCT OR UPDATE PRODUCT )
         Try
             Using conn As New MySqlConnection(connectionString)
@@ -369,7 +369,7 @@ Public Class AdminFormPage
 
                 Try
                     If isUpdate Then
-                        ' --- Update existing product ---
+                        ' Update existing product
                         Dim currentStock As Integer = Convert.ToInt32(ExecuteScalar("SELECT stock_quantity FROM products WHERE product_id = @pid", conn, productId))
                         Dim newStock As Integer = currentStock + quantityValue
 
@@ -380,7 +380,7 @@ Public Class AdminFormPage
                         updateCmd.ExecuteNonQuery()
 
                     Else
-                        ' --- Insert new product ---
+                        ' Insert new product
                         If String.IsNullOrEmpty(selectedFilePath) OrElse Not File.Exists(selectedFilePath) Then
                             MessageBox.Show("No file selected or file does not exist.")
                             transaction.Rollback()
@@ -411,7 +411,7 @@ Public Class AdminFormPage
                         productId = Convert.ToInt32(insertCmd.ExecuteScalar())
                     End If
 
-                    ' --- Insert into supply_logs ---
+                    'Insert into supply_logs
                     Dim supplierPrice As Decimal
                     Decimal.TryParse(supplierPriceTxt.Text.Trim(), supplierPrice)
                     Dim remarks As String = remarksTxt.Text.Trim()
@@ -429,14 +429,14 @@ Public Class AdminFormPage
                     logCmd.Parameters.AddWithValue("@sprice", supplierPrice)
                     logCmd.ExecuteNonQuery()
 
-                    ' --- All successful: Commit ---
+                    'All successful: Commit
                     transaction.Commit()
 
-                    LoadProductsToGrid() ' Refresh product display
+                    LoadProductsToGrid() 'Refresh product display
                     MessageBox.Show(If(isUpdate, "Product updated successfully!", "Product added successfully!"))
 
                 Catch exInner As Exception
-                    transaction.Rollback() ' Roll back if error occurs
+                    transaction.Rollback()
                     MessageBox.Show("Error saving product: " & exInner.Message)
                 End Try
             End Using
@@ -450,7 +450,7 @@ Public Class AdminFormPage
 
 
 
-    '' Helper function to get ID from database based on query and value
+    ' Helper function to get ID from database based on query and value
     Public Function GetId(query As String, value As String) As Integer
         If String.IsNullOrWhiteSpace(value) Then Return -1
 
@@ -475,14 +475,14 @@ Public Class AdminFormPage
     End Function
 
 
-    '' Helper function to execute a scalar query with a parameter
+    ' Helper function to execute a scalar query with a parameter
     Private Function ExecuteScalar(query As String, conn As MySqlConnection, pid As Integer) As Object
         Using cmd As New MySqlCommand(query, conn)
             cmd.Parameters.AddWithValue("@pid", pid)
             Return cmd.ExecuteScalar()
         End Using
     End Function
-    '' Helper function to save image file to a specific path
+    'Helper function to save image file to a specific path
     Private Function SaveImageToPath(sourceFilePath As String) As String
         Try
             Dim fileName As String = Path.GetFileName(sourceFilePath)

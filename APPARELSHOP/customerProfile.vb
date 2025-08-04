@@ -353,7 +353,7 @@ Public Class customerProfile
     Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click, Label5.Click
 
     End Sub
-    ' ' Load customer contact information into labels
+    ' Load customer contact information into labels
     Public Sub LoadCustomerContactInfo(customerId As Integer)
         Dim query As String = "
         SELECT address, contact_number 
@@ -380,7 +380,7 @@ Public Class customerProfile
     End Sub
 
 
-    '    ' Load customer orders into the FlowLayoutPanel
+    ' Load customer orders into the FlowLayoutPanel
     Public Sub LoadCustomerOrders(container As FlowLayoutPanel, customerId As Integer, Optional statusFilter As String = "")
         container.Controls.Clear()
 
@@ -555,7 +555,7 @@ Public Class customerProfile
         adminUserLogin = ""
         Form1.adminPage.Visible = False
         Form1.welcomeName.Hide()
-        ' Close this form
+
         appthemes.FadeOutForm(Me)
     End Sub
 End Class
