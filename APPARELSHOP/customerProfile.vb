@@ -10,7 +10,8 @@ Imports MySql.Data.MySqlClient
 
 Public Class customerProfile
 
-    'load notifications from the database
+    '  MP2 CUSTOMER CRUD FUNCTIONALITY
+    '  load notifications from the database
     Private Sub LoadNotifications()
         FlowLayoutPanel2.Controls.Clear()
 
@@ -46,7 +47,7 @@ Public Class customerProfile
                     Dim message As String = reader("message").ToString()
                     Dim totalPrice As Decimal = If(IsDBNull(reader("total_price")), 0D, CDec(reader("total_price")))
 
-                    ' --- Notification Panel ---
+                    ' Notification Panel
                     Dim notifPanel As New Panel With {
                     .Width = 450,
                     .Height = 85,
@@ -57,7 +58,7 @@ Public Class customerProfile
                     .Tag = orderId
                 }
 
-                    ' Left Border Indicator
+                    ' Left Border Indicator (for status)
                     Dim borderPanel As New Panel With {
                     .Width = 6,
                     .Dock = DockStyle.Left,
@@ -77,7 +78,7 @@ Public Class customerProfile
 
 
                     notifPanel.Controls.Add(lblMessage)
-                    notifPanel.Height = lblMessage.Bottom + 40 ' Extra space for subtext/button
+                    notifPanel.Height = lblMessage.Bottom + 40
 
 
                     ' Subtext with order ID and total
@@ -96,7 +97,7 @@ Public Class customerProfile
                         Dim btnDownload As New Button With {
                         .Text = "Download Receipt",
                         .Size = New Size(140, 30),
-                        .Location = New Point(295, lblMessage.Bottom + 5), ' Dynamically below the message,
+                        .Location = New Point(295, lblMessage.Bottom + 5),
                         .Tag = orderId,
                         .BackColor = Color.Black,
                         .ForeColor = Color.White,
@@ -130,6 +131,8 @@ Public Class customerProfile
 
                         notifPanel.Controls.Add(btnDownload)
 
+                        ' MP4 ANY/OTHER CRUD FUNCTIONALITY
+                        ' MARK NOTIF AS READ
                     ElseIf status = "Cancelled" Then
                         ' Entire panel is clickable to mark as read
                         AddHandler notifPanel.Click,
@@ -186,8 +189,8 @@ Public Class customerProfile
     End Sub
 
 
-
-    ' ' Generate PDF receipt for the order
+    ' MP5 CONNECTED TO NOTIFICATIONS / COMPLETED ORDERS FROM ADMIN PAGE
+    ' Generate PDF receipt for the order
     Private Sub GenerateReceiptPDF(orderId As Integer)
         Dim connStr As String = connectionString
         Dim desktopPath As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
@@ -353,6 +356,7 @@ Public Class customerProfile
     Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click, Label5.Click
 
     End Sub
+    ' MP2 CUSTOMER CRUD FUNCTIONALITY
     ' Load customer contact information into labels
     Public Sub LoadCustomerContactInfo(customerId As Integer)
         Dim query As String = "
@@ -379,8 +383,8 @@ Public Class customerProfile
         End Try
     End Sub
 
-
-    ' Load customer orders into the FlowLayoutPanel
+    ' MP2 CUSTOMER CRUD FUNCTIONALITY 
+    ' DISPLAY customer orders into the FlowLayoutPanel
     Public Sub LoadCustomerOrders(container As FlowLayoutPanel, customerId As Integer, Optional statusFilter As String = "")
         container.Controls.Clear()
 
@@ -495,6 +499,8 @@ Public Class customerProfile
 
     End Sub
 
+    ' MP4 ANY/OTHER CRUD FUNCTIONALITY
+    ' CHANGE ADDRESS
     Private Sub changeAddress_Click(sender As Object, e As EventArgs) Handles changeAddress.Click
         ' Prompt user for new address
         Dim newAddress As String = InputBox("Enter new delivery address:", "Update Address", deliveryAddress.Text.Replace("Address: ", ""))
@@ -522,6 +528,8 @@ Public Class customerProfile
         End Try
     End Sub
 
+    ' MP4 ANY/OTHER CRUD FUNCTIONALITY
+    ' CHANGE CONTACT NUMBER
     Private Sub ChangeContactNum_Click(sender As Object, e As EventArgs) Handles ChangeContactNum.Click
         ' Prompt user for new Contact Number
         Dim newContact As String = InputBox("Enter new contact number:", "Update Contact Number", contactNumber.Text.Replace("Contact #: ", ""))

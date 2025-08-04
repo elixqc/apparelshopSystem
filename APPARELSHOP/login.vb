@@ -39,7 +39,7 @@ Public Class login
 
 
     Private Sub emailText_Enter(sender As Object, e As EventArgs) Handles emailLogin.Enter
-        If emailLogin.Text = "EMAIL ADDRESS" Then
+        If emailLogin.Text = "USERNAME" Then
             emailLogin.Text = ""  ' Clear the placeholder
             emailLogin.ForeColor = Color.Black ' Change back to normal color
         End If
@@ -47,7 +47,7 @@ Public Class login
 
     Private Sub emailText_Leave(sender As Object, e As EventArgs) Handles emailLogin.Leave
         If String.IsNullOrWhiteSpace(emailLogin.Text) Then
-            emailLogin.Text = "EMAIL ADDRESS" ' Restore the placeholder
+            emailLogin.Text = "USERNAME" ' Restore the placeholder
             emailLogin.ForeColor = Color.Gray ' Make it look like a placeholder
         End If
     End Sub

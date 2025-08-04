@@ -41,8 +41,8 @@ Public Class AdminFormPage
         End Try
     End Sub
 
-
-    'get total income and products sold
+    '  MP5 COMPUTE TOTAL INCOME AND PRODUCTS SOLD
+    '  get OVERALL total income and products sold
     Private Sub LoadTotalIncomeAndProductsSold()
         Dim totalIncome As Decimal = 0D
         Dim totalProductsSold As Integer = 0
@@ -290,9 +290,12 @@ Public Class AdminFormPage
         End If
     End Sub
 
-    '  Handle upload button click to save product details
+    ' MP1 PRODUCT/SERVICE CRUD FUNCTIONALITY
+    ' TRANSACTION CRUD 
+    ' Handle upload button click to save product details
     Private Sub btnUpload_Click(sender As Object, e As EventArgs) Handles addProductBtn.Click
-        ' --- Step 1: Get Category ID ---
+
+        ' Get Category ID
         Dim categoryId As Integer = GetId("SELECT category_id FROM categories WHERE category_name = @name", CategoryLists.SelectedItem?.ToString())
         Dim isPerfume As Boolean = (categoryId >= 7 AndAlso categoryId <= 8)  ' Check if selected category is a perfume type
 
@@ -315,9 +318,11 @@ Public Class AdminFormPage
         Dim formattedSize As String = If(rawSize.Length > 0, rawSize.ToLower(), "")
 
         Dim categorySelected As String = CategoryLists.SelectedItem?.ToString()?.ToLower()
-        MessageBox.Show("Selected category: " & categorySelected) ' For debugging
 
-        ' Determine suffix based on perfume type (e.g., EDP or EDT)
+        'DEBUG PURPOSES
+        MessageBox.Show("Selected category: " & categorySelected)
+
+        ' Determine suffix based on perfume type
         Dim suffix As String = ""
 
         If isPerfume AndAlso Not String.IsNullOrWhiteSpace(categorySelected) Then
@@ -351,7 +356,7 @@ Public Class AdminFormPage
         Dim productId As Integer = GetId("SELECT product_id FROM products WHERE product_name = @pname", productNameForDb)
         Dim isUpdate As Boolean = (productId <> -1)
 
-        ' File Check (only required for new product)
+
         If Not isUpdate Then
             If String.IsNullOrEmpty(selectedFilePath) OrElse Not File.Exists(selectedFilePath) Then
                 MessageBox.Show("No file selected or file does not exist.")
@@ -380,7 +385,7 @@ Public Class AdminFormPage
                         updateCmd.ExecuteNonQuery()
 
                     Else
-                        ' Insert new product
+                        ' Insert INTO products
                         If String.IsNullOrEmpty(selectedFilePath) OrElse Not File.Exists(selectedFilePath) Then
                             MessageBox.Show("No file selected or file does not exist.")
                             transaction.Rollback()
@@ -429,7 +434,6 @@ Public Class AdminFormPage
                     logCmd.Parameters.AddWithValue("@sprice", supplierPrice)
                     logCmd.ExecuteNonQuery()
 
-                    'All successful: Commit
                     transaction.Commit()
 
                     LoadProductsToGrid() 'Refresh product display
@@ -449,7 +453,7 @@ Public Class AdminFormPage
     End Sub
 
 
-
+    'MP1 PRODUCT/SERVICE CRUD FUNCTIONALITY 
     ' Helper function to get ID from database based on query and value
     Public Function GetId(query As String, value As String) As Integer
         If String.IsNullOrWhiteSpace(value) Then Return -1
@@ -482,6 +486,7 @@ Public Class AdminFormPage
             Return cmd.ExecuteScalar()
         End Using
     End Function
+
     'Helper function to save image file to a specific path
     Private Function SaveImageToPath(sourceFilePath As String) As String
         Try
@@ -526,6 +531,7 @@ Public Class AdminFormPage
         LoadBrands()
         LoadCustomerOrdersToGrid()
         LoadTotalIncomeAndProductsSold()
+
     End Sub
     ' ' Handle DataGridView cell click to fetch product details
     Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
@@ -541,7 +547,8 @@ Public Class AdminFormPage
         ' Load full product details from database
         LoadProductDetails(productId)
     End Sub
-    ' ' Handle DataGridView2 cell click to select an order
+    ' MP1 PRODUCT/SERVICE CRUD FUNCTIONALITY
+    ' SHOW ORDER DETAILS AND INCOME
     Private Sub DataGridView2_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView2.CellClick
         If e.RowIndex >= 0 Then
             Dim row As DataGridViewRow = DataGridView2.Rows(e.RowIndex)
@@ -598,7 +605,8 @@ Public Class AdminFormPage
         End If
     End Sub
 
-    ' ' Handle Update Status button click to change order status
+    '  MP1 ORDER STATUS UPDATE FUNCTIONALITY
+    '  Handle Update Status button click to change order status
     Private Sub btnUpdateStatus_Click(sender As Object, e As EventArgs) Handles btnUpdateStatus.Click
         If selectedOrderId = -1 Then
             MessageBox.Show("Please select an order first.")
@@ -626,12 +634,10 @@ Public Class AdminFormPage
                     Return
                 End If
 
-                'TRANSACTION HANDLING (UPDATE ORDER STATUS AND DEDUCT STOCKS IF COMPLETED)
+                'TERM TEST TRANSACTION CRUD HANDLING (UPDATE ORDER STATUS AND DEDUCT STOCKS IF COMPLETED)
 
-                ' Begin transaction
                 Dim transaction As MySqlTransaction = conn.BeginTransaction()
 
-                ' Update order status
                 Dim updateCmd As New MySqlCommand("
                 UPDATE orders 
                 SET order_status = @status, 
@@ -674,32 +680,32 @@ Public Class AdminFormPage
                             updateStockCmd.ExecuteNonQuery()
                         Next
                     End Using
+
+                    Dim insertNotifCmd As New MySqlCommand("
+                        INSERT INTO notifications (customer_id, order_id, message)
+                        SELECT o.customer_id, o.order_id, CONCAT('Your order #', o.order_id, ' has been completed. Click to download your receipt.')
+                        FROM orders o
+                        WHERE o.order_id = @oid", conn)
+
+                    insertNotifCmd.Parameters.AddWithValue("@oid", selectedOrderId)
+                    insertNotifCmd.ExecuteNonQuery()
+
                 End If
 
                 transaction.Commit()
 
                 ' Insert a notification to the customer
-                If newStatus = "Completed" Then
-                    Dim insertNotifCmd As New MySqlCommand("
-        INSERT INTO notifications (customer_id, order_id, message)
-        SELECT o.customer_id, o.order_id, CONCAT('Your order #', o.order_id, ' has been completed. Click to download your receipt.')
-        FROM orders o
-        WHERE o.order_id = @oid", conn)
-
-                    insertNotifCmd.Parameters.AddWithValue("@oid", selectedOrderId)
-                    insertNotifCmd.ExecuteNonQuery()
-
-                ElseIf newStatus = "Cancelled" Then
+                If newStatus = "Cancelled" Then
                     If String.IsNullOrWhiteSpace(txtCancelReason.Text) Then
                         MessageBox.Show("Please provide a reason for cancellation.")
                         Return
                     End If
 
                     Dim insertCancelNotifCmd As New MySqlCommand("
-        INSERT INTO notifications (customer_id, order_id, message)
-        SELECT o.customer_id, o.order_id, CONCAT('Order #', o.order_id, ' cancelled. ', @reason)
-        FROM orders o
-        WHERE o.order_id = @oid", conn)
+                            INSERT INTO notifications (customer_id, order_id, message)
+                            SELECT o.customer_id, o.order_id, CONCAT('Order #', o.order_id, ' cancelled. ', @reason)
+                            FROM orders o
+                            WHERE o.order_id = @oid", conn)
 
                     insertCancelNotifCmd.Parameters.AddWithValue("@oid", selectedOrderId)
                     insertCancelNotifCmd.Parameters.AddWithValue("@reason", txtCancelReason.Text.Trim())
@@ -762,7 +768,8 @@ Public Class AdminFormPage
         End If
     End Sub
 
-    ' ' Handle button click to calculate income and profit within date range
+    '  MP5 CALCULATE INCOME AND PROFIT (INPUT DATE RANGE)
+    '  Handle button click to calculate income and profit within date range
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
         If Not lblResult.Visible Then
             lblResult.Visible = True
@@ -850,8 +857,8 @@ Public Class AdminFormPage
         End Try
     End Sub
 
-
-    'create new admin user
+    '  MP4 ANY/OTHER CRUD FUNCTION
+    '  create new admin user
     Private Sub createBtn_Click(sender As Object, e As EventArgs) Handles createBtn.Click
         Dim username As String = usernameTxt.Text.Trim()
         Dim password As String = passwordTxt.Text.Trim()
@@ -966,7 +973,7 @@ Public Class AdminFormPage
 
     End Sub
 
-
+    'MP3 Expenses Report CRUD FUNCTION
     Private Sub GenerateExpensesReportPDF(startDate As DateTime, endDate As DateTime)
         Dim connStr As String = connectionString
         Dim desktopPath As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)

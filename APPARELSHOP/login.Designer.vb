@@ -77,7 +77,7 @@ Partial Class login
         Me.signIn_panel.Controls.Add(Me.Label2)
         Me.signIn_panel.Controls.Add(Me.passwordLogin)
         Me.signIn_panel.Controls.Add(Me.emailLogin)
-        Me.signIn_panel.Location = New System.Drawing.Point(51, 118)
+        Me.signIn_panel.Location = New System.Drawing.Point(51, 142)
         Me.signIn_panel.Name = "signIn_panel"
         Me.signIn_panel.Size = New System.Drawing.Size(344, 358)
         Me.signIn_panel.TabIndex = 1
@@ -125,7 +125,7 @@ Partial Class login
         Me.emailLogin.Name = "emailLogin"
         Me.emailLogin.Size = New System.Drawing.Size(278, 38)
         Me.emailLogin.TabIndex = 0
-        Me.emailLogin.Text = "EMAIL ADDRESS"
+        Me.emailLogin.Text = "USERNAME"
         '
         'Label1
         '
@@ -199,9 +199,9 @@ Partial Class login
         Me.Label4.ForeColor = System.Drawing.SystemColors.InfoText
         Me.Label4.Location = New System.Drawing.Point(87, 236)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(44, 16)
+        Me.Label4.Size = New System.Drawing.Size(74, 16)
         Me.Label4.TabIndex = 1
-        Me.Label4.Text = "EMAIL"
+        Me.Label4.Text = "USERNAME"
         '
         'Label5
         '

@@ -46,7 +46,8 @@ Module globals
         Return Nothing
     End Function
 
-    ' Function to update cart quantity for apparel
+    'MP2 CUSTOMER FUNCTIONS #1
+    'update cart quantity for apparel
     Public Sub UpdateCartQuantity(customerID As Integer, productID As Integer, size As String, newQuantity As Integer)
         Try
             Using conn As New MySqlConnection(connectionString)
@@ -64,7 +65,8 @@ Module globals
             MessageBox.Show("Could not update cart quantity. Please try again.")
         End Try
     End Sub
-    ' ' Function to delete item from cart for apparel
+    'MP2 CUSTOMER FUNCTIONS #2
+    ' Function to delete item from cart for apparel
     Public Sub DeleteFromCart(customerID As Integer, productID As Integer, size As String)
         Try
             Using conn As New MySqlConnection(connectionString)
@@ -81,7 +83,7 @@ Module globals
             MessageBox.Show("Could not delete item from cart. Please try again.")
         End Try
     End Sub
-
+    'MP2 CUSTOMER FUNCTIONS #3
     'ADD TO CART FUNCTION (original for apparel)
     Public Sub AddToCart(productName As String, quantity As Integer, selectedSize As String, selectedColor As String)
         Try
@@ -143,7 +145,7 @@ Module globals
     End Sub
 
 
-    'Function to create a product panel for apparel
+    'create a product panel for apparel
     Public Sub CreateProductPanel(productType As String, container As FlowLayoutPanel)
 
 
@@ -177,7 +179,6 @@ Module globals
         Dim firstPriceCaptured As Boolean = False
 
 
-        ' Connecting to database
         Try
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
@@ -218,7 +219,7 @@ Module globals
             Exit Sub
         End Try
 
-        ' Default image
+        'image
         If colorImageMap.Count > 0 Then
             Dim defaultImagePath = Path.Combine(Application.StartupPath, colorImageMap.Values.First())
             If File.Exists(defaultImagePath) Then
@@ -240,7 +241,7 @@ Module globals
         }
         panel.Controls.Add(nameLabel)
 
-        ' Stock Label (you can replace 23 with dynamic stock if available)
+        ' Stock Label
         Dim stockLabel As New Label With {
             .Name = "stockLabel",
             .Text = "Stock: " & totalStock.ToString(),
@@ -251,7 +252,7 @@ Module globals
         }
         panel.Controls.Add(stockLabel)
 
-        ' Price Label (replace with actual price if available)
+        ' Price Label
         Dim priceLabel As New Label With {
             .Text = "Price: ₱" & priceValue.ToString("F2"),
             .Font = New Font("Microsoft Himalaya", 15),
@@ -277,6 +278,7 @@ Module globals
 
         panel.Controls.Add(sizeCombo)
 
+        'MP2 CUSTOMER FUNCTIONS #4 (Update stock label)
         Dim UpdateStockLabel As Action = Sub()
                                              Dim data = DirectCast(panel.Tag, Dictionary(Of String, Object))
                                              Dim selectedColor = TryCast(data("SelectedColor"), String)
@@ -311,7 +313,7 @@ Module globals
 
 
 
-        ' Quantity TextBox
+        ' Quantity
         Dim qtyBox As New TextBox With {
         .Top = 389,
         .Left = 202,
@@ -382,8 +384,8 @@ Module globals
         Dim addToCartBtn As New Button With {
             .Text = "ADD TO CART",
             .Font = New Font("Microsoft Himalaya", 14.25),
-            .ForeColor = Color.White, ' font color
-            .BackColor = Color.FromArgb(74, 80, 66), ' background color
+            .ForeColor = Color.White,
+            .BackColor = Color.FromArgb(74, 80, 66),
             .Top = 418,
             .Left = 202,
             .Width = 100,
@@ -606,7 +608,8 @@ Module globals
         container.Controls.Add(panel)
     End Sub
 
-    ' ' Function to get cart items for the logged-in user
+    ' MP4 SYSTEM FUNCTIONS #1
+    ' Function to get cart items for the logged-in user
     Public Function GetCartItems(customerID As Integer) As List(Of CartItem)
         Dim cartItems As New List(Of CartItem)()
 
@@ -755,8 +758,8 @@ Module globals
         End Try
     End Sub
 
-
-    ' ' Function to create a perfume panel
+    ' MP4 SYSTEM FUNCTIONS #2
+    ' Function to create a perfume panel
     Public Sub CreatePerfumePanel(productName As String, container As FlowLayoutPanel, gender As String)
 
         Dim panel As New Panel With {
@@ -837,7 +840,7 @@ Module globals
                         End If
                     End While
 
-
+                    ' If no variants found, exit
                     If Not foundAny Then
 
                         Exit Sub

@@ -36,8 +36,8 @@ Public Class newCart
     End Sub
 
 
-
-    '    ' Helper function to find a control by name in a container
+    ' TERM TEST TRANSACTION CRUD FOR CHECKING OUT
+    ' Helper function to find a control by name in a container
     Public Sub LoadCartItems()
         CartPanel.Controls.Clear() ' Clear old items if any
 
@@ -116,13 +116,13 @@ Public Class newCart
                                               Return
                                           End If
 
-                                          ' Declare variables to use throughout
+                                          ' Declare variables
                                           Dim deliveryAddress As String = ""
                                           Dim contactNumber As String = ""
                                           Dim paymentMethod As String = ""
                                           Dim paymentReference As String = ""
 
-                                          'Fetch delivery address and contact number
+                                          ' Fetch delivery address and contact number
                                           Try
                                               Using conn As New MySqlConnection(connectionString)
                                                   conn.Open()
@@ -214,7 +214,8 @@ Public Class newCart
                                               qrForm.ShowDialog()
                                           End If
 
-                                          'Begin TRANSACTION to place the order /// CHECKOUT INTO ORDERS AND ORDER DETAILS
+                                          ' TRANSACTION BLOCK TERM TEST
+                                          ' CHECKOUT INTO ORDERS AND ORDER DETAILS
                                           Dim orderId As Integer = -1
 
                                           Try
