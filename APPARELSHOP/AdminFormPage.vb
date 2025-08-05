@@ -54,39 +54,38 @@ Public Class AdminFormPage
         Try
             conn.Open()
 
-            'fetch total products sold, income, and profit from completed orders
+            ' Fetch all completed order details with average supplier price
             Dim cmd As New MySqlCommand("
             SELECT 
                 od.quantity, 
                 od.unit_price, 
                 (
-                    SELECT sl.supplier_price
+                    SELECT AVG(sl.supplier_price)
                     FROM supply_logs sl
                     WHERE sl.product_id = p.product_id
-                    ORDER BY sl.supply_date DESC
-                    LIMIT 1
-                ) AS supplier_price
+                ) AS avg_supplier_price
             FROM orders o
             JOIN order_details od ON o.order_id = od.order_id
             JOIN products p ON od.product_id = p.product_id
             WHERE o.order_status = 'Completed'
-            ", conn)
+        ", conn)
 
             Dim reader As MySqlDataReader = cmd.ExecuteReader()
             While reader.Read()
                 Dim qty As Integer = Convert.ToInt32(reader("quantity"))
                 Dim price As Decimal = Convert.ToDecimal(reader("unit_price"))
-                Dim supplierPrice As Decimal = If(IsDBNull(reader("supplier_price")), 0D, Convert.ToDecimal(reader("supplier_price")))
+                Dim avgSupplierPrice As Decimal = If(IsDBNull(reader("avg_supplier_price")), 0D, Convert.ToDecimal(reader("avg_supplier_price")))
 
                 totalProductsSold += qty
-                totalIncome += qty * price
-                totalProfit += qty * (price - supplierPrice)
+                totalIncome += qty * price ' Gross income
+                totalProfit += qty * (price - avgSupplierPrice) ' Net income (profit)
             End While
             reader.Close()
 
+            ' Display to labels
             lblTotalProductsSold.Text = "Total Products Sold: " & totalProductsSold.ToString()
-            lblTotalStoreIncome.Text = "Total Store Income: ₱" & totalIncome.ToString("N2")
-            lblTotalStoreProfit.Text = "Total Store Profit: ₱" & totalProfit.ToString("N2")
+            lblTotalStoreIncome.Text = "Total Store Gross Income: ₱" & totalIncome.ToString("N2")
+            lblTotalStoreProfit.Text = "Total Store Net Income: ₱" & totalProfit.ToString("N2")
 
         Catch ex As Exception
             MessageBox.Show("Error: " & ex.Message)
@@ -94,6 +93,7 @@ Public Class AdminFormPage
             conn.Close()
         End Try
     End Sub
+
 
 
 
@@ -835,25 +835,21 @@ Public Class AdminFormPage
                 conn.Open()
                 Dim query As String = "
             SELECT 
-                p.product_name,
-                od.quantity, 
-                od.unit_price, 
-                sl_latest.supplier_price
-            FROM orders o
-            JOIN order_details od ON o.order_id = od.order_id
-            JOIN products p ON od.product_id = p.product_id
-            LEFT JOIN (
-                SELECT sl.product_id, sl.supplier_price
-                FROM supply_logs sl
-                WHERE sl.supply_date = (
-                    SELECT MAX(supply_date)
-                    FROM supply_logs
-                    WHERE product_id = sl.product_id
-                )
-            ) sl_latest ON p.product_id = sl_latest.product_id
-            WHERE o.order_status = 'Completed'
-              AND DATE(o.order_date) BETWEEN @start AND @end
-        "
+            p.product_name,
+            od.quantity, 
+            od.unit_price, 
+            sl_avg.avg_supplier_price AS supplier_price
+        FROM orders o
+        JOIN order_details od ON o.order_id = od.order_id
+        JOIN products p ON od.product_id = p.product_id
+        LEFT JOIN (
+            SELECT product_id, AVG(supplier_price) AS avg_supplier_price
+            FROM supply_logs
+            GROUP BY product_id
+        ) sl_avg ON p.product_id = sl_avg.product_id
+        WHERE o.order_status = 'Completed'
+          AND DATE(o.order_date) BETWEEN @start AND @end
+                "
 
                 Using cmd As New MySqlCommand(query, conn)
                     cmd.Parameters.AddWithValue("@start", startDate)
@@ -866,6 +862,9 @@ Public Class AdminFormPage
                             Dim sellPrice As Decimal = Convert.ToDecimal(reader("unit_price"))
                             Dim supplierPrice As Decimal = If(IsDBNull(reader("supplier_price")), 0D, Convert.ToDecimal(reader("supplier_price")))
 
+
+
+
                             incomeRange += qty * sellPrice
                             profitRange += qty * (sellPrice - supplierPrice)
                             totalProductsSold += qty
@@ -876,11 +875,13 @@ Public Class AdminFormPage
                 End Using
             End Using
 
-            lblResult.Text = "Result:" & vbCrLf &
-                         "Products Sold: " & totalProductsSold.ToString() & vbCrLf &
-                         "Income: ₱" & incomeRange.ToString("N2") & vbCrLf &
-                         "Profit: ₱" & profitRange.ToString("N2") & vbCrLf &
-                         "From " & startDate.ToShortDateString() & " to " & endDate.ToShortDateString()
+            lblResult.Text = "Sales Report Summary" & vbCrLf &
+                 "-----------------------------" & vbCrLf &
+                 "Total Products Sold: " & totalProductsSold.ToString() & vbCrLf &
+                 "Gross Income: ₱" & incomeRange.ToString("N2") & vbCrLf &
+                 "Net Income (Profit): ₱" & profitRange.ToString("N2") & vbCrLf &
+                 "Date Range: " & startDate.ToString("MMMM dd, yyyy") & " - " & endDate.ToString("MMMM dd, yyyy")
+
 
             ' Enable the download button
             btnDownloadReport.Enabled = True
@@ -1272,8 +1273,8 @@ Public Class AdminFormPage
                 doc.Add(spacer)
 
                 ' Summary
-                doc.Add(New Paragraph($"TOTAL INCOME: ₱{totalIncome:N2}", totalFont) With {.Alignment = Element.ALIGN_RIGHT})
-                doc.Add(New Paragraph($"TOTAL PROFIT: ₱{totalProfit:N2}", totalFont) With {.Alignment = Element.ALIGN_RIGHT})
+                doc.Add(New Paragraph($"GROSS INCOME: ₱{totalIncome:N2}", totalFont) With {.Alignment = Element.ALIGN_RIGHT})
+                doc.Add(New Paragraph($"NET INCOME: ₱{totalProfit:N2}", totalFont) With {.Alignment = Element.ALIGN_RIGHT})
                 doc.Add(spacer)
                 doc.Add(New Paragraph("Generated by Prestige System", subFont) With {.Alignment = Element.ALIGN_CENTER})
 
