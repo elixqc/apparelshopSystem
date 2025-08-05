@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 31, 2025 at 05:56 PM
+-- Generation Time: Aug 05, 2025 at 11:37 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -56,14 +56,6 @@ CREATE TABLE `cart` (
   `date_added` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`customer_id`, `product_id`, `quantity`, `size`, `date_added`) VALUES
-(2, 87, 1, NULL, '2025-07-31 23:16:37'),
-(2, 90, 1, NULL, '2025-07-31 23:16:42');
-
 -- --------------------------------------------------------
 
 --
@@ -113,7 +105,8 @@ INSERT INTO `customers` (`customer_id`, `full_name`, `contact_number`, `address`
 (2, 'nico', '09294585592', '291 Zamora St. Brgy. Pinagsama Taguig City', 'nico@gmail.com', 'b18aaa6c6b929b866051b69a785a6cdce5bdd564d41be247c7d5ef7c2e2e2271'),
 (3, 'joseph', '0939412331', 'taguig city', 'joseph@gmail.com', '7ee8118150e0ce023742beba6f10bf23aabbf0bc2c182f36fd1a6753cd21b4c6'),
 (5, 'nico barredo', '1', 'testing', 'a', 'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb'),
-(6, 'lloyd forger', '091243141632', 'Block 2 Lot 8 Camella Residence Brgy. Pinagsama Taguig City', 'forger@gmail.com', '814ccdfae0812b1bd9a95ae4b4a7d7d128890d1859cf8fd3e4c4befb22e63e8f');
+(6, 'lloyd forger', '091243141632', 'Block 2 Lot 8 Camella Residence Brgy. Pinagsama Taguig City', 'forger@gmail.com', '814ccdfae0812b1bd9a95ae4b4a7d7d128890d1859cf8fd3e4c4befb22e63e8f'),
+(7, 'elijah nico barredo', '09493083411', '291 Zamora Street. Brgy. Pinagsama Wildcat Village Taguig City Philippines', 'elijahnico', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3');
 
 -- --------------------------------------------------------
 
@@ -155,7 +148,14 @@ INSERT INTO `notifications` (`notification_id`, `order_id`, `message`, `is_read`
 (18, 16, 'Your order #16 has been completed. Click to download your receipt.', 1, '2025-07-31 23:18:26', 5),
 (19, 18, 'Your order #18 has been received and is now processing. Estimated delivery: August 04, 2025', 0, '2025-07-31 23:21:58', 5),
 (20, 17, 'Order #17 cancelled. scammer', 0, '2025-07-31 23:30:40', 5),
-(21, 19, 'Your order #19 has been completed. Click to download your receipt.', 0, '2025-07-31 23:39:36', 5);
+(21, 19, 'Your order #19 has been completed. Click to download your receipt.', 0, '2025-07-31 23:39:36', 5),
+(22, 18, 'Your order #18 has been completed. Click to download your receipt.', 0, '2025-08-03 12:31:26', 5),
+(23, 20, 'Your order #20 has been completed. Click to download your receipt.', 0, '2025-08-04 21:36:22', 5),
+(24, 21, 'Your order #21 has been received and is now processing. Estimated delivery: August 06, 2025', 1, '2025-08-04 22:07:25', 7),
+(25, 21, 'Your order #21 has been completed. Click to download your receipt.', 1, '2025-08-04 22:07:31', 7),
+(26, 22, 'Your order #22 has been received and is now processing. Estimated delivery: August 09, 2025', 1, '2025-08-04 22:12:04', 7),
+(27, 22, 'Your order #22 has been completed. Click to download your receipt.', 1, '2025-08-04 22:14:51', 7),
+(28, 23, 'Your order #23 has been completed. Click to download your receipt.', 0, '2025-08-05 16:24:18', 5);
 
 -- --------------------------------------------------------
 
@@ -196,8 +196,12 @@ INSERT INTO `orders` (`order_id`, `customer_id`, `order_date`, `order_status`, `
 (15, 5, '2025-07-31 23:06:39', 'Completed', '2025-07-31 23:07:57', 'testing', 'eWallet', '87539475242543'),
 (16, 5, '2025-07-31 23:17:49', 'Completed', '2025-07-31 23:18:26', 'testing', 'eWallet', '12469634857235'),
 (17, 5, '2025-07-31 23:19:34', 'Cancelled', NULL, 'testing', 'COD', NULL),
-(18, 5, '2025-07-31 23:21:19', 'Processing', NULL, 'testing', 'COD', NULL),
-(19, 5, '2025-07-31 23:36:52', 'Completed', '2025-07-31 23:39:36', 'testing', 'COD', NULL);
+(18, 5, '2025-07-31 23:21:19', 'Completed', '2025-08-03 12:31:26', 'testing', 'COD', NULL),
+(19, 5, '2025-07-31 23:36:52', 'Completed', '2025-07-31 23:39:36', 'testing', 'COD', NULL),
+(20, 5, '2025-08-04 21:35:54', 'Completed', '2025-08-04 21:36:22', 'testing', 'eWallet', '452342455123'),
+(21, 7, '2025-08-04 22:04:39', 'Completed', '2025-08-04 22:07:31', '291 Zamora Street. Brgy. Pinagsama Wildcat Village Taguig City Philippines', 'eWallet', '12346789'),
+(22, 7, '2025-08-04 22:11:46', 'Completed', '2025-08-04 22:14:51', '291 Zamora Street. Brgy. Pinagsama Wildcat Village Taguig City Philippines', 'COD', NULL),
+(23, 5, '2025-08-05 16:23:57', 'Completed', '2025-08-05 16:24:18', 'testing', 'COD', NULL);
 
 -- --------------------------------------------------------
 
@@ -242,7 +246,15 @@ INSERT INTO `order_details` (`order_detail_id`, `order_id`, `product_id`, `quant
 (22, 17, 12, 1, 599.00),
 (23, 17, 113, 2, 999.00),
 (24, 18, 48, 1, 1099.00),
-(25, 19, 95, 1, 1399.00);
+(25, 19, 95, 1, 1399.00),
+(26, 20, 34, 1, 499.00),
+(27, 21, 20, 1, 599.00),
+(28, 21, 33, 1, 499.00),
+(29, 21, 87, 1, 1999.00),
+(30, 21, 95, 1, 1399.00),
+(31, 21, 113, 1, 999.00),
+(32, 22, 17, 1, 599.00),
+(33, 23, 87, 5, 1999.00);
 
 -- --------------------------------------------------------
 
@@ -272,7 +284,7 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (1, 'Sweatshirt - Yellow - s', 'yellow', 2, 1, 'S', 599.00, 14, 'images\\yellow_swsh.png', 'Unisex', 1),
 (2, 'Sweatshirt - Yellow - m', 'yellow', 2, 1, 'M', 599.00, 10, 'images\\yellow_swsh.png', 'Unisex', 1),
 (3, 'Sweatshirt - Yellow - l', 'yellow', 2, 1, 'L', 599.00, 10, 'images\\yellow_swsh.png', 'Unisex', 1),
-(4, 'Sweatshirt - Yellow - xl', 'yellow', 2, 1, 'XL', 599.00, 4, 'images\\yellow_swsh.png', 'Unisex', 1),
+(4, 'Sweatshirt - Yellow - xl', 'yellow', 2, 1, 'XL', 599.00, 3, 'images\\yellow_swsh.png', 'Unisex', 1),
 (5, 'Sweatshirt - White - xl', 'white', 2, 1, 'XL', 599.00, 10, 'images\\white_swsh.png', 'Unisex', 1),
 (6, 'Sweatshirt - White - l', 'white', 2, 1, 'L', 599.00, 10, 'images\\white_swsh.png', 'Unisex', 1),
 (7, 'Sweatshirt - White - m', 'white', 2, 1, 'M', 599.00, 10, 'images\\white_swsh.png', 'Unisex', 1),
@@ -285,10 +297,10 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (14, 'Sweatshirt - Gray - l', 'gray', 2, 1, 'L', 599.00, 10, 'images\\gray_swsh.png', 'Unisex', 1),
 (15, 'Sweatshirt - Gray - m', 'gray', 2, 1, 'M', 599.00, 10, 'images\\gray_swsh.png', 'Unisex', 1),
 (16, 'Sweatshirt - Gray - s', 'gray', 2, 1, 'S', 599.00, 10, 'images\\gray_swsh.png', 'Unisex', 1),
-(17, 'Sweatshirt - Black - s', 'black', 2, 1, 'S', 599.00, 9, 'images\\black_swsh.png', 'Unisex', 1),
+(17, 'Sweatshirt - Black - s', 'black', 2, 1, 'S', 599.00, 8, 'images\\black_swsh.png', 'Unisex', 1),
 (18, 'Sweatshirt - Black - m', 'black', 2, 1, 'M', 599.00, 10, 'images\\black_swsh.png', 'Unisex', 1),
 (19, 'Sweatshirt - Black - l', 'black', 2, 1, 'L', 599.00, 8, 'images\\black_swsh.png', 'Unisex', 1),
-(20, 'Sweatshirt - Black - xl', 'black', 2, 1, 'XL', 599.00, 2, 'images\\black_swsh.png', 'Unisex', 1),
+(20, 'Sweatshirt - Black - xl', 'black', 2, 1, 'XL', 599.00, 1, 'images\\black_swsh.png', 'Unisex', 1),
 (21, 'T-shirt - White - s', 'white', 1, 3, 'S', 499.00, 9, 'images\\white_shirt1.png', 'Unisex', 2),
 (22, 'T-shirt - White - m', 'white', 1, 3, 'M', 499.00, 0, 'images\\white_shirt1.png', 'Unisex', 2),
 (23, 'T-shirt - White - l', 'white', 1, 3, 'L', 499.00, 10, 'images\\white_shirt1.png', 'Unisex', 2),
@@ -301,8 +313,8 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (30, 'T-shirt - Brown - m', 'brown', 1, 3, 'M', 499.00, 9, 'images\\brown_shirt1.png', 'Unisex', 2),
 (31, 'T-shirt - Brown - l', 'brown', 1, 3, 'L', 499.00, 10, 'images\\brown_shirt1.png', 'Unisex', 2),
 (32, 'T-shirt - Brown - xl', 'brown', 1, 3, 'XL', 499.00, 8, 'images\\brown_shirt1.png', 'Unisex', 2),
-(33, 'T-shirt - Blue - xl', 'blue', 1, 3, 'XL', 499.00, 7, 'images\\blue_shirt1.png', 'Unisex', 2),
-(34, 'T-shirt - Blue - l', 'blue', 1, 3, 'L', 499.00, 10, 'images\\blue_shirt1.png', 'Unisex', 2),
+(33, 'T-shirt - Blue - xl', 'blue', 1, 3, 'XL', 499.00, 6, 'images\\blue_shirt1.png', 'Unisex', 2),
+(34, 'T-shirt - Blue - l', 'blue', 1, 3, 'L', 499.00, 9, 'images\\blue_shirt1.png', 'Unisex', 2),
 (35, 'T-shirt - Blue - m', 'blue', 1, 3, 'M', 499.00, 10, 'images\\blue_shirt1.png', 'Unisex', 2),
 (36, 'T-shirt - Blue - s', 'blue', 1, 3, 'S', 499.00, 10, 'images\\blue_shirt1.png', 'Unisex', 2),
 (37, 'Hoodie - Yellow - s', 'yellow', 4, 2, 'S', 1099.00, 10, 'images\\yellow_hoodie.png', 'Unisex', 3),
@@ -316,7 +328,7 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (45, 'Hoodie - Red - xl', 'red', 4, 2, 'XL', 1099.00, 10, 'images\\red_hoodie.png', 'Unisex', 3),
 (46, 'Hoodie - Red - xxl', 'red', 4, 2, 'XXL', 1099.00, 10, 'images\\red_hoodie.png', 'Unisex', 3),
 (47, 'Hoodie - Pink - xxl', 'pink', 4, 2, 'XXL', 1099.00, 10, 'images\\pink_hoodie.png', 'Unisex', 3),
-(48, 'Hoodie - Pink - xl', 'pink', 4, 2, 'XL', 1099.00, 10, 'images\\pink_hoodie.png', 'Unisex', 3),
+(48, 'Hoodie - Pink - xl', 'pink', 4, 2, 'XL', 1099.00, 9, 'images\\pink_hoodie.png', 'Unisex', 3),
 (49, 'Hoodie - Pink - l', 'pink', 4, 2, 'L', 1099.00, 10, 'images\\pink_hoodie.png', 'Unisex', 3),
 (50, 'Hoodie - Pink - m', 'pink', 4, 2, 'M', 1099.00, 10, 'images\\pink_hoodie.png', 'Unisex', 3),
 (51, 'Hoodie - Pink - s', 'pink', 4, 2, 'S', 1099.00, 10, 'images\\pink_hoodie.png', 'Unisex', 3),
@@ -338,14 +350,14 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (67, 'Sweatpants - Gray - l', 'gray', 3, 1, 'L', 799.00, 10, 'images\\gray_Sweatpants.png', 'Unisex', 1),
 (85, 'dream EDP', NULL, 7, 4, NULL, 1399.00, 7, 'images\\dreamFinal.jpg', 'Male', NULL),
 (86, 'love spell EDP', NULL, 7, 4, NULL, 1399.00, 4, 'images\\Lovespell.jpg', 'Female', NULL),
-(87, 'origin EDP', NULL, 7, 5, NULL, 1999.00, 1, 'images\\originFinal.jpg', 'Male', NULL),
+(87, 'origin EDP', NULL, 7, 5, NULL, 1999.00, 5, 'images\\originFinal.jpg', 'Male', NULL),
 (88, 'origin EDT', NULL, 8, 5, NULL, 1999.00, 7, 'images\\originFinal.jpg', 'Male', NULL),
 (90, 'dream EDT', NULL, 8, 4, NULL, 1899.00, 9, 'imagesdreamFinal.jpg', 'Male', NULL),
 (91, 'Linfinite EDP', NULL, 7, 4, NULL, 1799.00, 5, 'images\\Linfinity.jpg', 'Male', NULL),
 (92, 'Linfinite EDT', NULL, 8, 4, NULL, 1799.00, 9, 'images\\Linfinity.jpg', 'Male', NULL),
 (93, 'Pacific Aura EDP', NULL, 7, 5, NULL, 1999.00, 8, 'images\\Aura.jpg', 'Male', NULL),
 (94, 'Pacific Aura EDT', NULL, 8, 5, NULL, 1999.00, 7, 'images\\Aura.jpg', 'Male', NULL),
-(95, 'love spell EDT', NULL, 8, 5, NULL, 1399.00, 9, 'images\\Lovespell.jpg', 'Female', NULL),
+(95, 'love spell EDT', NULL, 8, 5, NULL, 1399.00, 8, 'images\\Lovespell.jpg', 'Female', NULL),
 (96, 'Afternoon Vibe EDP', NULL, 7, 6, NULL, 1499.00, 7, 'images\\AfternoonVibe.jpg', 'Female', NULL),
 (97, 'Afternoon Vibe EDT', NULL, 8, 6, NULL, 1499.00, 10, 'images\\AfternoonVibe.jpg', 'Female', NULL),
 (98, 'coeur de rose EDP', NULL, 7, 6, NULL, 2099.00, 9, 'images\\CoeurDeRose.jpg', 'Female', NULL),
@@ -363,7 +375,8 @@ INSERT INTO `products` (`product_id`, `product_name`, `color`, `category_id`, `s
 (110, 'Knittedpolo - Red - s', 'red', 1, 1, 'S', 999.00, 10, 'images\\red_polo.png', 'Unisex', 1),
 (111, 'Knittedpolo - Red - m', 'red', 1, 1, 'M', 999.00, 10, 'images\\red_polo.png', 'Unisex', 1),
 (112, 'Knittedpolo - Red - l', 'red', 1, 1, 'L', 999.00, 10, 'images\\red_polo.png', 'Unisex', 1),
-(113, 'Knittedpolo - Red - xl', 'red', 1, 1, 'XL', 999.00, 9, 'images\\red_polo.png', 'Unisex', 1);
+(113, 'Knittedpolo - Red - xl', 'red', 1, 1, 'XL', 999.00, 8, 'images\\red_polo.png', 'Unisex', 1),
+(115, 'Sweatpants - Gray - xl', 'Gray', 3, 1, 'XL', 799.00, 10, 'imagesgray_Sweatpants.png', 'Unisex', 1);
 
 -- --------------------------------------------------------
 
@@ -402,6 +415,7 @@ CREATE TABLE `supply_logs` (
   `product_id` int(11) NOT NULL,
   `supplier_id` int(11) NOT NULL,
   `quantity_added` int(11) NOT NULL,
+  `quantity_remaining` int(11) DEFAULT 0,
   `supply_date` datetime DEFAULT current_timestamp(),
   `remarks` text DEFAULT NULL,
   `supplier_price` decimal(10,2) DEFAULT NULL
@@ -411,108 +425,110 @@ CREATE TABLE `supply_logs` (
 -- Dumping data for table `supply_logs`
 --
 
-INSERT INTO `supply_logs` (`supply_id`, `product_id`, `supplier_id`, `quantity_added`, `supply_date`, `remarks`, `supplier_price`) VALUES
-(1, 1, 1, 10, '2025-07-23 11:01:12', 'added first stocs', 499.00),
-(2, 2, 1, 10, '2025-07-23 11:01:21', 'added first stocs', 499.00),
-(3, 3, 1, 10, '2025-07-23 11:01:43', 'added first stocs', 499.00),
-(4, 4, 1, 10, '2025-07-23 11:01:49', 'added first stocs', 499.00),
-(5, 5, 1, 10, '2025-07-23 11:02:01', 'added first stocs', 499.00),
-(6, 6, 1, 10, '2025-07-23 11:02:06', 'added first stocs', 499.00),
-(7, 7, 1, 10, '2025-07-23 11:02:14', 'added first stocs', 499.00),
-(8, 8, 1, 10, '2025-07-23 11:02:19', 'added first stocs', 499.00),
-(9, 9, 1, 10, '2025-07-23 11:02:42', 'added first stocs', 499.00),
-(10, 10, 1, 10, '2025-07-23 11:02:47', 'added first stocs', 499.00),
-(11, 11, 1, 10, '2025-07-23 11:02:52', 'added first stocs', 499.00),
-(12, 12, 1, 10, '2025-07-23 11:03:00', 'added first stocs', 499.00),
-(13, 13, 1, 10, '2025-07-23 11:03:07', 'added first stocs', 499.00),
-(14, 14, 1, 10, '2025-07-23 11:03:13', 'added first stocs', 499.00),
-(15, 15, 1, 10, '2025-07-23 11:03:21', 'added first stocs', 499.00),
-(16, 16, 1, 10, '2025-07-23 11:03:26', 'added first stocs', 499.00),
-(17, 17, 1, 10, '2025-07-23 11:03:37', 'added first stocs', 499.00),
-(18, 18, 1, 10, '2025-07-23 11:03:41', 'added first stocs', 499.00),
-(19, 19, 1, 10, '2025-07-23 11:03:48', 'added first stocs', 499.00),
-(20, 20, 1, 10, '2025-07-23 11:03:54', 'added first stocs', 499.00),
-(21, 21, 3, 10, '2025-07-23 11:05:02', 'first productstocks', 399.00),
-(22, 22, 3, 10, '2025-07-23 11:05:06', 'first productstocks', 399.00),
-(23, 23, 3, 10, '2025-07-23 11:05:12', 'first productstocks', 399.00),
-(24, 24, 3, 10, '2025-07-23 11:05:18', 'first productstocks', 399.00),
-(25, 25, 3, 10, '2025-07-23 11:05:30', 'first productstocks', 399.00),
-(26, 26, 3, 10, '2025-07-23 11:05:36', 'first productstocks', 399.00),
-(27, 27, 3, 10, '2025-07-23 11:05:47', 'first productstocks', 399.00),
-(28, 28, 3, 10, '2025-07-23 11:05:51', 'first productstocks', 399.00),
-(29, 29, 3, 10, '2025-07-23 11:06:00', 'first productstocks', 399.00),
-(30, 30, 3, 10, '2025-07-23 11:06:06', 'first productstocks', 399.00),
-(31, 31, 3, 10, '2025-07-23 11:06:14', 'first productstocks', 399.00),
-(32, 32, 3, 10, '2025-07-23 11:06:21', 'first productstocks', 399.00),
-(33, 33, 3, 10, '2025-07-23 11:06:27', 'first productstocks', 399.00),
-(34, 34, 3, 10, '2025-07-23 11:06:31', 'first productstocks', 399.00),
-(35, 35, 3, 10, '2025-07-23 11:06:36', 'first productstocks', 399.00),
-(36, 36, 3, 10, '2025-07-23 11:06:42', 'first productstocks', 399.00),
-(37, 37, 2, 10, '2025-07-23 11:08:36', 'hoodie initial sotcks', 899.00),
-(38, 38, 2, 10, '2025-07-23 11:08:40', 'hoodie initial sotcks', 899.00),
-(39, 39, 2, 10, '2025-07-23 11:08:45', 'hoodie initial sotcks', 899.00),
-(40, 40, 2, 10, '2025-07-23 11:08:50', 'hoodie initial sotcks', 899.00),
-(41, 41, 2, 10, '2025-07-23 11:08:55', 'hoodie initial sotcks', 899.00),
-(42, 42, 2, 10, '2025-07-23 11:09:09', 'hoodie initial sotcks', 899.00),
-(43, 43, 2, 10, '2025-07-23 11:09:14', 'hoodie initial sotcks', 899.00),
-(44, 44, 2, 10, '2025-07-23 11:09:18', 'hoodie initial sotcks', 899.00),
-(45, 45, 2, 10, '2025-07-23 11:09:24', 'hoodie initial sotcks', 899.00),
-(46, 46, 2, 10, '2025-07-23 11:09:30', 'hoodie initial sotcks', 899.00),
-(47, 47, 2, 10, '2025-07-23 11:09:36', 'hoodie initial sotcks', 899.00),
-(48, 48, 2, 10, '2025-07-23 11:09:41', 'hoodie initial sotcks', 899.00),
-(49, 49, 2, 10, '2025-07-23 11:09:46', 'hoodie initial sotcks', 899.00),
-(50, 50, 2, 10, '2025-07-23 11:09:51', 'hoodie initial sotcks', 899.00),
-(51, 51, 2, 10, '2025-07-23 11:09:55', 'hoodie initial sotcks', 899.00),
-(52, 52, 2, 10, '2025-07-23 11:10:03', 'hoodie initial sotcks', 899.00),
-(53, 53, 2, 10, '2025-07-23 11:10:08', 'hoodie initial sotcks', 899.00),
-(54, 54, 2, 10, '2025-07-23 11:10:12', 'hoodie initial sotcks', 899.00),
-(55, 55, 2, 10, '2025-07-23 11:10:18', 'hoodie initial sotcks', 899.00),
-(56, 56, 2, 10, '2025-07-23 11:10:26', 'hoodie initial sotcks', 899.00),
-(57, 57, 1, 10, '2025-07-23 11:11:32', 'initial stock swetpants', 500.00),
-(58, 58, 1, 10, '2025-07-23 11:11:36', 'initial stock swetpants', 500.00),
-(59, 59, 1, 10, '2025-07-23 11:11:47', 'initial stock swetpants', 500.00),
-(60, 60, 1, 10, '2025-07-23 11:11:52', 'initial stock swetpants', 500.00),
-(61, 61, 1, 10, '2025-07-23 11:12:00', 'initial stock swetpants', 500.00),
-(62, 62, 1, 10, '2025-07-23 11:12:03', 'initial stock swetpants', 500.00),
-(63, 63, 1, 10, '2025-07-23 11:12:07', 'initial stock swetpants', 500.00),
-(64, 64, 1, 10, '2025-07-23 11:12:13', 'initial stock swetpants', 500.00),
-(65, 65, 1, 10, '2025-07-23 11:12:21', 'initial stock swetpants', 500.00),
-(66, 66, 1, 10, '2025-07-23 11:12:25', 'initial stock swetpants', 500.00),
-(67, 67, 1, 10, '2025-07-23 11:12:29', 'initial stock swetpants', 500.00),
-(69, 85, 4, 10, '2025-07-23 22:56:58', 'dream perf initial stock', 1000.00),
-(70, 86, 4, 10, '2025-07-23 22:58:14', 'initial stock lovespell', 1000.00),
-(71, 87, 5, 10, '2025-07-24 00:26:35', 'origin initial sotcks', 1600.00),
-(72, 88, 5, 10, '2025-07-24 00:26:49', 'origin initial sotcks', 1600.00),
-(74, 90, 4, 10, '2025-07-24 00:31:47', 'initialstockdream edt', 1299.00),
-(75, 91, 4, 10, '2025-07-24 00:33:08', 'initialsotkc linfinite', 1500.00),
-(76, 92, 4, 10, '2025-07-24 00:33:19', 'initialsotkc linfinite', 1500.00),
-(77, 93, 5, 10, '2025-07-24 00:33:58', 'initialsotkc linfinite', 1800.00),
-(78, 94, 5, 10, '2025-07-24 00:34:08', 'initialsotkc linfinite', 1800.00),
-(79, 95, 5, 10, '2025-07-24 00:38:35', 'initial sotck love spell edt', 1000.00),
-(80, 96, 6, 10, '2025-07-24 00:39:20', 'initial sotck afv edp', 1000.00),
-(81, 97, 6, 10, '2025-07-24 00:39:29', 'initial sotck afv edt', 1000.00),
-(82, 98, 6, 10, '2025-07-24 00:40:15', 'initial sotck cdr edp', 1800.00),
-(83, 99, 6, 10, '2025-07-24 00:40:26', 'initial sotck cdr edt', 1800.00),
-(84, 100, 6, 10, '2025-07-24 00:41:16', 'initial sotck sunset edp', 1800.00),
-(85, 101, 6, 10, '2025-07-24 00:41:29', 'initial sotck sunset edp', 1800.00),
-(86, 20, 1, 10, '2025-07-24 12:37:31', 'added product swblackxl', 499.00),
-(87, 102, 1, 10, '2025-07-24 15:05:09', 'initial stocks knitted polo', 800.00),
-(88, 103, 1, 10, '2025-07-24 15:05:18', 'initial stocks knitted polo', 800.00),
-(89, 104, 1, 10, '2025-07-24 15:05:26', 'initial stocks knitted polo', 800.00),
-(90, 105, 1, 10, '2025-07-24 15:05:32', 'initial stocks knitted polo', 800.00),
-(91, 106, 1, 10, '2025-07-24 15:05:44', 'initial stocks knitted polo', 800.00),
-(92, 107, 1, 10, '2025-07-24 15:05:49', 'initial stocks knitted polo', 800.00),
-(93, 108, 1, 10, '2025-07-24 15:05:55', 'initial stocks knitted polo', 800.00),
-(94, 109, 1, 10, '2025-07-24 15:06:01', 'initial stocks knitted polo', 800.00),
-(95, 110, 1, 10, '2025-07-24 15:06:09', 'initial stocks knitted polo', 800.00),
-(96, 111, 1, 10, '2025-07-24 15:06:15', 'initial stocks knitted polo', 800.00),
-(97, 112, 1, 10, '2025-07-24 15:06:24', 'initial stocks knitted polo', 800.00),
-(98, 113, 1, 10, '2025-07-24 15:06:30', 'initial stocks knitted polo', 800.00),
-(99, 1, 1, 5, '2025-07-29 22:36:44', '', 499.00),
-(101, 60, 1, 8, '2025-07-31 23:02:14', 'added stocks', 500.00),
-(102, 60, 1, 10, '2025-07-31 23:02:44', 'added stocks', 500.00),
-(103, 25, 3, 5, '2025-07-31 23:50:08', '', 399.00),
-(104, 9, 1, 5, '2025-07-31 23:50:12', '', 499.00);
+INSERT INTO `supply_logs` (`supply_id`, `product_id`, `supplier_id`, `quantity_added`, `quantity_remaining`, `supply_date`, `remarks`, `supplier_price`) VALUES
+(1, 1, 1, 10, 9, '2025-07-23 11:01:12', 'added first stocs', 499.00),
+(2, 2, 1, 10, 10, '2025-07-23 11:01:21', 'added first stocs', 499.00),
+(3, 3, 1, 10, 10, '2025-07-23 11:01:43', 'added first stocs', 499.00),
+(4, 4, 1, 9, 3, '2025-07-23 11:01:49', 'added first stocs', 499.00),
+(5, 5, 1, 10, 10, '2025-07-23 11:02:01', 'added first stocs', 499.00),
+(6, 6, 1, 10, 10, '2025-07-23 11:02:06', 'added first stocs', 499.00),
+(7, 7, 1, 10, 10, '2025-07-23 11:02:14', 'added first stocs', 499.00),
+(8, 8, 1, 10, 10, '2025-07-23 11:02:19', 'added first stocs', 499.00),
+(9, 9, 1, 10, 10, '2025-07-23 11:02:42', 'added first stocs', 499.00),
+(10, 10, 1, 10, 10, '2025-07-23 11:02:47', 'added first stocs', 499.00),
+(11, 11, 1, 10, 10, '2025-07-23 11:02:52', 'added first stocs', 499.00),
+(12, 12, 1, 10, 8, '2025-07-23 11:03:00', 'added first stocs', 499.00),
+(13, 13, 1, 10, 10, '2025-07-23 11:03:07', 'added first stocs', 499.00),
+(14, 14, 1, 10, 10, '2025-07-23 11:03:13', 'added first stocs', 499.00),
+(15, 15, 1, 10, 10, '2025-07-23 11:03:21', 'added first stocs', 499.00),
+(16, 16, 1, 10, 10, '2025-07-23 11:03:26', 'added first stocs', 499.00),
+(17, 17, 1, 10, 8, '2025-07-23 11:03:37', 'added first stocs', 499.00),
+(18, 18, 1, 10, 10, '2025-07-23 11:03:41', 'added first stocs', 499.00),
+(19, 19, 1, 10, 8, '2025-07-23 11:03:48', 'added first stocs', 499.00),
+(20, 20, 1, 10, 0, '2025-07-23 11:03:54', 'added first stocs', 499.00),
+(21, 21, 3, 10, 9, '2025-07-23 11:05:02', 'first productstocks', 399.00),
+(22, 22, 3, 10, 0, '2025-07-23 11:05:06', 'first productstocks', 399.00),
+(23, 23, 3, 10, 10, '2025-07-23 11:05:12', 'first productstocks', 399.00),
+(24, 24, 3, 10, 5, '2025-07-23 11:05:18', 'first productstocks', 399.00),
+(25, 25, 3, 10, 10, '2025-07-23 11:05:30', 'first productstocks', 399.00),
+(26, 26, 3, 10, 10, '2025-07-23 11:05:36', 'first productstocks', 399.00),
+(27, 27, 3, 10, 10, '2025-07-23 11:05:47', 'first productstocks', 399.00),
+(28, 28, 3, 10, 10, '2025-07-23 11:05:51', 'first productstocks', 399.00),
+(29, 29, 3, 10, 10, '2025-07-23 11:06:00', 'first productstocks', 399.00),
+(30, 30, 3, 10, 9, '2025-07-23 11:06:06', 'first productstocks', 399.00),
+(31, 31, 3, 10, 10, '2025-07-23 11:06:14', 'first productstocks', 399.00),
+(32, 32, 3, 10, 8, '2025-07-23 11:06:21', 'first productstocks', 399.00),
+(33, 33, 3, 10, 6, '2025-07-23 11:06:27', 'first productstocks', 399.00),
+(34, 34, 3, 10, 9, '2025-07-23 11:06:31', 'first productstocks', 399.00),
+(35, 35, 3, 10, 10, '2025-07-23 11:06:36', 'first productstocks', 399.00),
+(36, 36, 3, 10, 10, '2025-07-23 11:06:42', 'first productstocks', 399.00),
+(37, 37, 2, 10, 10, '2025-07-23 11:08:36', 'hoodie initial sotcks', 899.00),
+(38, 38, 2, 10, 10, '2025-07-23 11:08:40', 'hoodie initial sotcks', 899.00),
+(39, 39, 2, 10, 10, '2025-07-23 11:08:45', 'hoodie initial sotcks', 899.00),
+(40, 40, 2, 10, 10, '2025-07-23 11:08:50', 'hoodie initial sotcks', 899.00),
+(41, 41, 2, 10, 10, '2025-07-23 11:08:55', 'hoodie initial sotcks', 899.00),
+(42, 42, 2, 10, 10, '2025-07-23 11:09:09', 'hoodie initial sotcks', 899.00),
+(43, 43, 2, 10, 10, '2025-07-23 11:09:14', 'hoodie initial sotcks', 899.00),
+(44, 44, 2, 10, 10, '2025-07-23 11:09:18', 'hoodie initial sotcks', 899.00),
+(45, 45, 2, 10, 10, '2025-07-23 11:09:24', 'hoodie initial sotcks', 899.00),
+(46, 46, 2, 10, 10, '2025-07-23 11:09:30', 'hoodie initial sotcks', 899.00),
+(47, 47, 2, 10, 10, '2025-07-23 11:09:36', 'hoodie initial sotcks', 899.00),
+(48, 48, 2, 10, 9, '2025-07-23 11:09:41', 'hoodie initial sotcks', 899.00),
+(49, 49, 2, 10, 10, '2025-07-23 11:09:46', 'hoodie initial sotcks', 899.00),
+(50, 50, 2, 10, 10, '2025-07-23 11:09:51', 'hoodie initial sotcks', 899.00),
+(51, 51, 2, 10, 10, '2025-07-23 11:09:55', 'hoodie initial sotcks', 899.00),
+(52, 52, 2, 10, 10, '2025-07-23 11:10:03', 'hoodie initial sotcks', 899.00),
+(53, 53, 2, 10, 10, '2025-07-23 11:10:08', 'hoodie initial sotcks', 899.00),
+(54, 54, 2, 10, 9, '2025-07-23 11:10:12', 'hoodie initial sotcks', 899.00),
+(55, 55, 2, 10, 8, '2025-07-23 11:10:18', 'hoodie initial sotcks', 899.00),
+(56, 56, 2, 10, 10, '2025-07-23 11:10:26', 'hoodie initial sotcks', 899.00),
+(57, 57, 1, 10, 10, '2025-07-23 11:11:32', 'initial stock swetpants', 500.00),
+(58, 58, 1, 10, 10, '2025-07-23 11:11:36', 'initial stock swetpants', 500.00),
+(59, 59, 1, 10, 10, '2025-07-23 11:11:47', 'initial stock swetpants', 500.00),
+(60, 60, 1, 10, 0, '2025-07-23 11:11:52', 'initial stock swetpants', 500.00),
+(61, 61, 1, 10, 9, '2025-07-23 11:12:00', 'initial stock swetpants', 500.00),
+(62, 62, 1, 10, 10, '2025-07-23 11:12:03', 'initial stock swetpants', 500.00),
+(63, 63, 1, 10, 10, '2025-07-23 11:12:07', 'initial stock swetpants', 500.00),
+(64, 64, 1, 10, 10, '2025-07-23 11:12:13', 'initial stock swetpants', 500.00),
+(65, 65, 1, 10, 9, '2025-07-23 11:12:21', 'initial stock swetpants', 500.00),
+(66, 66, 1, 10, 10, '2025-07-23 11:12:25', 'initial stock swetpants', 500.00),
+(67, 67, 1, 10, 10, '2025-07-23 11:12:29', 'initial stock swetpants', 500.00),
+(69, 85, 4, 10, 7, '2025-07-23 22:56:58', 'dream perf initial stock', 1000.00),
+(70, 86, 4, 10, 4, '2025-07-23 22:58:14', 'initial stock lovespell', 1000.00),
+(71, 87, 5, 10, 0, '2025-07-24 00:26:35', 'origin initial sotcks', 1600.00),
+(72, 88, 5, 10, 7, '2025-07-24 00:26:49', 'origin initial sotcks', 1600.00),
+(74, 90, 4, 10, 9, '2025-07-24 00:31:47', 'initialstockdream edt', 1299.00),
+(75, 91, 4, 10, 5, '2025-07-24 00:33:08', 'initialsotkc linfinite', 1500.00),
+(76, 92, 4, 10, 9, '2025-07-24 00:33:19', 'initialsotkc linfinite', 1500.00),
+(77, 93, 5, 10, 8, '2025-07-24 00:33:58', 'initialsotkc linfinite', 1800.00),
+(78, 94, 5, 10, 7, '2025-07-24 00:34:08', 'initialsotkc linfinite', 1800.00),
+(79, 95, 5, 10, 8, '2025-07-24 00:38:35', 'initial sotck love spell edt', 1000.00),
+(80, 96, 6, 10, 7, '2025-07-24 00:39:20', 'initial sotck afv edp', 1000.00),
+(81, 97, 6, 10, 10, '2025-07-24 00:39:29', 'initial sotck afv edt', 1000.00),
+(82, 98, 6, 10, 9, '2025-07-24 00:40:15', 'initial sotck cdr edp', 1800.00),
+(83, 99, 6, 10, 10, '2025-07-24 00:40:26', 'initial sotck cdr edt', 1800.00),
+(84, 100, 6, 10, 9, '2025-07-24 00:41:16', 'initial sotck sunset edp', 1800.00),
+(85, 101, 6, 10, 9, '2025-07-24 00:41:29', 'initial sotck sunset edp', 1800.00),
+(86, 20, 1, 10, 1, '2025-07-24 12:37:31', 'added product swblackxl', 499.00),
+(87, 102, 1, 10, 10, '2025-07-24 15:05:09', 'initial stocks knitted polo', 800.00),
+(88, 103, 1, 10, 10, '2025-07-24 15:05:18', 'initial stocks knitted polo', 800.00),
+(89, 104, 1, 10, 10, '2025-07-24 15:05:26', 'initial stocks knitted polo', 800.00),
+(90, 105, 1, 10, 7, '2025-07-24 15:05:32', 'initial stocks knitted polo', 800.00),
+(91, 106, 1, 10, 9, '2025-07-24 15:05:44', 'initial stocks knitted polo', 800.00),
+(92, 107, 1, 10, 10, '2025-07-24 15:05:49', 'initial stocks knitted polo', 800.00),
+(93, 108, 1, 10, 10, '2025-07-24 15:05:55', 'initial stocks knitted polo', 800.00),
+(94, 109, 1, 10, 10, '2025-07-24 15:06:01', 'initial stocks knitted polo', 800.00),
+(95, 110, 1, 10, 10, '2025-07-24 15:06:09', 'initial stocks knitted polo', 800.00),
+(96, 111, 1, 10, 10, '2025-07-24 15:06:15', 'initial stocks knitted polo', 800.00),
+(97, 112, 1, 10, 10, '2025-07-24 15:06:24', 'initial stocks knitted polo', 800.00),
+(98, 113, 1, 10, 8, '2025-07-24 15:06:30', 'initial stocks knitted polo', 800.00),
+(99, 1, 1, 5, 5, '2025-07-29 22:36:44', '', 499.00),
+(101, 60, 1, 8, 0, '2025-07-31 23:02:14', 'added stocks', 500.00),
+(102, 60, 1, 10, 10, '2025-07-31 23:02:44', 'added stocks', 500.00),
+(103, 25, 3, 5, 5, '2025-07-31 23:50:08', '', 399.00),
+(104, 9, 1, 5, 5, '2025-07-31 23:50:12', '', 499.00),
+(105, 115, 1, 10, 10, '2025-08-05 16:07:15', 'initial stocs', 500.00),
+(107, 87, 5, 10, 5, '2025-08-05 16:15:19', '', 1600.00);
 
 -- --------------------------------------------------------
 
@@ -637,31 +653,31 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `notification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
@@ -673,7 +689,7 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `supply_logs`
 --
 ALTER TABLE `supply_logs`
-  MODIFY `supply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `supply_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT for table `users`
