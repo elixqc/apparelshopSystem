@@ -92,6 +92,8 @@ Partial Class AdminFormPage
         Me.Label28 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.btnDownloadReport = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.nudQtyToDeduct = New System.Windows.Forms.NumericUpDown()
         Me.addProductPanel.SuspendLayout()
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -99,6 +101,7 @@ Partial Class AdminFormPage
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
+        CType(Me.nudQtyToDeduct, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'addProductPanel
@@ -846,12 +849,38 @@ Partial Class AdminFormPage
         Me.btnDownloadReport.Text = "DOWNLOAD INCOME REPORT"
         Me.btnDownloadReport.UseVisualStyleBackColor = False
         '
+        'Button3
+        '
+        Me.Button3.BackColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button3.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button3.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.Button3.Location = New System.Drawing.Point(1192, 427)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(132, 34)
+        Me.Button3.TabIndex = 17
+        Me.Button3.Text = "DEDUCT QTY"
+        Me.Button3.UseVisualStyleBackColor = False
+        '
+        'nudQtyToDeduct
+        '
+        Me.nudQtyToDeduct.BackColor = System.Drawing.Color.OldLace
+        Me.nudQtyToDeduct.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.nudQtyToDeduct.Font = New System.Drawing.Font("Microsoft Himalaya", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.nudQtyToDeduct.Location = New System.Drawing.Point(1067, 430)
+        Me.nudQtyToDeduct.Name = "nudQtyToDeduct"
+        Me.nudQtyToDeduct.Size = New System.Drawing.Size(120, 28)
+        Me.nudQtyToDeduct.TabIndex = 18
+        Me.nudQtyToDeduct.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'AdminFormPage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
         Me.ClientSize = New System.Drawing.Size(1368, 933)
+        Me.Controls.Add(Me.nudQtyToDeduct)
+        Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.dtpEndDate)
         Me.Controls.Add(Me.dtpStartDate)
@@ -892,6 +921,7 @@ Partial Class AdminFormPage
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         Me.Panel3.ResumeLayout(False)
+        CType(Me.nudQtyToDeduct, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -967,4 +997,6 @@ Partial Class AdminFormPage
     Friend WithEvents Panel3 As Panel
     Friend WithEvents btnDownloadReport As Button
     Friend WithEvents btnEditAdminAccount As Button
+    Friend WithEvents Button3 As Button
+    Friend WithEvents nudQtyToDeduct As NumericUpDown
 End Class

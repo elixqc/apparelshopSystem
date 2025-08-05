@@ -11,6 +11,8 @@ Public Class AdminFormPage
     Public Property PendingUploadFilePath As String
     Dim selectedOrderId As Integer = -1
     Dim conn As New MySqlConnection(connectionString)
+    Private selectedProductId As Integer = -1
+
 
     Private Sub AddImageToProjectFile(vbprojPath As String, relativeImagePath As String)
         Try
@@ -154,6 +156,7 @@ Public Class AdminFormPage
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
                             Dim fullName As String = reader("product_name").ToString()
+                            fullName = fullName.Substring(0, fullName.Length - 4)
                             Dim categoryId As Integer = Convert.ToInt32(reader("category_id"))
 
                             ' Perfume categories: 7 to 8
@@ -422,10 +425,10 @@ Public Class AdminFormPage
                     Dim remarks As String = remarksTxt.Text.Trim()
 
                     Dim logCmd As New MySqlCommand("
-                INSERT INTO supply_logs 
-                    (product_id, supplier_id, quantity_added, remarks, supplier_price)
-                VALUES 
-                    (@pid, @sid, @qty, @remarks, @sprice)", conn, transaction)
+                        INSERT INTO supply_logs 
+                            (product_id, supplier_id, quantity_added, quantity_remaining, remarks, supplier_price)
+                        VALUES 
+                            (@pid, @sid, @qty, @qty, @remarks, @sprice)", conn, transaction)
 
                     logCmd.Parameters.AddWithValue("@pid", productId)
                     logCmd.Parameters.AddWithValue("@sid", supplierId)
@@ -543,6 +546,7 @@ Public Class AdminFormPage
 
         ' Get the product_id of the selected row
         Dim productId As Integer = Convert.ToInt32(selectedRow.Cells("ID").Value)
+        selectedProductId = Convert.ToInt32(selectedRow.Cells("ID").Value)
 
         ' Load full product details from database
         LoadProductDetails(productId)
@@ -669,16 +673,57 @@ Public Class AdminFormPage
                         reader.Close()
 
                         ' Deduct stock for each product
+                        ' Deduct stock and update supply_logs FIFO
                         For Each item In items
-                            Dim updateStockCmd As New MySqlCommand("
-                            UPDATE products 
-                            SET stock_quantity = stock_quantity - @qty 
-                            WHERE product_id = @pid", conn, transaction)
+                            Dim productId = item.Item1
+                            Dim quantityToDeduct = item.Item2
 
-                            updateStockCmd.Parameters.AddWithValue("@qty", item.Item2)
-                            updateStockCmd.Parameters.AddWithValue("@pid", item.Item1)
+                            ' Deduct from overall stock in products table
+                            Dim updateStockCmd As New MySqlCommand("
+                                UPDATE products 
+                                SET stock_quantity = stock_quantity - @qty 
+                                WHERE product_id = @pid", conn, transaction)
+                            updateStockCmd.Parameters.AddWithValue("@qty", quantityToDeduct)
+                            updateStockCmd.Parameters.AddWithValue("@pid", productId)
                             updateStockCmd.ExecuteNonQuery()
+
+                            ' Deduct from supply_logs FIFO style
+                            Dim getLogsCmd As New MySqlCommand("
+                                SELECT supply_id, quantity_remaining 
+                                FROM supply_logs 
+                                WHERE product_id = @pid AND quantity_remaining > 0 
+                                ORDER BY supply_date ASC", conn, transaction)
+                            getLogsCmd.Parameters.AddWithValue("@pid", productId)
+
+                            Dim logReader As MySqlDataReader = getLogsCmd.ExecuteReader()
+                            Dim supplyLogs As New List(Of Tuple(Of Integer, Integer)) ' supply_id, quantity_remaining
+
+                            While logReader.Read()
+                                supplyLogs.Add(New Tuple(Of Integer, Integer)(
+                                    Convert.ToInt32(logReader("supply_id")),
+                                    Convert.ToInt32(logReader("quantity_remaining"))
+                                ))
+                            End While
+                            logReader.Close()
+
+                            For Each supply In supplyLogs
+                                Dim supplyId = supply.Item1
+                                Dim qtyRem = supply.Item2
+                                Dim deductQty As Integer = Math.Min(qtyRem, quantityToDeduct)
+
+                                Dim updateLogCmd As New MySqlCommand("
+                                UPDATE supply_logs 
+                                SET quantity_remaining = quantity_remaining - @deduct 
+                                WHERE supply_id = @sid", conn, transaction)
+                                updateLogCmd.Parameters.AddWithValue("@deduct", deductQty)
+                                updateLogCmd.Parameters.AddWithValue("@sid", supplyId)
+                                updateLogCmd.ExecuteNonQuery()
+
+                                quantityToDeduct -= deductQty
+                                If quantityToDeduct <= 0 Then Exit For
+                            Next
                         Next
+
                     End Using
 
                     Dim insertNotifCmd As New MySqlCommand("
@@ -1039,10 +1084,10 @@ Public Class AdminFormPage
                 Dim headers = {"Product", "Supplier", "Qty", "Supplier Price", "Supply Date"}
                 For Each header As String In headers
                     Dim cell = New PdfPCell(New Phrase(header, boldFont)) With {
-                    .BackgroundColor = headerColor,
-                    .HorizontalAlignment = Element.ALIGN_CENTER,
-                    .Padding = 5
-                }
+                .BackgroundColor = headerColor,
+                .HorizontalAlignment = Element.ALIGN_CENTER,
+                .Padding = 5
+            }
                     table.AddCell(cell)
                 Next
 
@@ -1051,17 +1096,17 @@ Public Class AdminFormPage
                 Using conn As New MySqlConnection(connStr)
                     conn.Open()
                     Dim cmd As New MySqlCommand("
-                    SELECT 
-                        p.product_name,
-                        s.supplier_name,
-                        sl.quantity_added,
-                        sl.supplier_price,
-                        sl.supply_date
-                    FROM supply_logs sl
-                    JOIN products p ON sl.product_id = p.product_id
-                    JOIN suppliers s ON sl.supplier_id = s.supplier_id
-                    WHERE sl.supply_date BETWEEN @start AND @end
-                    ORDER BY sl.supply_date", conn)
+                SELECT 
+                    p.product_name,
+                    s.supplier_name,
+                    sl.quantity_added,
+                    sl.supplier_price,
+                    sl.supply_date
+                FROM supply_logs sl
+                JOIN products p ON sl.product_id = p.product_id
+                JOIN suppliers s ON sl.supplier_id = s.supplier_id
+                WHERE sl.supply_date BETWEEN @start AND @end
+                ORDER BY sl.supply_date", conn)
 
                     cmd.Parameters.AddWithValue("@start", startDate)
                     cmd.Parameters.AddWithValue("@end", endDate)
@@ -1101,9 +1146,9 @@ Public Class AdminFormPage
             End Using
 
             Process.Start(New ProcessStartInfo With {
-            .FileName = savePath,
-            .UseShellExecute = True
-        })
+        .FileName = savePath,
+        .UseShellExecute = True
+    })
 
             MessageBox.Show("Expenses report saved to your Desktop under 'Expenses'.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
@@ -1254,4 +1299,117 @@ Public Class AdminFormPage
         End If
         appthemes.SmoothFadeIn(UserManagementForm)
     End Sub
+
+
+
+    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
+
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+
+        If selectedProductId = -1 Then
+            MessageBox.Show("Please select a product first.")
+            Return
+        End If
+
+        Dim qtyToDeduct As Integer = Convert.ToInt32(nudQtyToDeduct.Value)
+        If qtyToDeduct <= 0 Then
+            MessageBox.Show("Please enter a valid quantity to deduct.")
+            Return
+        End If
+
+
+        Try
+            Using conn As New MySqlConnection(connectionString)
+                conn.Open()
+                Dim transaction = conn.BeginTransaction()
+
+                ' Check current stock
+                Dim stockCheckCmd As New MySqlCommand("SELECT stock_quantity FROM products WHERE product_id = @pid", conn, transaction)
+                stockCheckCmd.Parameters.AddWithValue("@pid", selectedProductId)
+                Dim currentStock As Integer = Convert.ToInt32(stockCheckCmd.ExecuteScalar())
+
+                If qtyToDeduct > currentStock Then
+                    MessageBox.Show("Not enough stock to deduct that quantity.")
+                    Return
+                End If
+
+
+
+                ' Deduct from products table
+                Dim updateStockCmd As New MySqlCommand("
+                UPDATE products 
+                SET stock_quantity = stock_quantity - @qty 
+                WHERE product_id = @pid", conn, transaction)
+                updateStockCmd.Parameters.AddWithValue("@qty", qtyToDeduct)
+                updateStockCmd.Parameters.AddWithValue("@pid", selectedProductId)
+                updateStockCmd.ExecuteNonQuery()
+
+
+
+                ' Deduct from supply_logs FIFO
+                Dim getLogsCmd As New MySqlCommand("
+                    SELECT supply_id, quantity_remaining, quantity_added 
+                    FROM supply_logs 
+                    WHERE product_id = @pid AND quantity_remaining > 0 
+                    ORDER BY supply_date ASC", conn, transaction)
+                getLogsCmd.Parameters.AddWithValue("@pid", selectedProductId)
+
+                Dim reader = getLogsCmd.ExecuteReader()
+                Dim supplyLogs As New List(Of Tuple(Of Integer, Integer, Integer)) ' ✅ 3-item tuple
+                ' (supply_id, quantity_remaining)
+                While reader.Read()
+                    supplyLogs.Add(Tuple.Create(
+                        Convert.ToInt32(reader("supply_id")),
+                        Convert.ToInt32(reader("quantity_remaining")),
+                        Convert.ToInt32(reader("quantity_added"))
+                    ))
+                End While
+                reader.Close()
+
+                Dim totalRemaining As Integer = supplyLogs.Sum(Function(log) log.Item2)
+                If qtyToDeduct > totalRemaining Then
+                    MessageBox.Show("Not enough stock in supply logs to deduct that quantity.")
+                    Return
+                End If
+
+                For Each supplyLog As Tuple(Of Integer, Integer, Integer) In supplyLogs
+                    Dim sid = supplyLog.Item1
+                    Dim qtyRem = supplyLog.Item2
+                    Dim qtyAdd = supplyLog.Item3
+                    Dim deductQty = Math.Min(qtyRem, qtyToDeduct)
+
+                    Dim updateLog As New MySqlCommand("
+                        UPDATE supply_logs 
+                        SET 
+                            quantity_remaining = quantity_remaining - @deduct,
+                            quantity_added = quantity_added - @deduct
+                        WHERE supply_id = @sid", conn, transaction)
+
+                    updateLog.Parameters.AddWithValue("@deduct", deductQty)
+                    updateLog.Parameters.AddWithValue("@sid", sid)
+                    updateLog.ExecuteNonQuery()
+
+                    qtyToDeduct -= deductQty
+                    If qtyToDeduct <= 0 Then Exit For
+                Next
+
+
+
+                transaction.Commit()
+                MessageBox.Show("Stock successfully deducted.")
+
+                ' Optional: Refresh grid
+                LoadProductsToGrid()
+
+            End Using
+        Catch ex As Exception
+            MessageBox.Show("Error deducting quantity: " & ex.Message)
+        End Try
+
+    End Sub
+
+
+
 End Class
