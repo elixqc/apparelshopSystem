@@ -247,12 +247,12 @@ Public Class AdminFormPage
         End Try
     End Sub
     ' ' Fetch suppliers into ComboBox
-    Private Sub LoadSuppliers()
+    Public Sub LoadSuppliers()
         SupplierLists.Items.Clear()
         Try
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
-                Dim cmd As New MySqlCommand("SELECT supplier_id, supplier_name FROM suppliers", conn)
+                Dim cmd As New MySqlCommand("SELECT supplier_id, supplier_name FROM suppliers WHERE is_active = 1", conn)
                 Using reader As MySqlDataReader = cmd.ExecuteReader()
                     While reader.Read()
                         SupplierLists.Items.Add(reader("supplier_name").ToString())
@@ -263,13 +263,18 @@ Public Class AdminFormPage
             MessageBox.Show("Error loading suppliers: " & ex.Message)
         End Try
     End Sub
+
     ' ' Fetch brands into ComboBox
-    Private Sub LoadBrands()
+    Public Sub LoadBrands()
         brandTxt.Items.Clear()
         Try
             Using conn As New MySqlConnection(connectionString)
                 conn.Open()
-                Dim cmd As New MySqlCommand("SELECT brand_name FROM brands", conn)
+                Dim cmd As New MySqlCommand("
+                SELECT DISTINCT b.brand_name 
+                FROM brands b
+                INNER JOIN suppliers s ON b.supplier_id = s.supplier_id
+                WHERE s.is_active = 1", conn)
                 Using reader As MySqlDataReader = cmd.ExecuteReader()
                     While reader.Read()
                         brandTxt.Items.Add(reader("brand_name").ToString())
@@ -280,6 +285,7 @@ Public Class AdminFormPage
             MessageBox.Show("Error loading brands: " & ex.Message)
         End Try
     End Sub
+
     ' ' Handle file upload button click
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles FileUploadButton.Click
 
@@ -1411,6 +1417,7 @@ Public Class AdminFormPage
 
     End Sub
 
-
-
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        appthemes.SmoothFadeIn(suppliers)
+    End Sub
 End Class

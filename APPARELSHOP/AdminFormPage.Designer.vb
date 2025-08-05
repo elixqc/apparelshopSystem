@@ -94,6 +94,7 @@ Partial Class AdminFormPage
         Me.btnDownloadReport = New System.Windows.Forms.Button()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.nudQtyToDeduct = New System.Windows.Forms.NumericUpDown()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.addProductPanel.SuspendLayout()
         CType(Me.FileSystemWatcher1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -108,6 +109,7 @@ Partial Class AdminFormPage
         '
         Me.addProductPanel.BackColor = System.Drawing.Color.OldLace
         Me.addProductPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.addProductPanel.Controls.Add(Me.Button2)
         Me.addProductPanel.Controls.Add(Me.genderTxt)
         Me.addProductPanel.Controls.Add(Me.remarksTxt)
         Me.addProductPanel.Controls.Add(Me.Label11)
@@ -873,6 +875,19 @@ Partial Class AdminFormPage
         Me.nudQtyToDeduct.TabIndex = 18
         Me.nudQtyToDeduct.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
+        'Button2
+        '
+        Me.Button2.BackColor = System.Drawing.Color.FromArgb(CType(CType(74, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.Button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.Button2.Font = New System.Drawing.Font("Microsoft Himalaya", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button2.ForeColor = System.Drawing.SystemColors.ButtonFace
+        Me.Button2.Location = New System.Drawing.Point(466, 180)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(118, 33)
+        Me.Button2.TabIndex = 9
+        Me.Button2.Text = "Manage Suppliers"
+        Me.Button2.UseVisualStyleBackColor = False
+        '
         'AdminFormPage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -999,4 +1014,5 @@ Partial Class AdminFormPage
     Friend WithEvents btnEditAdminAccount As Button
     Friend WithEvents Button3 As Button
     Friend WithEvents nudQtyToDeduct As NumericUpDown
+    Friend WithEvents Button2 As Button
 End Class
