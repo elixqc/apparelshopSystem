@@ -14,7 +14,7 @@ Public Class perfumepageMale
                     SELECT DISTINCT product_name 
                     FROM products 
                     WHERE gender = 'Male' 
-                      AND category_id IN (7, 8, 9, 10, 11, 12)", conn)
+                      AND category_id IN (7, 8)", conn)
 
                 Dim reader As MySqlDataReader = cmd.ExecuteReader()
 
